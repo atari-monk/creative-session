@@ -6,28 +6,68 @@ export class Player {
     this.height = height;
     this.color = color;
     this.canvas = canvas;
+    this.ctx = this.canvas.getContext("2d");
 
-    // Add vertical velocity and acceleration for gravity
+    this.velocityX = 0;
     this.velocityY = 0;
-    this.accelerationY = 0.5; // Adjust this value to change the strength of gravity
+    this.gravity = 0.5;
+
+    // Constants for the jump
+    this.jumpVelocity = -10;
+    this.maxJumpHeight = 100;
+    this.jumpTime = 0.6;
+
+    // State variables for the jump
+    this.isJumping = false;
+    this.jumpStartY = 0;
+    this.jumpStartTime = 0;
+    this.jumpEndTime = 0;
   }
 
-  draw(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+  jump() {
+    if (!this.isJumping) {
+      this.isJumping = true;
+      this.jumpStartY = this.y;
+      this.jumpStartTime = performance.now();
+      this.jumpEndTime = this.jumpStartTime + this.jumpTime * 1000;
+      this.velocityY = this.jumpVelocity;
+    }
   }
 
   update() {
-    // Apply gravity to the player's vertical velocity
-    this.velocityY += this.accelerationY;
+    if (this.isJumping) {
+      const currentTime = performance.now();
+      const jumpProgress =
+        (currentTime - this.jumpStartTime) /
+        (this.jumpEndTime - this.jumpStartTime);
+      const jumpHeight = this.maxJumpHeight * Math.sin(Math.PI * jumpProgress);
 
-    // Update the player's position based on its velocity
+      if (currentTime >= this.jumpEndTime) {
+        this.isJumping = false;
+        this.velocityY = 0;
+      } else {
+        this.velocityY =
+          this.jumpVelocity + (this.gravity * jumpHeight) / this.maxJumpHeight;
+      }
+    } else {
+      // Apply gravity
+      this.velocityY += this.gravity;
+    }
+
+    // Update position
+    this.x += this.velocityX;
     this.y += this.velocityY;
 
-    // Stop the player from falling through the floor
+    // Check for collisions with the ground
     if (this.y + this.height > this.canvas.height) {
       this.y = this.canvas.height - this.height;
       this.velocityY = 0;
+      this.isJumping = false;
     }
+  }
+
+  draw() {
+    this.ctx.fillStyle = this.color;
+    this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }

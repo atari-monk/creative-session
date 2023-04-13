@@ -1,5 +1,5 @@
-import { Game } from './Game.js'
-import { Player } from './Player.js';
+import { Game } from "./Game.js";
+import { Player } from "./Player.js";
 
 const game = new Game();
 const canvas = game.getCanvas();

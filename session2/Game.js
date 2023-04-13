@@ -1,5 +1,8 @@
+import { Keyboard } from './Keyboard.js'
+
 export class Game {
   constructor() {
+    this.keyboard = new Keyboard();
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
     this.isRunning = false;
@@ -33,6 +36,10 @@ export class Game {
       return;
     }
 
+    // Update the player
+    if (this.keyboard.isKeyDown("Space")) {
+      this.player.jump();
+    }
     // Update game state here
     this.player.update();
 
