@@ -1,5 +1,6 @@
 export class Player {
-  constructor(x, y, width, height, color, canvas) {
+  constructor(x, y, width, height, color, canvas, keyboard) {
+    this.keyboard = keyboard;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -35,6 +36,20 @@ export class Player {
   }
 
   update() {
+    // Update the player's position based on keyboard input
+    if (this.keyboard.isKeyDown("KeyW")) {
+      this.velocityY = -10;
+    }
+    if (this.keyboard.isKeyDown("KeyS")) {
+      this.velocityY = 10;
+    }
+    if (this.keyboard.isKeyDown("KeyA")) {
+      this.velocityX = -5;
+    }
+    if (this.keyboard.isKeyDown("KeyD")) {
+      this.velocityX = 5;
+    }
+
     if (this.isJumping) {
       const currentTime = performance.now();
       const jumpProgress =
@@ -63,6 +78,20 @@ export class Player {
       this.y = this.canvas.height - this.height;
       this.velocityY = 0;
       this.isJumping = false;
+    }
+
+    // Keep the player within the bounds of the canvas
+    if (this.x < 0) {
+      this.x = 0;
+    }
+    if (this.x + this.width > this.canvas.width) {
+      this.x = this.canvas.width - this.width;
+    }
+    if (this.y < 0) {
+      this.y = 0;
+    }
+    if (this.y + this.height > this.canvas.height) {
+      this.y = this.canvas.height - this.height;
     }
   }
 

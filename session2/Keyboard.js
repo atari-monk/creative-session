@@ -1,17 +1,19 @@
 export class Keyboard {
   constructor() {
     this.keys = {};
+    this.addEventListeners();
+  }
 
-    window.addEventListener("keydown", (e) => {
-      this.keys[e.code] = true;
+  addEventListeners() {
+    window.addEventListener("keydown", (event) => {
+      this.keys[event.code] = true;
     });
-
-    window.addEventListener("keyup", (e) => {
-      this.keys[e.code] = false;
+    window.addEventListener("keyup", (event) => {
+      this.keys[event.code] = false;
     });
   }
 
   isKeyDown(keyCode) {
-    return this.keys[keyCode] || false;
+    return this.keys[keyCode] === true;
   }
 }

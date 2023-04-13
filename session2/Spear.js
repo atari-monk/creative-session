@@ -12,7 +12,7 @@ export class Spear {
   }
 
   update() {
-    this.x += this.velocityX;
+    //this.x += this.velocityX;
   }
 
   draw() {
