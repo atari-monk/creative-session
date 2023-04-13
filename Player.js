@@ -1,5 +1,5 @@
 // Define the player class
-class Player {
+export class Player {
   constructor(x, y, width, height) {
     this.x = x;
     this.y = y;

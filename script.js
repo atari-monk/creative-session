@@ -1,3 +1,5 @@
+import {Player} from './Player.js'
+
 // Initialize the canvas and player
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
