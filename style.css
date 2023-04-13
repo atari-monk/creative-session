@@ -1,3 +1,39 @@
-canvas {
-  border: 1px solid black;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
+
+h1 {
+  font-size: 4vw;
+  text-align: center;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+  width: 100vw;
+  height: 90vh;
+}
+
+@media screen and (min-width: 768px) {
+  /* Adjust layout for medium screens */
+  canvas {
+    width: 80vw;
+    height: 80vh;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  /* Adjust layout for large screens */
+  canvas {
+    width: 70vw;
+    height: 70vh;
+  }
+}
+
+/* Set player size as a percentage of the canvas size */
+.player {
+  width: 10%;
+  height: 10%;
