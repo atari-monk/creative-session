@@ -1,9 +1,16 @@
-import { Keyboard } from "./Keyboard.js";
+import { Player } from "./Player.js";
+import { Spear } from "./Spear.js";
 
 export class Game {
-  constructor() {
-    this.keyboard = new Keyboard();
-    this.canvas = document.getElementById("game-canvas");
+  constructor(canvas, keyboard) {
+    this.canvas = canvas;
+    this.keyboard = keyboard;
+    this.entities = [];
+    this.lastUpdateTime = 0;
+    this.player = null;
+    this.spear = null;
+    // Bind the update method so it can be used as an event listener
+    this.update = this.update.bind(this);
     this.ctx = this.canvas.getContext("2d");
     this.isRunning = false;
 
@@ -16,10 +23,23 @@ export class Game {
     this.resetBtn.addEventListener("click", this.reset.bind(this));
   }
 
+  addEntity(entity) {
+    this.entities.push(entity);
+
+    // If the entity is a player or a spear, set it as the game's player or spear
+    if (entity instanceof Player) {
+      this.player = entity;
+    }
+    if (entity instanceof Spear) {
+      this.spear = entity;
+    }
+  }
+
   start() {
     if (!this.isRunning) {
       this.isRunning = true;
-      this.loop();
+      this.lastUpdateTime = performance.now();
+      requestAnimationFrame(this.update);
     }
   }
 
@@ -31,37 +51,34 @@ export class Game {
     // Reset game state here
   }
 
-  loop() {
+  update(currentTime) {
     if (!this.isRunning) {
       return;
     }
 
+    const deltaTime = currentTime - this.lastUpdateTime;
+    this.lastUpdateTime = currentTime;
+
     // Update game state here
-    this.player.update();
+    // Update each entity
+    for (const entity of this.entities) {
+      entity.update(deltaTime);
+    }
     // Update the player
     if (this.keyboard.isKeyDown("Space")) {
       this.player.jump();
     }
-    if (this.player.isCollidingWith(this.spear)) {
-      console.log("Player hit by spear!");
+    this.player.pickUpSpear(this.spear);
+    if (this.keyboard.isKeyDown("KeyC")) {
+      this.player.releaseSpear();
     }
 
     // Draw game graphics here
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.player.draw(this.ctx);
-
-    // Update and draw the spear
-    this.spear.update();
-    // Check for collisions between the player and spear
-    if (this.spear.isCollidingWith(this.player)) {
-      console.log("Spear hit by player!");
+    for (const entity of this.entities) {
+      entity.draw(this.ctx);
     }
-    this.spear.draw();
 
-    requestAnimationFrame(this.loop.bind(this));
-  }
-
-  getCanvas() {
-    return this.canvas;
+    requestAnimationFrame(this.update);
   }
 }

@@ -3,9 +3,9 @@ import { Player } from "./Player.js";
 import { Spear } from "./Spear.js"
 import { Keyboard } from "./Keyboard.js";
 
-const game = new Game();
-const canvas = game.getCanvas();
+const canvas = document.getElementById("game-canvas");
 const keyboard = new Keyboard();
+const game = new Game(canvas, keyboard);
 const player = new Player(
   50,
   canvas.height - 100,
@@ -16,5 +16,5 @@ const player = new Player(
   keyboard
 );
 const spear = new Spear(player, canvas);
-game.player = player;
-game.spear = spear;
+game.addEntity(player);
+game.addEntity(spear);

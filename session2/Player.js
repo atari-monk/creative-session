@@ -23,6 +23,7 @@ export class Player {
     this.jumpStartY = 0;
     this.jumpStartTime = 0;
     this.jumpEndTime = 0;
+    this.spear = null;
   }
 
   jump() {
@@ -93,6 +94,12 @@ export class Player {
     if (this.y + this.height > this.canvas.height) {
       this.y = this.canvas.height - this.height;
     }
+
+    // update spear position if player has it
+    if (this.spear !== null) {
+      this.spear.x = this.x + this.width * 2;
+      this.spear.y = this.y + this.height / 2;
+    }
   }
 
   draw() {
@@ -111,5 +118,19 @@ export class Player {
       return true;
     }
     return false;
+  }
+
+  pickUpSpear(spear) {
+    if (this.spear === null && this.isCollidingWith(spear)) {
+      this.spear = spear;
+      this.spear.isAttachedToPlayer = true;
+    }
+  }
+
+  releaseSpear() {
+    if (this.spear !== null) {
+      this.spear.isAttachedToPlayer = false;
+      this.spear = null;
+    }
   }
 }
