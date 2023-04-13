@@ -70,4 +70,17 @@ export class Player {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+
+  isCollidingWith(other) {
+    // Check if this player is colliding with another object
+    if (
+      this.x + this.width > other.x &&
+      this.x < other.x + other.width &&
+      this.y + this.height > other.y &&
+      this.y < other.y + other.height
+    ) {
+      return true;
+    }
+    return false;
+  }
 }

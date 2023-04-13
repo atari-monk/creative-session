@@ -1,4 +1,4 @@
-import { Keyboard } from './Keyboard.js'
+import { Keyboard } from "./Keyboard.js";
 
 export class Game {
   constructor() {
@@ -36,16 +36,27 @@ export class Game {
       return;
     }
 
+    // Update game state here
+    this.player.update();
     // Update the player
     if (this.keyboard.isKeyDown("Space")) {
       this.player.jump();
     }
-    // Update game state here
-    this.player.update();
+    if (this.player.isCollidingWith(this.spear)) {
+      console.log("Player hit by spear!");
+    }
 
     // Draw game graphics here
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.player.draw(this.ctx);
+
+    // Update and draw the spear
+    this.spear.update();
+    // Check for collisions between the player and spear
+    if (this.spear.isCollidingWith(this.player)) {
+      console.log("Spear hit by player!");
+    }
+    this.spear.draw();
 
     requestAnimationFrame(this.loop.bind(this));
   }
