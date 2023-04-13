@@ -1,5 +1,8 @@
 export class Game {
-  constructor() {
+  #player;
+
+  constructor(player) {
+    this.#player = player;
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
     this.isRunning = false;
@@ -35,6 +38,7 @@ export class Game {
 
     // Update game state here
     // Draw game graphics here
+    this.#player.draw(this.ctx);
     requestAnimationFrame(this.loop.bind(this));
   }
 }
