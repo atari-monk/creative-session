@@ -28,6 +28,7 @@ body {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  z-index: 2;
 }
 
 #small-button:hover {
@@ -36,4 +37,29 @@ body {
 
 #small-button:active {
   background-color: rgba(255, 255, 255, 1);
+}
+
+#overlay {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  box-sizing: border-box;
+  border: 5px solid red;
+}
+
+#overlay p {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
