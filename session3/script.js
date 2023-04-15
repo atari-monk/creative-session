@@ -1,6 +1,6 @@
 import { Game } from "./Game.js";
 
-const canvas = document.getElementById("my-canvas");
+const canvas = document.getElementById("game-canvas");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 

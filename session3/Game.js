@@ -5,11 +5,11 @@ export class Game {
     this.lastTimestamp = null;
 
     // Add event listeners for start, reset, and overlay button click events
-    document.getElementById("start").addEventListener("click", () => {
+    document.getElementById("start-button").addEventListener("click", () => {
       this.start();
     });
 
-    document.getElementById("reset").addEventListener("click", () => {
+    document.getElementById("reset-button").addEventListener("click", () => {
       this.reset();
     });
 

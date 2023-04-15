@@ -10,7 +10,7 @@ body {
   height: calc(100vh - 22px);
 }
 
-#my-canvas {
+#game-canvas {
   background-color: black;
   display: block;
   width: 100%;
