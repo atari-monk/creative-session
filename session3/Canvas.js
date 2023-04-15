@@ -1,6 +1,14 @@
 export class Canvas {
   #isTestDrawOn;
-  
+
+  get width() {
+    return this.canvas.width;
+  }
+
+  get height() {
+    return this.canvas.height;
+  }
+
   constructor(id, isTestDrawOn = false) {
     this.#isTestDrawOn = isTestDrawOn;
     this.#getUI(id);
