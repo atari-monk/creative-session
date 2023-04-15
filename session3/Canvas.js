@@ -1,8 +1,8 @@
 export class Canvas {
-  #istestDraw;
+  #isTestDrawOn;
   
   constructor(id, isTestDrawOn = false) {
-    this.#istestDraw = isTestDrawOn;
+    this.#isTestDrawOn = isTestDrawOn;
     this.#getUI(id);
     this.#checkUI();
     this.#configureCanvas(isTestDrawOn);
@@ -23,9 +23,9 @@ export class Canvas {
     this.#resize();
     window.addEventListener("resize", () => {
       this.#resize();
-      this.#istestDraw && this.#draw();
+      this.#isTestDrawOn && this.#draw();
     });
-    this.#istestDraw && this.#draw();
+    this.#isTestDrawOn && this.#draw();
   }
 
   #resize() {
