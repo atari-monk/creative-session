@@ -1,3 +1,5 @@
+import { Game } from "./Game.js";
+
 const canvas = document.getElementById("my-canvas");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
@@ -12,5 +14,15 @@ button.addEventListener("click", () => {
 document.addEventListener("click", (event) => {
   if (event.target === overlay || event.target.parentElement === overlay) {
     overlay.style.display = "none";
+  }
+});
+
+const game = new Game();
+
+document.getElementById("overlay").addEventListener("click", () => {
+  if (!game.paused) {
+    game.pause();
+  } else {
+    game.start();
   }
 });
