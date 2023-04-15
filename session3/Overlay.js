@@ -14,7 +14,7 @@ export class Overlay {
 
   #checkUI(button, overlay) {
     if (button === false || overlay === false) {
-      throw new Error("Cant find button or overley ui");
+      throw new Error("Cant find button or overley id!");
     }
   }
 
