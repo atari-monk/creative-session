@@ -5,7 +5,7 @@ const path = require("path");
 const directoryPath = "../session3";
 
 // The directory to write the output file to
-const outputDirectory = "./script";
+const outputDirectory = "./";
 
 // The output file name
 const outputFile = "output.txt";
@@ -31,5 +31,8 @@ fs.readdir(directoryPath, (err, files) => {
   // Write the file contents to the output file
   const outputFilePath = path.join(outputDirectory, outputFile);
   const outputContent = fileContents.join("\n");
-  fs.writeFileSync(outputFilePath, outputContent);
+  fs.writeFile(outputFilePath, outputContent, (err) => {
+    if (err) throw err;
+    console.log(`File written to ${outputFilePath}`);
+  });
 });
