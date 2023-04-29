@@ -3,19 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Peer To Peer Chat</title>
     <link rel="stylesheet" href="./src/css/style.css" />
   </head>
   <body>
     <div class="connect">
-      <textarea id="connect-msg" placeholder="Enter friend's ID"></textarea>
+      <textarea
+        id="connect-msg"
+        placeholder="Enter friend's ID"
+      ></textarea>
       <button id="connect-btn">Connect</button>
     </div>
     <div class="chat">
-      <div id="outgoing"></div>
+      <div id="outgoing" class="hide"></div>
       <div class="input">
-        <textarea id="outgoing-msg" placeholder="Type a message"></textarea>
+        <textarea
+          id="outgoing-msg"
+          placeholder="Type a message"
+        ></textarea>
         <button id="send-btn">Send</button>
       </div>
     </div>
