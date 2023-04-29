@@ -1,5 +1,49 @@
+body {
+  background-color: black;
+  color: white;
+}
+form,
+#connect-msg,
+#outgoing-msg,
+#outgoing,
+#send-btn {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+form,
+#connect-msg,
+#outgoing-msg,
 #outgoing {
-  width: 600px;
+  width: 100%;
+}
+#connect-msg,
+#outgoing-msg {
+  height: 100px;
+}
+#outgoing {
   word-wrap: break-word;
   white-space: normal;
+  max-height: 400px;
+  overflow-y: auto;
+}
+button {
+  cursor: pointer;
+}
+button[type="submit"] {
+  background-color: #1d571f;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }

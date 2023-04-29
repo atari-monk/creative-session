@@ -12,7 +12,7 @@ p.on("signal", (data) => {
 
 document.querySelector("form").addEventListener("submit", (ev) => {
   ev.preventDefault();
-  p.signal(JSON.parse(document.querySelector("#incoming").value));
+  p.signal(JSON.parse(document.querySelector("#connect-msg").value));
 });
 
 p.on("connect", () => {
