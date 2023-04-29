@@ -1,12 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peer To Peer Chat</title>
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <script src="./src/lib/simplepeer.min.js"></script>
+    <script type="module" src="./src/js/script.js"></script>
+  </head>
   <body>
-    <style>
-      #outgoing {
-        width: 600px;
-        word-wrap: break-word;
-        white-space: normal;
-      }
-    </style>
     <form>
       <textarea id="incoming"></textarea>
       <button type="submit">submit</button>
@@ -16,44 +19,5 @@
       <button id="send-btn" type="button">send</button>
     </div>
     <pre id="outgoing"></pre>
-    <script src="./simplepeer.min.js"></script>
-    <script>
-      const p = new SimplePeer({
-        initiator: location.hash === "#1",
-        trickle: false,
-      });
-
-      p.on("error", (err) => console.log("error", err));
-
-      p.on("signal", (data) => {
-        console.log("SIGNAL", JSON.stringify(data));
-        document.querySelector("#outgoing").textContent = JSON.stringify(data);
-      });
-
-      document.querySelector("form").addEventListener("submit", (ev) => {
-        ev.preventDefault();
-        p.signal(JSON.parse(document.querySelector("#incoming").value));
-      });
-
-      p.on("connect", () => {
-        console.log("CONNECT");
-        p.send("whatever" + Math.random());
-
-        // send message
-        document.querySelector("#send-btn").addEventListener("click", (ev) => {
-          const msg = document.querySelector("#outgoing-msg").value;
-          p.send(msg);
-          document.querySelector("#outgoing-msg").value = "";
-        });
-      });
-
-      p.on("data", (data) => {
-        console.log("data: " + data);
-        // display incoming message
-        const pre = document.createElement("pre");
-        pre.textContent = data;
-        document.querySelector("#outgoing").appendChild(pre);
-      });
-    </script>
   </body>
 </html>
