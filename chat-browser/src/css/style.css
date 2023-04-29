@@ -34,10 +34,6 @@ textarea {
   resize: none;
 }
 
-#copy-btn{
-  background-color: #1d571f;
-}
-
 #connecting-div,
 #chatting-div {
   word-wrap: break-word;
