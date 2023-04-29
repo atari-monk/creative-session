@@ -1,18 +1,15 @@
 body {
-  background-color: black;
-  color: white;
+  background-color: #202124;
+  color: #fff;
   max-width: 600px;
   margin: 0 auto;
   overflow-x: hidden;
 }
 
-form,
-#connect-msg,
-#outgoing-msg,
-#outgoing,
-#send-btn {
-  background-color: #222;
-  color: white;
+textarea,
+button {
+  background-color: #333;
+  color: #fff;
   border: none;
   padding: 10px;
   margin: 10px;
@@ -24,20 +21,11 @@ form,
   background-color: #1d571f;
 }
 
-form,
-#connect-msg,
-#outgoing-msg,
-#outgoing {
+textarea {
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-#connect-msg,
-#outgoing-msg {
   height: 100px;
-  width: 600px;
-  
+  resize: none;
+  box-sizing: border-box;
 }
 
 #outgoing {
@@ -45,26 +33,23 @@ form,
   white-space: normal;
   max-height: 400px;
   overflow-y: auto;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 50px;
+  max-width: 95%;
+  text-align: center;
+  font-size: 18px;
 }
 
 button {
   cursor: pointer;
-}
-
-button[type="submit"] {
-  background-color: #1d571f;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
+  width: 100%;
   font-size: 18px;
   margin-top: 10px;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-textarea {
-  width: 100%;
+  border: none;
+  padding: 10px;
+  background-color: #1d571f;
+  color: #fff;
 }
