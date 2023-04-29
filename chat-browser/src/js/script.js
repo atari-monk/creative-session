@@ -23,6 +23,8 @@ p.on('connect', () => {
   console.log('CONNECT');
   p.send('Connected');
 
+  document.querySelector('.connect').style.display = 'none';
+
   // send message
   document.querySelector('#send-btn').addEventListener('click', (ev) => {
     const msg = document.querySelector('#outgoing-msg').value;
