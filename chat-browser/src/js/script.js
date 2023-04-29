@@ -6,9 +6,9 @@ const p = new window.SimplePeer({
 p.on('error', (err) => console.log('error', err));
 
 p.on('signal', (data) => {
-  console.log('SIGNAL', JSON.stringify(data));
+  console.log('SIGNAL', JSON.stringify(data, null, 2));
   document.querySelector('#outgoing').textContent =
-    JSON.stringify(data);
+    JSON.stringify(data, null, 2);
 });
 
 document
@@ -38,12 +38,13 @@ p.on('data', (data) => {
   console.log('data: ' + data);
   // display incoming message
   const pre = document.createElement('pre');
+  console.log(typeof data);
   pre.textContent = data;
   document.querySelector('#outgoing').appendChild(pre);
 });
 
-if (window.location.href.includes('#1')) {
-  document.getElementById('outgoing').classList.remove('hide');
-} else {
-  document.getElementById('outgoing').classList.add('hide');
-}
+// if (window.location.href.includes('#1')) {
+//   document.getElementById('outgoing').classList.remove('hide');
+// } else {
+//   document.getElementById('outgoing').classList.add('hide');
+// }
