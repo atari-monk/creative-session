@@ -1,3 +1,14 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
 body {
   background-color: #202124;
   color: #fff;
@@ -17,28 +28,22 @@ button {
   font-size: 18px;
 }
 
-#send-btn {
-  background-color: #1d571f;
-}
-
 textarea {
   width: 100%;
   height: 100px;
   resize: none;
-  box-sizing: border-box;
 }
 
 #outgoing {
   word-wrap: break-word;
-  white-space: normal;
+  white-space: pre-wrap;
   max-height: 400px;
   overflow-y: auto;
   background-color: #333;
   padding: 10px;
   border-radius: 5px;
-  margin: 50px;
+  margin: 50px auto;
   max-width: 95%;
-  text-align: center;
   font-size: 18px;
 }
 
@@ -47,9 +52,36 @@ button {
   width: 100%;
   font-size: 18px;
   margin-top: 10px;
-  border-radius: 5px;
-  border: none;
-  padding: 10px;
+}
+
+#connect-msg,
+#outgoing-msg {
+  display: block;
+  width: 100%;
+}
+
+.connect,
+.chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat {
+  margin-top: 50px;
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#send-btn {
   background-color: #1d571f;
   color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100px;
 }

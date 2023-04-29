@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peer To Peer Chat</title>
     <link rel="stylesheet" href="./src/css/style.css" />
-    <script src="./src/lib/simplepeer.min.js"></script>
-    <script type="module" src="./src/js/script.js"></script>
   </head>
   <body>
-    <div>
-      <textarea id="connect-msg"></textarea>
-      <button id="connect-btn" type="button">Connect</button>
+    <div class="connect">
+      <textarea id="connect-msg" placeholder="Enter friend's ID"></textarea>
+      <button id="connect-btn">Connect</button>
     </div>
-    <div>
-      <textarea id="outgoing-msg"></textarea>
-      <button id="send-btn" type="button">Send</button>
+    <div class="chat">
+      <div id="outgoing"></div>
+      <div class="input">
+        <textarea id="outgoing-msg" placeholder="Type a message"></textarea>
+        <button id="send-btn">Send</button>
+      </div>
     </div>
-    <div>
-      <pre id="outgoing"></pre>
-    </div>
+    <script src="./src/lib/simplepeer.min.js" defer></script>
+    <script type="module" src="./src/js/script.js" defer></script>
   </body>
 </html>
