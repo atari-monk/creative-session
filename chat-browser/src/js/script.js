@@ -7,7 +7,7 @@ p.on('error', (err) => console.log('error', err));
 
 p.on('signal', (data) => {
   console.log('SIGNAL', JSON.stringify(data, null, 2));
-  document.querySelector('#outgoing').textContent =
+  document.querySelector('#connecting-div').textContent =
     JSON.stringify(data, null, 2);
 });
 
@@ -22,7 +22,7 @@ document
 
 p.on('connect', () => {
   console.log('CONNECT');
-  p.send('whatever' + Math.random());
+  p.send('Connected');
 
   // send message
   document
@@ -40,11 +40,5 @@ p.on('data', (data) => {
   const pre = document.createElement('pre');
   console.log(typeof data);
   pre.textContent = data;
-  document.querySelector('#outgoing').appendChild(pre);
+  document.querySelector('#chatting-div').appendChild(pre);
 });
-
-// if (window.location.href.includes('#1')) {
-//   document.getElementById('outgoing').classList.remove('hide');
-// } else {
-//   document.getElementById('outgoing').classList.add('hide');
-// }

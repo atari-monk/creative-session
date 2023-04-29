@@ -34,7 +34,8 @@ textarea {
   resize: none;
 }
 
-#outgoing {
+#connecting-div,
+#chatting-div {
   word-wrap: break-word;
   white-space: pre-wrap;
   max-height: 400px;
