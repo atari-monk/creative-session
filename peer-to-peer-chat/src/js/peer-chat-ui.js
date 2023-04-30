@@ -30,6 +30,18 @@ export class PeerChatUI {
       this.handleOutgoingMsgInputKeyDown
     );
     this.copyButton.addEventListener('click', this.handleCopyButtonClick);
+    this.#handleUrl();
+  }
+
+  #handleUrl() {
+    const url = window.location.href;
+    if (!url.includes('#1')) {
+      this.peerIdInput.placeholder = 'Offer Connection Data';
+      this.instructionText.innerHTML =
+        '<ol>If you want to initiate chat add #1 to url and refresh.<br> To join initiator :<br><li>Paste Offer Connection Data from your peer.<br></li><li>Click Connect.<br></li><li>Copy Answear Connection Data.<br></li><li>Send it to your peer.<br></li><li>Wait for connection.</li><ol>';
+      this.initiatorIdText.textContent = 'Answear Connection Data';
+      this.copyButton.textContent = 'Copy Answear';
+    }
   }
 
   // UI event handlers
