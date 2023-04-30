@@ -1,3 +1,5 @@
+import { PeerHandler } from './peer-handler.js';
+
 export class PeerChatUI {
   constructor() {
     this.sendOnEnter = true;
@@ -37,10 +39,11 @@ export class PeerChatUI {
     });
 
     // peer object event listeners
-    this.peer.on('error', this.handlePeerError);
-    this.peer.on('signal', this.handlePeerSignal);
-    this.peer.on('connect', this.handlePeerConnect);
-    this.peer.on('data', this.handlePeerData);
+    // this.peer.on('error', this.handlePeerError);
+    // this.peer.on('signal', this.handlePeerSignal);
+    // this.peer.on('connect', this.handlePeerConnect);
+    // this.peer.on('data', this.handlePeerData);
+    this.peerHandler = new PeerHandler(this.peer, this);
   }
 
   // UI event handlers
@@ -107,28 +110,28 @@ export class PeerChatUI {
   };
 
   // peer object event listeners
-  handlePeerError = (err) => {
-    // display error message in UI
-    window.document.body.textContent = err.message;
-  };
+  // handlePeerError = (err) => {
+  //   // display error message in UI
+  //   window.document.body.textContent = err.message;
+  // };
 
-  handlePeerSignal = (data) => {
-    // display connection data in UI
-    this.initiatorIdText.textContent = JSON.stringify(data, null, 2);
-  };
+  // handlePeerSignal = (data) => {
+  //   // display connection data in UI
+  //   this.initiatorIdText.textContent = JSON.stringify(data, null, 2);
+  // };
 
-  handlePeerConnect = () => {
-    // hide connection UI
-    // display chat UI
-    this.connectContainer.style.display = 'none';
-    this.chatContainer.style.display = 'flex';
-  };
+  // handlePeerConnect = () => {
+  //   // hide connection UI
+  //   // display chat UI
+  //   this.connectContainer.style.display = 'none';
+  //   this.chatContainer.style.display = 'flex';
+  // };
 
-  handlePeerData = (data) => {
-    // display received message in chat text container
-    const pre = document.createElement('pre');
-    pre.textContent = `Peer: ${data}`;
-    pre.classList.add('peer-msg');
-    this.chatTextContainer.appendChild(pre);
-  };
+  // handlePeerData = (data) => {
+  //   // display received message in chat text container
+  //   const pre = document.createElement('pre');
+  //   pre.textContent = `Peer: ${data}`;
+  //   pre.classList.add('peer-msg');
+  //   this.chatTextContainer.appendChild(pre);
+  // };
 }
