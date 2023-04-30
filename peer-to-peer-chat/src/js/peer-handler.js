@@ -7,6 +7,7 @@ export class PeerHandler {
     this.peer = new window.SimplePeer({
       initiator: location.hash === '#1',
       trickle: false,
+      timeout: 1000*60*5, // 5 min timeout
     });
 
     // peer object event listeners
