@@ -17,6 +17,7 @@
       const p = new SimplePeer({
         initiator: location.hash === "#1",
         trickle: false,
+        timeout: 1000 * 60 * 5, // 5 min timeout
       });
 
       p.on("error", (err) => console.log("error", err));
