@@ -60,9 +60,11 @@ p.on('connect', () => {
       ev.preventDefault();
       const msg = document.querySelector('#outgoing-msg').value;
       document.querySelector('#outgoing-msg').value = '';
+
       const pre = document.createElement('pre');
       pre.textContent = `You: ${msg}`;
       pre.classList.add('your-msg');
+      
       document.querySelector('#chat-text').appendChild(pre);
       p.send(msg);
     }
