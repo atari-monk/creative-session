@@ -34,8 +34,8 @@ textarea {
   resize: none;
 }
 
-#connecting-div,
-#chatting-div {
+#initiator-id,
+#chat-text {
   word-wrap: break-word;
   white-space: pre-wrap;
   max-height: 400px;
@@ -46,6 +46,14 @@ textarea {
   margin: 0px auto;
   max-width: 95%;
   font-size: 18px;
+  width: 600px;
+  height: 100px;
+}
+
+#chat-text {
+  min-height: 500px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 button {
@@ -55,13 +63,13 @@ button {
   margin-top: 10px;
 }
 
-#connect-msg,
+#peer-id,
 #outgoing-msg {
   display: block;
   width: 100%;
 }
 
-#connect-msg {
+#peer-id {
   margin-top: 50px;
 }
 
@@ -93,4 +101,43 @@ button {
 
 .hide {
   display: none;
+}
+
+#initiator-id {
+  margin-top: 20px;
+  height: auto;
+}
+
+.initiator-id-copied {
+  text-align: center;
+}
+
+.instruction {
+  margin-top: 30px;
+  width: 500px;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+
+#toggle-enter-behavior {
+  width: 150px;
+  height: 100px;
+  font-size: 18px;
+  line-height: 1.6;
+  background-color: #3b4e3c;
+  color: #fff;
+}
+
+pre {
+  margin-top: 15px;
+}
+
+.peer-msg {
+  color: greenyellow;
+}
+
+.your-msg {
+  color: white;
 }

@@ -1,3 +1,24 @@
+let sendOnEnter = true;
+
+document
+  .querySelector('#toggle-enter-behavior')
+  .addEventListener('click', (ev) => {
+    sendOnEnter = !sendOnEnter; // toggle the behavior
+    ev.target.textContent = sendOnEnter ? 'Send on Enter' : 'New line on Enter'; // update the button text
+  });
+
+document.querySelector('.chat').style.display = 'none';
+
+const url = window.location.href;
+if (!url.includes('#1')) {
+  document.querySelector('#peer-id').placeholder = 'Offer Connection Data';
+  document.querySelector('#instruction').innerHTML =
+    '<ol>If you want to initiate chat add #1 to url and refresh.<br> To join initiator :<br><li>Paste Offer Connection Data from your peer.<br></li><li>Click Connect.<br></li><li>Copy Answear Connection Data.<br></li><li>Send it to your peer.<br></li><li>Wait for connection.</li><ol>';
+  document.querySelector('#initiator-id').textContent =
+    'Answear Connection Data';
+  document.querySelector('#copy-btn').textContent = 'Copy Answear';
+}
+
 const p = new window.SimplePeer({
   initiator: location.hash === '#1',
   trickle: false,
@@ -7,7 +28,7 @@ p.on('error', (err) => console.log('error', err));
 
 p.on('signal', (data) => {
   console.log('SIGNAL', JSON.stringify(data, null, 2));
-  document.querySelector('#connecting-div pre').textContent = JSON.stringify(
+  document.querySelector('#initiator-id').textContent = JSON.stringify(
     data,
     null,
     2
@@ -15,39 +36,52 @@ p.on('signal', (data) => {
 });
 
 document.querySelector('#connect-btn').addEventListener('click', (ev) => {
-  p.signal(JSON.parse(document.querySelector('#connect-msg').value));
-  document.querySelector('#connect-msg').value = '';
+  p.signal(JSON.parse(document.querySelector('#peer-id').value));
+  document.querySelector('#peer-id').value = '';
 });
 
 p.on('connect', () => {
   console.log('CONNECT');
-  p.send('Connected');
-
   document.querySelector('.connect').style.display = 'none';
+  document.querySelector('.chat').style.display = 'flex';
 
-  // send message
   document.querySelector('#send-btn').addEventListener('click', (ev) => {
     const msg = document.querySelector('#outgoing-msg').value;
     p.send(msg);
     document.querySelector('#outgoing-msg').value = '';
+
+    const pre = document.createElement('pre');
+    pre.textContent = `You: ${msg}`;
+    document.querySelector('#chat-text').appendChild(pre);
+  });
+
+  document.querySelector('#outgoing-msg').addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' && sendOnEnter) {
+      ev.preventDefault();
+      const msg = document.querySelector('#outgoing-msg').value;
+      document.querySelector('#outgoing-msg').value = '';
+      const pre = document.createElement('pre');
+      pre.textContent = `You: ${msg}`;
+      pre.classList.add('your-msg');
+      document.querySelector('#chat-text').appendChild(pre);
+      p.send(msg);
+    }
   });
 });
 
 p.on('data', (data) => {
-  console.log('data: ' + data);
-  // display incoming message
   const pre = document.createElement('pre');
-  console.log(typeof data);
-  pre.textContent = data;
-  document.querySelector('#chatting-div').appendChild(pre);
+  pre.textContent = `Peer: ${data}`;
+  pre.classList.add('peer-msg');
+  document.querySelector('#chat-text').appendChild(pre);
 });
 
-// Add event listener to copy button
 document.querySelector('#copy-btn').addEventListener('click', (ev) => {
-  const connectData = document.querySelector('#connecting-div pre').textContent;
+  const offerEl = document.querySelector('#initiator-id');
+  const connectData = offerEl.textContent;
   navigator.clipboard.writeText(connectData).then(() => {
     console.log('Copied to clipboard');
-    // Remove pre element
-    document.querySelector('#connecting-div pre').remove();
+    offerEl.classList.add('initiator-id-copied');
+    offerEl.textContent = 'Copied';
   });
 });
