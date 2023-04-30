@@ -24,10 +24,11 @@ const p = new window.SimplePeer({
   trickle: false,
 });
 
-p.on('error', (err) => console.log('error', err));
+p.on('error', (err) => {
+  window.document.body.textContent = err.message;
+});
 
 p.on('signal', (data) => {
-  console.log('SIGNAL', JSON.stringify(data, null, 2));
   document.querySelector('#initiator-id').textContent = JSON.stringify(
     data,
     null,
@@ -41,7 +42,6 @@ document.querySelector('#connect-btn').addEventListener('click', (ev) => {
 });
 
 p.on('connect', () => {
-  console.log('CONNECT');
   document.querySelector('.connect').style.display = 'none';
   document.querySelector('.chat').style.display = 'flex';
 
@@ -80,7 +80,6 @@ document.querySelector('#copy-btn').addEventListener('click', (ev) => {
   const offerEl = document.querySelector('#initiator-id');
   const connectData = offerEl.textContent;
   navigator.clipboard.writeText(connectData).then(() => {
-    console.log('Copied to clipboard');
     offerEl.classList.add('initiator-id-copied');
     offerEl.textContent = 'Copied';
   });
