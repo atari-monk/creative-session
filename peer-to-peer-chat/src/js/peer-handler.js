@@ -28,6 +28,7 @@ export class PeerHandler {
   handlePeerError(err) {
     // display error message in UI
     window.document.body.textContent = err.message;
+    console.log(err);
   }
 
   handlePeerSignal(data) {
