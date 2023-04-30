@@ -1,3 +1,6 @@
-import { PeerChatUI } from "./peer-chat-ui.js";
+import { PeerChatUI } from './peer-chat-ui.js';
+import { PeerHandler } from './peer-handler.js';
 
-const chatUI = new PeerChatUI();
+const peerHandler = new PeerHandler();
+const chatUI = new PeerChatUI(peerHandler);
+peerHandler.setPeerChatUI(chatUI);

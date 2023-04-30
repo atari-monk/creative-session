@@ -1,13 +1,27 @@
 export class PeerHandler {
-  constructor(peer, peerChatUI) {
-    this.peer = peer;
+  setPeerChatUI(peerChatUI) {
     this.peerChatUI = peerChatUI;
+  }
+
+  constructor() {
+    this.peer = new window.SimplePeer({
+      initiator: location.hash === '#1',
+      trickle: false,
+    });
 
     // peer object event listeners
     this.peer.on('error', this.handlePeerError.bind(this));
     this.peer.on('signal', this.handlePeerSignal.bind(this));
     this.peer.on('connect', this.handlePeerConnect.bind(this));
     this.peer.on('data', this.handlePeerData.bind(this));
+  }
+
+  signal(data) {
+    this.peer.signal(data);
+  }
+
+  send(msg) {
+    this.peer.send(msg);
   }
 
   // peer object event handlers

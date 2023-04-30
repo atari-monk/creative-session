@@ -1,7 +1,6 @@
-import { PeerHandler } from './peer-handler.js';
-
 export class PeerChatUI {
-  constructor() {
+  constructor(peerHandler) {
+    this.peerHandler = peerHandler;
     this.sendOnEnter = true;
     // UI elements
     this.toggleEnterBehaviorButton = document.querySelector(
@@ -31,14 +30,6 @@ export class PeerChatUI {
       this.handleOutgoingMsgInputKeyDown
     );
     this.copyButton.addEventListener('click', this.handleCopyButtonClick);
-
-    // peer object
-    this.peer = new window.SimplePeer({
-      initiator: location.hash === '#1',
-      trickle: false,
-    });
-
-    this.peerHandler = new PeerHandler(this.peer, this);
   }
 
   // UI event handlers
@@ -55,7 +46,7 @@ export class PeerChatUI {
     // get peer ID from input field
     // signal peer
     // clear input field
-    this.peer.signal(JSON.parse(this.peerIdInput.value));
+    this.peerHandler.signal(JSON.parse(this.peerIdInput.value));
     this.peerIdInput.value = '';
   };
 
@@ -65,7 +56,7 @@ export class PeerChatUI {
     // clear input field
     // display message in chat text container
     const msg = this.outgoingMsgInput.value;
-    this.peer.send(msg);
+    this.peerHandler.send(msg);
     this.outgoingMsgInput.value = '';
 
     const pre = document.createElement('pre');
@@ -89,7 +80,7 @@ export class PeerChatUI {
       pre.classList.add('your-msg');
 
       this.chatTextContainer.appendChild(pre);
-      this.peer.send(msg);
+      this.peerHandler.send(msg);
     }
   };
 
