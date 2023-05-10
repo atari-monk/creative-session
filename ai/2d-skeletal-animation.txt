@@ -1,0 +1,82 @@
+can you write me in js with typescript, some technology, that will make some sceletel animation, 2d, in that to the scelet sprites can be atached as body of humanoid robot ?
+
+Certainly! Here's an example of how you can create a skeleton animation in 2D using TypeScript and JavaScript, where skeletal sprites can be attached as the body of a humanoid robot. For this, we'll be using the PixiJS library, which is a popular 2D rendering engine.
+
+First, make sure you have PixiJS installed. You can install it using npm:
+
+shell
+Copy code
+npm install pixi.js
+Then, create a new TypeScript file, let's say skeletonAnimation.ts, and add the following code:
+
+typescript
+Copy code
+import * as PIXI from 'pixi.js';
+
+// Create the PIXI application
+const app = new PIXI.Application({
+  width: 800, // Set the desired width of your canvas
+  height: 600, // Set the desired height of your canvas
+  backgroundColor: 0x000000, // Set the background color
+});
+
+// Append the PIXI canvas to the document body
+document.body.appendChild(app.view);
+
+// Load the skeletal sprites and create the robot
+PIXI.loader.add('head', 'path/to/head.png') // Replace with your actual sprite paths
+  .add('torso', 'path/to/torso.png')
+  .add('leftArm', 'path/to/leftArm.png')
+  .add('rightArm', 'path/to/rightArm.png')
+  .add('leftLeg', 'path/to/leftLeg.png')
+  .add('rightLeg', 'path/to/rightLeg.png')
+  .load(createRobot);
+
+function createRobot() {
+  // Create the robot container
+  const robot = new PIXI.Container();
+
+  // Create the robot body parts
+  const head = createSprite('head');
+  const torso = createSprite('torso');
+  const leftArm = createSprite('leftArm');
+  const rightArm = createSprite('rightArm');
+  const leftLeg = createSprite('leftLeg');
+  const rightLeg = createSprite('rightLeg');
+
+  // Set the initial positions of the body parts
+  head.position.set(0, -100);
+  torso.position.set(0, 0);
+  leftArm.position.set(-50, 0);
+  rightArm.position.set(50, 0);
+  leftLeg.position.set(-25, 100);
+  rightLeg.position.set(25, 100);
+
+  // Add the body parts to the robot container
+  robot.addChild(head, torso, leftArm, rightArm, leftLeg, rightLeg);
+
+  // Add the robot to the PIXI stage
+  app.stage.addChild(robot);
+
+  // Create a simple animation loop
+  app.ticker.add(() => {
+    // Rotate the torso
+    torso.rotation += 0.01;
+
+    // Move the limbs back and forth
+    leftArm.rotation = Math.sin(app.ticker.lastTime / 100) * 0.2;
+    rightArm.rotation = -Math.sin(app.ticker.lastTime / 100) * 0.2;
+    leftLeg.rotation = -Math.sin(app.ticker.lastTime / 100) * 0.2;
+    rightLeg.rotation = Math.sin(app.ticker.lastTime / 100) * 0.2;
+  });
+}
+
+function createSprite(textureName: string): PIXI.Sprite {
+  const texture = PIXI.loader.resources[textureName].texture;
+  return new PIXI.Sprite(texture);
+}
+Make sure to replace 'path/to/sprite.png' with the actual paths to your skeletal sprite images. The code creates a PixiJS application, loads the sprite textures, creates a robot container, positions the body parts, adds them to the container, and sets up a simple animation loop to rotate and move the limbs.
+
+You can run the code by compiling the TypeScript file to JavaScript using the
+
+After many fuckups, questions and tweaking, it is frankenstein.
