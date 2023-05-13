@@ -27,12 +27,12 @@ const leftLeg = PIXI.Sprite.from("./assets/left-leg.png");
 const rightLeg = PIXI.Sprite.from("./assets/right-leg.png");
 
 // Set the initial positions of the body parts
-head.position.set(160, 0);
-torso.position.set(20, 130);
-leftArm.position.set(-90, 150);
-rightArm.position.set(300, 150);
-leftLeg.position.set(60, 480);
-rightLeg.position.set(190, 480);
+head.position.set(160, 50);
+torso.position.set(90, 120);
+leftArm.position.set(65, 150);
+rightArm.position.set(225, 150);
+leftLeg.position.set(110, 290);
+rightLeg.position.set(170, 285);
 
 // Add the body parts to the robot container
 robot.addChild(head, rightArm, leftLeg, rightLeg, torso, leftArm);
@@ -41,7 +41,7 @@ robot.addChild(head, rightArm, leftLeg, rightLeg, torso, leftArm);
 app.stage.addChild(robot);
 
 // Set the initial position and direction of the robot
-let robotX = 0;
+let robotX = 500;
 let robotDirection = 1; // 1 for moving right, -1 for moving left
 
 // Create a simple animation loop
