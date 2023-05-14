@@ -1,12 +1,25 @@
 const express = require('express');
+const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+
+const ioOptions = {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+  },
+};
+
+const io = socketIO(server, ioOptions);
 
 const PORT = 3000;
+
+// Enable CORS for Express routes
+app.use(cors());
 
 // Store connected clients
 const clients = {};
