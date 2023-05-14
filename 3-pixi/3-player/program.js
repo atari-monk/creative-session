@@ -31,6 +31,10 @@ const playerOptions = {
     right: 39,
     up: 38,
     down: 40,
+    a: 65,
+    d: 68,
+    w: 87,
+    s: 83,
   },
   color: {
     player: green,

@@ -20,19 +20,19 @@ export class PlayerObject extends GameObject {
     const keys = this.keys;
     const direction = { x: 0, y: 0 };
 
-    if (keyboard.isKeyDown(keys.left)) {
+    if (keyboard.isKeyDown(keys.left) || keyboard.isKeyDown(keys.a)) {
       direction.x -= 1;
     }
 
-    if (keyboard.isKeyDown(keys.right)) {
+    if (keyboard.isKeyDown(keys.right) || keyboard.isKeyDown(keys.d)) {
       direction.x += 1;
     }
 
-    if (keyboard.isKeyDown(keys.up)) {
+    if (keyboard.isKeyDown(keys.up) || keyboard.isKeyDown(keys.w)) {
       direction.y -= 1;
     }
 
-    if (keyboard.isKeyDown(keys.down)) {
+    if (keyboard.isKeyDown(keys.down) || keyboard.isKeyDown(keys.s)) {
       direction.y += 1;
     }
 
