@@ -15,16 +15,7 @@ export class PlayerObject extends GameObject {
     this.keys = keys;
   }
 
-  draw(stage) {
-    const graphics = new PIXI.Graphics();
-    graphics.beginFill(0x00ff00);
-    graphics.drawCircle(this.position.x, this.position.y, this.radius);
-    graphics.endFill();
-    stage.addChild(graphics);
-    this.drawVectors(stage);
-  }
-
-  update(deltaTime) {
+  handleKeyboardInput() {
     const keyboard = this.keyboard;
     const keys = this.keys;
     const direction = this.direction;
@@ -44,13 +35,26 @@ export class PlayerObject extends GameObject {
     } else {
       direction.y = 0;
     }
+  }
+
+  update(deltaTime) {
+    this.handleKeyboardInput();
 
     const velocity = {
-      x: direction.x * this.speed * deltaTime,
-      y: direction.y * this.speed * deltaTime,
+      x: this.direction.x * this.speed * deltaTime,
+      y: this.direction.y * this.speed * deltaTime,
     };
     this.position.x += velocity.x;
     this.position.y += velocity.y;
+  }
+
+  draw(stage) {
+    const graphics = new PIXI.Graphics();
+    graphics.beginFill(0x00ff00);
+    graphics.drawCircle(this.position.x, this.position.y, this.radius);
+    graphics.endFill();
+    stage.addChild(graphics);
+    this.drawVectors(stage);
   }
 
   drawVectors(stage) {
