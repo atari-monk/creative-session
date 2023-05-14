@@ -11,6 +11,8 @@ export class App {
     this.height = height;
     this.log = log;
 
+    this.gameObjects = [];
+
     this.createApp();
     this.startAnimationLoop();
     this.resizeCanvas();
@@ -53,7 +55,17 @@ export class App {
   }
 
   startAnimationLoop() {
-    this.app.ticker.add(() => {});
+    this.app.ticker.add((deltaTime) => {
+      this.gameObjects.forEach((gameObject) => {
+        gameObject.update(deltaTime);
+      });
+
+      this.gameObjects.forEach((gameObject) => {
+        gameObject.draw(this.app.stage);
+      });
+
+      this.app.renderer.render(this.app.stage);
+    });
   }
 
   resizeCanvas() {
@@ -66,5 +78,16 @@ export class App {
       this.log &&
         console.log(`resizeCanvas - width: ${this.width}, ${this.height}`);
     });
+  }
+
+  addGameObject(gameObject) {
+    this.gameObjects.push(gameObject);
+  }
+
+  removeGameObject(gameObject) {
+    const index = this.gameObjects.indexOf(gameObject);
+    if (index !== -1) {
+      this.gameObjects.splice(index, 1);
+    }
   }
 }
