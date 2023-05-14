@@ -10,7 +10,6 @@ export class App {
     this.width = width;
     this.height = height;
     this.log = log;
-
     this.gameObjects = [];
 
     this.createApp();
@@ -22,6 +21,7 @@ export class App {
     this.setCanvasStyles();
     const appOptions = this.getAppOptions();
     this.app = new PIXI.Application(appOptions);
+    this.app.stage.sortableChildren = true;
     this.log && console.log(`createApp - width: ${this.width}, ${this.height}`);
   }
 
@@ -56,11 +56,16 @@ export class App {
 
   startAnimationLoop() {
     this.app.ticker.add((deltaTime) => {
-      this.gameObjects.forEach((gameObject) => {
-        gameObject.update(deltaTime);
-      });
+      this.app.stage.removeChildren();
+
+      const background = new PIXI.Graphics();
+      background.beginFill(this.backgroundColor);
+      background.drawRect(0, 0, this.width, this.height);
+      background.endFill();
+      this.app.stage.addChild(background);
 
       this.gameObjects.forEach((gameObject) => {
+        gameObject.update(deltaTime);
         gameObject.draw(this.app.stage);
       });
 
