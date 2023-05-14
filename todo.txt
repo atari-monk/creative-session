@@ -1,2 +1,0 @@
-simple game of crane
-just crane lifting things and putting somewhere 2d
