@@ -3,16 +3,16 @@ import { GameObject } from './GameObject.js';
 export class PlayerObject extends GameObject {
   constructor(options = {}) {
     super();
-    const { radius, speed, width, height, keyboard, keys } = options;
+    const { radius, speed, width, height, keyboard, keys, color } = options;
     this.radius = radius;
     this.speed = speed;
     this.width = width;
     this.height = height;
     this.direction = { x: 0, y: 0 };
     this.position = { x: width / 2, y: height / 2 };
-
     this.keyboard = keyboard;
     this.keys = keys;
+    this.color = color;
   }
 
   handleKeyboardInput() {
@@ -60,7 +60,7 @@ export class PlayerObject extends GameObject {
 
   draw(stage) {
     const graphics = new PIXI.Graphics();
-    graphics.beginFill(0x00ff00);
+    graphics.beginFill(this.color.player);
     graphics.drawCircle(this.position.x, this.position.y, this.radius);
     graphics.endFill();
     stage.addChild(graphics);
@@ -69,7 +69,7 @@ export class PlayerObject extends GameObject {
 
   drawVectors(stage) {
     const positionGraphics = new PIXI.Graphics();
-    positionGraphics.beginFill(0xff0000); // Red color for position
+    positionGraphics.beginFill(this.color.position);
     positionGraphics.drawCircle(0, 0, 4);
     positionGraphics.endFill();
     positionGraphics.x = this.position.x;
@@ -77,7 +77,7 @@ export class PlayerObject extends GameObject {
     stage.addChild(positionGraphics);
 
     const directionGraphics = new PIXI.Graphics();
-    directionGraphics.lineStyle(2, 0x0000ff); // Blue color for direction
+    directionGraphics.lineStyle(2, this.color.direction);
     directionGraphics.moveTo(this.position.x, this.position.y);
     const directionX = this.direction.x * (this.radius / 2);
     const directionY = this.direction.y * (this.radius / 2);

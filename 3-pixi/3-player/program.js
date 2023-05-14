@@ -17,6 +17,9 @@ const appOptions = {
 
 const app = new App(appOptions);
 
+const green = 0x00ff00;
+const blue = 0x0000ff;
+
 const playerOptions = {
   radius: 50,
   speed: 2,
@@ -28,6 +31,11 @@ const playerOptions = {
     right: 39,
     up: 38,
     down: 40,
+  },
+  color: {
+    player: green,
+    position: blue,
+    direction: blue,
   },
 };
 
