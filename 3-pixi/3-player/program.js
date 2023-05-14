@@ -1,6 +1,6 @@
-import { App } from './../pixi-lib/App.js';
-import { KeyboardInput } from './../pixi-lib/keyboardInput.js';
-import { PlayerObject } from './../pixi-lib/PlayerObject.js';
+import { App } from '../pixi-lib/App.js';
+import { KeyboardInput } from '../pixi-lib/keyboardInput.js';
+import { PlayerObject } from '../pixi-lib/PlayerObject.js';
 
 const keyboard = new KeyboardInput({
   arrows: false,
