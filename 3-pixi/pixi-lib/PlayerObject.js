@@ -18,23 +18,33 @@ export class PlayerObject extends GameObject {
   handleKeyboardInput() {
     const keyboard = this.keyboard;
     const keys = this.keys;
-    const direction = this.direction;
+    const direction = { x: 0, y: 0 };
 
     if (keyboard.isKeyDown(keys.left)) {
-      direction.x = -1;
-    } else if (keyboard.isKeyDown(keys.right)) {
-      direction.x = 1;
-    } else {
-      direction.x = 0;
+      direction.x -= 1;
+    }
+
+    if (keyboard.isKeyDown(keys.right)) {
+      direction.x += 1;
     }
 
     if (keyboard.isKeyDown(keys.up)) {
-      direction.y = -1;
-    } else if (keyboard.isKeyDown(keys.down)) {
-      direction.y = 1;
-    } else {
-      direction.y = 0;
+      direction.y -= 1;
     }
+
+    if (keyboard.isKeyDown(keys.down)) {
+      direction.y += 1;
+    }
+
+    const length = Math.sqrt(
+      direction.x * direction.x + direction.y * direction.y
+    );
+    if (length !== 0) {
+      direction.x /= length;
+      direction.y /= length;
+    }
+
+    this.direction = direction;
   }
 
   update(deltaTime) {
