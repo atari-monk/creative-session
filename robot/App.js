@@ -1,6 +1,4 @@
 import { Robot } from './Robot.js';
-import { StickFigure } from './StickFigure.js';
-import { KeyboardHandler } from './KeyboardHandler.js';
 
 export class App {
   constructor(canvasId, width, height, backgroundColor) {
@@ -10,9 +8,7 @@ export class App {
     this.backgroundColor = backgroundColor;
 
     this.createApp();
-    this.keyboard = new KeyboardHandler(); // Create a keyboard handler
     this.createRobot();
-    this.createStickFigure();
     this.startAnimationLoop();
   }
 
@@ -31,20 +27,9 @@ export class App {
     this.app.stage.addChild(robotContainer);
   }
 
-  createStickFigure() {
-    const container = new PIXI.Container();
-    this.stickFigure = new StickFigure(this.app, container, this.keyboard);
-    container.position.set(
-      this.app.renderer.width / 2,
-      this.app.renderer.height / 2
-    );
-    this.app.stage.addChild(container);
-  }
-
   startAnimationLoop() {
     this.app.ticker.add(() => {
       this.robot.update();
-      this.stickFigure.update();
     });
   }
 }
