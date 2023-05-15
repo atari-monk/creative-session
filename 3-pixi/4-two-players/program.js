@@ -1,6 +1,9 @@
-import { App } from '../pixi-lib/App.js';
-import { KeyboardInput } from '../pixi-lib/keyboardInput.js';
-import { PlayerObject } from '../pixi-lib/PlayerObject.js';
+import { App } from './../pixi-lib/App.js';
+import { KeyboardInput } from './../pixi-lib/keyboardInput.js';
+import { PlayerObject } from './../pixi-lib/PlayerObject.js';
+import { GameClient } from './../pixi-lib/GameClient.js';
+
+const client = new GameClient();
 
 const keyboard = new KeyboardInput({
   arrows: false,
@@ -37,6 +40,7 @@ const playerOptions = {
     position: blue,
     direction: blue,
   },
+  client: client,
 };
 
 const player = new PlayerObject(playerOptions);
@@ -61,9 +65,13 @@ const playerOptions2 = {
     position: 0x0000ff,
     direction: 0x0000ff,
   },
+  client: client,
 };
 
 const player2 = new PlayerObject(playerOptions2);
 player2.position.x = app.width / 2;
 player2.position.y = app.height / 2 + 100;
 app.addGameObject(player2);
+
+client.addPlayer(player);
+client.addPlayer(player2);
