@@ -73,5 +73,4 @@ player2.position.x = app.width / 2;
 player2.position.y = app.height / 2 + 100;
 app.addGameObject(player2);
 
-client.addPlayer(player);
-client.addPlayer(player2);
+client.addPlayers([player, player2]);

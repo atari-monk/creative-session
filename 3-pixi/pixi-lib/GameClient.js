@@ -3,6 +3,7 @@ import { PlayerObject } from './PlayerObject.js';
 export class GameClient {
   constructor() {
     this.clientId = null;
+    this.players = {};
     // Create the socket and establish a connection
     this.socket = io.connect('http://localhost:3000');
 
@@ -10,6 +11,7 @@ export class GameClient {
     this.socket.on('connect', () => {
       this.clientId = this.socket.id;
       console.log('Connected to server');
+      this.connectPlayers(this.players);
     });
 
     // Handle player movement event
@@ -17,7 +19,7 @@ export class GameClient {
       console.log(`Player with ID ${clientId} moved to position:`, newPosition);
       if (newPosition) {
         // Update player position or perform other actions based on the received movement event
-        this.updatePlayerPosition(newPosition);
+        this.updatePlayerPosition(clientId, newPosition);
       }
     });
 
@@ -31,10 +33,11 @@ export class GameClient {
   }
 
   // Update player position based on the received movement event
-  updatePlayerPosition(newPosition) {
+  updatePlayerPosition(clientId, newPosition) {
+    console.log('🐶😊');
     // Access the player object based on the clientId
-    const player = this.players[this.clientId];
-
+    const player = this.players[clientId];
+    console.log(this.players);
     if (player) {
       // Update the player's position based on the received newPosition
       player.setPosition(newPosition);
@@ -42,9 +45,21 @@ export class GameClient {
     }
   }
 
-  // Add a player to the client
-  addPlayer(player) {
-    this.players[player.client.clientId] = player;
+  addPlayers(players) {
+    this.players = players;
+  }
+
+  connectPlayers(players) {
+    players.forEach((player) => {
+      if (player.client) {
+        this.players[player.client.clientId] = player;
+      } else {
+        console.log(
+          'Cannot add player. Client not defined for player:',
+          player
+        );
+      }
+    });
   }
 
   // Remove a player from the client
