@@ -50,9 +50,24 @@ export class PlayerObject extends GameObject {
       direction.y /= length;
     }
 
-    this.direction = direction;
+    const newPosition = {
+      x: this.position.x + direction.x * this.speed,
+      y: this.position.y + direction.y * this.speed,
+    };
 
-    this.client.socket.emit('movement', direction);
+    // Compare the new position with the current position
+    if (
+      newPosition.x !== this.position.x ||
+      newPosition.y !== this.position.y
+    ) {
+      this.position = newPosition;
+      this.client.socket.emit('movement', {
+        clientId: this.client.clientId,
+        newPosition: this.position,
+      });
+    }
+
+    this.direction = direction;
   }
 
   update(deltaTime) {
