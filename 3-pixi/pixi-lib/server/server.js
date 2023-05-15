@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 
   const clientIdList = Object.keys(clients);
   console.log(clientIdList);
-  socket.emit('clientIdList', clientIdList);
+  io.emit('clientIdList', clientIdList);
 
   // Other game-related events and logic can be implemented here
 });
