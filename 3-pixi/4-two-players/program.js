@@ -3,6 +3,10 @@ import { KeyboardInput } from '../pixi-lib/keyboardInput.js';
 import { PlayerObject } from '../pixi-lib/PlayerObject.js';
 import { GameClient } from '../pixi-lib/GameClient.js';
 
+// Get the URL search parameters
+const urlParams = new URLSearchParams(window.location.search);
+const playerParam = urlParams.get('player');
+
 const client = new GameClient();
 
 const keyboard = new KeyboardInput({
@@ -44,7 +48,7 @@ const playerOptions = {
     position: blue,
     direction: blue,
   },
-  isPlayable: true,
+  isPlayable: playerParam === '1', // Set isPlayable based on the playerParam value
 };
 
 const player = new PlayerObject(playerOptions);
@@ -58,13 +62,22 @@ const playerOptions2 = {
   width: app.width,
   height: app.height,
   keyboard: keyboard,
-  keys: {},
+  keys: {
+    a: 65,
+    d: 68,
+    w: 87,
+    s: 83,
+    left: 37,
+    right: 39,
+    up: 38,
+    down: 40,
+  },
   color: {
     player: 0xff0000,
     position: 0x0000ff,
     direction: 0x0000ff,
   },
-  isPlayable: false,
+  isPlayable: playerParam === '2', // Set isPlayable based on the playerParam value
 };
 
 const player2 = new PlayerObject(playerOptions2);

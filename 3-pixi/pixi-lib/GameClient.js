@@ -61,7 +61,7 @@ export class GameClient {
     );
     if (player) {
       // Update the player's position based on the received newPosition
-      player.setPosition(newPosition);
+      player.setPosition(Object.assign({}, newPosition));
       console.log('player updated!');
     }
   }

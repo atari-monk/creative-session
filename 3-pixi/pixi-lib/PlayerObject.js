@@ -18,7 +18,8 @@ export class PlayerObject extends GameObject {
   }
 
   setPosition(newPosition) {
-    this.position = newPosition;
+    this.position.x = newPosition.x;
+    this.position.y = newPosition.y;
   }
 
   handleKeyboardInput() {
