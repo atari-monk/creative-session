@@ -65,7 +65,8 @@ export class App {
       this.app.stage.addChild(background);
 
       this.gameObjects.forEach((gameObject) => {
-        gameObject.update(deltaTime);
+        if (gameObject.isPlayable)
+          gameObject.update(deltaTime);
         gameObject.draw(this.app.stage);
       });
 

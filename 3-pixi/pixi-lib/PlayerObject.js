@@ -3,8 +3,17 @@ import { GameObject } from './GameObject.js';
 export class PlayerObject extends GameObject {
   constructor(options = {}) {
     super();
-    const { radius, speed, width, height, keyboard, keys, color, client } =
-      options;
+    const {
+      radius,
+      speed,
+      width,
+      height,
+      keyboard,
+      keys,
+      color,
+      client,
+      isPlayable,
+    } = options;
     this.radius = radius;
     this.speed = speed;
     this.width = width;
@@ -15,6 +24,7 @@ export class PlayerObject extends GameObject {
     this.keys = keys;
     this.color = color;
     this.client = client;
+    this.isPlayable = isPlayable;
   }
 
   setPosition(newPosition) {

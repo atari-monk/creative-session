@@ -34,6 +34,10 @@ const playerOptions = {
     d: 68,
     w: 87,
     s: 83,
+    left: 37,
+    right: 39,
+    up: 38,
+    down: 40,
   },
   color: {
     player: green,
@@ -41,6 +45,7 @@ const playerOptions = {
     direction: blue,
   },
   client: client,
+  isPlayable: true,
 };
 
 const player = new PlayerObject(playerOptions);
@@ -54,18 +59,14 @@ const playerOptions2 = {
   width: app.width,
   height: app.height,
   keyboard: keyboard,
-  keys: {
-    left: 37,
-    right: 39,
-    up: 38,
-    down: 40,
-  },
+  keys: {},
   color: {
     player: 0xff0000,
     position: 0x0000ff,
     direction: 0x0000ff,
   },
   client: client,
+  isPlayable: false,
 };
 
 const player2 = new PlayerObject(playerOptions2);
