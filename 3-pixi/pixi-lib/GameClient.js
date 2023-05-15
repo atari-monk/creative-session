@@ -3,7 +3,7 @@ import { PlayerObject } from './PlayerObject.js';
 export class GameClient {
   constructor() {
     this.clientId = null;
-    this.playerObjs = {};
+    this.playerObjs = [];
     this.players = {};
     // Create the socket and establish a connection
     this.socket = io.connect('http://localhost:3000');
@@ -12,12 +12,15 @@ export class GameClient {
     this.socket.on('connect', () => {
       this.clientId = this.socket.id;
       console.log('Connected to server');
-      this.connectPlayers(this.playerObjs);
+      const player = this.playerObjs.find((player) => player.isPlayable);
+      player.client = this;
+      player.clientId = this.clientId;
+      this.players[player.clientId] = player;
     });
 
     // Handle player movement event
     this.socket.on('movement', ({ clientId, newPosition }) => {
-      console.log(`Player with ID ${clientId} moved to position:`, newPosition);
+      //console.log(`Player with ID ${clientId} moved to position:`, newPosition);
       if (newPosition) {
         // Update player position or perform other actions based on the received movement event
         this.updatePlayerPosition(clientId, newPosition);
@@ -31,6 +34,15 @@ export class GameClient {
 
     // Initialize the players object
     this.players = {};
+
+    this.socket.on('clientIdList', (clientIdList) => {
+      console.log('Received client ID list:', clientIdList);
+      const player = this.playerObjs.find(
+        (player) => player.isPlayable === false
+      );
+      player.clientId = clientIdList.find((id) => id !== this.clientId);
+      this.players[player.clientId] = player;
+    });
   }
 
   // Update player position based on the received movement event
@@ -54,23 +66,9 @@ export class GameClient {
     }
   }
 
-  addPlayers(players) {
+  addPlayerObjs(players) {
     this.playerObjs = players;
-    console.log('this.playerObjs: ', this.playerObjs);
-  }
-
-  connectPlayers(players) {
-    players.forEach((player) => {
-      if (player.client && player.client.clientId) {
-        this.players[player.client.clientId] = player;
-        console.log('conected player: ', this.players);
-      } else {
-        console.log(
-          'Cannot add player. Client not defined for player:',
-          player
-        );
-      }
-    });
+    //console.log('this.playerObjs: ', this.playerObjs);
   }
 
   // Remove a player from the client

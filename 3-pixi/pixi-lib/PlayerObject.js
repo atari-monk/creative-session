@@ -3,17 +3,8 @@ import { GameObject } from './GameObject.js';
 export class PlayerObject extends GameObject {
   constructor(options = {}) {
     super();
-    const {
-      radius,
-      speed,
-      width,
-      height,
-      keyboard,
-      keys,
-      color,
-      client,
-      isPlayable,
-    } = options;
+    const { radius, speed, width, height, keyboard, keys, color, isPlayable } =
+      options;
     this.radius = radius;
     this.speed = speed;
     this.width = width;
@@ -23,7 +14,6 @@ export class PlayerObject extends GameObject {
     this.keyboard = keyboard;
     this.keys = keys;
     this.color = color;
-    this.client = client;
     this.isPlayable = isPlayable;
   }
 
@@ -67,8 +57,9 @@ export class PlayerObject extends GameObject {
 
     // Compare the new position with the current position
     if (
-      newPosition.x !== this.position.x ||
-      newPosition.y !== this.position.y
+      this.client &&
+      this.client.clientId &&
+      (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
       console.log(

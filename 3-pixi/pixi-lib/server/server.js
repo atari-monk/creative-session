@@ -45,6 +45,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('movement', { clientId, newPosition });
   });
 
+  const clientIdList = Object.keys(clients);
+  console.log(clientIdList);
+  socket.emit('clientIdList', clientIdList);
+
   // Other game-related events and logic can be implemented here
 });
 

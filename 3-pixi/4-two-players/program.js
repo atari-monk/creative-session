@@ -44,7 +44,6 @@ const playerOptions = {
     position: blue,
     direction: blue,
   },
-  client: client,
   isPlayable: true,
 };
 
@@ -65,7 +64,6 @@ const playerOptions2 = {
     position: 0x0000ff,
     direction: 0x0000ff,
   },
-  client: client,
   isPlayable: false,
 };
 
@@ -74,4 +72,4 @@ player2.position.x = app.width / 2;
 player2.position.y = app.height / 2 + 100;
 app.addGameObject(player2);
 
-client.addPlayers([player, player2]);
+client.addPlayerObjs([player, player2]);
