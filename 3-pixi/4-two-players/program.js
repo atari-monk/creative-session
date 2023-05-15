@@ -1,5 +1,5 @@
 import { App } from '../pixi-lib/App.js';
-import { KeyboardInput } from '../pixi-lib/keyboardInput.js';
+import { KeyboardInput } from '../pixi-lib/KeyboardInput.js';
 import { PlayerObject } from '../pixi-lib/PlayerObject.js';
 import { GameClient } from '../pixi-lib/GameClient.js';
 
