@@ -56,12 +56,14 @@ export class GameClient {
 
   addPlayers(players) {
     this.playerObjs = players;
+    console.log('this.playerObjs: ', this.playerObjs);
   }
 
   connectPlayers(players) {
     players.forEach((player) => {
       if (player.client && player.client.clientId) {
         this.players[player.client.clientId] = player;
+        console.log('conected player: ', this.players);
       } else {
         console.log(
           'Cannot add player. Client not defined for player:',
