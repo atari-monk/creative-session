@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
   // Handle player movement
   socket.on('movement', ({ clientId, newPosition }) => {
     // Broadcast the movement to other clients
-    io.emit('movement', { clientId, newPosition });
+    socket.broadcast.emit('movement', { clientId, newPosition });
   });
 
   // Other game-related events and logic can be implemented here
