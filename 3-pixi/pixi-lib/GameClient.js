@@ -17,7 +17,7 @@ export class GameClient {
       console.log(`Player with ID ${clientId} moved to position:`, newPosition);
       if (newPosition) {
         // Update player position or perform other actions based on the received movement event
-        this.updatePlayerPosition(clientId, newPosition);
+        this.updatePlayerPosition(newPosition);
       }
     });
 
@@ -38,17 +38,18 @@ export class GameClient {
     if (player) {
       // Update the player's position based on the received newPosition
       player.setPosition(newPosition);
+      console.log('player updated from server!');
     }
   }
 
   // Add a player to the client
   addPlayer(player) {
-    this.players[player.clientId] = player;
+    this.players[player.client.clientId] = player;
   }
 
   // Remove a player from the client
   removePlayer(player) {
-    delete this.players[player.clientId];
+    delete this.players[player.client.clientId];
   }
 
   // Other methods and logic for the client can be implemented here
