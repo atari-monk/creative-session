@@ -16,7 +16,8 @@ const ioOptions = {
 
 const io = socketIO(server, ioOptions);
 
-const PORT = 3000;
+// Use the PORT environment variable or default to 3000
+const PORT = process.env.PORT || 3000;
 
 // Enable CORS for Express routes
 app.use(cors());
