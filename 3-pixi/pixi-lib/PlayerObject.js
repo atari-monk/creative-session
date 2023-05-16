@@ -3,8 +3,19 @@ import { GameObject } from './GameObject.js';
 export class PlayerObject extends GameObject {
   constructor(options = {}) {
     super();
-    const { radius, speed, width, height, keyboard, keys, color, playerNr, isPlayable } =
-      options;
+    const {
+      id,
+      radius,
+      speed,
+      width,
+      height,
+      keyboard,
+      keys,
+      color,
+      playerNr,
+      isPlayable,
+    } = options;
+    this.id = id;
     this.radius = radius;
     this.speed = speed;
     this.width = width;
@@ -64,11 +75,11 @@ export class PlayerObject extends GameObject {
       (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
-      console.log(
-        'Emitting movement event:',
-        this.position,
-        this.client.clientId
-      );
+      // console.log(
+      //   'Emitting movement event:',
+      //   this.position,
+      //   this.client.clientId
+      // );
       this.client.socket.emit('movement', {
         clientId: this.client.clientId,
         newPosition: this.position,
@@ -117,5 +128,17 @@ export class PlayerObject extends GameObject {
       this.position.y + directionY
     );
     stage.addChild(directionGraphics);
+  }
+
+  kickBall(ball) {
+    // Calculate the velocity vector based on player's direction and speed
+    const velocity = {
+      x: this.direction.x * this.speed * 2,
+      y: this.direction.y * this.speed * 2,
+    };
+
+    // Set the ball's velocity to the calculated vector
+    ball.setVelocity(velocity);
+    //ball.setDirection(this.direction);
   }
 }

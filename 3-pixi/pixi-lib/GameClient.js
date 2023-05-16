@@ -67,16 +67,16 @@ export class GameClient {
   updatePlayerPosition(clientId, newPosition) {
     // Access the player object based on the clientId
     const player = this.players[clientId];
-    console.log(
-      'clientId: ',
-      clientId,
-      'newPosition: ',
-      newPosition,
-      'player: ',
-      player,
-      'players: ',
-      this.players
-    );
+    // console.log(
+    //   'clientId: ',
+    //   clientId,
+    //   'newPosition: ',
+    //   newPosition,
+    //   'player: ',
+    //   player,
+    //   'players: ',
+    //   this.players
+    // );
     if (player) {
       // Update the player's position based on the received newPosition
       player.setPosition(Object.assign({}, newPosition));

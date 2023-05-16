@@ -67,6 +67,8 @@ export class App {
       this.gameObjects.forEach((gameObject) => {
         if (gameObject.isPlayable)
           gameObject.update(deltaTime);
+        else if (gameObject.isBall)
+          gameObject.update(deltaTime, this.gameObjects);
         gameObject.draw(this.app.stage);
       });
 

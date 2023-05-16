@@ -3,8 +3,9 @@ import { GameObject } from './GameObject.js';
 export class BallObject extends GameObject {
   constructor(options = {}) {
     super();
-    const { radius, speed, width, height, keyboard, keys, color, playerNr, isPlayable } =
+    const { id, radius, speed, width, height, keyboard, keys, color, isBall } =
       options;
+    this.id = id;
     this.radius = radius;
     this.speed = speed;
     this.width = width;
@@ -14,8 +15,8 @@ export class BallObject extends GameObject {
     this.keyboard = keyboard;
     this.keys = keys;
     this.color = color;
-    this.isPlayable = isPlayable;
-    this.playerNr = playerNr;
+    this.isBall = isBall;
+    this.velocity = { x: 0, y: 0 };
   }
 
   setPosition(newPosition) {
@@ -23,70 +24,34 @@ export class BallObject extends GameObject {
     this.position.y = newPosition.y;
   }
 
-  handleKeyboardInput() {
-    //const keyboard = this.keyboard;
-    //const keys = this.keys;
-    const direction = { x: 0, y: 0 };
+  setVelocity(newVelocity) {
+    this.velocity.x = newVelocity.x;
+    this.velocity.y = newVelocity.y;
+  }
 
-    // if (keyboard.isKeyDown(keys.left) || keyboard.isKeyDown(keys.a)) {
-    //   direction.x -= 1;
-    // }
+  setDirection(newDirection) {
+    this.direction.x = newDirection.x;
+    this.direction.y = newDirection.y;
+  }
 
-    // if (keyboard.isKeyDown(keys.right) || keyboard.isKeyDown(keys.d)) {
-    //   direction.x += 1;
-    // }
-
-    // if (keyboard.isKeyDown(keys.up) || keyboard.isKeyDown(keys.w)) {
-    //   direction.y -= 1;
-    // }
-
-    // if (keyboard.isKeyDown(keys.down) || keyboard.isKeyDown(keys.s)) {
-    //   direction.y += 1;
-    // }
-
-    const length = Math.sqrt(
-      direction.x * direction.x + direction.y * direction.y
-    );
-    if (length !== 0) {
-      direction.x /= length;
-      direction.y /= length;
-    }
-
-    const newPosition = {
-      x: this.position.x + direction.x * this.speed,
-      y: this.position.y + direction.y * this.speed,
-    };
-
-    // Compare the new position with the current position
-    if (
-      this.client &&
-      this.client.clientId &&
-      (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
-    ) {
-      this.position = newPosition;
-      console.log(
-        'Emitting movement event:',
-        this.position,
-        this.client.clientId
-      );
+  emitPossition() {
+    // console.log(
+    //   'Emitting movement event:',
+    //   this.position,
+    //   this.client.clientId
+    // );
+    if (this.velocity.x > 0 || this.velocity.y > 0)
       this.client.socket.emit('movement', {
         clientId: this.client.clientId,
         newPosition: this.position,
       });
-    }
-
-    this.direction = direction;
   }
 
-  update(deltaTime) {
-    this.handleKeyboardInput();
-
-    const velocity = {
-      x: this.direction.x * this.speed * deltaTime,
-      y: this.direction.y * this.speed * deltaTime,
-    };
-    this.position.x += velocity.x;
-    this.position.y += velocity.y;
+  update(deltaTime, gameObjects) {
+    this.handleCollisions(gameObjects);
+    this.position.x += this.velocity.x * deltaTime;
+    this.position.y += this.velocity.y * deltaTime;
+    this.emitPossition();
   }
 
   draw(stage) {
@@ -117,5 +82,32 @@ export class BallObject extends GameObject {
       this.position.y + directionY
     );
     stage.addChild(directionGraphics);
+  }
+
+  checkCircularCollision(player1, player2) {
+    const distanceX = player1.position.x - player2.position.x;
+    const distanceY = player1.position.y - player2.position.y;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+    if (distance < player1.radius + player2.radius) {
+      // Collision detected
+      return true;
+    }
+
+    // No collision
+    return false;
+  }
+
+  handleCollisions(gameObjects) {
+    gameObjects.forEach((gameObject) => {
+      if (
+        gameObject.id !== this.id &&
+        gameObject.isPlayable &&
+        this.checkCircularCollision(this, gameObject)
+      ) {
+        gameObject.kickBall(this);
+        console.log('kick', gameObject, this);
+      }
+    });
   }
 }

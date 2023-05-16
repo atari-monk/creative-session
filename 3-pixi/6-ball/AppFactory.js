@@ -47,6 +47,7 @@ export class AppFactory {
 
     const ball = new BallObject({
       ...{
+        id: 3,
         radius: 20,
         speed: 2,
         color: {
@@ -58,10 +59,10 @@ export class AppFactory {
       },
       width: app.width,
       height: app.height,
-      keyboard: keyboard,
     });
     ball.position.x = app.width / 2;
     ball.position.y = app.height / 2;
+    ball.client = client;
     app.addGameObject(ball);
     client.addPlayerObj(ball);
   }

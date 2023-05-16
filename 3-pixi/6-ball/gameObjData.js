@@ -1,5 +1,6 @@
 export const gameObjData = [
   {
+    id: 1,
     radius: 50,
     speed: 2,
     color: {
@@ -20,6 +21,7 @@ export const gameObjData = [
     },
   },
   {
+    id: 2,
     radius: 50,
     speed: 2,
     color: {
