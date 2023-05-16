@@ -16,6 +16,7 @@ export class GameClient {
         console.log('GameClient on connect.');
         this.clientId = this.socket.id;
         console.log('ClientId: ', this.clientId);
+        console.log('this.playerObjs: ', this.playerObjs);
         const player = this.playerObjs.find((player) => player.isPlayable);
         if (player === undefined)
           alert(
@@ -85,6 +86,11 @@ export class GameClient {
 
   addPlayerObjs(players) {
     this.playerObjs = players;
+    //console.log('this.playerObjs: ', this.playerObjs);
+  }
+
+  addPlayerObj(player) {
+    this.playerObjs.push(player);
     //console.log('this.playerObjs: ', this.playerObjs);
   }
 
