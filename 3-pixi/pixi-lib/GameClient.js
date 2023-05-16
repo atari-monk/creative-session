@@ -47,12 +47,18 @@ export class GameClient {
     this.players = {};
 
     this.socket.on('clientIdList', (clientIdList) => {
-      console.log('Received client ID list:', clientIdList);
-      const player = this.playerObjs.find(
-        (player) => player.isPlayable === false
-      );
-      player.clientId = clientIdList.find((id) => id !== this.clientId);
-      this.players[player.clientId] = player;
+      try {
+        console.log('Received client ID list:', clientIdList);
+        console.log('this.playerObjs:', this.playerObjs);
+        const player = this.playerObjs.find(
+          (player) => player.isPlayable === false
+        );
+        console.log('player:', player);
+        player.clientId = clientIdList.find((id) => id !== this.clientId);
+        this.players[player.clientId] = player;
+      } catch (err) {
+        console.log(err);
+      }
     });
   }
 
