@@ -5,17 +5,28 @@ export class GameClient {
     this.clientId = null;
     this.playerObjs = [];
     this.players = {};
+    const local = 'http://localhost:3000';
+    const remote = 'https://atari-monk-two-players.azurewebsites.net/';
     // Create the socket and establish a connection
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect(remote);
 
     // Handle successful connection
     this.socket.on('connect', () => {
-      this.clientId = this.socket.id;
-      console.log('Connected to server');
-      const player = this.playerObjs.find((player) => player.isPlayable);
-      player.client = this;
-      player.clientId = this.clientId;
-      this.players[player.clientId] = player;
+      try {
+        console.log('GameClient on connect.');
+        this.clientId = this.socket.id;
+        console.log('ClientId: ', this.clientId);
+        const player = this.playerObjs.find((player) => player.isPlayable);
+        if (player === undefined)
+          alert(
+            'Please write ?player=1 or ?player=2 in address and refresh browser to select your player. Otherwise game is not possible. Select player other that your friend.'
+          );
+        player.client = this;
+        player.clientId = this.clientId;
+        this.players[player.clientId] = player;
+      } catch (err) {
+        console.log(err);
+      }
     });
 
     // Handle player movement event
