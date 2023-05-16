@@ -39,13 +39,4 @@ export const gameObjData = [
       down: 40,
     },
   },
-  {
-    radius: 20,
-    speed: 2,
-    color: {
-      player: 0xff0000,
-      position: 0x0000ff,
-      direction: 0x0000ff,
-    }
-  },
 ];
