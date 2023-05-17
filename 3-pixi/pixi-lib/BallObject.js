@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { GameObject } from './GameObject.js';
 
 export class BallObject extends GameObject {
@@ -35,11 +36,6 @@ export class BallObject extends GameObject {
   }
 
   emitPossition() {
-    // console.log(
-    //   'Emitting movement event:',
-    //   this.position,
-    //   this.client.clientId
-    // );
     if (this.velocity.x > 0 || this.velocity.y > 0)
       this.client.socket.emit('movement', {
         clientId: this.client.clientId,

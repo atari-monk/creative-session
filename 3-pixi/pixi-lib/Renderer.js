@@ -35,11 +35,8 @@ export class Renderer {
 
     render(deltaTime) {
         this.#pixiApp.stage.removeChildren();
-
         this.#pixiApp.stage.addChild(this.renderBackground());
-        console.log(this.#pixiApp.gameObjects);
         this.updateAndDrawGameObjects(deltaTime);
-
         this.#pixiApp.renderer.render(this.#pixiApp.stage);
     }
 }

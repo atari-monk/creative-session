@@ -2,13 +2,22 @@ import { AppFactory } from './AppFactory.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
-console.log(playerUrlParam);
-AppFactory.createAndRunApp(
-  'mainCanvasId',
-  0x000000,
-  800,
-  600,
-  true,
-  true,
-  Number(playerUrlParam)
-);
+
+if (playerUrlParam !== '1' && playerUrlParam !== '2') {
+  throw new Error(
+    // prettier-ignore
+    'Invalid player URL parameter. ' + 
+    'Please specify either "1" or "2".'
+  );
+}
+
+const appConfig = {
+  canvasId: 'mainCanvasId',
+  backgroundColor: 0x000000,
+  canvasWidth: 800,
+  canvasHeight: 600,
+  enableFullscreen: true,
+  playerNumber: Number(playerUrlParam),
+};
+
+AppFactory.createAndRunApp(appConfig);

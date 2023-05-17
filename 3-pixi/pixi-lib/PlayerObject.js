@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { GameObject } from './GameObject.js';
 
 export class PlayerObject extends GameObject {

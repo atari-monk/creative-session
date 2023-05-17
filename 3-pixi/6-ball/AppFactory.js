@@ -6,15 +6,16 @@ import { gameObjData } from './gameObjData.js';
 import { BallObject } from './../pixi-lib/BallObject.js';
 
 export class AppFactory {
-  static createAndRunApp(
-    canvasId,
-    backgroundColor,
-    width,
-    height,
-    fullScreen,
-    log,
-    playerUrlParam
-  ) {
+  static createAndRunApp(config) {
+    const {
+      canvasId,
+      backgroundColor,
+      canvasWidth,
+      canvasHeight,
+      enableFullscreen,
+      playerNumber,
+    } = config;
+
     const keyboard = new KeyboardInput({
       arrows: false,
     });
@@ -22,10 +23,9 @@ export class AppFactory {
     const appOptions = {
       canvasId: canvasId,
       backgroundColor: backgroundColor,
-      width: width,
-      height: height,
-      fullScreen: fullScreen,
-      log: log,
+      width: canvasWidth,
+      height: canvasHeight,
+      fullScreen: enableFullscreen,
     };
 
     const app = new App(appOptions);
@@ -38,7 +38,7 @@ export class AppFactory {
         height: app.height,
         keyboard: keyboard,
       });
-      player.isPlayable = player.playerNr === playerUrlParam;
+      player.isPlayable = player.playerNr === playerNumber;
       player.position.x = app.width / 2 + (player.playerNr === 1 ? -250 : 250);
       player.position.y = app.height / 2;
       app.addGameObject(player);
