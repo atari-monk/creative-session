@@ -86,3 +86,4 @@ player2.position.y = app.height / 2 + 100;
 app.addGameObject(player2);
 
 client.addPlayerObjs([player, player2]);
+app.startAnimationLoop();

@@ -1,6 +1,6 @@
-import { App } from '../pixi-lib/App.js';
-import { KeyboardInput } from '../pixi-lib/keyboardInput.js';
-import { PlayerObject } from '../pixi-lib/PlayerObject.js';
+import { App } from './../pixi-lib/App.js';
+import { KeyboardInput } from './../pixi-lib/keyboardInput.js';
+import { PlayerObject } from './../pixi-lib/PlayerObject.js';
 
 const keyboard = new KeyboardInput({
   arrows: false,
@@ -47,3 +47,4 @@ const player = new PlayerObject(playerOptions);
 player.position.x = app.width / 2;
 player.position.y = app.height / 2;
 app.addGameObject(player);
+app.startAnimationLoop();

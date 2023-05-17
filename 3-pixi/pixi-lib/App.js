@@ -1,165 +1,152 @@
+import { Renderer } from './Renderer.js';
+
 export class App {
-  #canvas;
-  #backgroundColor;
-  #fullScreen;
-  #width;
-  #height;
-  #log;
-  #gameObjects;
-  app;
+    #canvas;
+    #backgroundColor;
+    #fullScreen;
+    #width;
+    #height;
+    #log;
+    #gameObjects = [];
+    #pixiApp;
+    #renderer;
 
-  constructor(options = {}) {
-    const { canvasId, backgroundColor, width, height, fullScreen, log } =
+    constructor(options = {}) {
+        const { canvasId, backgroundColor, width, height, fullScreen, log } =
       options;
-    log && console.log('options: ', options);
+        log && console.log('options: ', options);
 
-    this.#canvas = document.getElementById(canvasId);
-    this.#backgroundColor = backgroundColor;
-    this.#fullScreen = fullScreen;
-    this.#width = width;
-    this.#height = height;
-    this.#log = log;
-    this.#gameObjects = [];
+        this.#canvas = document.getElementById(canvasId);
+        this.#backgroundColor = backgroundColor;
+        this.#fullScreen = fullScreen;
+        this.#width = width;
+        this.#height = height;
+        this.#log = log;
 
-    this.#createApp();
-    this.#startAnimationLoop();
-    this.#resizeCanvas();
-  }
+        this.#createApp();
+        this.#renderer = new Renderer(
+            this,
+            this.#pixiApp,
+            this.#width,
+            this.#height,
+            this.#backgroundColor
+        );
+        this.#resizeCanvas();
+    }
 
-  #createApp() {
-    this.#setCanvasStyles();
-    const appOptions = this.#getAppOptions();
-    this.app = new PIXI.Application(appOptions);
-    this.app.stage.sortableChildren = true;
-    this.#log &&
+    #createApp() {
+        this.#setCanvasStyles();
+        const appOptions = this.#getAppOptions();
+        // eslint-disable-next-line no-undef
+        this.#pixiApp = new PIXI.Application(appOptions);
+        this.#pixiApp.stage.sortableChildren = true;
+        this.#log &&
       console.log(`createApp - width: ${this.#width}, ${this.#height}`);
-  }
-
-  #setCanvasStyles() {
-    this.#canvas.style.position = 'absolute';
-    this.#canvas.style.top = '50%';
-    this.#canvas.style.left = '50%';
-    this.#canvas.style.transform = 'translate(-50%, -50%)';
-    const full = '100%';
-    this.#canvas.style.width = this.#fullScreen ? full : `${this.#width}`;
-    this.#canvas.style.height = this.#fullScreen ? full : `${this.#height}`;
-    this.#canvas.style.border = this.#fullScreen ? 'none' : '2px solid white';
-  }
-
-  #getAppOptions() {
-    const appOptions = {
-      view: this.#canvas,
-      backgroundColor: this.#backgroundColor,
-    };
-
-    if (this.#fullScreen) {
-      appOptions.resizeTo = window;
-      this.#width = window.innerWidth;
-      this.#height = window.innerHeight;
-    } else {
-      appOptions.width = this.#width;
-      appOptions.height = this.#height;
     }
 
-    return appOptions;
-  }
-
-  #renderBackground() {
-    const background = new PIXI.Graphics();
-    background.beginFill(this.#backgroundColor);
-    background.drawRect(0, 0, this.#width, this.#height);
-    background.endFill();
-    return background;
-  }
-
-  #updateAndDrawGameObjects(deltaTime) {
-    for (const gameObject of this.#gameObjects) {
-      if (gameObject.isPlayable) {
-        gameObject.update(deltaTime);
-      } else if (gameObject.isBall) {
-        gameObject.update(deltaTime, this.#gameObjects);
-      }
-      gameObject.draw(this.app.stage);
+    #setCanvasStyles() {
+        this.#canvas.style.position = 'absolute';
+        this.#canvas.style.top = '50%';
+        this.#canvas.style.left = '50%';
+        this.#canvas.style.transform = 'translate(-50%, -50%)';
+        const full = '100%';
+        this.#canvas.style.width = this.#fullScreen ? full : `${this.#width}`;
+        this.#canvas.style.height = this.#fullScreen ? full : `${this.#height}`;
+        this.#canvas.style.border = this.#fullScreen ? 'none' : '2px solid white';
     }
-  }
 
-  #startAnimationLoop() {
-    this.app.ticker.add((deltaTime) => {
-      this.app.stage.removeChildren();
+    #getAppOptions() {
+        const appOptions = {
+            view: this.#canvas,
+            backgroundColor: this.#backgroundColor,
+        };
 
-      this.app.stage.addChild(this.#renderBackground());
+        if (this.#fullScreen) {
+            appOptions.resizeTo = window;
+            this.#width = window.innerWidth;
+            this.#height = window.innerHeight;
+        } else {
+            appOptions.width = this.#width;
+            appOptions.height = this.#height;
+        }
 
-      this.#updateAndDrawGameObjects(deltaTime);
+        return appOptions;
+    }
 
-      this.app.renderer.render(this.app.stage);
-    });
-  }
+    startAnimationLoop() {
+        this.#pixiApp.ticker.add((deltaTime) => {
+            this.#renderer.render(deltaTime);
+        });
+    }
 
-  #resizeCanvas() {
-    window.addEventListener('resize', () => {
-      if (this.#fullScreen) {
-        this.#width = window.innerWidth;
-        this.#height = window.innerHeight;
-      }
-      this.app.renderer.resize(this.#width, this.#height);
-      this.#log &&
+    #resizeCanvas() {
+        window.addEventListener('resize', () => {
+            if (this.#fullScreen) {
+                this.#width = window.innerWidth;
+                this.#height = window.innerHeight;
+            }
+            this.#pixiApp.renderer.resize(this.#width, this.#height);
+            this.#log &&
         console.log(`resizeCanvas - width: ${this.#width}, ${this.#height}`);
-    });
-  }
-
-  addGameObject(gameObject) {
-    this.#gameObjects.push(gameObject);
-  }
-
-  removeGameObject(gameObject) {
-    const index = this.#gameObjects.indexOf(gameObject);
-    if (index !== -1) {
-      this.#gameObjects.splice(index, 1);
+        });
     }
-  }
 
-  // Getters and Setters
-  get canvas() {
-    return this.#canvas;
-  }
+    addGameObject(gameObject) {
+        this.#gameObjects.push(gameObject);
+    }
 
-  get backgroundColor() {
-    return this.#backgroundColor;
-  }
+    removeGameObject(gameObject) {
+        const index = this.#gameObjects.indexOf(gameObject);
+        if (index !== -1) {
+            this.#gameObjects.splice(index, 1);
+        }
+    }
 
-  set backgroundColor(value) {
-    this.#backgroundColor = value;
-  }
+    get canvas() {
+        return this.#canvas;
+    }
 
-  get fullScreen() {
-    return this.#fullScreen;
-  }
+    get backgroundColor() {
+        return this.#backgroundColor;
+    }
 
-  set fullScreen(value) {
-    this.#fullScreen = value;
-  }
+    set backgroundColor(value) {
+        this.#backgroundColor = value;
+    }
 
-  get width() {
-    return this.#width;
-  }
+    get fullScreen() {
+        return this.#fullScreen;
+    }
 
-  set width(value) {
-    this.#width = value;
-  }
+    set fullScreen(value) {
+        this.#fullScreen = value;
+    }
 
-  get height() {
-    return this.#height;
-  }
+    get width() {
+        return this.#width;
+    }
 
-  set height(value) {
-    this.#height = value;
-  }
+    set width(value) {
+        this.#width = value;
+    }
 
-  get log() {
-    return this.#log;
-  }
+    get height() {
+        return this.#height;
+    }
 
-  set log(value) {
-    this.#log = value;
-  }
+    set height(value) {
+        this.#height = value;
+    }
+
+    get log() {
+        return this.#log;
+    }
+
+    set log(value) {
+        this.#log = value;
+    }
+
+    get gameObjects() {
+        return this.#gameObjects;
+    }
 }

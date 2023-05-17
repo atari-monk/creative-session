@@ -65,5 +65,7 @@ export class AppFactory {
     ball.client = client;
     app.addGameObject(ball);
     client.addPlayerObj(ball);
+
+    app.startAnimationLoop();
   }
 }
