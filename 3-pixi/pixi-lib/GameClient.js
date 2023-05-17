@@ -23,21 +23,26 @@ export class GameClient {
   }
 
   #handleConnect = () => {
-    console.log('GameClient connected.');
-    this.#clientId = this.#socket.id;
-    console.log('ClientId:', this.#clientId);
-    console.log('this.#playerObjs:', this.#playerObjs);
+    try {
+      this.#clientId = this.#socket.id;
+      const playablePlayer = this.#playerObjs.find(
+        (player) => player.isPlayable
+      );
 
-    const playablePlayer = this.#playerObjs.find((player) => player.isPlayable);
+      if (!playablePlayer) {
+        this.#noPlayablePlayerError();
+        return;
+      }
 
-    if (!playablePlayer) {
-      this.#showPlayerSelectionAlert();
-      return;
+      playablePlayer.client = this;
+      playablePlayer.clientId = this.#clientId;
+      this.#players[this.#clientId] = playablePlayer;
+
+      console.log('Connected to server');
+    } catch (err) {
+      console.error('Connection error:', err.message);
+      // Perform error handling, display error message to the user, etc.
     }
-
-    playablePlayer.client = this;
-    playablePlayer.clientId = this.#clientId;
-    this.#players[this.#clientId] = playablePlayer;
   };
 
   #handleMovement = ({ clientId, newPosition }) => {
@@ -61,10 +66,10 @@ export class GameClient {
     this.#players[player.clientId] = player;
   };
 
-  #showPlayerSelectionAlert() {
+  #noPlayablePlayerError() {
     const message =
       'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
-    alert(message);
+    throw new Error(message);
   }
 
   #updatePlayerPosition(clientId, newPosition) {
