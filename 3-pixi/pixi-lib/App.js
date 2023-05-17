@@ -54,23 +54,32 @@ export class App {
     return appOptions;
   }
 
+  renderBackground() {
+    const background = new PIXI.Graphics();
+    background.beginFill(this._backgroundColor);
+    background.drawRect(0, 0, this._width, this._height);
+    background.endFill();
+    return background;
+  }
+
+  updateAndDrawGameObjects(deltaTime) {
+    for (const gameObject of this._gameObjects) {
+      if (gameObject.isPlayable) {
+        gameObject.update(deltaTime);
+      } else if (gameObject.isBall) {
+        gameObject.update(deltaTime, this._gameObjects);
+      }
+      gameObject.draw(this.app.stage);
+    }
+  }
+
   startAnimationLoop() {
     this.app.ticker.add((deltaTime) => {
       this.app.stage.removeChildren();
 
-      const background = new PIXI.Graphics();
-      background.beginFill(this.backgroundColor);
-      background.drawRect(0, 0, this.width, this.height);
-      background.endFill();
-      this.app.stage.addChild(background);
+      this.app.stage.addChild(renderBackground());
 
-      this.gameObjects.forEach((gameObject) => {
-        if (gameObject.isPlayable)
-          gameObject.update(deltaTime);
-        else if (gameObject.isBall)
-          gameObject.update(deltaTime, this.gameObjects);
-        gameObject.draw(this.app.stage);
-      });
+      updateAndDrawGameObjects(deltaTime);
 
       this.app.renderer.render(this.app.stage);
     });
