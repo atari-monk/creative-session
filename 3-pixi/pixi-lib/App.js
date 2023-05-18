@@ -1,41 +1,32 @@
-import { Renderer } from './Renderer.js';
-
 export class App {
+  #pixiApp;
+  #renderer;
+
   #canvas;
+
   #backgroundColor;
   #fullScreen;
   #width;
   #height;
+
   #gameObjects = [];
-  #pixiApp;
-  #renderer;
 
   constructor(options = {}) {
-    const { canvasId, backgroundColor, width, height, fullScreen } = options;
+    const { width, height, backgroundColor, fullScreen, canvasId } = options;
 
-    this.#canvas = document.getElementById(canvasId);
-    this.#backgroundColor = backgroundColor;
-    this.#fullScreen = fullScreen;
     this.#width = width;
     this.#height = height;
-
-    this.#createApp();
-    this.#renderer = new Renderer(
-      this,
-      this.#pixiApp,
-      this.#width,
-      this.#height,
-      this.#backgroundColor
-    );
-    this.#resizeCanvas();
+    this.#backgroundColor = backgroundColor;
+    this.#fullScreen = fullScreen;
+    this.#canvas = document.getElementById(canvasId);
   }
 
-  #createApp() {
+  initializeApp(pixiApp, renderer) {
+    this.#pixiApp = pixiApp;
+    this.#renderer = renderer;
     this.#setCanvasStyles();
-    const appOptions = this.#getAppOptions();
-    // eslint-disable-next-line no-undef
-    this.#pixiApp = new PIXI.Application(appOptions);
     this.#pixiApp.stage.sortableChildren = true;
+    this.#resizeCanvas();
   }
 
   #setCanvasStyles() {
@@ -46,10 +37,10 @@ export class App {
     const full = '100%';
     this.#canvas.style.width = this.#fullScreen ? full : `${this.#width}`;
     this.#canvas.style.height = this.#fullScreen ? full : `${this.#height}`;
-    this.#canvas.style.border = this.#fullScreen ? 'none' : '2px solid white';
+    this.#canvas.style.border = this.#fullScreen ? 'none' : '1px solid white';
   }
 
-  #getAppOptions() {
+  getPixiAppOptions() {
     const appOptions = {
       view: this.#canvas,
       backgroundColor: this.#backgroundColor,

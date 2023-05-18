@@ -6,14 +6,16 @@ body {
   margin: 20px;
   margin-bottom: 0px;
   padding: 20px;
-  border: 1px white solid;
 }
 
-div {
+#description {
   margin: 20px;
   margin-top: 0px;
   padding: 20px;
   font-size: 18px;
   color: white;
   line-height: 1.6;
+  position: absolute;
+  top: 700px;
+  left: 500px;
 }

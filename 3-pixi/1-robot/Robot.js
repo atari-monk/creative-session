@@ -1,19 +1,20 @@
-export class Robot {
-  constructor(app, container) {
-    this.app = app;
-    this.container = container;
+import { GameObject } from './../pixi-lib/GameObject.js';
+
+export class Robot extends GameObject {
+  #pixiApp;
+
+  constructor(pixiApp) {
+    super();
+    this.#pixiApp = pixiApp;
+    this.container = new PIXI.Container();
     this.robotX = 0;
     this.robotDirection = 1;
 
-    this.createBodyParts();
-    this.setInitialPositions();
-
-    app.ticker.add(() => {
-      this.update();
-    });
+    this.#createBodyParts();
+    this.#setInitialPositions();
   }
 
-  createBodyParts() {
+  #createBodyParts() {
     this.head = PIXI.Sprite.from('./assets/head.png');
     this.torso = PIXI.Sprite.from('./assets/torso.png');
 
@@ -47,7 +48,7 @@ export class Robot {
     this.container.addChild(this.head, this.torso);
   }
 
-  setInitialPositions() {
+  #setInitialPositions() {
     this.head.position.set(160, 50);
     this.torso.position.set(90, 120);
     this.leftArmJoint.position.set(-20, 20);
@@ -56,10 +57,14 @@ export class Robot {
     this.rightLegJoint.position.set(80, 170);
   }
 
-  update() {
+  draw(stage) {
+    this.#pixiApp.stage.addChild(this.container);
+  }
+
+  update(deltaTime) {
+    const time = this.#pixiApp.ticker.lastTime;
     this.robotX += 1 * this.robotDirection;
 
-    const time = this.app.ticker.lastTime;
 
     // Update the position of the robot container
     this.container.position.x = this.robotX;
@@ -74,7 +79,7 @@ export class Robot {
     this.rightLegJoint.rotation = -legRotation;
 
     if (
-      this.robotX >= this.app.renderer.width - this.container.width ||
+      this.robotX >= this.#pixiApp.renderer.width - this.container.width ||
       this.robotX <= 0
     ) {
       this.robotDirection *= -1;
