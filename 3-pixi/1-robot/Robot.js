@@ -57,7 +57,7 @@ export class Robot {
   }
 
   update() {
-    this.robotX += 5 * this.robotDirection;
+    this.robotX += 1 * this.robotDirection;
 
     const time = this.app.ticker.lastTime;
 
@@ -65,8 +65,8 @@ export class Robot {
     this.container.position.x = this.robotX;
 
     // Rotate the arms and legs relative to the torso
-    const armRotation = Math.sin(time / 100) * 0.2;
-    const legRotation = -Math.sin(time / 100) * 0.2;
+    const armRotation = Math.sin(time / 100) * 0.05;
+    const legRotation = -Math.sin(time / 100) * 0.1;
 
     this.leftArmJoint.rotation = armRotation;
     this.rightArmJoint.rotation = -armRotation;

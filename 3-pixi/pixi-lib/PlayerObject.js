@@ -36,6 +36,7 @@ export class PlayerObject extends GameObject {
   }
 
   handleKeyboardInput() {
+    console.log('dsfsdfsdf');
     const keyboard = this.keyboard;
     const keys = this.keys;
     const direction = { x: 0, y: 0 };
