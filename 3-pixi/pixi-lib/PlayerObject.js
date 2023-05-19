@@ -2,15 +2,15 @@
 import { GameObject } from './GameObject.js';
 
 export class PlayerObject extends GameObject {
-  constructor(options = {}) {
+  constructor(keyboard, options = {}) {
     super();
+    this.keyboard = keyboard;
     const {
       id,
       radius,
       speed,
       width,
       height,
-      keyboard,
       keys,
       color,
       playerNr,
@@ -23,7 +23,6 @@ export class PlayerObject extends GameObject {
     this.height = height;
     this.direction = { x: 0, y: 0 };
     this.position = { x: width / 2, y: height / 2 };
-    this.keyboard = keyboard;
     this.keys = keys;
     this.color = color;
     this.isPlayable = isPlayable;
