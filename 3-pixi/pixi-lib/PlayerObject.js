@@ -35,7 +35,7 @@ export class PlayerObject extends GameObject {
   }
 
   handleKeyboardInput() {
-    console.log('dsfsdfsdf');
+    if (!this.isPlayable) return;
     const keyboard = this.keyboard;
     const keys = this.keys;
     const direction = { x: 0, y: 0 };
@@ -69,20 +69,22 @@ export class PlayerObject extends GameObject {
       y: this.position.y + direction.y * this.speed,
     };
 
+    //console.log(this);
     // Compare the new position with the current position
     if (
+      this.isPlayable &&
       this.client &&
-      this.client.clientId &&
+      this.clientId &&
       (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
-      // console.log(
-      //   'Emitting movement event:',
-      //   this.position,
-      //   this.client.clientId
-      // );
+      console.log(
+        'Emitting movement event:',
+        this.position,
+        this.clientId
+      );
       this.client.socket.emit('movement', {
-        clientId: this.client.clientId,
+        clientId: this.clientId,
         newPosition: this.position,
       });
     }

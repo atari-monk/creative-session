@@ -38,7 +38,7 @@ export class GameClient {
       playablePlayer.clientId = this.#clientId;
       this.#players[this.#clientId] = playablePlayer;
 
-      console.log('Connected to server');
+      console.log('Connected to server', this.#clientId);
     } catch (err) {
       console.error('Connection error:', err.message);
       // Perform error handling, display error message to the user, etc.
@@ -46,9 +46,9 @@ export class GameClient {
   };
 
   #handleMovement = ({ clientId, newPosition }) => {
-    if (newPosition) {
-      this.#updatePlayerPosition(clientId, newPosition);
-    }
+    if (!clientId) throw new Error('No clientId data!');
+    if (!newPosition) throw new Error('No possition data!');
+    this.#updatePlayerPosition(clientId, newPosition);
   };
 
   #handleDisconnect = () => {
@@ -56,14 +56,20 @@ export class GameClient {
   };
 
   #handleClientIdList = (clientIdList) => {
-    console.log('Received client ID list:', clientIdList);
-    console.log('this.#playerObjs:', this.#playerObjs);
-
+    const newClinetId = clientIdList.find((id) => id !== this.#clientId);
+    if (!newClinetId) return;
     const player = this.#playerObjs.find((player) => !player.isPlayable);
-    console.log('player:', player);
-
+    if (!player) throw new Error('No second player!');
     player.clientId = clientIdList.find((id) => id !== this.#clientId);
-    this.#players[player.clientId] = player;
+    this.#players[newClinetId] = player;
+    console.log('New player connected', newClinetId);
+    //console.log('Received client ID list:', clientIdList);
+    //console.log('this.#playerObjs:', this.#playerObjs);
+
+    //console.log('player:', player);
+
+    //if (!player.clientId) throw new Error('No player clientId in list event!');
+    //console.log('players state:', this.#players);
   };
 
   #noPlayablePlayerError() {
@@ -74,10 +80,12 @@ export class GameClient {
 
   #updatePlayerPosition(clientId, newPosition) {
     const player = this.#players[clientId];
-    if (player) {
-      player.setPosition(Object.assign({}, newPosition));
-      console.log('Player updated!');
+    if (!player) {
+      console.log(this.#players, clientId);
+      throw new Error('No player with this ID!');
     }
+    player.setPosition(Object.assign({}, newPosition));
+    console.log('Player updated!');
   }
 
   addPlayerObjs(players) {

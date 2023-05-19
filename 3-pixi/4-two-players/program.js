@@ -1,38 +1,26 @@
-import { App } from '../pixi-lib/App.js';
-import { KeyboardInput } from '../pixi-lib/KeyboardInput.js';
-import { PlayerObject } from '../pixi-lib/PlayerObject.js';
-import { GameClient } from '../pixi-lib/GameClient.js';
+import { App } from './../pixi-lib/App.js';
+import { Renderer } from './../pixi-lib/Renderer.js';
+import { KeyboardInput } from './../pixi-lib/KeyboardInput.js';
+import { PlayerObject } from './../pixi-lib/PlayerObject.js';
+import { GameClient } from './../pixi-lib/GameClient.js';
 
-// Get the URL search parameters
 const urlParams = new URLSearchParams(window.location.search);
 const playerParam = urlParams.get('player');
-
-const client = new GameClient();
-
-const keyboard = new KeyboardInput({
-  arrows: false,
-});
-
-const appOptions = {
-  canvasId: 'mainCanvasId',
-  backgroundColor: 0x000000,
+const appHelperOptions = {
   width: 800,
   height: 600,
-  fullScreen: true,
-  log: true,
+  backgroundColor: 0x000000,
+  fullScreen: false,
+  canvasId: 'canvas',
 };
-
-const app = new App(appOptions);
-
 const green = 0x00ff00;
 const blue = 0x0000ff;
-
 const playerOptions = {
+  id: 1,
   radius: 50,
   speed: 2,
-  width: app.width,
-  height: app.height,
-  keyboard: keyboard,
+  width: 800,
+  height: 600,
   keys: {
     a: 65,
     d: 68,
@@ -48,20 +36,14 @@ const playerOptions = {
     position: blue,
     direction: blue,
   },
-  isPlayable: playerParam === '1', // Set isPlayable based on the playerParam value
+  isPlayable: playerParam === '1',
 };
-
-const player = new PlayerObject(playerOptions);
-player.position.x = app.width / 2;
-player.position.y = app.height / 2;
-app.addGameObject(player);
-
 const playerOptions2 = {
+  id: 2,
   radius: 50,
   speed: 2,
-  width: app.width,
-  height: app.height,
-  keyboard: keyboard,
+  width: 800,
+  height: 600,
   keys: {
     a: 65,
     d: 68,
@@ -77,13 +59,25 @@ const playerOptions2 = {
     position: 0x0000ff,
     direction: 0x0000ff,
   },
-  isPlayable: playerParam === '2', // Set isPlayable based on the playerParam value
+  isPlayable: playerParam === '2',
 };
 
-const player2 = new PlayerObject(playerOptions2);
-player2.position.x = app.width / 2;
-player2.position.y = app.height / 2 + 100;
-app.addGameObject(player2);
+const client = new GameClient();
+const keyboard = new KeyboardInput({
+  arrows: false,
+});
+const appHelper = new App(appHelperOptions);
+const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
+const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
+const player = new PlayerObject(keyboard, playerOptions);
+player.position.x = appHelper.width / 2;
+player.position.y = appHelper.height / 2;
+const player2 = new PlayerObject(keyboard, playerOptions2);
+player2.position.x = appHelper.width / 2;
+player2.position.y = appHelper.height / 2 + 100;
 
+appHelper.initializeApp(pixiApp, renderer);
+appHelper.addGameObject(player);
+appHelper.addGameObject(player2);
 client.addPlayerObjs([player, player2]);
-app.startAnimationLoop();
+appHelper.startAnimationLoop();
