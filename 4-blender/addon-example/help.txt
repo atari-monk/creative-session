@@ -1,0 +1,23 @@
+https://www.youtube.com/watch?v=9Fyp3n2FsFQ
+
+chatgpt prompt:
+make a blender addon that adds a cube with a subdivision moddifier to the add menu. Make the default subdivision of 2  and make atari-monk the author
+
+resp:
+To create a Blender add-on that adds a cube with a Subdivision Modifier to the Add menu, follow these steps:
+
+Create a new text file in a text editor and name it "cube_subdivision.py".
+
+Copy and paste the following code into the "cube_subdivision.py" file: look in file
+
+Save the file and open Blender.
+
+In Blender, go to "Edit" > "Preferences" > "Add-ons".
+
+Click on "Install" and navigate to the location where you saved "cube_subdivision.py". Select the file and click "Install Add-on".
+
+Enable the add-on by ticking the checkbox next to its name in the add-ons list.
+
+Now, when you go to the "Add" menu in Blender (Shift + A), you will find a new category called "Mesh" with an option called "Cube with Subdivision". Clicking on it will add a cube with a Subdivision Modifier, where the default subdivision level is set to 2.
+
+This add-on was created with atari-monk as the author and will be available under the "Add" menu in Blender.
