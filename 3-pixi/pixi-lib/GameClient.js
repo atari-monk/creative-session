@@ -9,7 +9,7 @@ export class GameClient {
     this.#players = {};
   }
 
-  #setupSocketConnection(isInDevEnv = false) {
+  #setupSocketConnection(isInDevEnv = true) {
     // eslint-disable-next-line no-undef
     this.#socket = io.connect(
       isInDevEnv

@@ -29,6 +29,9 @@ export class Renderer {
       gameObject.update(deltaTime);
       gameObject.draw(this.#pixiApp.stage);
     }
+    const ball = this.#appHelper.gameObjects.find((obj) => obj.isBall);
+    const player = this.#appHelper.gameObjects.find((obj) => obj.isPlayable);
+    ball.handleCollisions(player);
   }
 
   render(deltaTime) {

@@ -43,8 +43,7 @@ export class BallObject extends GameObject {
       });
   }
 
-  update(deltaTime, gameObjects) {
-    this.handleCollisions(gameObjects);
+  update(deltaTime) {
     this.position.x += this.velocity.x * deltaTime;
     this.position.y += this.velocity.y * deltaTime;
     this.emitPossition();
@@ -80,12 +79,12 @@ export class BallObject extends GameObject {
     stage.addChild(directionGraphics);
   }
 
-  checkCircularCollision(player1, player2) {
-    const distanceX = player1.position.x - player2.position.x;
-    const distanceY = player1.position.y - player2.position.y;
+  checkCircularCollision(obj1, obj2) {
+    const distanceX = obj1.position.x - obj2.position.x;
+    const distanceY = obj1.position.y - obj2.position.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-    if (distance < player1.radius + player2.radius) {
+    if (distance < obj1.radius + obj2.radius) {
       // Collision detected
       return true;
     }
@@ -94,16 +93,9 @@ export class BallObject extends GameObject {
     return false;
   }
 
-  handleCollisions(gameObjects) {
-    gameObjects.forEach((gameObject) => {
-      if (
-        gameObject.id !== this.id &&
-        gameObject.isPlayable &&
-        this.checkCircularCollision(this, gameObject)
-      ) {
-        gameObject.kickBall(this);
-        console.log('kick', gameObject, this);
-      }
-    });
+  handleCollisions(gameObject) {
+    if (!this.checkCircularCollision(this, gameObject)) return;
+    gameObject.kickBall(this);
+    console.log('kick');
   }
 }
