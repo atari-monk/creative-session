@@ -13,6 +13,7 @@ class GameServer {
   #clients;
   #isLogging;
   #playerLimit;
+  #delayDisconnect;
 
   constructor() {
     this.#app = express();
@@ -29,6 +30,7 @@ class GameServer {
     this.#clients = {};
     this.#isLogging = true;
     this.#playerLimit = 2;
+    this.#delayDisconnect = 1000;
   }
 
   start() {
@@ -76,13 +78,16 @@ class GameServer {
   }
 
   #storeClient(clientId, socket) {
-    this.#clients[clientId] = { socket };
+    this.#clients[clientId] = { socket, state: 'Connecting' };
   }
 
   #handleClientDisconnection(clientId) {
     this.#clients[clientId].socket.on('disconnect', () => {
-      delete this.#clients[clientId];
-      this.#logClientsArray();
+      this.#clients[clientId].state = 'Disconnecting';
+      setTimeout(() => {
+        delete this.#clients[clientId];
+        this.#logClientsArray();
+      }, this.#delayDisconnect);
     });
   }
 
@@ -120,6 +125,7 @@ class GameServer {
     if (this.#isLogging) {
       const clientsArray = this.#getClientIdList().map((clientId) => ({
         clientId,
+        state: this.#clients[clientId].state,
       }));
       console.log('Clients Array:', clientsArray);
     }
