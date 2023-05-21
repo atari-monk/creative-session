@@ -4,83 +4,87 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 
-const app = express();
-const server = http.createServer(app);
+class GameServer {
+  constructor() {
+    this.app = express();
+    this.server = http.createServer(this.app);
+    this.ioOptions = {
+      cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type'],
+      },
+    };
+    this.io = socketIO(this.server, this.ioOptions);
+    this.PORT = process.env.PORT || 3000;
+    this.clients = {};
+  }
 
-const ioOptions = {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-  },
-};
+  start() {
+    this.configureMiddleware();
+    this.configureSocketIO();
+    this.listen();
+  }
 
-const io = socketIO(server, ioOptions);
+  configureMiddleware() {
+    this.app.use(cors());
+  }
 
-// Use the PORT environment variable or default to 3000
-const PORT = process.env.PORT || 3000;
+  configureSocketIO() {
+    this.io.on('connection', (socket) => {
+      this.handleClientConnection(socket);
+    });
+  }
 
-// Enable CORS for Express routes
-app.use(cors());
+  handleClientConnection(socket) {
+    console.log('A user connected');
 
-// Store connected clients
-const clients = {};
+    const clientId = this.generateClientId(socket);
+    this.storeClient(clientId, socket);
+    this.handleClientDisconnection(clientId);
+    this.handlePlayerMovement(socket);
 
-// Handle client connections
-function handleClientConnection(socket) {
-  console.log('A user connected');
+    const clientIdList = this.getClientIdList();
+    this.emitClientIdList(clientIdList);
 
-  const clientId = generateClientId(socket);
-  storeClient(clientId, socket);
-  handleClientDisconnection(clientId);
+    // Other game-related events and logic can be implemented here
+  }
 
-  handlePlayerMovement(socket);
+  generateClientId(socket) {
+    return socket.id;
+  }
 
-  const clientIdList = getClientIdList();
-  emitClientIdList(clientIdList);
+  storeClient(clientId, socket) {
+    this.clients[clientId] = { socket };
+  }
 
-  // Other game-related events and logic can be implemented here
+  handleClientDisconnection(clientId) {
+    this.clients[clientId].socket.on('disconnect', () => {
+      console.log('A user disconnected');
+      delete this.clients[clientId];
+    });
+  }
+
+  handlePlayerMovement(socket) {
+    socket.on('movement', ({ clientId, newPosition }) => {
+      socket.broadcast.emit('movement', { clientId, newPosition });
+    });
+  }
+
+  getClientIdList() {
+    return Object.keys(this.clients);
+  }
+
+  emitClientIdList(clientIdList) {
+    this.io.emit('clientIdList', clientIdList);
+  }
+
+  listen() {
+    this.server.listen(this.PORT, () => {
+      console.log(`Server is running on port ${this.PORT}`);
+    });
+  }
 }
 
-// Generate a unique ID for the client
-function generateClientId(socket) {
-  return socket.id;
-}
-
-// Store the client in the clients object
-function storeClient(clientId, socket) {
-  clients[clientId] = { socket };
-}
-
-// Handle client disconnections
-function handleClientDisconnection(clientId) {
-  clients[clientId].socket.on('disconnect', () => {
-    console.log('A user disconnected');
-    delete clients[clientId];
-  });
-}
-
-// Handle player movement
-function handlePlayerMovement(socket) {
-  socket.on('movement', ({ clientId, newPosition }) => {
-    socket.broadcast.emit('movement', { clientId, newPosition });
-  });
-}
-
-// Get the list of client IDs
-function getClientIdList() {
-  return Object.keys(clients);
-}
-
-// Emit the client ID list to all clients
-function emitClientIdList(clientIdList) {
-  io.emit('clientIdList', clientIdList);
-}
-
-// Handle client connections
-io.on('connection', handleClientConnection);
-
-// Start the server
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const gameServer = new GameServer();
+gameServer.start();
