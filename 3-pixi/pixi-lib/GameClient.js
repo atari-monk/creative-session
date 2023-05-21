@@ -6,12 +6,12 @@ export class GameClient {
   #isLogging;
 
   constructor() {
-    this.#setupSocketConnection();
+    this._setupSocketConnection();
     this.#players = {};
     this.#isLogging = true;
   }
 
-  #setupSocketConnection(isInDevEnv = true) {
+  _setupSocketConnection(isInDevEnv = true) {
     // eslint-disable-next-line no-undef
     this.#socket = io.connect(
       isInDevEnv
@@ -43,7 +43,6 @@ export class GameClient {
       this.#log(`Connected to server, id: ${this.#clientId}`);
     } catch (err) {
       console.error('Connection error:', err.message);
-      // Perform error handling, display error message to the user, etc.
     }
   };
 

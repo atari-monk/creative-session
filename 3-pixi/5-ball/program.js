@@ -2,7 +2,7 @@ import { App } from './../pixi-lib/App.js';
 import { Renderer } from './../pixi-lib/Renderer.js';
 import { KeyboardInput } from './../pixi-lib/KeyboardInput.js';
 import { PlayerObject } from './../pixi-lib/PlayerObject.js';
-import { GameClient } from './../pixi-lib/GameClient.js';
+import { BallGameClient } from './../pixi-lib/BallGameClient.js';
 import { BallObject } from '../pixi-lib/BallObject.js';
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -83,7 +83,7 @@ const ballOptions = {
   height: 600,
 };
 
-const client = new GameClient();
+const client = new BallGameClient();
 const keyboard = new KeyboardInput({
   arrows: false,
 });
@@ -106,5 +106,5 @@ appHelper.addGameObject(player);
 appHelper.addGameObject(player2);
 appHelper.addGameObject(ball);
 client.addPlayerObjs([player, player2]);
-client.addPlayerObj(ball);
+client.addBallObj(ball);
 appHelper.startAnimationLoop();
