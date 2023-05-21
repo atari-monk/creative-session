@@ -55,7 +55,7 @@ class GameServer {
   #configureSocketIO() {
     this.#io.on('connection', (socket) => {
       if (this.#getClientCount() < this.#playerLimit) {
-        this.#handleClientConnection(socket);
+        this._handleClientConnection(socket);
       } else {
         socket.disconnect();
         this.#log('Disconnected player exceeding the limit');
@@ -63,7 +63,7 @@ class GameServer {
     });
   }
 
-  #handleClientConnection(socket) {
+  _handleClientConnection(socket) {
     const clientId = this.#generateClientId(socket);
     this.#storeClient(clientId, socket);
     this.#handleClientDisconnection(clientId);
@@ -132,5 +132,4 @@ class GameServer {
   }
 }
 
-const gameServer = new GameServer();
-gameServer.start();
+module.exports = { GameServer };

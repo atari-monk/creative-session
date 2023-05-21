@@ -36,11 +36,12 @@ export class BallObject extends GameObject {
   }
 
   emitPossition() {
-    if (this.velocity.x > 0 || this.velocity.y > 0)
-      this.client.socket.emit('movement', {
-        clientId: this.client.clientId,
-        newPosition: this.position,
-      });
+    if (this.velocity.x == 0 && this.velocity.y == 0) return;
+    console.log('ballMovement');
+    this.client.socket.emit('ballMovement', {
+      clientId: this.client.clientId,
+      newPosition: this.position,
+    });
   }
 
   update(deltaTime) {

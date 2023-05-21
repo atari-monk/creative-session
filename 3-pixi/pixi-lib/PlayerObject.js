@@ -78,11 +78,11 @@ export class PlayerObject extends GameObject {
       (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
-      console.log(
-        'Emitting movement event:',
-        this.position,
-        this.clientId
-      );
+      //   console.log(
+      //     'Emitting movement event:',
+      //     this.position,
+      //     this.clientId
+      //   );
       this.client.socket.emit('movement', {
         clientId: this.clientId,
         newPosition: this.position,
