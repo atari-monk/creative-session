@@ -12,6 +12,7 @@ class GameServer {
   #PORT;
   #clients;
   #isLogging;
+  #playerLimit;
 
   constructor() {
     this.#app = express();
@@ -27,6 +28,7 @@ class GameServer {
     this.#PORT = process.env.PORT || 3000;
     this.#clients = {};
     this.#isLogging = true;
+    this.#playerLimit = 2;
   }
 
   start() {
@@ -35,13 +37,27 @@ class GameServer {
     this.#listen();
   }
 
+  setPlayerLimit(limit) {
+    if (typeof limit === 'number' && limit > 0) {
+      this.#playerLimit = limit;
+      this.#log(`Player limit set to ${limit}`);
+    } else {
+      this.#log('Invalid player limit. Please provide a positive number.');
+    }
+  }
+
   #configureMiddleware() {
     this.#app.use(cors());
   }
 
   #configureSocketIO() {
     this.#io.on('connection', (socket) => {
-      this.#handleClientConnection(socket);
+      if (this.#getClientCount() < this.#playerLimit) {
+        this.#handleClientConnection(socket);
+      } else {
+        socket.disconnect();
+        this.#log('Disconnected player exceeding the limit');
+      }
     });
   }
 
@@ -82,6 +98,10 @@ class GameServer {
 
   #emitClientIdList(clientIdList) {
     this.#io.emit('clientIdList', clientIdList);
+  }
+
+  #getClientCount() {
+    return Object.keys(this.#clients).length;
   }
 
   #listen() {
