@@ -11,6 +11,7 @@ class GameServer {
   #io;
   #PORT;
   #clients;
+  #isLogging;
 
   constructor() {
     this.#app = express();
@@ -25,6 +26,7 @@ class GameServer {
     this.#io = socketIO(this.#server, this.#ioOptions);
     this.#PORT = process.env.PORT || 3000;
     this.#clients = {};
+    this.#isLogging = true;
   }
 
   start() {
@@ -44,7 +46,7 @@ class GameServer {
   }
 
   #handleClientConnection(socket) {
-    console.log('A user connected');
+    this.#log('A user connected');
 
     const clientId = this.#generateClientId(socket);
     this.#storeClient(clientId, socket);
@@ -53,8 +55,6 @@ class GameServer {
 
     const clientIdList = this.#getClientIdList();
     this.#emitClientIdList(clientIdList);
-
-    // Other game-related events and logic can be implemented here
   }
 
   #generateClientId(socket) {
@@ -67,7 +67,7 @@ class GameServer {
 
   #handleClientDisconnection(clientId) {
     this.#clients[clientId].socket.on('disconnect', () => {
-      console.log('A user disconnected');
+      this.#log('A user disconnected');
       delete this.#clients[clientId];
     });
   }
@@ -88,8 +88,14 @@ class GameServer {
 
   #listen() {
     this.#server.listen(this.#PORT, () => {
-      console.log(`Server is running on port ${this.#PORT}`);
+      this.#log(`Server is running on port ${this.#PORT}`);
     });
+  }
+
+  #log(message) {
+    if (this.#isLogging) {
+      console.log(message);
+    }
   }
 }
 
