@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
@@ -25,33 +26,59 @@ app.use(cors());
 // Store connected clients
 const clients = {};
 
-io.on('connection', (socket) => {
+// Handle client connections
+function handleClientConnection(socket) {
   console.log('A user connected');
 
-  // Generate a unique ID for the client
-  const clientId = socket.id;
+  const clientId = generateClientId(socket);
+  storeClient(clientId, socket);
+  handleClientDisconnection(clientId);
 
-  // Store the client in the clients object
+  handlePlayerMovement(socket);
+
+  const clientIdList = getClientIdList();
+  emitClientIdList(clientIdList);
+
+  // Other game-related events and logic can be implemented here
+}
+
+// Generate a unique ID for the client
+function generateClientId(socket) {
+  return socket.id;
+}
+
+// Store the client in the clients object
+function storeClient(clientId, socket) {
   clients[clientId] = { socket };
+}
 
-  // Handle client disconnections
-  socket.on('disconnect', () => {
+// Handle client disconnections
+function handleClientDisconnection(clientId) {
+  clients[clientId].socket.on('disconnect', () => {
     console.log('A user disconnected');
     delete clients[clientId];
   });
+}
 
-  // Handle player movement
+// Handle player movement
+function handlePlayerMovement(socket) {
   socket.on('movement', ({ clientId, newPosition }) => {
-    // Broadcast the movement to other clients
     socket.broadcast.emit('movement', { clientId, newPosition });
   });
+}
 
-  const clientIdList = Object.keys(clients);
-  console.log(clientIdList);
+// Get the list of client IDs
+function getClientIdList() {
+  return Object.keys(clients);
+}
+
+// Emit the client ID list to all clients
+function emitClientIdList(clientIdList) {
   io.emit('clientIdList', clientIdList);
+}
 
-  // Other game-related events and logic can be implemented here
-});
+// Handle client connections
+io.on('connection', handleClientConnection);
 
 // Start the server
 server.listen(PORT, () => {
