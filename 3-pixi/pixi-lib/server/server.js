@@ -46,15 +46,13 @@ class GameServer {
   }
 
   #handleClientConnection(socket) {
-    this.#log('A user connected');
-
     const clientId = this.#generateClientId(socket);
     this.#storeClient(clientId, socket);
     this.#handleClientDisconnection(clientId);
     this.#handlePlayerMovement(socket);
 
-    const clientIdList = this.#getClientIdList();
-    this.#emitClientIdList(clientIdList);
+    this.#emitClientIdList(this.#getClientIdList());
+    this.#logClientsArray();
   }
 
   #generateClientId(socket) {
@@ -67,8 +65,8 @@ class GameServer {
 
   #handleClientDisconnection(clientId) {
     this.#clients[clientId].socket.on('disconnect', () => {
-      this.#log('A user disconnected');
       delete this.#clients[clientId];
+      this.#logClientsArray();
     });
   }
 
@@ -95,6 +93,15 @@ class GameServer {
   #log(message) {
     if (this.#isLogging) {
       console.log(message);
+    }
+  }
+
+  #logClientsArray() {
+    if (this.#isLogging) {
+      const clientsArray = this.#getClientIdList().map((clientId) => ({
+        clientId,
+      }));
+      console.log('Clients Array:', clientsArray);
     }
   }
 }
