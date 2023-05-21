@@ -30,6 +30,10 @@ export class BallObject extends GameObject {
     this.velocity.y = newVelocity.y;
   }
 
+  getVelocity() {
+    return this.velocity;
+  }
+
   setDirection(newDirection) {
     this.direction.x = newDirection.x;
     this.direction.y = newDirection.y;
@@ -37,10 +41,17 @@ export class BallObject extends GameObject {
 
   emitPossition() {
     if (this.velocity.x == 0 && this.velocity.y == 0) return;
-    console.log('ballMovement');
+    //console.log('ballMovement');
     this.client.socket.emit('ballMovement', {
       clientId: this.client.clientId,
       newPosition: this.position,
+    });
+  }
+
+  emitVelocity() {
+    this.client.socket.emit('ballVelocity', {
+      clientId: this.client.clientId,
+      newVelocity: this.velocity,
     });
   }
 
@@ -86,6 +97,7 @@ export class BallObject extends GameObject {
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance < obj1.radius + obj2.radius) {
+      //console.log('collision');
       // Collision detected
       return true;
     }
@@ -94,9 +106,38 @@ export class BallObject extends GameObject {
     return false;
   }
 
+  bounce() {
+    const currentVelocity = this.getVelocity();
+    const reversedVelocity = {
+      x: -currentVelocity.x,
+      y: -currentVelocity.y,
+    };
+
+    this.setVelocity(reversedVelocity);
+    this.emitVelocity();
+    console.log(this.velocity);
+  }
+
   handleCollisions(gameObject) {
     if (!this.checkCircularCollision(this, gameObject)) return;
-    gameObject.kickBall(this);
-    console.log('kick');
+
+    if (gameObject.direction.x !== 0 || gameObject.direction.y !== 0) {
+      gameObject.kickBall(this);
+      console.log('kick');
+
+      gameObject.cantBounce = true;
+      setTimeout(() => {
+        gameObject.cantBounce = false;
+      }, 2000);
+    }
+
+    if (
+      !gameObject.cantBounce &&
+      gameObject.direction.x === 0 &&
+      gameObject.direction.y === 0
+    ) {
+      this.bounce();
+      console.log('bounce');
+    }
   }
 }

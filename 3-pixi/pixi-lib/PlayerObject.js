@@ -142,6 +142,7 @@ export class PlayerObject extends GameObject {
 
     // Set the ball's velocity to the calculated vector
     ball.setVelocity(velocity);
+    ball.emitVelocity();
     //ball.setDirection(this.direction);
   }
 }
