@@ -3,10 +3,12 @@ export class GameClient {
   #playerObjs = [];
   #players = {};
   #socket = null;
+  #isLogging;
 
   constructor() {
     this.#setupSocketConnection();
     this.#players = {};
+    this.#isLogging = true;
   }
 
   #setupSocketConnection(isInDevEnv = true) {
@@ -38,7 +40,7 @@ export class GameClient {
       playablePlayer.clientId = this.#clientId;
       this.#players[this.#clientId] = playablePlayer;
 
-      console.log('Connected to server', this.#clientId);
+      this.#log(`Connected to server, id: ${this.#clientId}`);
     } catch (err) {
       console.error('Connection error:', err.message);
       // Perform error handling, display error message to the user, etc.
@@ -52,7 +54,7 @@ export class GameClient {
   };
 
   #handleDisconnect = () => {
-    console.log('Disconnected from server');
+    this.#log('Disconnected from server');
   };
 
   #handleClientIdList = (clientIdList) => {
@@ -62,14 +64,7 @@ export class GameClient {
     if (!player) throw new Error('No second player!');
     player.clientId = clientIdList.find((id) => id !== this.#clientId);
     this.#players[newClinetId] = player;
-    console.log('New player connected', newClinetId);
-    //console.log('Received client ID list:', clientIdList);
-    //console.log('this.#playerObjs:', this.#playerObjs);
-
-    //console.log('player:', player);
-
-    //if (!player.clientId) throw new Error('No player clientId in list event!');
-    //console.log('players state:', this.#players);
+    this.#log(`New player connected, id: ${newClinetId}'`);
   };
 
   #noPlayablePlayerError() {
@@ -81,11 +76,15 @@ export class GameClient {
   #updatePlayerPosition(clientId, newPosition) {
     const player = this.#players[clientId];
     if (!player) {
-      console.log(this.#players, clientId);
-      throw new Error('No player with this ID!');
+      throw new Error(`No player with id: ${clientId}`);
     }
     player.setPosition(Object.assign({}, newPosition));
-    console.log('Player updated!');
+  }
+
+  #log(message) {
+    if (this.#isLogging) {
+      console.log(message);
+    }
   }
 
   addPlayerObjs(players) {
