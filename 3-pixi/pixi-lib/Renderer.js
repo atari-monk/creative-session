@@ -29,15 +29,19 @@ export class Renderer {
       gameObject.update(deltaTime);
       gameObject.draw(this.#pixiApp.stage);
     }
+  }
+
+  handleBall() {
     const ball = this.#appHelper.gameObjects.find((obj) => obj.isBall);
     const player = this.#appHelper.gameObjects.find((obj) => obj.isPlayable);
-    ball.handleCollisions(player);
+    ball?.handleCollisions(player);
   }
 
   render(deltaTime) {
     this.#pixiApp.stage.removeChildren();
     //this.#pixiApp.stage.addChild(this.renderBackground());
     this.updateAndDrawGameObjects(deltaTime);
+    this.handleBall();
     //this.#pixiApp.renderer.render(this.#pixiApp.stage);
   }
 }
