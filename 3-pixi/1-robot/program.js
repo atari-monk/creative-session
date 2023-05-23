@@ -1,4 +1,4 @@
-import { App } from './../pixi-lib/App.js';
+import { AppHelper } from './../pixi-lib/AppHelper.js';
 import { Renderer } from './../pixi-lib/Renderer.js';
 import { Robot } from './Robot.js';
 import { RobotBody } from './RobotBody.js';
@@ -11,7 +11,7 @@ const appHelperOptions = {
   canvasId: 'canvas',
 };
 
-const appHelper = new App(appHelperOptions);
+const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
 const robotBody = new RobotBody();

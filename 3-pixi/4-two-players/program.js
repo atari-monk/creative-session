@@ -1,4 +1,4 @@
-import { App } from './../pixi-lib/App.js';
+import { AppHelper } from './../pixi-lib/AppHelper.js';
 import { Renderer } from './../pixi-lib/Renderer.js';
 import { KeyboardInput } from './../pixi-lib/KeyboardInput.js';
 import { PlayerObject } from './../pixi-lib/PlayerObject.js';
@@ -66,7 +66,7 @@ const client = new GameClient();
 const keyboard = new KeyboardInput({
   arrows: false,
 });
-const appHelper = new App(appHelperOptions);
+const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
 const player = new PlayerObject(keyboard, playerOptions);

@@ -1,4 +1,4 @@
-export class App {
+export class AppHelper {
   #pixiApp;
   #renderer;
 
