@@ -1,11 +1,18 @@
 To start a Pixi.js project with a bundler (Webpack) and TypeScript from scratch, you can follow these steps:
 
+Note: to refresh linter, restart VS
+
 1. Folder
 2. Terminal in Folder
 3. 
-npm init
+npm init -y
+
+3b.
+Add author
+
 4. 
 npm install webpack webpack-cli typescript ts-loader --save-dev
+
 5. 
 npm install pixi.js
 6. 
@@ -13,16 +20,17 @@ tsconfig.json
 
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "sourceMap": true
+    "outDir": "dist",
+    "strict": true
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
+
+ignore linter error or fix if u can.
+
 7. 
 webpack.config.js
 

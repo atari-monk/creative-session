@@ -1,0 +1,21 @@
+{
+  "name": "6-setup",
+  "version": "1.0.0",
+  "description": "To start a Pixi.js project with a bundler (Webpack) and TypeScript from scratch, you can follow these steps:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "atari-monk",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "pixi.js": "^7.2.4"
+  }
+}
