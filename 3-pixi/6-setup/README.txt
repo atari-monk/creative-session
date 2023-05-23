@@ -29,7 +29,7 @@ tsconfig.json
   "exclude": ["node_modules"]
 }
 
-ignore linter error or fix if u can.
+ignore linter error or fix if u can, or restart VSCode (sometimes seems stuck on old file).
 
 7. 
 webpack.config.js
