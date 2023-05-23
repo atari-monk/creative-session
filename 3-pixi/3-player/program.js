@@ -13,6 +13,7 @@ const appHelperOptions = {
 const green = 0x00ff00;
 const blue = 0x0000ff;
 const playerOptions = {
+  id: 1,
   radius: 50,
   speed: 2,
   width: 800,
@@ -32,6 +33,7 @@ const playerOptions = {
     position: blue,
     direction: blue,
   },
+  isPlayable: true
 };
 
 const keyboard = new KeyboardInput({
