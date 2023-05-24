@@ -1,6 +1,7 @@
-import { AppHelper } from './../pixi-lib/AppHelper.js';
-import { Renderer } from './../pixi-lib/Renderer.js';
-import { PixiRectangle } from './../pixi-lib/PixiRectangle.js';
+import * as PIXI from 'pixi.js';
+import { AppHelper } from '../../pixi-lib/AppHelper.js';
+import { Renderer } from '../../pixi-lib/Renderer.js';
+import { PixiRectangle } from '../../pixi-lib/PixiRectangle.js';
 
 const appHelperOptions = {
   width: 800,
@@ -11,7 +12,7 @@ const appHelperOptions = {
 };
 
 const appHelper = new AppHelper(appHelperOptions);
-const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
+const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions() as any);
 const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
 const rectangle = new PixiRectangle(pixiApp);
 
