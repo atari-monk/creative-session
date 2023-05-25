@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 
 export class PlayerObject extends GameObject {

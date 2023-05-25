@@ -1,3 +1,4 @@
+import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 
 export class PixiRectangle extends GameObject {
