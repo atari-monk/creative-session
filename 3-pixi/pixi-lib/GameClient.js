@@ -1,3 +1,5 @@
+import * as io from 'socket.io-client';
+
 export class GameClient {
   #clientId = null;
   #playerObjs = [];

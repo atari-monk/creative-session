@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "strict": true,
+    "allowJs": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "./../pixi-lib/**/*.ts",
+    "./../pixi-lib/**/*.js"
+  ],
+  "exclude": ["node_modules"]
+}
