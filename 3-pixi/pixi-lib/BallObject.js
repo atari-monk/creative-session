@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 
 export class BallObject extends GameObject {
@@ -18,6 +18,7 @@ export class BallObject extends GameObject {
     this.color = color;
     this.isBall = isBall;
     this.velocity = { x: 0, y: 0 };
+    this.client = undefined;
   }
 
   setPosition(newPosition) {
