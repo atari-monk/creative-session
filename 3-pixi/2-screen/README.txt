@@ -19,8 +19,8 @@ tsconfig.json
   "include": [
     "src/**/*.ts",
     "src/**/*.js",
-    "./../../pixi-lib/**/*.ts",
-    "./../../pixi-lib/**/*.js"
+    "./../2-pixi-lib/**/*.ts",
+    "./../2-pixi-lib/**/*.js"
   ],
   "exclude": ["node_modules"]
 }
