@@ -1,10 +1,11 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from '../../pixi-lib/AppHelper.js';
-import { Renderer } from '../../pixi-lib/Renderer.js';
-import { KeyboardInput } from '../../pixi-lib/KeyboardInput.js';
-import { PlayerObject } from '../../pixi-lib/PlayerObject.js';
-import { BallGameClient } from '../../pixi-lib/BallGameClient.js';
-import { BallObject } from '../../pixi-lib/BallObject.js';
+import { AppHelper } from './../../pixi-lib/AppHelper.js';
+import { Renderer } from './../../pixi-lib/Renderer.js';
+import { KeyboardInput } from './../../pixi-lib/KeyboardInput.js';
+import { PlayerObject } from './../../pixi-lib/PlayerObject.js';
+import { BallGameClient } from './../../pixi-lib/BallGameClient.js';
+import { BallObject } from './../../pixi-lib/BallObject.js';
+import { AppHelperOptions } from './../../pixi-lib/AppHelperOptions.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -15,7 +16,7 @@ if (playerUrlParam !== '1' && playerUrlParam !== '2') {
     'Please specify either "1" or "2".'
   );
 }
-const appHelperOptions = {
+const appHelperOptions: AppHelperOptions = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
@@ -87,7 +88,7 @@ const ballOptions = {
 const client = new BallGameClient();
 const keyboard = new KeyboardInput();
 const appHelper = new AppHelper(appHelperOptions);
-const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions() as any);
+const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
 const player = new PlayerObject(keyboard, playerOptions);
 player.position.x = appHelper.width / 2 - 250;
