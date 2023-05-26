@@ -5,72 +5,64 @@ export class PlayerObject extends GameObject {
   constructor(keyboard, options = {}) {
     super();
     this.keyboard = keyboard;
-    const {
-      id,
-      radius,
-      speed,
-      width,
-      height,
-      keys,
-      color,
-      playerNr,
-      isPlayable,
-    } = options;
-    this.id = id;
-    this.radius = radius;
-    this.speed = speed;
-    this.width = width;
-    this.height = height;
+    this.id = options.id;
+    this.radius = options.radius;
+    this.speed = options.speed;
+    this.width = options.width;
+    this.height = options.height;
     this.direction = { x: 0, y: 0 };
-    this.position = { x: width / 2, y: height / 2 };
-    this.keys = keys;
-    this.color = color;
-    this.isPlayable = isPlayable;
-    this.playerNr = playerNr;
+    this.position = { x: this.width / 2, y: this.height / 2 };
+    this.keys = options.keys;
+    this.color = options.color;
+    this.isPlayable = options.isPlayable;
+    this.playerNr = options.playerNr;
   }
 
   setPosition(newPosition) {
-    this.position.x = newPosition.x;
-    this.position.y = newPosition.y;
+    this.position = { ...newPosition };
   }
 
   handleKeyboardInput() {
     if (!this.isPlayable) return;
-    const keyboard = this.keyboard;
-    const keys = this.keys;
-    const direction = { x: 0, y: 0 };
 
-    if (keyboard.isKeyDown(keys.left) || keyboard.isKeyDown(keys.a)) {
+    const direction = { x: 0, y: 0 };
+    const { keys } = this;
+
+    if (this.keyboard.isKeyDown(keys.left) || this.keyboard.isKeyDown(keys.a)) {
       direction.x -= 1;
     }
 
-    if (keyboard.isKeyDown(keys.right) || keyboard.isKeyDown(keys.d)) {
+    if (
+      this.keyboard.isKeyDown(keys.right) ||
+      this.keyboard.isKeyDown(keys.d)
+    ) {
       direction.x += 1;
     }
 
-    if (keyboard.isKeyDown(keys.up) || keyboard.isKeyDown(keys.w)) {
+    if (this.keyboard.isKeyDown(keys.up) || this.keyboard.isKeyDown(keys.w)) {
       direction.y -= 1;
     }
 
-    if (keyboard.isKeyDown(keys.down) || keyboard.isKeyDown(keys.s)) {
+    if (this.keyboard.isKeyDown(keys.down) || this.keyboard.isKeyDown(keys.s)) {
       direction.y += 1;
     }
 
-    const length = Math.sqrt(
-      direction.x * direction.x + direction.y * direction.y
-    );
+    const length = Math.sqrt(direction.x ** 2 + direction.y ** 2);
     if (length !== 0) {
       direction.x /= length;
       direction.y /= length;
     }
 
+    this.direction = direction;
+    this.emitMovementEventIfNeeded();
+  }
+
+  emitMovementEventIfNeeded() {
     const newPosition = {
-      x: this.position.x + direction.x * this.speed,
-      y: this.position.y + direction.y * this.speed,
+      x: this.position.x + this.direction.x * this.speed,
+      y: this.position.y + this.direction.y * this.speed,
     };
 
-    //console.log(this);
-    // Compare the new position with the current position
     if (
       this.isPlayable &&
       this.client &&
@@ -78,18 +70,11 @@ export class PlayerObject extends GameObject {
       (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
-      //   console.log(
-      //     'Emitting movement event:',
-      //     this.position,
-      //     this.clientId
-      //   );
       this.client.socket.emit('movement', {
         clientId: this.clientId,
         newPosition: this.position,
       });
     }
-
-    this.direction = direction;
   }
 
   update(deltaTime) {
@@ -99,20 +84,26 @@ export class PlayerObject extends GameObject {
       x: this.direction.x * this.speed * deltaTime,
       y: this.direction.y * this.speed * deltaTime,
     };
+
     this.position.x += velocity.x;
     this.position.y += velocity.y;
   }
 
   draw(stage) {
+    this.drawPlayerCircle(stage);
+    this.drawPositionCircle(stage);
+    this.drawDirectionLine(stage);
+  }
+
+  drawPlayerCircle(stage) {
     const graphics = new PIXI.Graphics();
     graphics.beginFill(this.color.player);
     graphics.drawCircle(this.position.x, this.position.y, this.radius);
     graphics.endFill();
     stage.addChild(graphics);
-    this.drawVectors(stage);
   }
 
-  drawVectors(stage) {
+  drawPositionCircle(stage) {
     const positionGraphics = new PIXI.Graphics();
     positionGraphics.beginFill(this.color.position);
     positionGraphics.drawCircle(0, 0, 4);
@@ -120,7 +111,9 @@ export class PlayerObject extends GameObject {
     positionGraphics.x = this.position.x;
     positionGraphics.y = this.position.y;
     stage.addChild(positionGraphics);
+  }
 
+  drawDirectionLine(stage) {
     const directionGraphics = new PIXI.Graphics();
     directionGraphics.lineStyle(2, this.color.direction);
     directionGraphics.moveTo(this.position.x, this.position.y);
@@ -134,15 +127,12 @@ export class PlayerObject extends GameObject {
   }
 
   kickBall(ball) {
-    // Calculate the velocity vector based on player's direction and speed
     const velocity = {
       x: this.direction.x * this.speed * 2,
       y: this.direction.y * this.speed * 2,
     };
 
-    // Set the ball's velocity to the calculated vector
     ball.setVelocity(velocity);
     ball.emitVelocity();
-    //ball.setDirection(this.direction);
   }
 }
