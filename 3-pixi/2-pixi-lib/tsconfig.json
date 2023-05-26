@@ -7,8 +7,8 @@
     "allowJs": true
   },
   "include": [
-    "./**/*.ts",
-    "./**/*.js"
+    "./src/**/*.ts",
+    "./src/**/*.js"
   ],
   "exclude": ["node_modules"]
 }

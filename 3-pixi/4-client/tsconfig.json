@@ -8,9 +8,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.js",
-    "./../2-pixi-lib/**/*.ts",
-    "./../2-pixi-lib/**/*.js"
+    "src/**/*.js"
   ],
   "exclude": ["node_modules"]
 }

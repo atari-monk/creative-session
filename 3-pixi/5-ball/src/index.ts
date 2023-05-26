@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './../../pixi-lib/AppHelper.js';
-import { Renderer } from './../../pixi-lib/Renderer.js';
-import { KeyboardInput } from './../../pixi-lib/KeyboardInput.js';
-import { PlayerObject } from './../../pixi-lib/PlayerObject.js';
-import { BallGameClient } from './../../pixi-lib/BallGameClient.js';
-import { BallObject } from './../../pixi-lib/BallObject.js';
-import { AppHelperOptions } from './../../pixi-lib/AppHelperOptions.js';
+import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
+import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
+import { KeyboardInput } from './../../2-pixi-lib/dist/KeyboardInput.js';
+import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
+import { BallGameClient } from './../../4-client/dist/BallGameClient.js';
+import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
+import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
