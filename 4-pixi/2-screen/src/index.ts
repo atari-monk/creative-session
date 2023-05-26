@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from '../../pixi-lib/AppHelper.js';
-import { Renderer } from '../../pixi-lib/Renderer.js';
-import { PixiRectangle } from '../../pixi-lib/PixiRectangle.js';
+import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
+import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
+import { PixiRectangle } from './../../2-pixi-lib/dist/PixiRectangle.js';
+import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
 
-const appHelperOptions = {
+const appHelperOptions: AppHelperOptions = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
@@ -12,10 +13,12 @@ const appHelperOptions = {
 };
 
 const appHelper = new AppHelper(appHelperOptions);
-const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions() as any);
-const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
+const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const rectangle = new PixiRectangle(pixiApp);
 
-appHelper.initializeApp(pixiApp, renderer);
 appHelper.addGameObject(rectangle);
+
+const renderer = new Renderer(appHelper, pixiApp);
+appHelper.initializeApp(pixiApp, renderer);
+
 appHelper.startAnimationLoop();

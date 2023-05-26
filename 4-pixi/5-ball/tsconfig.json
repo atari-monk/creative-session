@@ -7,10 +7,10 @@
     "allowJs": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "./../2-pixi-lib/**/*.ts",
-    "./../2-pixi-lib/**/*.js",
+    "./src/**/*.ts",
+    "./src/**/*.js",
+    "./../2-pixi-lib/dist/**/*.ts",
+    "./../2-pixi-lib/dist/**/*.js",
     "./../4-client/**/*.ts",
     "./../4-client/**/*.js"
   ],

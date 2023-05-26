@@ -14,8 +14,8 @@ var _PixiRectangle_pixiApp, _PixiRectangle_rectangle;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PixiRectangle = void 0;
 const PIXI = require("pixi.js");
-const GameObject_js_1 = require("./GameObject.js");
-class PixiRectangle extends GameObject_js_1.GameObject {
+const GenericGameObject_js_1 = require("./GenericGameObject.js");
+class PixiRectangle extends GenericGameObject_js_1.GenericGameObject {
     constructor(pixiApp) {
         super();
         _PixiRectangle_pixiApp.set(this, void 0);
@@ -30,7 +30,6 @@ class PixiRectangle extends GameObject_js_1.GameObject {
         const centerY = screenHeight / 2;
         const rectangleWidth = 200;
         const rectangleHeight = 200;
-        // eslint-disable-next-line no-undef
         __classPrivateFieldSet(this, _PixiRectangle_rectangle, new PIXI.Graphics(), "f");
         __classPrivateFieldGet(this, _PixiRectangle_rectangle, "f").beginFill(0xff0000);
         __classPrivateFieldGet(this, _PixiRectangle_rectangle, "f").drawRect(centerX - rectangleWidth / 2, centerY - rectangleHeight / 2, rectangleWidth, rectangleHeight);

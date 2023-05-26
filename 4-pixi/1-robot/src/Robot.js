@@ -1,4 +1,4 @@
-import { GameObject } from '../../pixi-lib/GameObject.js';
+import { GameObject } from './../../2-pixi-lib/dist/GameObject.js';
 
 export class Robot extends GameObject {
   #pixiApp;

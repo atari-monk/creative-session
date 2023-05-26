@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { GameObject } from './GameObject.js';
+import { GenericGameObject } from './GenericGameObject.js';
 
-export class PixiRectangle extends GameObject {
+export class PixiRectangle extends GenericGameObject {
   #pixiApp;
   #rectangle;
 
@@ -21,7 +21,6 @@ export class PixiRectangle extends GameObject {
     const rectangleWidth = 200;
     const rectangleHeight = 200;
 
-    // eslint-disable-next-line no-undef
     this.#rectangle = new PIXI.Graphics();
     this.#rectangle.beginFill(0xff0000);
     this.#rectangle.drawRect(

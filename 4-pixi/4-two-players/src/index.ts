@@ -1,13 +1,14 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from '../../pixi-lib/AppHelper.js';
-import { Renderer } from '../../pixi-lib/Renderer.js';
-import { KeyboardInput } from '../../pixi-lib/KeyboardInput.js';
-import { PlayerObject } from '../../pixi-lib/PlayerObject.js';
-import { GameClient } from '../../pixi-lib/GameClient.js';
+import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
+import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
+import { KeyboardInput } from './../../2-pixi-lib/dist/KeyboardInput.js';
+import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
+import { GameClient } from './../../4-client/dist/GameClient.js';
+import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerParam = urlParams.get('player');
-const appHelperOptions = {
+const appHelperOptions: AppHelperOptions = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
@@ -66,8 +67,7 @@ const playerOptions2 = {
 const client = new GameClient();
 const keyboard = new KeyboardInput();
 const appHelper = new AppHelper(appHelperOptions);
-const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions() as any);
-const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
+const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const player = new PlayerObject(keyboard, playerOptions);
 player.position.x = appHelper.width / 2;
 player.position.y = appHelper.height / 2;
@@ -75,8 +75,12 @@ const player2 = new PlayerObject(keyboard, playerOptions2);
 player2.position.x = appHelper.width / 2;
 player2.position.y = appHelper.height / 2 + 100;
 
-appHelper.initializeApp(pixiApp, renderer);
 appHelper.addGameObject(player);
 appHelper.addGameObject(player2);
+
+//for Renderer to work addGameObject must be called before it's ctor
+const renderer = new Renderer(appHelper, pixiApp);
+appHelper.initializeApp(pixiApp, renderer);
+
 client.addPlayerObjs([player, player2]);
 appHelper.startAnimationLoop();

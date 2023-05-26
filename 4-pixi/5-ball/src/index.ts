@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
-import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
+import { BallRenderer } from './../../2-pixi-lib/dist/BallRenderer.js';
 import { KeyboardInput } from './../../2-pixi-lib/dist/KeyboardInput.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { BallGameClient } from './../../4-client/dist/BallGameClient.js';
@@ -11,9 +11,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
 if (playerUrlParam !== '1' && playerUrlParam !== '2') {
   throw new Error(
-    // prettier-ignore
-    'Invalid player URL parameter. ' + 
-    'Please specify either "1" or "2".'
+    'Invalid player URL parameter. Please specify either "1" or "2".'
   );
 }
 const appHelperOptions: AppHelperOptions = {
@@ -89,7 +87,6 @@ const client = new BallGameClient();
 const keyboard = new KeyboardInput();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
-const renderer = new Renderer(appHelper, pixiApp, appHelperOptions);
 const player = new PlayerObject(keyboard, playerOptions);
 player.position.x = appHelper.width / 2 - 250;
 player.position.y = appHelper.height / 2;
@@ -101,10 +98,14 @@ ball.position.x = appHelper.width / 2;
 ball.position.y = appHelper.height / 2;
 ball.client = client;
 
-appHelper.initializeApp(pixiApp, renderer);
 appHelper.addGameObject(player);
 appHelper.addGameObject(player2);
 appHelper.addGameObject(ball);
+
+//for Renderer to work addGameObject must be called before it's ctor
+const renderer = new BallRenderer(appHelper, pixiApp);
+appHelper.initializeApp(pixiApp, renderer);
+
 client.addPlayerObjs([player, player2]);
 client.addBallObj(ball);
 appHelper.startAnimationLoop();
