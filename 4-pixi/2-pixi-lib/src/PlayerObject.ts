@@ -1,8 +1,37 @@
 import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
+import { KeyboardInputV1 } from './KeyboardInputV1.js';
 
 export class PlayerObject extends GameObject {
-  constructor(keyboard, options = {}) {
+  private readonly keyboard: KeyboardInputV1; // Replace 'any' with the actual type of 'keyboard'
+  private readonly id: string;
+  private readonly radius: number;
+  private readonly speed: number;
+  private readonly width: number;
+  private readonly height: number;
+  private readonly keys: any; // Replace 'any' with the actual type of 'keys'
+  private readonly color: any; // Replace 'any' with the actual type of 'color'
+  public readonly isPlayable: boolean;
+  private readonly playerNr: number;
+  private direction: { x: number; y: number };
+  private position: { x: number; y: number };
+  private client: any;
+  private clientId: any;
+
+  constructor(
+    keyboard: KeyboardInputV1,
+    options: {
+      id: string;
+      radius: number;
+      speed: number;
+      width: number;
+      height: number;
+      keys: any;
+      color: any;
+      isPlayable: boolean;
+      playerNr: number;
+    }
+  ) {
     super();
     this.keyboard = keyboard;
     this.id = options.id;
@@ -18,11 +47,11 @@ export class PlayerObject extends GameObject {
     this.playerNr = options.playerNr;
   }
 
-  setPosition(newPosition) {
+  public setPosition(newPosition: { x: number; y: number }): void {
     this.position = { ...newPosition };
   }
 
-  handleKeyboardInput() {
+  private handleKeyboardInput(): void {
     if (!this.isPlayable) return;
 
     const direction = { x: 0, y: 0 };
@@ -57,7 +86,7 @@ export class PlayerObject extends GameObject {
     this.emitMovementEventIfNeeded();
   }
 
-  emitMovementEventIfNeeded() {
+  private emitMovementEventIfNeeded(): void {
     const newPosition = {
       x: this.position.x + this.direction.x * this.speed,
       y: this.position.y + this.direction.y * this.speed,
@@ -77,7 +106,7 @@ export class PlayerObject extends GameObject {
     }
   }
 
-  update(deltaTime) {
+  public update(deltaTime: number): void {
     this.handleKeyboardInput();
 
     const velocity = {
@@ -89,13 +118,13 @@ export class PlayerObject extends GameObject {
     this.position.y += velocity.y;
   }
 
-  draw(stage) {
+  public draw(stage: PIXI.Container): void {
     this.drawPlayerCircle(stage);
     this.drawPositionCircle(stage);
     this.drawDirectionLine(stage);
   }
 
-  drawPlayerCircle(stage) {
+  private drawPlayerCircle(stage: PIXI.Container): void {
     const graphics = new PIXI.Graphics();
     graphics.beginFill(this.color.player);
     graphics.drawCircle(this.position.x, this.position.y, this.radius);
@@ -103,7 +132,7 @@ export class PlayerObject extends GameObject {
     stage.addChild(graphics);
   }
 
-  drawPositionCircle(stage) {
+  private drawPositionCircle(stage: PIXI.Container): void {
     const positionGraphics = new PIXI.Graphics();
     positionGraphics.beginFill(this.color.position);
     positionGraphics.drawCircle(0, 0, 4);
@@ -113,7 +142,7 @@ export class PlayerObject extends GameObject {
     stage.addChild(positionGraphics);
   }
 
-  drawDirectionLine(stage) {
+  private drawDirectionLine(stage: PIXI.Container): void {
     const directionGraphics = new PIXI.Graphics();
     directionGraphics.lineStyle(2, this.color.direction);
     directionGraphics.moveTo(this.position.x, this.position.y);
@@ -126,7 +155,8 @@ export class PlayerObject extends GameObject {
     stage.addChild(directionGraphics);
   }
 
-  kickBall(ball) {
+  public kickBall(ball: any): void {
+    // Replace 'any' with the actual type of 'ball'
     const velocity = {
       x: this.direction.x * this.speed * 2,
       y: this.direction.y * this.speed * 2,

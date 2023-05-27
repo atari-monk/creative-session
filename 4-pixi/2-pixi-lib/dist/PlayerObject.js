@@ -4,7 +4,7 @@ exports.PlayerObject = void 0;
 const PIXI = require("pixi.js");
 const GameObject_js_1 = require("./GameObject.js");
 class PlayerObject extends GameObject_js_1.GameObject {
-    constructor(keyboard, options = {}) {
+    constructor(keyboard, options) {
         super();
         this.keyboard = keyboard;
         this.id = options.id;
@@ -104,6 +104,7 @@ class PlayerObject extends GameObject_js_1.GameObject {
         stage.addChild(directionGraphics);
     }
     kickBall(ball) {
+        // Replace 'any' with the actual type of 'ball'
         const velocity = {
             x: this.direction.x * this.speed * 2,
             y: this.direction.y * this.speed * 2,

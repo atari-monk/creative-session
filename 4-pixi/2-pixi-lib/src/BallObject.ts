@@ -2,7 +2,31 @@ import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 
 export class BallObject extends GameObject {
-  constructor(options = {}) {
+  private readonly id: string;
+  private readonly radius: number;
+  private readonly speed: number;
+  private readonly width: number;
+  private readonly height: number;
+  private readonly keyboard: any; // Replace 'any' with the actual type of 'keyboard'
+  private readonly keys: any; // Replace 'any' with the actual type of 'keys'
+  private readonly color: any; // Replace 'any' with the actual type of 'color'
+  private readonly isBall: boolean;
+  private readonly velocity: { x: number; y: number };
+  private readonly client: any; // Replace 'any' with the actual type of 'client'
+  private position: { x: number; y: number };
+  private direction: { x: number; y: number };
+
+  constructor(options: {
+    id: string;
+    radius: number;
+    speed: number;
+    width: number;
+    height: number;
+    keyboard: any;
+    keys: any;
+    color: any;
+    isBall: boolean;
+  }) {
     super();
     const { id, radius, speed, width, height, keyboard, keys, color, isBall } =
       options;
@@ -11,8 +35,8 @@ export class BallObject extends GameObject {
     this.speed = speed;
     this.width = width;
     this.height = height;
-    this.direction = { x: 0, y: 0 };
     this.position = { x: width / 2, y: height / 2 };
+    this.direction = { x: 0, y: 0 };
     this.keyboard = keyboard;
     this.keys = keys;
     this.color = color;
@@ -21,27 +45,27 @@ export class BallObject extends GameObject {
     this.client = undefined;
   }
 
-  setPosition(newPosition) {
+  public setPosition(newPosition: { x: number; y: number }): void {
     this.position.x = newPosition.x;
     this.position.y = newPosition.y;
   }
 
-  setVelocity(newVelocity) {
+  public setVelocity(newVelocity: { x: number; y: number }): void {
     this.velocity.x = newVelocity.x;
     this.velocity.y = newVelocity.y;
   }
 
-  getVelocity() {
+  public getVelocity(): { x: number; y: number } {
     return this.velocity;
   }
 
-  setDirection(newDirection) {
+  public setDirection(newDirection: { x: number; y: number }): void {
     this.direction.x = newDirection.x;
     this.direction.y = newDirection.y;
   }
 
-  emitPossition() {
-    if (this.velocity.x == 0 && this.velocity.y == 0) return;
+  private emitPossition(): void {
+    if (this.velocity.x === 0 && this.velocity.y === 0) return;
     //console.log('ballMovement');
     this.client.socket.emit('ballMovement', {
       clientId: this.client.clientId,
@@ -49,20 +73,20 @@ export class BallObject extends GameObject {
     });
   }
 
-  emitVelocity() {
+  public emitVelocity(): void {
     this.client.socket.emit('ballVelocity', {
       clientId: this.client.clientId,
       newVelocity: this.velocity,
     });
   }
 
-  update(deltaTime) {
+  public update(deltaTime: number): void {
     this.position.x += this.velocity.x * deltaTime;
     this.position.y += this.velocity.y * deltaTime;
     this.emitPossition();
   }
 
-  draw(stage) {
+  public draw(stage: PIXI.Container): void {
     const graphics = new PIXI.Graphics();
     graphics.beginFill(this.color.player);
     graphics.drawCircle(this.position.x, this.position.y, this.radius);
@@ -71,7 +95,7 @@ export class BallObject extends GameObject {
     this.drawVectors(stage);
   }
 
-  drawVectors(stage) {
+  private drawVectors(stage: PIXI.Container): void {
     const positionGraphics = new PIXI.Graphics();
     positionGraphics.beginFill(this.color.position);
     positionGraphics.drawCircle(0, 0, 4);
@@ -92,12 +116,12 @@ export class BallObject extends GameObject {
     stage.addChild(directionGraphics);
   }
 
-  checkCircularCollision(obj1, obj2) {
+  private checkCircularCollision(obj1: BallObject, obj2: BallObject): boolean {
     const distanceX = obj1.position.x - obj2.position.x;
     const distanceY = obj1.position.y - obj2.position.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-    if (distance < obj1.radius + obj2.radius) {
+    if (distance < obj1.radius! + obj2.radius!) {
       //console.log('collision');
       // Collision detected
       return true;
@@ -107,7 +131,7 @@ export class BallObject extends GameObject {
     return false;
   }
 
-  bounce() {
+  private bounce(): void {
     const currentVelocity = this.getVelocity();
     const reversedVelocity = {
       x: -currentVelocity.x,
@@ -119,7 +143,7 @@ export class BallObject extends GameObject {
     console.log(this.velocity);
   }
 
-  handleCollisions(gameObject) {
+  public handleCollisions(gameObject: any): void {
     if (!this.checkCircularCollision(this, gameObject)) return;
 
     if (gameObject.direction.x !== 0 || gameObject.direction.y !== 0) {
@@ -129,7 +153,7 @@ export class BallObject extends GameObject {
       gameObject.cantBounce = true;
       setTimeout(() => {
         gameObject.cantBounce = false;
-      }, 2000);
+      }, 1000);
     }
 
     if (

@@ -4,7 +4,7 @@ exports.BallObject = void 0;
 const PIXI = require("pixi.js");
 const GameObject_js_1 = require("./GameObject.js");
 class BallObject extends GameObject_js_1.GameObject {
-    constructor(options = {}) {
+    constructor(options) {
         super();
         const { id, radius, speed, width, height, keyboard, keys, color, isBall } = options;
         this.id = id;
@@ -12,8 +12,8 @@ class BallObject extends GameObject_js_1.GameObject {
         this.speed = speed;
         this.width = width;
         this.height = height;
-        this.direction = { x: 0, y: 0 };
         this.position = { x: width / 2, y: height / 2 };
+        this.direction = { x: 0, y: 0 };
         this.keyboard = keyboard;
         this.keys = keys;
         this.color = color;
@@ -37,7 +37,7 @@ class BallObject extends GameObject_js_1.GameObject {
         this.direction.y = newDirection.y;
     }
     emitPossition() {
-        if (this.velocity.x == 0 && this.velocity.y == 0)
+        if (this.velocity.x === 0 && this.velocity.y === 0)
             return;
         //console.log('ballMovement');
         this.client.socket.emit('ballMovement', {
@@ -111,7 +111,7 @@ class BallObject extends GameObject_js_1.GameObject {
             gameObject.cantBounce = true;
             setTimeout(() => {
                 gameObject.cantBounce = false;
-            }, 2000);
+            }, 1000);
         }
         if (!gameObject.cantBounce &&
             gameObject.direction.x === 0 &&
