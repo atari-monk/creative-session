@@ -1,5 +1,5 @@
 {
-  "name": "6-setup",
+  "name": "9-setup",
   "version": "1.0.0",
   "description": "To start a Pixi.js project with a bundler (Webpack) and TypeScript from scratch, you can follow these steps:",
   "main": "index.js",

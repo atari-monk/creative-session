@@ -1,8 +1,7 @@
 {
-  "name": "2-screen",
+  "name": "3-screen",
   "version": "1.0.0",
   "description": "This is steps to add typescript and webpack to js, pixi project.",
-  "main": "program.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

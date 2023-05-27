@@ -1,14 +1,18 @@
 export class KeyboardInputV1 {
   private keys: Set<string>;
+  private debugMode: boolean;
 
-  constructor() {
+  constructor(debugMode = false) {
     this.keys = new Set();
+    this.debugMode = debugMode;
     this.initListeners();
   }
 
   private initListeners() {
     const keydownListener = (event: KeyboardEvent) => {
       this.keys.add(event.key);
+      if (!this.debugMode) return;
+      console.log('Key Pressed:', event.key);
     };
 
     const keyupListener = (event: KeyboardEvent) => {

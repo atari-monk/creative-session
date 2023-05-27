@@ -2,13 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KeyboardInputV1 = void 0;
 class KeyboardInputV1 {
-    constructor() {
+    constructor(debugMode = false) {
         this.keys = new Set();
+        this.debugMode = debugMode;
         this.initListeners();
     }
     initListeners() {
         const keydownListener = (event) => {
             this.keys.add(event.key);
+            if (!this.debugMode)
+                return;
+            console.log('Key Pressed:', event.key);
         };
         const keyupListener = (event) => {
             this.keys.delete(event.key);

@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
 import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
-import { KeyboardInput } from './../../2-pixi-lib/dist/KeyboardInput.js';
+import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
 
@@ -21,10 +21,10 @@ const playerOptions = {
   width: 800,
   height: 600,
   keys: {
-    left: 'left',
-    right: 'right',
-    up: 'up',
-    down: 'down',
+    left: 'ArrowLeft',
+    right: 'ArrowRight',
+    up: 'ArrowUp',
+    down: 'ArrowDown',
     a: 'a',
     d: 'd',
     w: 'w',
@@ -38,7 +38,7 @@ const playerOptions = {
   isPlayable: true,
 };
 
-const keyboard = new KeyboardInput();
+const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const player = new PlayerObject(keyboard, playerOptions);
