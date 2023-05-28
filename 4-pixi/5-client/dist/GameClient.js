@@ -6,58 +6,68 @@ class GameClient {
     constructor() {
         this.playerObjs = [];
         this.players = {};
-        this.socket = null;
-        this.handleConnect = () => {
-            try {
-                this.clientId = this.socket.id;
-                const playablePlayer = this.playerObjs.find((player) => player.isPlayable);
-                if (!playablePlayer) {
-                    this.noPlayablePlayerError();
-                    return;
-                }
-                playablePlayer.client = this;
-                playablePlayer.clientId = this.clientId;
-                this.players[this.clientId] = playablePlayer;
-                this.log(`Connected to server, id: ${this.clientId}`);
-            }
-            catch (err) {
-                console.error('Connection error:', err.message);
-            }
-        };
-        this.handleMovement = ({ clientId, newPosition, }) => {
-            if (!clientId)
-                throw new Error('No clientId data!');
-            if (!newPosition)
-                throw new Error('No position data!');
-            this.updatePlayerPosition(clientId, newPosition);
-        };
-        this.handleDisconnect = () => {
-            this.log('Disconnected from server');
-        };
-        this.handleClientIdList = (clientIdList) => {
-            const newClientId = clientIdList.find((id) => id !== this.clientId);
-            if (!newClientId)
-                return;
-            const player = this.playerObjs.find((player) => !player.isPlayable);
-            if (!player)
-                throw new Error('No second player!');
-            player.clientId = clientIdList.find((id) => id !== this.clientId);
-            this.players[newClientId] = player;
-            this.log(`New player connected, id: ${newClientId}'`);
-        };
-        this.setupSocketConnection();
+        console.log('client ctror');
         this.players = {};
-        this.isLogging = true;
+        this.setupSocketConnection();
     }
     setupSocketConnection(isInDevEnv = true) {
-        this.socket = (0, socket_io_client_1.connect)(isInDevEnv
-            ? 'http://localhost:3000'
-            : 'https://atari-monk-two-players.azurewebsites.net/');
-        this.socket.on('connect', this.handleConnect);
-        this.socket.on('movement', this.handleMovement);
-        this.socket.on('disconnect', this.handleDisconnect);
-        this.socket.on('clientIdList', this.handleClientIdList);
+        try {
+            console.log('connect');
+            this.socket = (0, socket_io_client_1.connect)(isInDevEnv
+                ? 'http://localhost:3000'
+                : 'https://atari-monk-two-players.azurewebsites.net/');
+            console.log(this.socket);
+            this.socket.on('connect', this.handleConnect.bind(this));
+            this.socket.on('movement', this.handleMovement.bind(this));
+            this.socket.on('disconnect', this.handleDisconnect.bind(this));
+            this.socket.on('clientIdList', this.handleClientIdList.bind(this));
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
+    handleConnect() {
+        try {
+            this.clientId = this.socket.id;
+            const playablePlayer = this.playerObjs.find((player) => player.isPlayable);
+            if (!playablePlayer) {
+                this.noPlayablePlayerError();
+                return;
+            }
+            playablePlayer.client = this;
+            playablePlayer.clientId = this.clientId;
+            this.players[this.clientId] = playablePlayer;
+            console.log(`Connected to server, id: ${this.clientId}`);
+        }
+        catch (err) {
+            console.error('Connection error:', err.message);
+        }
+    }
+    ;
+    handleMovement({ clientId, newPosition, }) {
+        if (!clientId)
+            throw new Error('No clientId data!');
+        if (!newPosition)
+            throw new Error('No position data!');
+        this.updatePlayerPosition(clientId, newPosition);
+    }
+    ;
+    handleDisconnect() {
+        console.log('Disconnected from server');
+    }
+    ;
+    handleClientIdList(clientIdList) {
+        const newClientId = clientIdList.find((id) => id !== this.clientId);
+        if (!newClientId)
+            return;
+        const player = this.playerObjs.find((player) => !player.isPlayable);
+        if (!player)
+            throw new Error('No second player!');
+        player.clientId = clientIdList.find((id) => id !== this.clientId);
+        this.players[newClientId] = player;
+        console.log(`New player connected, id: ${newClientId}'`);
+    }
+    ;
     noPlayablePlayerError() {
         const message = 'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
         throw new Error(message);
@@ -68,11 +78,6 @@ class GameClient {
             throw new Error(`No player with id: ${clientId}`);
         }
         player.setPosition(Object.assign({}, newPosition));
-    }
-    log(message) {
-        if (this.isLogging) {
-            console.log(message);
-        }
     }
     addPlayerObjs(players) {
         this.playerObjs = players;

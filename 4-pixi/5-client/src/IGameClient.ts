@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io-client';
+
 export interface IGameClient {
-  socket: any; // Replace 'any' with the actual type of 'socket'
+  socket: Socket | undefined;
 }

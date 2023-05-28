@@ -5,28 +5,27 @@ export class GameClient implements IGameClient {
   private clientId!: string;
   private playerObjs: any[] = [];
   private players: { [key: string]: any } = {};
-  public socket: Socket | null = null;
-  private isLogging: boolean;
+  public socket: Socket | undefined;
 
   constructor() {
-    this.setupSocketConnection();
     this.players = {};
-    this.isLogging = true;
+    this.setupSocketConnection();
   }
 
-  private setupSocketConnection(isInDevEnv = true): void {
+  protected setupSocketConnection(isInDevEnv = true): void {
     this.socket = connect(
       isInDevEnv
         ? 'http://localhost:3000'
         : 'https://atari-monk-two-players.azurewebsites.net/'
     );
-    this.socket.on('connect', this.handleConnect);
-    this.socket.on('movement', this.handleMovement);
-    this.socket.on('disconnect', this.handleDisconnect);
-    this.socket.on('clientIdList', this.handleClientIdList);
+    this.socket.on('connect', this.handleConnect.bind(this));
+    this.socket.on('movement', this.handleMovement.bind(this));
+    this.socket.on('disconnect', this.handleDisconnect.bind(this));
+    this.socket.on('clientIdList', this.handleClientIdList.bind(this));
+    this.socket.on('connect_error', this.handleConnectError.bind(this));
   }
 
-  private handleConnect = (): void => {
+  private handleConnect(): void {
     try {
       this.clientId = this.socket!.id;
       const playablePlayer = this.playerObjs.find(
@@ -42,37 +41,41 @@ export class GameClient implements IGameClient {
       playablePlayer.clientId = this.clientId;
       this.players[this.clientId] = playablePlayer;
 
-      this.log(`Connected to server, id: ${this.clientId}`);
+      console.log(`Connected to server, id: ${this.clientId}`);
     } catch (err) {
       console.error('Connection error:', (err as Error).message);
     }
-  };
+  }
 
-  private handleMovement = ({
+  private handleMovement({
     clientId,
     newPosition,
   }: {
     clientId: string;
     newPosition: any;
-  }): void => {
+  }): void {
     if (!clientId) throw new Error('No clientId data!');
     if (!newPosition) throw new Error('No position data!');
     this.updatePlayerPosition(clientId, newPosition);
-  };
+  }
 
-  private handleDisconnect = (): void => {
-    this.log('Disconnected from server');
-  };
+  private handleDisconnect(): void {
+    console.log('Disconnected from server');
+  }
 
-  private handleClientIdList = (clientIdList: string[]): void => {
+  private handleClientIdList(clientIdList: string[]): void {
     const newClientId = clientIdList.find((id) => id !== this.clientId);
     if (!newClientId) return;
     const player = this.playerObjs.find((player) => !player.isPlayable);
     if (!player) throw new Error('No second player!');
     player.clientId = clientIdList.find((id) => id !== this.clientId);
     this.players[newClientId] = player;
-    this.log(`New player connected, id: ${newClientId}'`);
-  };
+    console.log(`New player connected, id: ${newClientId}'`);
+  }
+
+  private handleConnectError(error: Error): void {
+    console.error('Connection error:', error.message);
+  }
 
   private noPlayablePlayerError(): void {
     const message =
@@ -88,12 +91,6 @@ export class GameClient implements IGameClient {
     player.setPosition({ ...newPosition });
   }
 
-  private log(message: string): void {
-    if (this.isLogging) {
-      console.log(message);
-    }
-  }
-
   public addPlayerObjs(players: any[]): void {
     this.playerObjs = players;
   }
@@ -106,7 +103,7 @@ export class GameClient implements IGameClient {
     delete this.players[player.client.clientId];
   }
 
-  public getSocket(): Socket | null {
+  public getSocket(): Socket | undefined {
     return this.socket;
   }
 }
