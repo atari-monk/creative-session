@@ -4,7 +4,6 @@ exports.BallGameClient = void 0;
 const GameClient_js_1 = require("./GameClient.js");
 class BallGameClient extends GameClient_js_1.GameClient {
     constructor() {
-        console.log('ball client ctror');
         super();
         this.ballObj = null;
         this.ballObj = null;

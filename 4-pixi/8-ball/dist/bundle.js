@@ -33735,7 +33735,6 @@ exports.BallGameClient = void 0;
 const GameClient_js_1 = __webpack_require__(/*! ./GameClient.js */ "../5-client/dist/GameClient.js");
 class BallGameClient extends GameClient_js_1.GameClient {
     constructor() {
-        console.log('ball client ctror');
         super();
         this.ballObj = null;
         this.ballObj = null;
@@ -33797,25 +33796,18 @@ class GameClient {
     constructor() {
         this.playerObjs = [];
         this.players = {};
-        console.log('client ctror');
         this.players = {};
         this.setupSocketConnection();
     }
     setupSocketConnection(isInDevEnv = true) {
-        try {
-            console.log('connect');
-            this.socket = (0, socket_io_client_1.connect)(isInDevEnv
-                ? 'http://localhost:3000'
-                : 'https://atari-monk-two-players.azurewebsites.net/');
-            console.log(this.socket);
-            this.socket.on('connect', this.handleConnect.bind(this));
-            this.socket.on('movement', this.handleMovement.bind(this));
-            this.socket.on('disconnect', this.handleDisconnect.bind(this));
-            this.socket.on('clientIdList', this.handleClientIdList.bind(this));
-        }
-        catch (err) {
-            console.log(err);
-        }
+        this.socket = (0, socket_io_client_1.connect)(isInDevEnv
+            ? 'http://localhost:3000'
+            : 'https://atari-monk-two-players.azurewebsites.net/');
+        this.socket.on('connect', this.handleConnect.bind(this));
+        this.socket.on('movement', this.handleMovement.bind(this));
+        this.socket.on('disconnect', this.handleDisconnect.bind(this));
+        this.socket.on('clientIdList', this.handleClientIdList.bind(this));
+        this.socket.on('connect_error', this.handleConnectError.bind(this));
     }
     handleConnect() {
         try {
@@ -33834,7 +33826,6 @@ class GameClient {
             console.error('Connection error:', err.message);
         }
     }
-    ;
     handleMovement({ clientId, newPosition, }) {
         if (!clientId)
             throw new Error('No clientId data!');
@@ -33842,11 +33833,9 @@ class GameClient {
             throw new Error('No position data!');
         this.updatePlayerPosition(clientId, newPosition);
     }
-    ;
     handleDisconnect() {
         console.log('Disconnected from server');
     }
-    ;
     handleClientIdList(clientIdList) {
         const newClientId = clientIdList.find((id) => id !== this.clientId);
         if (!newClientId)
@@ -33858,7 +33847,9 @@ class GameClient {
         this.players[newClientId] = player;
         console.log(`New player connected, id: ${newClientId}'`);
     }
-    ;
+    handleConnectError(error) {
+        console.error('Connection error:', error.message);
+    }
     noPlayablePlayerError() {
         const message = 'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
         throw new Error(message);
