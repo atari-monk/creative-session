@@ -3,10 +3,11 @@ import * as PIXI from 'pixi.js';
 import { BallObject } from './BallObject.js';
 import { PlayerObject } from './PlayerObject.js';
 import { Renderer } from './Renderer.js';
+import { IGameClient } from '../../5-client/src/IGameClient.js';
 
 export class BallRenderer extends Renderer {
   private ball: BallObject;
-  private player: PlayerObject;
+  private player: PlayerObject<IGameClient>;
 
   constructor(appHelper: AppHelper, pixiApp: PIXI.Application<PIXI.ICanvas>) {
     super(appHelper, pixiApp);
@@ -22,10 +23,10 @@ export class BallRenderer extends Renderer {
     ) as BallObject;
   }
 
-  private findPlayerObject(): PlayerObject {
+  private findPlayerObject(): PlayerObject<IGameClient> {
     return this.appHelper.gameObjects.find(
       (obj) => obj instanceof PlayerObject && obj.isPlayable
-    ) as PlayerObject;
+    ) as PlayerObject<IGameClient>;
   }
 
   public render(deltaTime: number) {

@@ -1,9 +1,11 @@
 import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 import { KeyboardInputV1 } from './KeyboardInputV1.js';
+import { PlayerObjectOptions } from './PlayerObjectOptions.js';
+import { IGameClient } from './../../5-client/src/IGameClient.js'
 
-export class PlayerObject extends GameObject {
-  private readonly keyboard: KeyboardInputV1; // Replace 'any' with the actual type of 'keyboard'
+export class PlayerObject<T extends IGameClient> extends GameObject {
+  private readonly keyboard: KeyboardInputV1;
   private readonly id: string;
   private readonly radius: number;
   private readonly speed: number;
@@ -15,23 +17,10 @@ export class PlayerObject extends GameObject {
   private readonly playerNr: number;
   private direction: { x: number; y: number };
   private position: { x: number; y: number };
-  private client: any;
+  private client!: T;
   private clientId: any;
 
-  constructor(
-    keyboard: KeyboardInputV1,
-    options: {
-      id: string;
-      radius: number;
-      speed: number;
-      width: number;
-      height: number;
-      keys: any;
-      color: any;
-      isPlayable: boolean;
-      playerNr: number;
-    }
-  ) {
+  constructor(keyboard: KeyboardInputV1, options: PlayerObjectOptions) {
     super();
     this.keyboard = keyboard;
     this.id = options.id;
