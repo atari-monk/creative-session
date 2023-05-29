@@ -1,4 +1,4 @@
-const { GameServer } = require('./GameServer');
+import { GameServer } from './GameServer';
 
 const gameServer = new GameServer();
 gameServer.start();

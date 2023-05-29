@@ -4,11 +4,9 @@
     "module": "commonjs",
     "outDir": "dist",
     "strict": true,
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.js"
-  ],
+  "include": ["./src/**/*.ts", "./src/**/*.js"],
   "exclude": ["node_modules"]
 }
