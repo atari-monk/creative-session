@@ -138,13 +138,36 @@ _AppHelper_pixiApp = new WeakMap(), _AppHelper_renderer = new WeakMap(), _AppHel
 /*!****************************************!*\
   !*** ../2-pixi-lib/dist/BallObject.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BallObject = void 0;
-const PIXI = __webpack_require__(/*! pixi.js */ "../2-pixi-lib/node_modules/pixi.js/lib/index.js");
+const PIXI = __importStar(__webpack_require__(/*! pixi.js */ "../2-pixi-lib/node_modules/pixi.js/lib/index.js"));
 const GameObject_js_1 = __webpack_require__(/*! ./GameObject.js */ "../2-pixi-lib/dist/GameObject.js");
 class BallObject extends GameObject_js_1.GameObject {
     constructor(options) {
@@ -369,13 +392,36 @@ exports.KeyboardInputV1 = KeyboardInputV1;
 /*!******************************************!*\
   !*** ../2-pixi-lib/dist/PlayerObject.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayerObject = void 0;
-const PIXI = __webpack_require__(/*! pixi.js */ "../2-pixi-lib/node_modules/pixi.js/lib/index.js");
+const PIXI = __importStar(__webpack_require__(/*! pixi.js */ "../2-pixi-lib/node_modules/pixi.js/lib/index.js"));
 const GameObject_js_1 = __webpack_require__(/*! ./GameObject.js */ "../2-pixi-lib/dist/GameObject.js");
 class PlayerObject extends GameObject_js_1.GameObject {
     constructor(keyboard, options) {

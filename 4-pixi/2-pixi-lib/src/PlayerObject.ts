@@ -2,9 +2,8 @@ import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 import { KeyboardInputV1 } from './KeyboardInputV1.js';
 import { PlayerObjectOptions } from './PlayerObjectOptions.js';
-import { IGameClient } from './../../5-client/src/IGameClient.js'
 
-export class PlayerObject<T extends IGameClient> extends GameObject {
+export class PlayerObject extends GameObject {
   private readonly keyboard: KeyboardInputV1;
   private readonly id: string;
   private readonly radius: number;
@@ -17,7 +16,7 @@ export class PlayerObject<T extends IGameClient> extends GameObject {
   private readonly playerNr: number;
   private direction: { x: number; y: number };
   private position: { x: number; y: number };
-  private client!: T;
+  private client!: any;
   private clientId: any;
 
   constructor(keyboard: KeyboardInputV1, options: PlayerObjectOptions) {
@@ -88,7 +87,7 @@ export class PlayerObject<T extends IGameClient> extends GameObject {
       (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
     ) {
       this.position = newPosition;
-      this.client.socket.emit('movement', {
+      this.client.socket!.emit('movement', {
         clientId: this.clientId,
         newPosition: this.position,
       });

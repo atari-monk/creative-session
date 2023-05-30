@@ -1,7 +1,6 @@
 import { Socket, connect } from 'socket.io-client';
-import { IGameClient } from './IGameClient.js';
 
-export class GameClient implements IGameClient {
+export class GameClient {
   private clientId!: string;
   private playerObjs: any[] = [];
   private players: { [key: string]: any } = {};
