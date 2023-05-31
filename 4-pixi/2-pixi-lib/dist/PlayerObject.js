@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerObject = void 0;
 const PIXI = __importStar(require("pixi.js"));
 const GameObject_js_1 = require("./GameObject.js");
+const eventemitter3_1 = require("eventemitter3");
 class PlayerObject extends GameObject_js_1.GameObject {
     constructor(keyboard, options) {
         super();
@@ -41,6 +42,14 @@ class PlayerObject extends GameObject_js_1.GameObject {
         this.color = options.color;
         this.isPlayable = options.isPlayable;
         this.playerNr = options.playerNr;
+        this.positionEmitter = new eventemitter3_1.EventEmitter();
+    }
+    //todo: use it
+    emitPositionUpdate() {
+        this.positionEmitter.emit('positionUpdate', {
+            clientId: this.clientId,
+            newPosition: this.position,
+        });
     }
     setPosition(newPosition) {
         this.position = Object.assign({}, newPosition);

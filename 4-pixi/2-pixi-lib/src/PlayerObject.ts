@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 import { KeyboardInputV1 } from './KeyboardInputV1.js';
 import { PlayerObjectOptions } from './PlayerObjectOptions.js';
+import { EventEmitter } from 'eventemitter3';
 
 export class PlayerObject extends GameObject {
   private readonly keyboard: KeyboardInputV1;
@@ -18,6 +19,8 @@ export class PlayerObject extends GameObject {
   private position: { x: number; y: number };
   private client!: any;
   private clientId: any;
+  //todo: this will remove need for client ref soon
+  private positionEmitter: EventEmitter;
 
   constructor(keyboard: KeyboardInputV1, options: PlayerObjectOptions) {
     super();
@@ -33,6 +36,16 @@ export class PlayerObject extends GameObject {
     this.color = options.color;
     this.isPlayable = options.isPlayable;
     this.playerNr = options.playerNr;
+
+    this.positionEmitter = new EventEmitter();
+  }
+
+  //todo: use it
+  private emitPositionUpdate(): void {
+    this.positionEmitter.emit('positionUpdate', {
+      clientId: this.clientId,
+      newPosition: this.position,
+    });
   }
 
   public setPosition(newPosition: { x: number; y: number }): void {

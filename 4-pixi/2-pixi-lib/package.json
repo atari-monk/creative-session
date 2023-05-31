@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eventemitter3": "^5.0.1",
     "pixi.js": "^7.2.4"
   }
 }
