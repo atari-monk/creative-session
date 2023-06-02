@@ -1,4 +1,4 @@
 export interface PositionData {
-  clientId: string;
+  clientId?: string;
   newPosition: { x: number; y: number };
 }

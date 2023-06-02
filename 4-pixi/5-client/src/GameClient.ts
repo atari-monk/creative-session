@@ -3,23 +3,20 @@ import { EventEmitter } from 'eventemitter3';
 import { PositionData } from './../../2-pixi-lib/dist/PositionData.js';
 
 export class GameClient {
-  private clientId!: string;
+  protected clientId!: string;
   private playerObjs: any[] = [];
   private players: { [key: string]: any } = {};
   public socket: Socket | undefined;
-  private positionEmitter: EventEmitter;
+  protected readonly _emitter: EventEmitter;
 
-  constructor(positionEmitter: EventEmitter) {
+  constructor(emitter: EventEmitter) {
     this.players = {};
     this.setupSocketConnection();
-    this.positionEmitter = positionEmitter;
-    this.positionEmitter.on(
-      'positionUpdate',
-      this.handlePositionUpdate.bind(this)
-    );
+    this._emitter = emitter;
+    this._emitter.on('positionUpdate', this.emittPlayerPosition.bind(this));
   }
 
-  private handlePositionUpdate(data: PositionData) {
+  private emittPlayerPosition(data: PositionData) {
     //console.log('0 this should be newPosition', data.newPosition);
     this.socket!.emit('movement', data);
   }

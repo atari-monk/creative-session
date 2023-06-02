@@ -1,5 +1,6 @@
 import { GameClient } from './GameClient.js';
 import { EventEmitter } from 'eventemitter3';
+import { PositionData } from './../../2-pixi-lib/dist/PositionData.js';
 
 export class BallGameClient extends GameClient {
   private ballObj: any = null;
@@ -7,6 +8,13 @@ export class BallGameClient extends GameClient {
   constructor(positionEmitter: EventEmitter) {
     super(positionEmitter);
     this.ballObj = null;
+    this._emitter.on('ball-pos-upd', this.emittBallPosition.bind(this));
+  }
+
+  private emittBallPosition(data: PositionData) {
+    //console.log('0 this should be newPosition', data.newPosition);
+    data.clientId = this.clientId;
+    this.socket!.emit('ballMovement', data);
   }
 
   public addBallObj(ball: any): void {

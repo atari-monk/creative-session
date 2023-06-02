@@ -90,16 +90,16 @@ const ballOptions = {
   keyboard: undefined,
 };
 
-const positionEmitter = new EventEmitter();
-const client = new BallGameClient(positionEmitter);
+const emitter = new EventEmitter();
+const client = new BallGameClient(emitter);
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
-const player = new PlayerObject(keyboard, positionEmitter, playerOptions);
+const player = new PlayerObject(keyboard, emitter, playerOptions);
 player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
-const player2 = new PlayerObject(keyboard, positionEmitter, playerOptions2);
+const player2 = new PlayerObject(keyboard, emitter, playerOptions2);
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
-const ball = new BallObject(ballOptions);
+const ball = new BallObject(emitter, ballOptions);
 ball.position = { x: appHelper.width / 2, y: appHelper.height / 2 };
 ball.client = client;
 

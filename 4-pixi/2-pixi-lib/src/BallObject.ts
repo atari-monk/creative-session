@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 import { PlayerObject } from './PlayerObject.js';
+import { EventEmitter } from 'eventemitter3';
+import { PositionData } from './PositionData.js';
 
 export class BallObject extends GameObject {
   private readonly id: string;
@@ -16,8 +18,11 @@ export class BallObject extends GameObject {
   private _client: any; // Replace 'any' with the actual type of 'client'
   private _position: { x: number; y: number };
   private _direction: { x: number; y: number };
+  private readonly _emitter: EventEmitter;
 
-  constructor(options: {
+  constructor(
+    emitter: EventEmitter,
+    options: {
     id: string;
     radius: number;
     speed: number;
@@ -44,6 +49,7 @@ export class BallObject extends GameObject {
     this.isBall = isBall;
     this._velocity = { x: 0, y: 0 };
     this._client = undefined;
+    this._emitter = emitter;
   }
 
   public set client(client: any) {
@@ -69,13 +75,17 @@ export class BallObject extends GameObject {
     this._direction.y = newDirection.y;
   }
 
-  private emitPossition() {
+  private emitPositionUpdate() {
     if (this._velocity.x === 0 && this._velocity.y === 0) return;
     //console.log('ballMovement');
-    this._client.socket.emit('ballMovement', {
-      clientId: this._client.clientId,
+    // this._client.socket.emit('ballMovement', {
+    //   clientId: this._client.clientId,
+    //   newPosition: this._position,
+    // });
+    const data: PositionData = {
       newPosition: this._position,
-    });
+    };
+    this._emitter.emit('ball-pos-upd', data);
   }
 
   public emitVelocity() {
@@ -88,7 +98,7 @@ export class BallObject extends GameObject {
   public update(deltaTime: number) {
     this._position.x += this._velocity.x * deltaTime;
     this._position.y += this._velocity.y * deltaTime;
-    this.emitPossition();
+    this.emitPositionUpdate();
   }
 
   public draw(stage: PIXI.Container) {
@@ -148,8 +158,7 @@ export class BallObject extends GameObject {
     if (player.direction.x !== 0 || player.direction.y !== 0) {
       player.kickBall(this);
       console.log('kick');
-    }
-    else {
+    } else {
       this.bounce();
       console.log('bounce');
     }
