@@ -1,10 +1,11 @@
 import { GameClient } from './GameClient.js';
+import { EventEmitter } from 'eventemitter3';
 
 export class BallGameClient extends GameClient {
   private ballObj: any = null;
 
-  constructor() {
-    super();
+  constructor(positionEmitter: EventEmitter) {
+    super(positionEmitter);
     this.ballObj = null;
   }
 
@@ -20,25 +21,25 @@ export class BallGameClient extends GameClient {
     if (!this.ballObj) {
       throw new Error('No ball object added!');
     }
-    this.ballObj.setPosition({ ...newPosition });
+    this.ballObj.position = newPosition;
   }
 
   private updateBallVelocity(newVelocity: any): void {
     if (!this.ballObj) {
       throw new Error('No ball object added!');
     }
-    this.ballObj.setVelocity({ ...newVelocity });
+    this.ballObj.velocity = newVelocity;
   }
 
   private handleBallMovement({ newPosition }: any): void {
     if (!newPosition) throw new Error('No position data for the ball!');
     this.updateBallPosition(newPosition);
-  };
+  }
 
   private handleBallVelocity({ newVelocity }: any): void {
     if (!newVelocity) throw new Error('No velocity data for the ball!');
     this.updateBallVelocity(newVelocity);
-  };
+  }
 
   protected setupSocketConnection(): void {
     super.setupSocketConnection();

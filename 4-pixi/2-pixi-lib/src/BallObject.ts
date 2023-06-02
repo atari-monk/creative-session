@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
+import { PlayerObject } from './PlayerObject.js';
 
 export class BallObject extends GameObject {
   private readonly id: string;
@@ -11,10 +12,10 @@ export class BallObject extends GameObject {
   private readonly keys: any; // Replace 'any' with the actual type of 'keys'
   private readonly color: any; // Replace 'any' with the actual type of 'color'
   private readonly isBall: boolean;
-  private readonly velocity: { x: number; y: number };
-  private readonly client: any; // Replace 'any' with the actual type of 'client'
-  private position: { x: number; y: number };
-  private direction: { x: number; y: number };
+  private readonly _velocity: { x: number; y: number };
+  private _client: any; // Replace 'any' with the actual type of 'client'
+  private _position: { x: number; y: number };
+  private _direction: { x: number; y: number };
 
   constructor(options: {
     id: string;
@@ -35,132 +36,120 @@ export class BallObject extends GameObject {
     this.speed = speed;
     this.width = width;
     this.height = height;
-    this.position = { x: width / 2, y: height / 2 };
-    this.direction = { x: 0, y: 0 };
+    this._position = { x: width / 2, y: height / 2 };
+    this._direction = { x: 0, y: 0 };
     this.keyboard = keyboard;
     this.keys = keys;
     this.color = color;
     this.isBall = isBall;
-    this.velocity = { x: 0, y: 0 };
-    this.client = undefined;
+    this._velocity = { x: 0, y: 0 };
+    this._client = undefined;
   }
 
-  public setPosition(newPosition: { x: number; y: number }): void {
-    this.position.x = newPosition.x;
-    this.position.y = newPosition.y;
+  public set client(client: any) {
+    this._client = client;
   }
 
-  public setVelocity(newVelocity: { x: number; y: number }): void {
-    this.velocity.x = newVelocity.x;
-    this.velocity.y = newVelocity.y;
+  public set position(newPosition: { x: number; y: number }) {
+    this._position.x = newPosition.x;
+    this._position.y = newPosition.y;
   }
 
-  public getVelocity(): { x: number; y: number } {
-    return this.velocity;
+  public set velocity(newVelocity: { x: number; y: number }) {
+    this._velocity.x = newVelocity.x;
+    this._velocity.y = newVelocity.y;
   }
 
-  public setDirection(newDirection: { x: number; y: number }): void {
-    this.direction.x = newDirection.x;
-    this.direction.y = newDirection.y;
+  public get velocity() {
+    return this._velocity;
   }
 
-  private emitPossition(): void {
-    if (this.velocity.x === 0 && this.velocity.y === 0) return;
+  public set direction(newDirection: { x: number; y: number }) {
+    this._direction.x = newDirection.x;
+    this._direction.y = newDirection.y;
+  }
+
+  private emitPossition() {
+    if (this._velocity.x === 0 && this._velocity.y === 0) return;
     //console.log('ballMovement');
-    this.client.socket.emit('ballMovement', {
-      clientId: this.client.clientId,
-      newPosition: this.position,
+    this._client.socket.emit('ballMovement', {
+      clientId: this._client.clientId,
+      newPosition: this._position,
     });
   }
 
-  public emitVelocity(): void {
-    this.client.socket.emit('ballVelocity', {
-      clientId: this.client.clientId,
-      newVelocity: this.velocity,
+  public emitVelocity() {
+    this._client.socket.emit('ballVelocity', {
+      clientId: this._client.clientId,
+      newVelocity: this._velocity,
     });
   }
 
-  public update(deltaTime: number): void {
-    this.position.x += this.velocity.x * deltaTime;
-    this.position.y += this.velocity.y * deltaTime;
+  public update(deltaTime: number) {
+    this._position.x += this._velocity.x * deltaTime;
+    this._position.y += this._velocity.y * deltaTime;
     this.emitPossition();
   }
 
-  public draw(stage: PIXI.Container): void {
+  public draw(stage: PIXI.Container) {
     const graphics = new PIXI.Graphics();
     graphics.beginFill(this.color.player);
-    graphics.drawCircle(this.position.x, this.position.y, this.radius);
+    graphics.drawCircle(this._position.x, this._position.y, this.radius);
     graphics.endFill();
     stage.addChild(graphics);
     this.drawVectors(stage);
   }
 
-  private drawVectors(stage: PIXI.Container): void {
+  private drawVectors(stage: PIXI.Container) {
     const positionGraphics = new PIXI.Graphics();
     positionGraphics.beginFill(this.color.position);
     positionGraphics.drawCircle(0, 0, 4);
     positionGraphics.endFill();
-    positionGraphics.x = this.position.x;
-    positionGraphics.y = this.position.y;
+    positionGraphics.x = this._position.x;
+    positionGraphics.y = this._position.y;
     stage.addChild(positionGraphics);
 
     const directionGraphics = new PIXI.Graphics();
     directionGraphics.lineStyle(2, this.color.direction);
-    directionGraphics.moveTo(this.position.x, this.position.y);
-    const directionX = this.direction.x * (this.radius / 2);
-    const directionY = this.direction.y * (this.radius / 2);
+    directionGraphics.moveTo(this._position.x, this._position.y);
+    const directionX = this._direction.x * (this.radius / 2);
+    const directionY = this._direction.y * (this.radius / 2);
     directionGraphics.lineTo(
-      this.position.x + directionX,
-      this.position.y + directionY
+      this._position.x + directionX,
+      this._position.y + directionY
     );
     stage.addChild(directionGraphics);
   }
 
-  private checkCircularCollision(obj1: BallObject, obj2: BallObject): boolean {
-    const distanceX = obj1.position.x - obj2.position.x;
-    const distanceY = obj1.position.y - obj2.position.y;
+  private checkCircularCollision(player: PlayerObject) {
+    const distanceX = player.position.x - this._position.x;
+    const distanceY = player.position.y - this._position.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-    if (distance < obj1.radius! + obj2.radius!) {
-      //console.log('collision');
-      // Collision detected
+    if (distance < player.radius! + this.radius!) {
+      console.log('collision');
       return true;
     }
-
-    // No collision
     return false;
   }
 
-  private bounce(): void {
-    const currentVelocity = this.getVelocity();
+  private bounce() {
+    const currentVelocity = this.velocity;
     const reversedVelocity = {
       x: -currentVelocity.x,
       y: -currentVelocity.y,
     };
-
-    this.setVelocity(reversedVelocity);
+    this.velocity = reversedVelocity;
     this.emitVelocity();
-    console.log(this.velocity);
+    console.log(this._velocity);
   }
 
-  public handleCollisions(gameObject: any): void {
-    if (!this.checkCircularCollision(this, gameObject)) return;
-
-    if (gameObject.direction.x !== 0 || gameObject.direction.y !== 0) {
-      gameObject.kickBall(this);
+  public handleCollisions(player: PlayerObject) {
+    if (!this.checkCircularCollision(player)) return;
+    if (player.direction.x !== 0 || player.direction.y !== 0) {
+      player.kickBall(this);
       console.log('kick');
-
-      gameObject.cantBounce = true;
-      setTimeout(() => {
-        gameObject.cantBounce = false;
-      }, 1000);
     }
-
-    if (
-      !gameObject.cantBounce &&
-      gameObject.direction.x === 0 &&
-      gameObject.direction.y === 0
-    ) {
+    else {
       this.bounce();
       console.log('bounce');
     }

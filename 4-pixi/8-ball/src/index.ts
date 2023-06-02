@@ -6,6 +6,7 @@ import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { BallGameClient } from './../../5-client/dist/BallGameClient.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
+import { EventEmitter } from 'eventemitter3';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -24,7 +25,8 @@ const appHelperOptions: AppHelperOptions = {
 const green = 0x00ff00;
 const blue = 0x0000ff;
 const playerOptions = {
-  id: 1,
+  id: '1',
+  playerNr: 1,
   radius: 50,
   speed: 2,
   width: 800,
@@ -47,7 +49,8 @@ const playerOptions = {
   isPlayable: playerUrlParam === '1',
 };
 const playerOptions2 = {
-  id: 2,
+  id: '2',
+  playerNr: 2,
   radius: 50,
   speed: 2,
   width: 800,
@@ -70,7 +73,8 @@ const playerOptions2 = {
   isPlayable: playerUrlParam === '2',
 };
 const ballOptions = {
-  id: 3,
+  id: '3',
+  playerNr: 0,
   radius: 20,
   speed: 2,
   color: {
@@ -81,21 +85,22 @@ const ballOptions = {
   isBall: true,
   width: 800,
   height: 600,
+  keys: undefined,
+  isPlayable: false,
+  keyboard: undefined,
 };
 
-const client = new BallGameClient();
+const positionEmitter = new EventEmitter();
+const client = new BallGameClient(positionEmitter);
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
-const player = new PlayerObject(keyboard, playerOptions);
-player.position.x = appHelper.width / 2 - 250;
-player.position.y = appHelper.height / 2;
-const player2 = new PlayerObject(keyboard, playerOptions2);
-player2.position.x = appHelper.width / 2 + 250;
-player2.position.y = appHelper.height / 2;
+const player = new PlayerObject(keyboard, positionEmitter, playerOptions);
+player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
+const player2 = new PlayerObject(keyboard, positionEmitter, playerOptions2);
+player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
 const ball = new BallObject(ballOptions);
-ball.position.x = appHelper.width / 2;
-ball.position.y = appHelper.height / 2;
+ball.position = { x: appHelper.width / 2, y: appHelper.height / 2 };
 ball.client = client;
 
 appHelper.addGameObject(player);

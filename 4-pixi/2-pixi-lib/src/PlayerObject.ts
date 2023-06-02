@@ -3,77 +3,105 @@ import { GameObject } from './GameObject.js';
 import { KeyboardInputV1 } from './KeyboardInputV1.js';
 import { PlayerObjectOptions } from './PlayerObjectOptions.js';
 import { EventEmitter } from 'eventemitter3';
+import { PositionData } from './PositionData.js';
+import { BallObject } from './BallObject.js';
 
 export class PlayerObject extends GameObject {
-  private readonly keyboard: KeyboardInputV1;
-  private readonly id: string;
-  private readonly radius: number;
-  private readonly speed: number;
-  private readonly width: number;
-  private readonly height: number;
-  private readonly keys: any; // Replace 'any' with the actual type of 'keys'
-  private readonly color: any; // Replace 'any' with the actual type of 'color'
+  private readonly _keyboard: KeyboardInputV1;
+  private readonly _id: string;
+  private readonly _radius: number;
+  private readonly _speed: number;
+  private readonly _width: number;
+  private readonly _height: number;
+  private readonly _keys: any; // Replace 'any' with the actual type of 'keys'
+  private readonly _color: any; // Replace 'any' with the actual type of 'color'
   public readonly isPlayable: boolean;
-  private readonly playerNr: number;
-  private direction: { x: number; y: number };
-  private position: { x: number; y: number };
-  private client!: any;
-  private clientId: any;
+  private readonly _playerNr: number;
+  private _direction: { x: number; y: number };
+  private _position: { x: number; y: number };
+  //private _client!: any;
+  public clientId: any;
   //todo: this will remove need for client ref soon
-  private positionEmitter: EventEmitter;
+  private _positionEmitter: EventEmitter | null;
 
-  constructor(keyboard: KeyboardInputV1, options: PlayerObjectOptions) {
+  constructor(
+    keyboard: KeyboardInputV1,
+    positionEmitter: EventEmitter | null,
+    options: PlayerObjectOptions
+  ) {
     super();
-    this.keyboard = keyboard;
-    this.id = options.id;
-    this.radius = options.radius;
-    this.speed = options.speed;
-    this.width = options.width;
-    this.height = options.height;
-    this.direction = { x: 0, y: 0 };
-    this.position = { x: this.width / 2, y: this.height / 2 };
-    this.keys = options.keys;
-    this.color = options.color;
+    this._keyboard = keyboard;
+    this._id = options.id;
+    this._radius = options.radius;
+    this._speed = options.speed;
+    this._width = options.width;
+    this._height = options.height;
+    this._direction = { x: 0, y: 0 };
+    this._position = { x: this._width / 2, y: this._height / 2 };
+    this._keys = options.keys;
+    this._color = options.color;
     this.isPlayable = options.isPlayable;
-    this.playerNr = options.playerNr;
-
-    this.positionEmitter = new EventEmitter();
+    this._playerNr = options.playerNr;
+    this._positionEmitter = positionEmitter;
   }
 
-  //todo: use it
-  private emitPositionUpdate(): void {
-    this.positionEmitter.emit('positionUpdate', {
+  private emitPositionUpdate(newPosition: { x: number; y: number }) {
+    const data: PositionData = {
       clientId: this.clientId,
-      newPosition: this.position,
-    });
+      newPosition,
+    };
+    this._positionEmitter?.emit('positionUpdate', data);
+    //console.log('emitPositionUpdate', data);
   }
 
-  public setPosition(newPosition: { x: number; y: number }): void {
-    this.position = { ...newPosition };
+  public get position() {
+    return this._position;
   }
 
-  private handleKeyboardInput(): void {
+  public get direction() {
+    return this._direction;
+  }
+
+  public get radius() {
+    return this._radius;
+  }
+
+  public set position(newPosition: { x: number; y: number }) {
+    this._position.x = newPosition.x;
+    this._position.y = newPosition.y;
+  }
+
+  private handleKeyboardInput() {
     if (!this.isPlayable) return;
 
     const direction = { x: 0, y: 0 };
-    const { keys } = this;
+    const { _keys } = this;
 
-    if (this.keyboard.isKeyDown(keys.left) || this.keyboard.isKeyDown(keys.a)) {
+    if (
+      this._keyboard.isKeyDown(_keys.left) ||
+      this._keyboard.isKeyDown(_keys.a)
+    ) {
       direction.x -= 1;
     }
 
     if (
-      this.keyboard.isKeyDown(keys.right) ||
-      this.keyboard.isKeyDown(keys.d)
+      this._keyboard.isKeyDown(_keys.right) ||
+      this._keyboard.isKeyDown(_keys.d)
     ) {
       direction.x += 1;
     }
 
-    if (this.keyboard.isKeyDown(keys.up) || this.keyboard.isKeyDown(keys.w)) {
+    if (
+      this._keyboard.isKeyDown(_keys.up) ||
+      this._keyboard.isKeyDown(_keys.w)
+    ) {
       direction.y -= 1;
     }
 
-    if (this.keyboard.isKeyDown(keys.down) || this.keyboard.isKeyDown(keys.s)) {
+    if (
+      this._keyboard.isKeyDown(_keys.down) ||
+      this._keyboard.isKeyDown(_keys.s)
+    ) {
       direction.y += 1;
     }
 
@@ -83,87 +111,88 @@ export class PlayerObject extends GameObject {
       direction.y /= length;
     }
 
-    this.direction = direction;
+    this._direction = direction;
     this.emitMovementEventIfNeeded();
   }
 
-  private emitMovementEventIfNeeded(): void {
+  private emitMovementEventIfNeeded() {
     const newPosition = {
-      x: this.position.x + this.direction.x * this.speed,
-      y: this.position.y + this.direction.y * this.speed,
+      x: this._position.x + this._direction.x * this._speed,
+      y: this._position.y + this._direction.y * this._speed,
     };
-
     if (
-      this.isPlayable &&
-      this.client &&
+      //this.isPlayable &&
+      //this.client &&
       this.clientId &&
-      (newPosition.x !== this.position.x || newPosition.y !== this.position.y)
+      (newPosition.x !== this._position.x || newPosition.y !== this._position.y)
     ) {
-      this.position = newPosition;
-      this.client.socket!.emit('movement', {
-        clientId: this.clientId,
-        newPosition: this.position,
-      });
+      this._position = newPosition;
+      //   this.client.socket!.emit('movement', {
+      //     clientId: this._clientId,
+      //     newPosition: this._position,
+      //   });
+      //console.log('emitt shoul be  happening');
+      this.emitPositionUpdate(newPosition);
     }
   }
 
-  public update(deltaTime: number): void {
+  public update(deltaTime: number) {
     this.handleKeyboardInput();
 
     const velocity = {
-      x: this.direction.x * this.speed * deltaTime,
-      y: this.direction.y * this.speed * deltaTime,
+      x: this._direction.x * this._speed * deltaTime,
+      y: this._direction.y * this._speed * deltaTime,
     };
 
-    this.position.x += velocity.x;
-    this.position.y += velocity.y;
+    this._position.x += velocity.x;
+    this._position.y += velocity.y;
   }
 
-  public draw(stage: PIXI.Container): void {
+  public draw(stage: PIXI.Container) {
     this.drawPlayerCircle(stage);
     this.drawPositionCircle(stage);
     this.drawDirectionLine(stage);
   }
 
-  private drawPlayerCircle(stage: PIXI.Container): void {
+  private drawPlayerCircle(stage: PIXI.Container) {
     const graphics = new PIXI.Graphics();
-    graphics.beginFill(this.color.player);
-    graphics.drawCircle(this.position.x, this.position.y, this.radius);
+    graphics.beginFill(this._color.player);
+    graphics.drawCircle(this._position.x, this._position.y, this._radius);
     graphics.endFill();
     stage.addChild(graphics);
   }
 
-  private drawPositionCircle(stage: PIXI.Container): void {
+  private drawPositionCircle(stage: PIXI.Container) {
     const positionGraphics = new PIXI.Graphics();
-    positionGraphics.beginFill(this.color.position);
+    positionGraphics.beginFill(this._color.position);
     positionGraphics.drawCircle(0, 0, 4);
     positionGraphics.endFill();
-    positionGraphics.x = this.position.x;
-    positionGraphics.y = this.position.y;
+    positionGraphics.x = this._position.x;
+    positionGraphics.y = this._position.y;
     stage.addChild(positionGraphics);
   }
 
-  private drawDirectionLine(stage: PIXI.Container): void {
+  private drawDirectionLine(stage: PIXI.Container) {
     const directionGraphics = new PIXI.Graphics();
-    directionGraphics.lineStyle(2, this.color.direction);
-    directionGraphics.moveTo(this.position.x, this.position.y);
-    const directionX = this.direction.x * (this.radius / 2);
-    const directionY = this.direction.y * (this.radius / 2);
+    directionGraphics.lineStyle(2, this._color.direction);
+    directionGraphics.moveTo(this._position.x, this._position.y);
+    const directionX = this._direction.x * (this._radius / 2);
+    const directionY = this._direction.y * (this._radius / 2);
     directionGraphics.lineTo(
-      this.position.x + directionX,
-      this.position.y + directionY
+      this._position.x + directionX,
+      this._position.y + directionY
     );
     stage.addChild(directionGraphics);
   }
 
-  public kickBall(ball: any): void {
+  public kickBall(ball: BallObject) {
     // Replace 'any' with the actual type of 'ball'
     const velocity = {
-      x: this.direction.x * this.speed * 2,
-      y: this.direction.y * this.speed * 2,
+      x: this._direction.x * this._speed * 2,
+      y: this._direction.y * this._speed * 2,
     };
 
-    ball.setVelocity(velocity);
+    ball.velocity = velocity;
     ball.emitVelocity();
   }
 }

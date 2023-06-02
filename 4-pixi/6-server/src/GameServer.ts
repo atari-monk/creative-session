@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import http, { Server } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
+import { PositionData } from './../../2-pixi-lib/dist/PositionData.js';
 
 class GameServer {
   private readonly app: Express;
@@ -9,7 +10,9 @@ class GameServer {
   private readonly ioOptions: any;
   private readonly io: SocketIOServer;
   private readonly PORT: string | number;
-  private readonly clients: { [clientId: string]: { socket: Socket; state: string } };
+  private readonly clients: {
+    [clientId: string]: { socket: Socket; state: string };
+  };
   private readonly isLogging: boolean;
   private playerLimit: number;
   private readonly delayDisconnect: number;
@@ -32,13 +35,13 @@ class GameServer {
     this.delayDisconnect = 1000;
   }
 
-  public start(): void {
+  public start() {
     this.configureMiddleware();
     this.configureSocketIO();
     this.listen();
   }
 
-  public setPlayerLimit(limit: number): void {
+  public setPlayerLimit(limit: number) {
     if (typeof limit === 'number' && limit > 0) {
       this.playerLimit = limit;
       this.log(`Player limit set to ${limit}`);
@@ -47,11 +50,11 @@ class GameServer {
     }
   }
 
-  private configureMiddleware(): void {
+  private configureMiddleware() {
     this.app.use(cors());
   }
 
-  private configureSocketIO(): void {
+  private configureSocketIO() {
     this.io.on('connection', (socket) => {
       if (this.getClientCount() < this.playerLimit) {
         this.handleClientConnection(socket);
@@ -62,7 +65,7 @@ class GameServer {
     });
   }
 
-  protected handleClientConnection(socket: Socket): void {
+  protected handleClientConnection(socket: Socket) {
     const clientId = this.generateClientId(socket);
     this.storeClient(clientId, socket);
     this.handleClientDisconnection(clientId);
@@ -76,11 +79,11 @@ class GameServer {
     return socket.id;
   }
 
-  private storeClient(clientId: string, socket: Socket): void {
+  private storeClient(clientId: string, socket: Socket) {
     this.clients[clientId] = { socket, state: 'Connecting' };
   }
 
-  private handleClientDisconnection(clientId: string): void {
+  private handleClientDisconnection(clientId: string) {
     this.clients[clientId].socket.on('disconnect', () => {
       this.clients[clientId].state = 'Disconnecting';
       setTimeout(() => {
@@ -90,9 +93,9 @@ class GameServer {
     });
   }
 
-  private handlePlayerMovement(socket: Socket): void {
-    socket.on('movement', ({ clientId, newPosition }) => {
-      socket.broadcast.emit('movement', { clientId, newPosition });
+  private handlePlayerMovement(socket: Socket) {
+    socket.on('movement', (data: PositionData) => {
+      socket.broadcast.emit('movement', data);
     });
   }
 
@@ -100,7 +103,7 @@ class GameServer {
     return Object.keys(this.clients);
   }
 
-  private emitClientIdList(clientIdList: string[]): void {
+  private emitClientIdList(clientIdList: string[]) {
     this.io.emit('clientIdList', clientIdList);
   }
 
@@ -108,19 +111,19 @@ class GameServer {
     return Object.keys(this.clients).length;
   }
 
-  private listen(): void {
+  private listen() {
     this.server.listen(this.PORT, () => {
       this.log(`Server is running on port ${this.PORT}`);
     });
   }
 
-  private log(message: string): void {
+  private log(message: string) {
     if (this.isLogging) {
       console.log(message);
     }
   }
 
-  private logClientsArray(): void {
+  private logClientsArray() {
     if (this.isLogging) {
       const clientsArray = this.getClientIdList().map((clientId) => ({
         clientId,
