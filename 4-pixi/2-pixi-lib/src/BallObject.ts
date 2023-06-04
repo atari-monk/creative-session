@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject.js';
 import { PlayerObject } from './PlayerObject.js';
 import { EventEmitter } from 'eventemitter3';
-import { PositionData } from './PositionData.js';
+import { VectorData } from './VectorData.js';
 
 export class BallObject extends GameObject {
   private readonly id: string;
@@ -23,16 +23,17 @@ export class BallObject extends GameObject {
   constructor(
     emitter: EventEmitter,
     options: {
-    id: string;
-    radius: number;
-    speed: number;
-    width: number;
-    height: number;
-    keyboard: any;
-    keys: any;
-    color: any;
-    isBall: boolean;
-  }) {
+      id: string;
+      radius: number;
+      speed: number;
+      width: number;
+      height: number;
+      keyboard: any;
+      keys: any;
+      color: any;
+      isBall: boolean;
+    }
+  ) {
     super();
     const { id, radius, speed, width, height, keyboard, keys, color, isBall } =
       options;
@@ -75,30 +76,34 @@ export class BallObject extends GameObject {
     this._direction.y = newDirection.y;
   }
 
-  private emitPositionUpdate() {
+  private emitPosition() {
     if (this._velocity.x === 0 && this._velocity.y === 0) return;
     //console.log('ballMovement');
     // this._client.socket.emit('ballMovement', {
     //   clientId: this._client.clientId,
     //   newPosition: this._position,
     // });
-    const data: PositionData = {
-      newPosition: this._position,
+    const data: VectorData = {
+      newVector: this._position,
     };
     this._emitter.emit('ball-pos-upd', data);
   }
 
   public emitVelocity() {
-    this._client.socket.emit('ballVelocity', {
-      clientId: this._client.clientId,
-      newVelocity: this._velocity,
-    });
+    const data: VectorData = {
+      newVector: this._velocity,
+    };
+    this._emitter.emit('ball-vel-upd', data);
+    // this._client.socket.emit('ballVelocity', {
+    //   clientId: this._client.clientId,
+    //   newVelocity: this._velocity,
+    // });
   }
 
   public update(deltaTime: number) {
     this._position.x += this._velocity.x * deltaTime;
     this._position.y += this._velocity.y * deltaTime;
-    this.emitPositionUpdate();
+    this.emitPosition();
   }
 
   public draw(stage: PIXI.Container) {

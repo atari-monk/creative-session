@@ -3,7 +3,7 @@ import { GameObject } from './GameObject.js';
 import { KeyboardInputV1 } from './KeyboardInputV1.js';
 import { PlayerObjectOptions } from './PlayerObjectOptions.js';
 import { EventEmitter } from 'eventemitter3';
-import { PositionData } from './PositionData.js';
+import { VectorData } from './VectorData.js';
 import { BallObject } from './BallObject.js';
 
 export class PlayerObject extends GameObject {
@@ -46,9 +46,9 @@ export class PlayerObject extends GameObject {
   }
 
   private emitPositionUpdate(newPosition: { x: number; y: number }) {
-    const data: PositionData = {
+    const data: VectorData = {
       clientId: this.clientId,
-      newPosition,
+      newVector: newPosition,
     };
     this._positionEmitter?.emit('positionUpdate', data);
     //console.log('emitPositionUpdate', data);
