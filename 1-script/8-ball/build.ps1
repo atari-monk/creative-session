@@ -1,4 +1,4 @@
-$script = 'C:\atari-monk\Code\creative-session\1-script'
+$script = 'C:\atari-monk\Code\creative-session\1-script\8-ball'
 $pixi = 'C:\atari-monk\Code\creative-session\4-pixi'
 $lib = '\2-pixi-lib'
 $client = '\5-client'
