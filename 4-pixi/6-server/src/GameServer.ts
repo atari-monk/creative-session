@@ -2,9 +2,9 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import http, { Server } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import { PositionData } from './../../2-pixi-lib/dist/PositionData.js';
+import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
 
-class GameServer {
+export class GameServer {
   private readonly app: Express;
   private readonly server: Server;
   private readonly ioOptions: any;
@@ -94,7 +94,7 @@ class GameServer {
   }
 
   private handlePlayerMovement(socket: Socket) {
-    socket.on('movement', (data: PositionData) => {
+    socket.on('movement', (data: VectorData) => {
       socket.broadcast.emit('movement', data);
     });
   }
@@ -133,5 +133,3 @@ class GameServer {
     }
   }
 }
-
-export { GameServer };

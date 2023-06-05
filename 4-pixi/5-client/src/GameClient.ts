@@ -1,6 +1,6 @@
 import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
-import { PositionData } from './../../2-pixi-lib/dist/PositionData.js';
+import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
 
 export class GameClient {
   protected clientId!: string;
@@ -16,7 +16,7 @@ export class GameClient {
     this._emitter.on('positionUpdate', this.emittPlayerPosition.bind(this));
   }
 
-  private emittPlayerPosition(data: PositionData) {
+  private emittPlayerPosition(data: VectorData) {
     //console.log('0 this should be newPosition', data.newPosition);
     this.socket!.emit('movement', data);
   }
@@ -56,16 +56,10 @@ export class GameClient {
     }
   }
 
-  private handleMovement({
-    clientId,
-    newPosition,
-  }: {
-    clientId: string;
-    newPosition: { x: number; y: number };
-  }) {
-    if (!clientId) throw new Error('No clientId data!');
-    if (!newPosition) throw new Error('No position data!');
-    this.updatePlayerPosition(clientId, newPosition);
+  private handleMovement(data: VectorData) {
+    if (!data.clientId) throw new Error('No clientId data!');
+    if (!data.newVector) throw new Error('No position data!');
+    this.updatePlayerPosition(data.clientId, data.newVector);
   }
 
   private handleDisconnect() {
