@@ -13,11 +13,11 @@ export class BallGameClient extends GameClient {
   }
 
   private emittBallPosition(data: VectorData) {
-    this.socket!.emit('ballMovement', data.newVector);
+    this.socket.emit('ballMovement', data.newVector);
   }
 
   private emittBallVelocity(data: VectorData) {
-    this.socket!.emit('ballVelocity', data.newVector);
+    this.socket.emit('ballVelocity', data.newVector);
   }
 
   public addBallObj(ball: any) {
@@ -29,9 +29,10 @@ export class BallGameClient extends GameClient {
   }
 
   protected setupSocketConnection() {
-    super.setupSocketConnection();
-    this.socket?.on('ballMovement', this.handleBallMovement.bind(this));
-    this.socket?.on('ballVelocity', this.handleBallVelocity.bind(this));
+    const socket = super.setupSocketConnection();
+    socket.on('ballMovement', this.handleBallMovement.bind(this));
+    socket.on('ballVelocity', this.handleBallVelocity.bind(this));
+    return socket;
   }
 
   private handleBallMovement(newPosition: { x: number; y: number }) {

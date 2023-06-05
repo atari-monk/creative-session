@@ -1,44 +1,44 @@
 import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
-import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
+import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
+import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
 
 export class GameClient {
-  protected clientId!: string;
-  private playerObjs: PlayerObject[] = [];
-  private players: { [key: string]: any } = {};
-  public socket: Socket | undefined;
+  private _playerObjs: PlayerObject[] = [];
+  private _players: { [key: string]: PlayerObject } = {};
+  private _socket: Socket;
+  protected clientId?: string;
   protected readonly _emitter: EventEmitter;
 
   constructor(emitter: EventEmitter) {
-    this.players = {};
-    this.setupSocketConnection();
+    this._socket = this.setupSocketConnection();
     this._emitter = emitter;
-    this._emitter.on('positionUpdate', this.emittPlayerPosition.bind(this));
+    const positionEventKey = 'positionUpdate';
+    this._emitter.on(positionEventKey, this.emittPlayerPosition.bind(this));
   }
 
   private emittPlayerPosition(data: VectorData) {
-    //console.log('0 this should be newPosition', data.newPosition);
-    this.socket!.emit('movement', data);
+    this._socket.emit('movement', data);
   }
 
   protected setupSocketConnection(isInDevEnv = true) {
-    this.socket = connect(
+    const socket = connect(
       isInDevEnv
         ? 'http://localhost:3000'
         : 'https://atari-monk-two-players.azurewebsites.net/'
     );
-    this.socket.on('connect', this.handleConnect.bind(this));
-    this.socket.on('movement', this.handleMovement.bind(this));
-    this.socket.on('disconnect', this.handleDisconnect.bind(this));
-    this.socket.on('clientIdList', this.handleClientIdList.bind(this));
-    this.socket.on('connect_error', this.handleConnectError.bind(this));
+    socket.on('connect', this.handleConnect.bind(this));
+    socket.on('movement', this.handleMovement.bind(this));
+    socket.on('disconnect', this.handleDisconnect.bind(this));
+    socket.on('clientIdList', this.handleClientIdList.bind(this));
+    socket.on('connect_error', this.handleConnectError.bind(this));
+    return socket;
   }
 
   private handleConnect() {
     try {
-      this.clientId = this.socket!.id;
-      const playablePlayer = this.playerObjs.find(
+      this.clientId = this._socket.id;
+      const playablePlayer = this._playerObjs.find(
         (player) => player.isPlayable
       );
 
@@ -49,7 +49,7 @@ export class GameClient {
 
       //playablePlayer.client = this;
       playablePlayer.clientId = this.clientId;
-      this.players[this.clientId] = playablePlayer;
+      this._players[this.clientId] = playablePlayer;
 
       console.log(`Connected to server, id: ${this.clientId}`);
     } catch (err) {
@@ -70,10 +70,10 @@ export class GameClient {
   private handleClientIdList(clientIdList: string[]) {
     const newClientId = clientIdList.find((id) => id !== this.clientId);
     if (!newClientId) return;
-    const player = this.playerObjs.find((player) => !player.isPlayable);
+    const player = this._playerObjs.find((player) => !player.isPlayable);
     if (!player) throw new Error('No second player!');
     player.clientId = clientIdList.find((id) => id !== this.clientId);
-    this.players[newClientId] = player;
+    this._players[newClientId] = player;
     console.log(`New player connected, id: ${newClientId}'`);
   }
 
@@ -91,7 +91,7 @@ export class GameClient {
     clientId: string,
     newPosition: { x: number; y: number }
   ) {
-    const player = this.players[clientId];
+    const player = this._players[clientId];
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
     }
@@ -100,18 +100,22 @@ export class GameClient {
   }
 
   public addPlayerObjs(players: PlayerObject[]) {
-    this.playerObjs = players;
+    this._playerObjs = players;
   }
 
   public addPlayerObj(player: PlayerObject) {
-    this.playerObjs.push(player);
+    this._playerObjs.push(player);
   }
 
   public removePlayer(player: any) {
-    delete this.players[player.client.clientId];
+    delete this._players[player.client.clientId];
   }
 
-  public getSocket(): Socket | undefined {
-    return this.socket;
+  // public getSocket(): Socket | undefined {
+  //   return this._socket;
+  // }
+
+  get socket(): Socket {
+    return this._socket;
   }
 }
