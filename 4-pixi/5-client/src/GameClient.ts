@@ -1,10 +1,11 @@
 import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
+import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 
 export class GameClient {
   protected clientId!: string;
-  private playerObjs: any[] = [];
+  private playerObjs: PlayerObject[] = [];
   private players: { [key: string]: any } = {};
   public socket: Socket | undefined;
   protected readonly _emitter: EventEmitter;
@@ -98,11 +99,11 @@ export class GameClient {
     player.position = newPosition;
   }
 
-  public addPlayerObjs(players: any[]) {
+  public addPlayerObjs(players: PlayerObject[]) {
     this.playerObjs = players;
   }
 
-  public addPlayerObj(player: any) {
+  public addPlayerObj(player: PlayerObject) {
     this.playerObjs.push(player);
   }
 
