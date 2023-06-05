@@ -3,16 +3,16 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
+    "declaration": true,
     "strict": true,
-    "allowJs": true
+    "allowJs": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.js",
     "./../2-pixi-lib/dist/**/*.ts",
-    "./../2-pixi-lib/dist/**/*.js",
-    "./../4-client/**/*.ts",
-    "./../4-client/**/*.js"
+    "./../5-client/**/*.ts",
   ],
   "exclude": ["node_modules"]
 }
