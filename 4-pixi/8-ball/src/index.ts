@@ -7,8 +7,9 @@ import { SocketConnection } from './../../5-client/dist/SocketConnection.js';
 import { PlayerClient } from './../../5-client/dist/PlayerClient.js';
 import { BallClient } from './../../5-client/dist/BallClient.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
-import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
+import { AppHelperOptions } from './../../2-pixi-lib/dist/AppHelperOptions.js';
 import { EventEmitter } from 'eventemitter3';
+import { Environment } from '../../5-client/dist/Environment.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -93,7 +94,9 @@ const ballOptions = {
 };
 
 const emitter = new EventEmitter();
-const socketConnection = new SocketConnection();
+const socketConnection = new SocketConnection({
+  environment: Environment.Development,
+});
 const playerClient = new PlayerClient(socketConnection, emitter);
 const ballClient = new BallClient(socketConnection, emitter);
 const keyboard = new KeyboardInputV1();
