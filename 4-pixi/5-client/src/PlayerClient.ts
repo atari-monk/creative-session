@@ -2,42 +2,39 @@ import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
 import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
+import { SocketConnection } from './SocketConnection.js';
 
 export class PlayerClient {
   private _playerObjs: PlayerObject[] = [];
   private _players: { [key: string]: PlayerObject } = {};
-  private _socket: Socket;
+  protected readonly socketConnection: SocketConnection;
   protected clientId?: string;
   protected readonly _emitter: EventEmitter;
 
-  constructor(emitter: EventEmitter) {
-    this._socket = this.setupSocketConnection();
+  constructor(socketConnection: SocketConnection, emitter: EventEmitter) {
+    this.socketConnection = socketConnection;
     this._emitter = emitter;
     const positionEventKey = 'positionUpdate';
     this._emitter.on(positionEventKey, this.emittPlayerPosition.bind(this));
+    this.setupSocketEventHandlers();
   }
 
   private emittPlayerPosition(data: VectorData) {
-    this._socket.emit('movement', data);
+    this.socketConnection.socket.emit('movement', data);
   }
 
-  protected setupSocketConnection(isInDevEnv = true) {
-    const socket = connect(
-      isInDevEnv
-        ? 'http://localhost:3000'
-        : 'https://atari-monk-two-players.azurewebsites.net/'
-    );
+  protected setupSocketEventHandlers() {
+    const socket = this.socketConnection.socket;
     socket.on('connect', this.handleConnect.bind(this));
     socket.on('movement', this.handleMovement.bind(this));
     socket.on('disconnect', this.handleDisconnect.bind(this));
     socket.on('clientIdList', this.handleClientIdList.bind(this));
     socket.on('connect_error', this.handleConnectError.bind(this));
-    return socket;
   }
 
   private handleConnect() {
     try {
-      this.clientId = this._socket.id;
+      this.clientId = this.socketConnection.socket.id;
       const playablePlayer = this._playerObjs.find(
         (player) => player.isPlayable
       );
@@ -116,6 +113,6 @@ export class PlayerClient {
   // }
 
   get socket(): Socket {
-    return this._socket;
+    return this.socketConnection.socket;
   }
 }

@@ -1,23 +1,34 @@
-import { PlayerClient } from './PlayerClient.js';
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
+import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
+import { SocketConnection } from './SocketConnection.js';
 
-export class BallGameClient extends PlayerClient {
+export class BallClient {
   private ballObj: any = null;
+  private readonly socketConnection: SocketConnection;
+  protected readonly _emitter: EventEmitter;
 
-  constructor(positionEmitter: EventEmitter) {
-    super(positionEmitter);
+  constructor(socketConnection: SocketConnection, emitter: EventEmitter) {
+    this.socketConnection = socketConnection;
+    this._emitter = emitter;
     this.ballObj = null;
+    this.socketConnection.socket.on(
+      'ballMovement',
+      this.handleBallMovement.bind(this)
+    );
+    this.socketConnection.socket.on(
+      'ballVelocity',
+      this.handleBallVelocity.bind(this)
+    );
     this._emitter.on('ball-pos-upd', this.emittBallPosition.bind(this));
     this._emitter.on('ball-vel-upd', this.emittBallVelocity.bind(this));
   }
 
   private emittBallPosition(data: VectorData) {
-    this.socket.emit('ballMovement', data.newVector);
+    this.socketConnection.socket.emit('ballMovement', data.newVector);
   }
 
   private emittBallVelocity(data: VectorData) {
-    this.socket.emit('ballVelocity', data.newVector);
+    this.socketConnection.socket.emit('ballVelocity', data.newVector);
   }
 
   public addBallObj(ball: any) {
@@ -26,13 +37,6 @@ export class BallGameClient extends PlayerClient {
 
   public removeBallObj() {
     this.ballObj = null;
-  }
-
-  protected setupSocketConnection() {
-    const socket = super.setupSocketConnection();
-    socket.on('ballMovement', this.handleBallMovement.bind(this));
-    socket.on('ballVelocity', this.handleBallVelocity.bind(this));
-    return socket;
   }
 
   private handleBallMovement(newPosition: { x: number; y: number }) {

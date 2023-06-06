@@ -3,7 +3,9 @@ import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
 import { BallRenderer } from './../../2-pixi-lib/dist/BallRenderer.js';
 import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
-import { BallGameClient } from './../../5-client/dist/BallGameClient.js';
+import { SocketConnection } from './../../5-client/dist/SocketConnection.js';
+import { PlayerClient } from './../../5-client/dist/PlayerClient.js';
+import { BallClient } from './../../5-client/dist/BallClient.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
 import { EventEmitter } from 'eventemitter3';
@@ -91,7 +93,9 @@ const ballOptions = {
 };
 
 const emitter = new EventEmitter();
-const client = new BallGameClient(emitter);
+const socketConnection = new SocketConnection();
+const playerClient = new PlayerClient(socketConnection, emitter);
+const ballClient = new BallClient(socketConnection, emitter);
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
@@ -101,7 +105,6 @@ const player2 = new PlayerObject(keyboard, emitter, playerOptions2);
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
 const ball = new BallObject(emitter, ballOptions);
 ball.position = { x: appHelper.width / 2, y: appHelper.height / 2 };
-ball.client = client;
 
 appHelper.addGameObject(player);
 appHelper.addGameObject(player2);
@@ -111,6 +114,6 @@ appHelper.addGameObject(ball);
 const renderer = new BallRenderer(appHelper, pixiApp);
 appHelper.initializeApp(pixiApp, renderer);
 
-client.addPlayerObjs([player, player2]);
-client.addBallObj(ball);
+playerClient.addPlayerObjs([player, player2]);
+ballClient.addBallObj(ball);
 appHelper.startAnimationLoop();
