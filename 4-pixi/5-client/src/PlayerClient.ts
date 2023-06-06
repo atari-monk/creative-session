@@ -3,7 +3,7 @@ import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
 import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
 
-export class GameClient {
+export class PlayerClient {
   private _playerObjs: PlayerObject[] = [];
   private _players: { [key: string]: PlayerObject } = {};
   private _socket: Socket;

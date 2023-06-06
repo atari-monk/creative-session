@@ -1,8 +1,8 @@
-import { GameClient } from './GameClient.js';
+import { PlayerClient } from './PlayerClient.js';
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
 
-export class BallGameClient extends GameClient {
+export class BallGameClient extends PlayerClient {
   private ballObj: any = null;
 
   constructor(positionEmitter: EventEmitter) {
