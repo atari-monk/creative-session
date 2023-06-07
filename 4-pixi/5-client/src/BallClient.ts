@@ -1,13 +1,13 @@
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
-import { SocketConnection } from './SocketConnection.js';
+import { SocketErrorHandler } from './SocketErrorHandler.js';
 
 export class BallClient {
   private ballObj: any = null;
-  private readonly socketConnection: SocketConnection;
+  private readonly socketConnection: SocketErrorHandler;
   protected readonly _emitter: EventEmitter;
 
-  constructor(socketConnection: SocketConnection, emitter: EventEmitter) {
+  constructor(socketConnection: SocketErrorHandler, emitter: EventEmitter) {
     this.socketConnection = socketConnection;
     this._emitter = emitter;
     this.ballObj = null;

@@ -2,16 +2,16 @@ import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
 import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
-import { SocketConnection } from './SocketConnection.js';
+import { SocketErrorHandler } from './SocketErrorHandler.js';
 
 export class PlayerClient {
   private _playerObjs: PlayerObject[] = [];
   private _players: { [key: string]: PlayerObject } = {};
-  protected readonly socketConnection: SocketConnection;
+  protected readonly socketConnection: SocketErrorHandler;
   protected clientId?: string;
   protected readonly _emitter: EventEmitter;
 
-  constructor(socketConnection: SocketConnection, emitter: EventEmitter) {
+  constructor(socketConnection: SocketErrorHandler, emitter: EventEmitter) {
     this.socketConnection = socketConnection;
     this._emitter = emitter;
     const positionEventKey = 'positionUpdate';

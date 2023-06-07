@@ -1,6 +1,6 @@
 import { Socket, connect } from 'socket.io-client';
 
-export class SocketConnection {
+export class SocketErrorHandler {
   private _socket: Socket;
 
   public get socket() {
