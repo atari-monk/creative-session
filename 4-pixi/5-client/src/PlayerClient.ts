@@ -1,17 +1,23 @@
 import { Socket, connect } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
-import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
 import { SocketErrorHandler } from './SocketErrorHandler.js';
+import { IPlayerManager } from './IPlayerManager.js';
 
 export class PlayerClient {
-  private _playerObjs: PlayerObject[] = [];
-  private _players: { [key: string]: PlayerObject } = {};
+  //private _playerObjs: PlayerObject[] = [];
+  //private _players: { [key: string]: PlayerObject } = {};
+  private readonly playerManager: IPlayerManager;
   protected readonly socketConnection: SocketErrorHandler;
   protected clientId?: string;
   protected readonly _emitter: EventEmitter;
 
-  constructor(socketConnection: SocketErrorHandler, emitter: EventEmitter) {
+  constructor(
+    playerManager: IPlayerManager,
+    socketConnection: SocketErrorHandler,
+    emitter: EventEmitter
+  ) {
+    this.playerManager = playerManager;
     this.socketConnection = socketConnection;
     this._emitter = emitter;
     const positionEventKey = 'positionUpdate';
@@ -35,18 +41,15 @@ export class PlayerClient {
   private handleConnect() {
     try {
       this.clientId = this.socketConnection.socket.id;
-      const playablePlayer = this._playerObjs.find(
-        (player) => player.isPlayable
-      );
+      const playablePlayer = this.playerManager.getPlayablePlayer();
 
       if (!playablePlayer) {
         this.noPlayablePlayerError();
         return;
       }
 
-      //playablePlayer.client = this;
       playablePlayer.clientId = this.clientId;
-      this._players[this.clientId] = playablePlayer;
+      this.playerManager.addPlayer(this.clientId, playablePlayer);
 
       console.log(`Connected to server, id: ${this.clientId}`);
     } catch (err) {
@@ -67,10 +70,10 @@ export class PlayerClient {
   private handleClientIdList(clientIdList: string[]) {
     const newClientId = clientIdList.find((id) => id !== this.clientId);
     if (!newClientId) return;
-    const player = this._playerObjs.find((player) => !player.isPlayable);
+    const player = this.playerManager.getNonPlayablePlayer();
     if (!player) throw new Error('No second player!');
     player.clientId = clientIdList.find((id) => id !== this.clientId);
-    this._players[newClientId] = player;
+    this.playerManager.addPlayer(newClientId, player);
     console.log(`New player connected, id: ${newClientId}'`);
   }
 
@@ -88,7 +91,7 @@ export class PlayerClient {
     clientId: string,
     newPosition: { x: number; y: number }
   ) {
-    const player = this._players[clientId];
+    const player = this.playerManager.getPlayer(clientId);
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
     }
@@ -96,17 +99,17 @@ export class PlayerClient {
     player.position = newPosition;
   }
 
-  public addPlayerObjs(players: PlayerObject[]) {
-    this._playerObjs = players;
-  }
+  // public addPlayerObjs(players: PlayerObject[]) {
+  //   this._playerObjs = players;
+  // }
 
-  public addPlayerObj(player: PlayerObject) {
-    this._playerObjs.push(player);
-  }
+  // public addPlayerObj(player: PlayerObject) {
+  //   this._playerObjs.push(player);
+  // }
 
-  public removePlayer(player: any) {
-    delete this._players[player.client.clientId];
-  }
+  // public removePlayer(player: any) {
+  //   delete this._players[player.client.clientId];
+  // }
 
   // public getSocket(): Socket | undefined {
   //   return this._socket;

@@ -12,6 +12,7 @@ import { EventEmitter } from 'eventemitter3';
 import { Environment } from '../../5-client/dist/Environment.js';
 import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
 import { Manager, Socket } from 'socket.io-client';
+import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -102,7 +103,8 @@ const socketConfigurator = new SocketConfigurator({
 const manager = new Manager(socketConfigurator.URI);
 const socket = new Socket(manager, '/');
 const socketErrorHandler = new SocketErrorHandler(socket);
-const playerClient = new PlayerClient(socketErrorHandler, emitter);
+const playerManager = new PlayerManager();  
+new PlayerClient(playerManager,socketErrorHandler, emitter);
 const ballClient = new BallClient(socketErrorHandler, emitter);
 socket.connect();
 const keyboard = new KeyboardInputV1();
@@ -123,6 +125,7 @@ appHelper.addGameObject(ball);
 const renderer = new BallRenderer(appHelper, pixiApp);
 appHelper.initializeApp(pixiApp, renderer);
 
-playerClient.addPlayerObjs([player, player2]);
+playerManager.addPlayerObj(player);
+playerManager.addPlayerObj(player2);
 ballClient.addBallObj(ball);
 appHelper.startAnimationLoop();
