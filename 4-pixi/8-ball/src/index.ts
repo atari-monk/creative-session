@@ -10,6 +10,8 @@ import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/dist/AppHelperOptions.js';
 import { EventEmitter } from 'eventemitter3';
 import { Environment } from '../../5-client/dist/Environment.js';
+import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
+import { Manager, Socket } from 'socket.io-client';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -94,11 +96,15 @@ const ballOptions = {
 };
 
 const emitter = new EventEmitter();
-const socketConnection = new SocketConnection({
+const socketConfigurator = new SocketConfigurator({
   environment: Environment.Development,
 });
+const manager = new Manager(socketConfigurator.URI);
+const socket = new Socket(manager, '/');
+const socketConnection = new SocketConnection(socket);
 const playerClient = new PlayerClient(socketConnection, emitter);
 const ballClient = new BallClient(socketConnection, emitter);
+socket.connect();
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
