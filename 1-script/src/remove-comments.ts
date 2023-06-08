@@ -1,37 +1,41 @@
 import * as fs from 'fs';
 
 function removeCommentsFromFile(filePath: string): void {
-  // Read the file
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.error(`Error reading file: ${err.message}`);
       return;
     }
 
-    // Remove single-line comments
-    const singleLineCommentsRegex = /\/\/.*$/gm;
-    const withoutSingleLineComments = data.replace(singleLineCommentsRegex, '');
+    const lines = data.split('\n');
 
-    // Remove multi-line comments
-    const multiLineCommentsRegex = /\/\*[\s\S]*?\*\//gm;
-    const withoutMultiLineComments = withoutSingleLineComments.replace(
-      multiLineCommentsRegex,
-      ''
-    );
+    const withoutCommentLines = lines.filter((line) => {
+      const trimmedLine = line.trim();
+      return !(
+        trimmedLine.startsWith('//') ||
+        trimmedLine.startsWith('/*') ||
+        trimmedLine.endsWith('*/')
+      );
+    });
 
-    // Print the content without comments
-    console.log(withoutMultiLineComments);
+    const modifiedContent = withoutCommentLines.join('\n');
+
+    fs.writeFile(filePath, modifiedContent, 'utf8', (err) => {
+      if (err) {
+        console.error(`Error writing file: ${err.message}`);
+        return;
+      }
+
+      console.log('Comments removed successfully.');
+    });
   });
 }
 
-// Get the file path from the command-line argument
 const filePath = process.argv[2];
 
-// Check if a file path was provided
 if (!filePath) {
   console.error('Please provide a file path as a command-line argument');
   process.exit(1);
 }
 
-// Remove comments from the file
 removeCommentsFromFile(filePath);
