@@ -3,6 +3,7 @@ import { EventEmitter } from 'eventemitter3';
 import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
 import { SocketErrorHandler } from './SocketErrorHandler.js';
 import { IPlayerManager } from './IPlayerManager.js';
+import { PlayerSocket } from './PlayerSocket.js';
 
 export class PlayerClient {
   //private _playerObjs: PlayerObject[] = [];
@@ -11,93 +12,97 @@ export class PlayerClient {
   protected readonly socketConnection: SocketErrorHandler;
   protected clientId?: string;
   protected readonly _emitter: EventEmitter;
+  protected readonly playerSocket: PlayerSocket;
 
   constructor(
     playerManager: IPlayerManager,
     socketConnection: SocketErrorHandler,
-    emitter: EventEmitter
+    emitter: EventEmitter,
+    playerSocket: PlayerSocket
   ) {
     this.playerManager = playerManager;
     this.socketConnection = socketConnection;
     this._emitter = emitter;
+    this.playerSocket = playerSocket;
     const positionEventKey = 'positionUpdate';
     this._emitter.on(positionEventKey, this.emittPlayerPosition.bind(this));
-    this.setupSocketEventHandlers();
+    //this.setupSocketEventHandlers();
+    this.playerSocket.setupEventHandlers();
   }
 
   private emittPlayerPosition(data: VectorData) {
     this.socketConnection.socket.emit('movement', data);
   }
 
-  protected setupSocketEventHandlers() {
-    const socket = this.socketConnection.socket;
-    socket.on('connect', this.handleConnect.bind(this));
-    socket.on('movement', this.handleMovement.bind(this));
-    socket.on('disconnect', this.handleDisconnect.bind(this));
-    socket.on('clientIdList', this.handleClientIdList.bind(this));
-    socket.on('connect_error', this.handleConnectError.bind(this));
-  }
+  // protected setupSocketEventHandlers() {
+  //   const socket = this.socketConnection.socket;
+  //   socket.on('connect', this.handleConnect.bind(this));
+  //   socket.on('movement', this.handleMovement.bind(this));
+  //   socket.on('disconnect', this.handleDisconnect.bind(this));
+  //   socket.on('clientIdList', this.handleClientIdList.bind(this));
+  //   socket.on('connect_error', this.handleConnectError.bind(this));
+  // }
 
-  private handleConnect() {
-    try {
-      this.clientId = this.socketConnection.socket.id;
-      const playablePlayer = this.playerManager.getPlayablePlayer();
+  // private handleConnect() {
+  //   try {
+  //     this.clientId = this.socketConnection.socket.id;
+  //     const playablePlayer = this.playerManager.getPlayablePlayer();
 
-      if (!playablePlayer) {
-        this.noPlayablePlayerError();
-        return;
-      }
+  //     if (!playablePlayer) {
+  //       this.noPlayablePlayerError();
+  //       return;
+  //     }
 
-      playablePlayer.clientId = this.clientId;
-      this.playerManager.addPlayer(this.clientId, playablePlayer);
+  //     playablePlayer.clientId = this.clientId;
+  //     this.playerManager.addPlayer(this.clientId, playablePlayer);
 
-      console.log(`Connected to server, id: ${this.clientId}`);
-    } catch (err) {
-      console.error('Connection error:', (err as Error).message);
-    }
-  }
+  //     console.log(`Connected to server, id: ${this.clientId}`);
+  //   } catch (err) {
+  //     console.error('Connection error:', (err as Error).message);
+  //   }
+  // }
 
-  private handleMovement(data: VectorData) {
-    if (!data.clientId) throw new Error('No clientId data!');
-    if (!data.newVector) throw new Error('No position data!');
-    this.updatePlayerPosition(data.clientId, data.newVector);
-  }
+  // private handleMovement(data: VectorData) {
+  //   if (!data.clientId) throw new Error('No clientId data!');
+  //   if (!data.newVector) throw new Error('No position data!');
+  //   this.updatePlayerPosition(data.clientId, data.newVector);
+  // }
 
-  private handleDisconnect() {
-    console.log('Disconnected from server');
-  }
+  // private handleDisconnect() {
+  //   console.log('Disconnected from server');
+  // }
 
-  private handleClientIdList(clientIdList: string[]) {
-    const newClientId = clientIdList.find((id) => id !== this.clientId);
-    if (!newClientId) return;
-    const player = this.playerManager.getNonPlayablePlayer();
-    if (!player) throw new Error('No second player!');
-    player.clientId = clientIdList.find((id) => id !== this.clientId);
-    this.playerManager.addPlayer(newClientId, player);
-    console.log(`New player connected, id: ${newClientId}'`);
-  }
+  // private handleClientIdList(clientIdList: string[]) {
+  //   const newClientId = clientIdList.find((id) => id !== this.clientId);
+  //   if (!newClientId) return;
+  //   const player = this.playerManager.getNonPlayablePlayer();
+  //   if (!player) throw new Error('No second player!');
+  //   player.clientId = clientIdList.find((id) => id !== this.clientId);
+  //   this.playerManager.addPlayer(newClientId, player);
+  //   console.log(`New player connected, id: ${newClientId}'`);
+  // }
 
-  private handleConnectError(error: Error) {
-    console.error('Connection error:', error.message);
-  }
+  // private handleConnectError(error: Error) {
+  //   console.error('Connection error:', error.message);
+  // }
 
-  private noPlayablePlayerError() {
-    const message =
-      'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
-    throw new Error(message);
-  }
+  // private noPlayablePlayerError() {
+  //   const message =
+  //     'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
+  //   throw new Error(message);
+  // }
 
-  private updatePlayerPosition(
-    clientId: string,
-    newPosition: { x: number; y: number }
-  ) {
-    const player = this.playerManager.getPlayer(clientId);
-    if (!player) {
-      throw new Error(`No player with id: ${clientId}`);
-    }
-    //console.log('1 this should be newPosition', newPosition);
-    player.position = newPosition;
-  }
+  // private updatePlayerPosition(
+  //   clientId: string,
+  //   newPosition: { x: number; y: number }
+  // ) {
+  //   const player = this.playerManager.getPlayer(clientId);
+  //   if (!player) {
+  //     throw new Error(`No player with id: ${clientId}`);
+  //   }
+  //   //console.log('1 this should be newPosition', newPosition);
+  //   player.position = newPosition;
+  // }
 
   // public addPlayerObjs(players: PlayerObject[]) {
   //   this._playerObjs = players;

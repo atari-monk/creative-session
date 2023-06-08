@@ -13,6 +13,7 @@ import { Environment } from '../../5-client/dist/Environment.js';
 import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
 import { Manager, Socket } from 'socket.io-client';
 import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
+import { PlayerSocket } from '../../5-client/dist/PlayerSocket.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -100,11 +101,12 @@ const emitter = new EventEmitter();
 const socketConfigurator = new SocketConfigurator({
   environment: Environment.Development,
 });
-const manager = new Manager(socketConfigurator.URI);
-const socket = new Socket(manager, '/');
+const socketManager = new Manager(socketConfigurator.URI);
+const socket = new Socket(socketManager, '/');
 const socketErrorHandler = new SocketErrorHandler(socket);
-const playerManager = new PlayerManager();  
-new PlayerClient(playerManager,socketErrorHandler, emitter);
+const playerManager = new PlayerManager();
+const playerSocket = new PlayerSocket(socket, playerManager, emitter);
+new PlayerClient(playerManager, socketErrorHandler, emitter, playerSocket);
 const ballClient = new BallClient(socketErrorHandler, emitter);
 socket.connect();
 const keyboard = new KeyboardInputV1();
