@@ -110,7 +110,12 @@ const playerManager = new PlayerManager();
 const playerSocket = new PlayerSocket(socket, playerManager, emitter);
 new PlayerClient(playerManager, socketErrorHandler, emitter, playerSocket);
 new BallEmitter(socketErrorHandler, emitter);
-const ballManager = new BallManager();
+const ball = new BallObject(emitter, ballOptions);
+ball.position = {
+  x: appHelperOptions.width / 2,
+  y: appHelperOptions.height / 2,
+};
+const ballManager = new BallManager(ball);
 const ballSocket = new BallSocket(socketErrorHandler, ballManager);
 socket.connect();
 const keyboard = new KeyboardInputV1();
@@ -120,8 +125,6 @@ const player = new PlayerObject(keyboard, emitter, playerOptions);
 player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
 const player2 = new PlayerObject(keyboard, emitter, playerOptions2);
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
-const ball = new BallObject(emitter, ballOptions);
-ball.position = { x: appHelper.width / 2, y: appHelper.height / 2 };
 
 appHelper.addGameObject(player);
 appHelper.addGameObject(player2);
@@ -133,5 +136,4 @@ appHelper.initializeApp(pixiApp, renderer);
 
 playerManager.addPlayerObj(player);
 playerManager.addPlayerObj(player2);
-ballManager.addBallObj(ball);
 appHelper.startAnimationLoop();

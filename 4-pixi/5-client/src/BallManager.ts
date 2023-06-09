@@ -1,25 +1,17 @@
+import { BallObject } from '../../2-pixi-lib/dist/BallObject';
+
 export class BallManager {
-  private ballObj: any = null;
+  private ballObj: BallObject;
 
-  public addBallObj(ball: any) {
-    this.ballObj = ball;
-  }
-
-  public removeBallObj() {
-    this.ballObj = null;
+  constructor(ballObj: BallObject) {
+    this.ballObj = ballObj;
   }
 
   public updateBallPosition(newPosition: { x: number; y: number }) {
-    if (!this.ballObj) {
-      throw new Error('No ball object added!');
-    }
     this.ballObj.position = newPosition;
   }
 
   public updateBallVelocity(newVelocity: { x: number; y: number }) {
-    if (!this.ballObj) {
-      throw new Error('No ball object added!');
-    }
     this.ballObj.velocity = newVelocity;
   }
 }
