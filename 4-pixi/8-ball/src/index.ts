@@ -15,6 +15,7 @@ import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
 import { Manager, Socket } from 'socket.io-client';
 import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
 import { PlayerSocket } from '../../5-client/dist/PlayerSocket.js';
+import { BallManager } from '../../5-client/dist/BallManager.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -109,7 +110,8 @@ const playerManager = new PlayerManager();
 const playerSocket = new PlayerSocket(socket, playerManager, emitter);
 new PlayerClient(playerManager, socketErrorHandler, emitter, playerSocket);
 new BallEmitter(socketErrorHandler, emitter);
-const ballSocket = new BallSocket(socketErrorHandler);
+const ballManager = new BallManager();
+const ballSocket = new BallSocket(socketErrorHandler, ballManager);
 socket.connect();
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
@@ -131,5 +133,5 @@ appHelper.initializeApp(pixiApp, renderer);
 
 playerManager.addPlayerObj(player);
 playerManager.addPlayerObj(player2);
-ballSocket.addBallObj(ball);
+ballManager.addBallObj(ball);
 appHelper.startAnimationLoop();
