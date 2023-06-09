@@ -23,6 +23,7 @@ export class PlayerObject extends GameObject {
   public clientId: any;
   //todo: this will remove need for client ref soon
   private _positionEmitter: EventEmitter | null;
+  private readonly positionEventName: string = 'position-update';
 
   constructor(
     keyboard: KeyboardInputV1,
@@ -50,8 +51,7 @@ export class PlayerObject extends GameObject {
       clientId: this.clientId,
       newVector: newPosition,
     };
-    this._positionEmitter?.emit('positionUpdate', data);
-    //console.log('emitPositionUpdate', data);
+    this._positionEmitter?.emit(this.positionEventName, data);
   }
 
   public get position() {

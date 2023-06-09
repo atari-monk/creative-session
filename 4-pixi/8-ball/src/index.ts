@@ -4,7 +4,7 @@ import { BallRenderer } from './../../2-pixi-lib/dist/BallRenderer.js';
 import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { SocketErrorHandler } from './../../5-client/dist/SocketErrorHandler.js';
-import { PlayerClient } from './../../5-client/dist/PlayerClient.js';
+import { PlayerEmitter } from './../../5-client/dist/PlayerEmitter.js';
 import { BallSocket } from './../../5-client/dist/BallSocket.js';
 import { BallEmitter } from './../../5-client/dist/BallEmitter.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
@@ -108,7 +108,8 @@ const socket = new Socket(socketManager, '/');
 const socketErrorHandler = new SocketErrorHandler(socket);
 const playerManager = new PlayerManager();
 const playerSocket = new PlayerSocket(socket, playerManager, emitter);
-new PlayerClient(playerManager, socketErrorHandler, emitter, playerSocket);
+playerSocket.setupEventHandlers();
+new PlayerEmitter(emitter, socket);
 new BallEmitter(socketErrorHandler, emitter);
 const ball = new BallObject(emitter, ballOptions);
 ball.position = {
