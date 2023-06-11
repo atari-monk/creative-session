@@ -1,19 +1,12 @@
 import { Socket } from 'socket.io-client';
-import { ISetSocketOnHandler } from './ISetSocketOnHandler.js';
+import { SocketLogicBase } from './SocketLogicBase.js';
 
-export class ConnectErrorHandler implements ISetSocketOnHandler {
-  private readonly socket: Socket;
-  private readonly eventName: string = 'connect_error';
-
+export class ConnectErrorHandler extends SocketLogicBase {
   constructor(socket: Socket) {
-    this.socket = socket;
+    super(socket, 'connect_error');
   }
 
-  public setSocketOnHandler() {
-    this.socket.on(this.eventName, this.handleConnectError.bind(this));
-  }
-
-  private handleConnectError(error: Error) {
+  protected eventLogic(error: Error) {
     console.error('Connection error:', error.message);
   }
 }
