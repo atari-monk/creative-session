@@ -21,7 +21,7 @@ export class PlayerSocket {
   public setupEventHandlers(): void {
     //this.socket.on('movement', this.handleMovement.bind(this));
     this.socket.on('disconnect', this.handleDisconnect.bind(this));
-    this.socket.on('clientIdList', this.handleClientIdList.bind(this));
+    //this.socket.on('clientIdList', this.handleClientIdList.bind(this));
     this.socket.on('connect_error', this.handleConnectError.bind(this));
   }
 
@@ -35,15 +35,15 @@ export class PlayerSocket {
     console.log('Disconnected from server');
   }
 
-  private handleClientIdList(clientIdList: string[]): void {
-    const newClientId = clientIdList.find((id) => id !== this.socket.id);
-    if (!newClientId) return;
-    const player = this.playerManager.getNonPlayablePlayer();
-    if (!player) throw new Error('No second player!');
-    player.clientId = newClientId;
-    this.playerManager.addPlayer(newClientId, player);
-    console.log(`New player connected, id: ${newClientId}'`);
-  }
+//   private handleClientIdList(clientIdList: string[]): void {
+//     const newClientId = clientIdList.find((id) => id !== this.socket.id);
+//     if (!newClientId) return;
+//     const player = this.playerManager.getNonPlayablePlayer();
+//     if (!player) throw new Error('No second player!');
+//     player.clientId = newClientId;
+//     this.playerManager.addPlayer(newClientId, player);
+//     console.log(`New player connected, id: ${newClientId}'`);
+//   }
 
   private handleConnectError(error: Error): void {
     console.error('Connection error:', error.message);
