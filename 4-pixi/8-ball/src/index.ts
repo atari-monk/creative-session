@@ -17,6 +17,7 @@ import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
 import { PlayerSocket } from '../../5-client/dist/PlayerSocket.js';
 import { BallManager } from '../../5-client/dist/BallManager.js';
 import { PlayerConnectLogic } from '../../5-client/dist/PlayerConnectLogic.js';
+import { PlayerMovement } from '../../5-client/dist/PlayerMovement.js';
 import { PlayerSocketManager } from '../../5-client/dist/PlayerSocketManager.js';
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -112,8 +113,10 @@ const playerManager = new PlayerManager();
 const playerSocket = new PlayerSocket(socket, playerManager, emitter);
 playerSocket.setupEventHandlers();
 const playerConnectLogic = new PlayerConnectLogic(socket, playerManager);
+const playerMovement = new PlayerMovement(socket, playerManager);
 const playerSocketManager = new PlayerSocketManager(socket);
 playerSocketManager.addLogic(playerConnectLogic);
+playerSocketManager.addLogic(playerMovement);
 playerSocketManager.setSocket();
 new PlayerEmitter(emitter, socket);
 new BallEmitter(socketErrorHandler, emitter);
