@@ -19,30 +19,10 @@ export class PlayerSocket {
   }
 
   public setupEventHandlers(): void {
-    this.socket.on('connect', this.handleConnect.bind(this));
     this.socket.on('movement', this.handleMovement.bind(this));
     this.socket.on('disconnect', this.handleDisconnect.bind(this));
     this.socket.on('clientIdList', this.handleClientIdList.bind(this));
     this.socket.on('connect_error', this.handleConnectError.bind(this));
-  }
-
-  private handleConnect(): void {
-    try {
-      const clientId = this.socket.id;
-      const playablePlayer = this.playerManager.getPlayablePlayer();
-
-      if (!playablePlayer) {
-        this.noPlayablePlayerError();
-        return;
-      }
-
-      playablePlayer.clientId = clientId;
-      this.playerManager.addPlayer(clientId, playablePlayer);
-
-      console.log(`Connected to server, id: ${clientId}`);
-    } catch (err) {
-      console.error('Connection error:', (err as Error).message);
-    }
   }
 
   private handleMovement(data: VectorData): void {
@@ -67,12 +47,6 @@ export class PlayerSocket {
 
   private handleConnectError(error: Error): void {
     console.error('Connection error:', error.message);
-  }
-
-  private noPlayablePlayerError(): void {
-    const message =
-      'Please write ?player=1 or ?player=2 in the address and refresh the browser to select your player. Otherwise, the game is not possible. Select a player other than your friend.';
-    throw new Error(message);
   }
 
   private updatePlayerPosition(
