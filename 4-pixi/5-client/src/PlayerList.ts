@@ -1,22 +1,16 @@
 import { Socket } from 'socket.io-client';
 import { IPlayerManager } from './IPlayerManager.js';
-import { ISetSocketOnHandler } from './ISetSocketOnHandler.js';
+import { SocketLogicBase } from './SocketLogicBase.js';
 
-export class PlayerList implements ISetSocketOnHandler {
-  private readonly socket: Socket;
+export class PlayerList extends SocketLogicBase {
   private readonly playerManager: IPlayerManager;
-  private readonly eventName: string = 'clientIdList';
 
   constructor(socket: Socket, playerManager: IPlayerManager) {
-    this.socket = socket;
+    super(socket, 'clientIdList');
     this.playerManager = playerManager;
   }
 
-  public setSocketOnHandler() {
-    this.socket.on(this.eventName, this.handleClientIdList.bind(this));
-  }
-
-  private handleClientIdList(clientIdList: string[]): void {
+  protected eventLogic(clientIdList: string[]) {
     const newClientId = clientIdList.find((id) => id !== this.socket.id);
     if (!newClientId) return;
     const player = this.playerManager.getNonPlayablePlayer();
