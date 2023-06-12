@@ -9,13 +9,13 @@ export class BallEmitter {
   constructor(socketConnection: SocketErrorHandler, emitter: EventEmitter) {
     this.socketConnection = socketConnection;
     this._emitter = emitter;
-    this._emitter.on('ball-pos-upd', this.emittBallPosition.bind(this));
+    //this._emitter.on('ball-pos-upd', this.emittBallPosition.bind(this));
     this._emitter.on('ball-vel-upd', this.emittBallVelocity.bind(this));
   }
 
-  private emittBallPosition(data: VectorData) {
-    this.socketConnection.socket.emit('ballMovement', data.newVector);
-  }
+//   private emittBallPosition(data: VectorData) {
+//     this.socketConnection.socket.emit('ballMovement', data.newVector);
+//   }
 
   private emittBallVelocity(data: VectorData) {
     this.socketConnection.socket.emit('ballVelocity', data.newVector);
