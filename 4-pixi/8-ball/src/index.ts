@@ -5,7 +5,6 @@ import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { SocketErrorHandler } from './../../5-client/dist/SocketErrorHandler.js';
 import { PlayerEmitter } from './../../5-client/dist/PlayerEmitter.js';
-import { BallEmitter } from './../../5-client/dist/BallEmitter.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/dist/AppHelperOptions.js';
 import { EventEmitter } from 'eventemitter3';
@@ -26,6 +25,7 @@ import { BallMovement } from '../../5-client/dist/ball-socket-logic/BallMovement
 import { BallVelocity } from '../../5-client/dist/ball-socket-logic/BallVelocity.js';
 import { BallEmitterLogicManager } from '../../5-client/dist/ball-emitter-logic/BallEmitterLogicManager.js';
 import { BallMovement as BallMovement2 } from '../../5-client/dist/ball-emitter-logic/BallMovement.js';
+import { BallVelocity as BallVelocity2 } from '../../5-client/dist/ball-emitter-logic/BallVelocity.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -135,7 +135,7 @@ playerSocketLogicManager.addLogic(playerList);
 playerSocketLogicManager.setSocket();
 
 new PlayerEmitter(emitter, socket);
-new BallEmitter(socketErrorHandler, emitter);
+//new BallEmitter(socketErrorHandler, emitter);
 const ball = new BallObject(emitter, ballOptions);
 ball.position = {
   x: appHelperOptions.width / 2,
@@ -151,7 +151,9 @@ ballSocketLogicManager.setSocket();
 
 const ballEmitterLogicManager = new BallEmitterLogicManager();
 const ballMovement2 = new BallMovement2(emitter, socket, 'ballMovement');
+const ballVelocity2 = new BallVelocity2(emitter, socket, 'ballVelocity');
 ballEmitterLogicManager.addLogic(ballMovement2);
+ballEmitterLogicManager.addLogic(ballVelocity2);
 ballEmitterLogicManager.setEmitter();
 
 const keyboard = new KeyboardInputV1();
