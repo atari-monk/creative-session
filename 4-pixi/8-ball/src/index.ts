@@ -116,7 +116,7 @@ const socketConfigurator = new SocketConfigurator({
 });
 const socketManager = new Manager(socketConfigurator.URI);
 const socket = new Socket(socketManager, '/');
-const socketErrorHandler = new SocketErrorHandler(socket);
+new SocketErrorHandler(socket);
 const playerManager = new PlayerManager();
 
 const clientSocketLogicManager = new ClientSocketLogicManager();

@@ -5,7 +5,7 @@ $urlPlayer2 = 'http://127.0.0.1:5500/4-pixi/8-ball/?player=2'
 
 function start-server {
   try {
-    node ball-game-server
+    node game-server
   }
   catch {
     Write-Host "An error occurred while starting the server."
