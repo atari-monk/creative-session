@@ -5,7 +5,6 @@ import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
 import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
 import { SocketErrorHandler } from './../../5-client/dist/SocketErrorHandler.js';
 import { PlayerEmitter } from './../../5-client/dist/PlayerEmitter.js';
-import { BallSocket } from './../../5-client/dist/BallSocket.js';
 import { BallEmitter } from './../../5-client/dist/BallEmitter.js';
 import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
 import { AppHelperOptions } from './../../2-pixi-lib/dist/AppHelperOptions.js';
@@ -22,6 +21,9 @@ import { PlayerSocketLogicManager } from '../../5-client/dist/player-socket-logi
 import { PlayerConnectLogic } from '../../5-client/dist/player-socket-logic/PlayerConnectLogic.js';
 import { PlayerMovement } from '../../5-client/dist/player-socket-logic/PlayerMovement.js';
 import { PlayerList } from '../../5-client/dist/player-socket-logic/PlayerList.js';
+import { BallSocketLogicManager } from '../../5-client/dist/ball-socket-logic/BallSocketLogicManager.js';
+import { BallMovement } from '../../5-client/dist/ball-socket-logic/BallMovement.js';
+import { BallVelocity } from '../../5-client/dist/ball-socket-logic/BallVelocity.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -138,8 +140,13 @@ ball.position = {
   y: appHelperOptions.height / 2,
 };
 const ballManager = new BallManager(ball);
-const ballSocket = new BallSocket(socketErrorHandler, ballManager);
-socket.connect();
+const ballSocketLogicManager = new BallSocketLogicManager(socket);
+const ballMovement = new BallMovement(socket, ballManager);
+const ballVelocity = new BallVelocity(socket, ballManager);
+ballSocketLogicManager.addLogic(ballMovement);
+ballSocketLogicManager.addLogic(ballVelocity);
+ballSocketLogicManager.setSocket();
+
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
