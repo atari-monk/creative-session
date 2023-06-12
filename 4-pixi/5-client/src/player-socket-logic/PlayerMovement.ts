@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io-client';
-import { IPlayerManager } from './IPlayerManager.js';
-import { VectorData } from '../../2-pixi-lib/dist/VectorData.js';
-import { SocketLogicBase } from './SocketLogicBase.js';
+import { IPlayerManager } from '../IPlayerManager.js';
+import { VectorData } from '../../../2-pixi-lib/dist/VectorData.js';
+import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
 
 export class PlayerMovement extends SocketLogicBase {
   private readonly playerManager: IPlayerManager;

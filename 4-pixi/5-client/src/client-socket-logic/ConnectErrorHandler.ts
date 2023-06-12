@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io-client';
-import { SocketLogicBase } from './SocketLogicBase.js';
+import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
 
 export class ConnectErrorHandler extends SocketLogicBase {
   constructor(socket: Socket) {

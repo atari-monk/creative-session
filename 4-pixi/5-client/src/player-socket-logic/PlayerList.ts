@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io-client';
-import { IPlayerManager } from './IPlayerManager.js';
-import { SocketLogicBase } from './SocketLogicBase.js';
+import { IPlayerManager } from '../IPlayerManager.js';
+import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
 
 export class PlayerList extends SocketLogicBase {
   private readonly playerManager: IPlayerManager;

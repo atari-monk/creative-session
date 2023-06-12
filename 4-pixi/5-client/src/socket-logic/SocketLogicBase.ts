@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io-client';
-import { ISetSocketOnHandler } from './ISetSocketOnHandler.js';
+import { ISocketLogic } from './ISocketLogic.js';
 
-export abstract class SocketLogicBase implements ISetSocketOnHandler {
+export abstract class SocketLogicBase implements ISocketLogic {
   protected readonly socket: Socket;
   protected readonly eventName: string;
 
@@ -10,7 +10,7 @@ export abstract class SocketLogicBase implements ISetSocketOnHandler {
     this.eventName = eventName;
   }
 
-  public setSocketOnHandler(): void {
+  public addSocketLogic(): void {
     this.socket.on(this.eventName, this.eventLogic.bind(this));
   }
 
