@@ -20,11 +20,9 @@ import { PlayerMovement } from '../../5-client/dist/player-socket-logic/PlayerMo
 import { PlayerList } from '../../5-client/dist/player-socket-logic/PlayerList.js';
 import { BallMovement } from '../../5-client/dist/ball-socket-logic/BallMovement.js';
 import { BallVelocity } from '../../5-client/dist/ball-socket-logic/BallVelocity.js';
-import { BallEmitterLogicManager } from '../../5-client/dist/ball-emitter-logic/BallEmitterLogicManager.js';
-import { BallMovement as BallMovement2 } from '../../5-client/dist/ball-emitter-logic/BallMovement.js';
-import { BallVelocity as BallVelocity2 } from '../../5-client/dist/ball-emitter-logic/BallVelocity.js';
-import { PlayerEmitterLogicManager } from '../../5-client/dist/player-emitter-logic/PlayerEmitterLogicManager.js';
-import { PlayerMovement as PlayerMovement2 } from '../../5-client/dist/player-emitter-logic/PlayerMovement.js';
+import { PlayerEventEmitterLogicUnit } from '../../5-client/dist/player-emitter-logic/PlayerEventEmitterLogicUnit.js';
+import { BallEventEmitterLogicUnit } from '../../5-client/dist/ball-emitter-logic/BallEventEmitterLogicUnit.js';
+import { EventEmitterLogicManager } from '../../5-client/dist/emitter-logic/EventEmitterLogicManager.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');
@@ -117,14 +115,14 @@ const socket = new Socket(socketManager, '/');
 new SocketErrorHandler(socket);
 const playerManager = new PlayerManager();
 
-const clientSocketLogicManager = new SocketLogicManager(socket);
+const clientSocketLogicManager = new SocketLogicManager();
 const connectErrorHandler = new ConnectErrorHandler('connect_error');
 const disconnectHandler = new DisconnectHandler('disconnect');
 clientSocketLogicManager.addLogic(connectErrorHandler);
 clientSocketLogicManager.addLogic(disconnectHandler);
-clientSocketLogicManager.initializeSocket();
+clientSocketLogicManager.initializeSocket(socket);
 
-const playerSocketLogicManager = new SocketLogicManager(socket);
+const playerSocketLogicManager = new SocketLogicManager();
 const playerConnectLogic = new PlayerConnectLogic(
   'connect',
   socket,
@@ -135,7 +133,7 @@ const playerList = new PlayerList('clientIdList', socket, playerManager);
 playerSocketLogicManager.addLogic(playerConnectLogic);
 playerSocketLogicManager.addLogic(playerMovement);
 playerSocketLogicManager.addLogic(playerList);
-playerSocketLogicManager.initializeSocket();
+playerSocketLogicManager.initializeSocket(socket);
 
 const ball = new BallObject(emitter, ballOptions);
 ball.position = {
@@ -143,24 +141,36 @@ ball.position = {
   y: appHelperOptions.height / 2,
 };
 const ballManager = new BallManager(ball);
-const ballSocketLogicManager = new SocketLogicManager(socket);
+const ballSocketLogicManager = new SocketLogicManager();
 const ballMovement = new BallMovement('ballMovement', ballManager);
 const ballVelocity = new BallVelocity('ballVelocity', ballManager);
 ballSocketLogicManager.addLogic(ballMovement);
 ballSocketLogicManager.addLogic(ballVelocity);
-ballSocketLogicManager.initializeSocket();
+ballSocketLogicManager.initializeSocket(socket);
 
-const playerEmitterLogicManager = new PlayerEmitterLogicManager();
-const playerMovement2 = new PlayerMovement2(emitter, socket, 'movement');
+const playerEmitterLogicManager = new EventEmitterLogicManager();
+const playerMovement2 = new PlayerEventEmitterLogicUnit(
+  'position-update',
+  'movement',
+  socket
+);
 playerEmitterLogicManager.addLogic(playerMovement2);
-playerEmitterLogicManager.setEmitter();
+playerEmitterLogicManager.initializeEmitter(emitter);
 
-const ballEmitterLogicManager = new BallEmitterLogicManager();
-const ballMovement2 = new BallMovement2(emitter, socket, 'ballMovement');
-const ballVelocity2 = new BallVelocity2(emitter, socket, 'ballVelocity');
+const ballEmitterLogicManager = new EventEmitterLogicManager();
+const ballMovement2 = new BallEventEmitterLogicUnit(
+  'ball-pos-upd',
+  'ballMovement',
+  socket
+);
+const ballVelocity2 = new BallEventEmitterLogicUnit(
+  'ball-vel-upd',
+  'ballVelocity',
+  socket
+);
 ballEmitterLogicManager.addLogic(ballMovement2);
 ballEmitterLogicManager.addLogic(ballVelocity2);
-ballEmitterLogicManager.setEmitter();
+ballEmitterLogicManager.initializeEmitter(emitter);
 
 const keyboard = new KeyboardInputV1();
 const appHelper = new AppHelper(appHelperOptions);
