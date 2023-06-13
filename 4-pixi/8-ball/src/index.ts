@@ -12,14 +12,12 @@ import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
 import { Manager, Socket } from 'socket.io-client';
 import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
 import { BallManager } from '../../5-client/dist/BallManager.js';
-import { ClientSocketLogicManager } from '../../5-client/dist/client-socket-logic/ClientSocketLogicManager.js';
+import { SocketLogicManager } from '../../5-client/dist/socket-logic/SocketLogicManager.js';
 import { ConnectErrorHandler } from '../../5-client/dist/client-socket-logic/ConnectErrorHandler.js';
 import { DisconnectHandler } from '../../5-client/dist/client-socket-logic/DisconnectHandler.js';
-import { PlayerSocketLogicManager } from '../../5-client/dist/player-socket-logic/PlayerSocketLogicManager.js';
 import { PlayerConnectLogic } from '../../5-client/dist/player-socket-logic/PlayerConnectLogic.js';
 import { PlayerMovement } from '../../5-client/dist/player-socket-logic/PlayerMovement.js';
 import { PlayerList } from '../../5-client/dist/player-socket-logic/PlayerList.js';
-import { BallSocketLogicManager } from '../../5-client/dist/ball-socket-logic/BallSocketLogicManager.js';
 import { BallMovement } from '../../5-client/dist/ball-socket-logic/BallMovement.js';
 import { BallVelocity } from '../../5-client/dist/ball-socket-logic/BallVelocity.js';
 import { BallEmitterLogicManager } from '../../5-client/dist/ball-emitter-logic/BallEmitterLogicManager.js';
@@ -119,21 +117,25 @@ const socket = new Socket(socketManager, '/');
 new SocketErrorHandler(socket);
 const playerManager = new PlayerManager();
 
-const clientSocketLogicManager = new ClientSocketLogicManager();
-const connectErrorHandler = new ConnectErrorHandler(socket);
-const disconnectHandler = new DisconnectHandler(socket);
+const clientSocketLogicManager = new SocketLogicManager(socket);
+const connectErrorHandler = new ConnectErrorHandler('connect_error');
+const disconnectHandler = new DisconnectHandler('disconnect');
 clientSocketLogicManager.addLogic(connectErrorHandler);
 clientSocketLogicManager.addLogic(disconnectHandler);
-clientSocketLogicManager.setSocket();
+clientSocketLogicManager.initializeSocket();
 
-const playerSocketLogicManager = new PlayerSocketLogicManager();
-const playerConnectLogic = new PlayerConnectLogic(socket, playerManager);
-const playerMovement = new PlayerMovement(socket, playerManager);
-const playerList = new PlayerList(socket, playerManager);
+const playerSocketLogicManager = new SocketLogicManager(socket);
+const playerConnectLogic = new PlayerConnectLogic(
+  'connect',
+  socket,
+  playerManager
+);
+const playerMovement = new PlayerMovement('movement', playerManager);
+const playerList = new PlayerList('clientIdList', socket, playerManager);
 playerSocketLogicManager.addLogic(playerConnectLogic);
 playerSocketLogicManager.addLogic(playerMovement);
 playerSocketLogicManager.addLogic(playerList);
-playerSocketLogicManager.setSocket();
+playerSocketLogicManager.initializeSocket();
 
 const ball = new BallObject(emitter, ballOptions);
 ball.position = {
@@ -141,12 +143,12 @@ ball.position = {
   y: appHelperOptions.height / 2,
 };
 const ballManager = new BallManager(ball);
-const ballSocketLogicManager = new BallSocketLogicManager();
-const ballMovement = new BallMovement(socket, ballManager);
-const ballVelocity = new BallVelocity(socket, ballManager);
+const ballSocketLogicManager = new SocketLogicManager(socket);
+const ballMovement = new BallMovement('ballMovement', ballManager);
+const ballVelocity = new BallVelocity('ballVelocity', ballManager);
 ballSocketLogicManager.addLogic(ballMovement);
 ballSocketLogicManager.addLogic(ballVelocity);
-ballSocketLogicManager.setSocket();
+ballSocketLogicManager.initializeSocket();
 
 const playerEmitterLogicManager = new PlayerEmitterLogicManager();
 const playerMovement2 = new PlayerMovement2(emitter, socket, 'movement');

@@ -1,12 +1,11 @@
-import { Socket } from 'socket.io-client';
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
 
-export class DisconnectHandler extends SocketLogicBase {
-  constructor(socket: Socket) {
-    super(socket, 'disconnect');
+export class DisconnectHandler extends SocketLogicUnit {
+  constructor(eventName: string) {
+    super(eventName);
   }
 
-  protected eventLogic() {
+  protected logicUnit() {
     console.log('Disconnected from server');
   }
 }

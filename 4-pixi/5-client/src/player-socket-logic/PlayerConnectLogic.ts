@@ -1,16 +1,17 @@
 import { Socket } from 'socket.io-client';
 import { IPlayerManager } from '../IPlayerManager.js';
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
 
-export class PlayerConnectLogic extends SocketLogicBase {
-  private readonly playerManager: IPlayerManager;
-
-  constructor(socket: Socket, playerManager: IPlayerManager) {
-    super(socket, 'connect');
-    this.playerManager = playerManager;
+export class PlayerConnectLogic extends SocketLogicUnit {
+  constructor(
+    eventName: string,
+    private readonly socket: Socket,
+    private readonly playerManager: IPlayerManager
+  ) {
+    super(eventName);
   }
 
-  protected eventLogic() {
+  protected logicUnit() {
     try {
       const clientId = this.socket.id;
       const playablePlayer = this.playerManager.getPlayablePlayer();

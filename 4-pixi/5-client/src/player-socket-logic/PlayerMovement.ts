@@ -1,17 +1,16 @@
-import { Socket } from 'socket.io-client';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
 import { IPlayerManager } from '../IPlayerManager.js';
 import { VectorData } from '../../../2-pixi-lib/dist/VectorData.js';
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
 
-export class PlayerMovement extends SocketLogicBase {
-  private readonly playerManager: IPlayerManager;
-
-  constructor(socket: Socket, playerManager: IPlayerManager) {
-    super(socket, 'movement');
-    this.playerManager = playerManager;
+export class PlayerMovement extends SocketLogicUnit {
+  constructor(
+    eventName: string,
+    private readonly playerManager: IPlayerManager
+  ) {
+    super(eventName);
   }
 
-  protected eventLogic(data: VectorData): void {
+  protected logicUnit(data: VectorData): void {
     if (!data.clientId) throw new Error('No clientId data!');
     if (!data.newVector) throw new Error('No position data!');
     this.updatePlayerPosition(data.clientId, data.newVector);

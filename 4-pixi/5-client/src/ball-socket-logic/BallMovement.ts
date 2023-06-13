@@ -1,16 +1,12 @@
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase';
-import { Socket } from 'socket.io-client';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit';
 import { BallManager } from '../BallManager';
 
-export class BallMovement extends SocketLogicBase {
-  private ballManager: BallManager;
-
-  constructor(socket: Socket, ballManager: BallManager) {
-    super(socket, 'ballMovement');
-    this.ballManager = ballManager;
+export class BallMovement extends SocketLogicUnit {
+  constructor(eventName: string, private readonly ballManager: BallManager) {
+    super(eventName);
   }
 
-  protected eventLogic(newPosition: { x: number; y: number }) {
+  protected logicUnit(newPosition: { x: number; y: number }) {
     if (!newPosition) throw new Error('No position data for the ball!');
     this.ballManager.updateBallPosition(newPosition);
   }

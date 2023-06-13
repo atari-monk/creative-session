@@ -1,12 +1,11 @@
-import { Socket } from 'socket.io-client';
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase.js';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
 
-export class ConnectErrorHandler extends SocketLogicBase {
-  constructor(socket: Socket) {
-    super(socket, 'connect_error');
+export class ConnectErrorHandler extends SocketLogicUnit {
+  constructor(eventName: string) {
+    super(eventName);
   }
 
-  protected eventLogic(error: Error) {
+  protected logicUnit(error: Error) {
     console.error('Connection error:', error.message);
   }
 }

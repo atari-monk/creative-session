@@ -1,16 +1,12 @@
-import { SocketLogicBase } from '../socket-logic/SocketLogicBase';
-import { Socket } from 'socket.io-client';
+import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit';
 import { BallManager } from '../BallManager';
 
-export class BallVelocity extends SocketLogicBase {
-  private ballManager: BallManager;
-
-  constructor(socket: Socket, ballManager: BallManager) {
-    super(socket, 'ballVelocity');
-    this.ballManager = ballManager;
+export class BallVelocity extends SocketLogicUnit {
+  constructor(eventName: string, private readonly ballManager: BallManager) {
+    super(eventName);
   }
 
-  protected eventLogic(newVelocity: { x: number; y: number }) {
+  protected logicUnit(newVelocity: { x: number; y: number }) {
     if (!newVelocity) throw new Error('No velocity data for the ball!');
     this.ballManager.updateBallVelocity(newVelocity);
   }
