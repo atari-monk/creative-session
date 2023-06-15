@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { GameObject } from './GameObject.js';
-import { KeyboardInputV1 } from './KeyboardInputV1.js';
-import { PlayerObjectOptions } from './PlayerObjectOptions.js';
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './VectorData.js';
-import { BallObject } from './BallObject.js';
+import { GameObject } from './GameObject';
+import { KeyboardInputV1 } from './KeyboardInputV1';
+import { PlayerObjectOptions } from './PlayerObjectOptions';
+import { VectorData } from './VectorData';
+import { BallObject } from './BallObject';
 
 export class PlayerObject extends GameObject {
   private readonly _keyboard: KeyboardInputV1;

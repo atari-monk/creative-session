@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "name": "file-list-test",
+      "args": ["C:/atari-monk/Code/creative-session/4-pixi/2-pixi-lib/src"],
+      "program": "${workspaceFolder}/1-script/dist/test/file-list.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "index-file-generator-test",
+      "program": "${workspaceFolder}/1-script/dist/test/index-file-generator.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "index-file-generator",
+      "args": ["C:/atari-monk/Code/creative-session/4-pixi/5-client/src"],
+      "program": "${workspaceFolder}/1-script/dist/index-file-generator.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}

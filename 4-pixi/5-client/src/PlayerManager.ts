@@ -1,4 +1,4 @@
-import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
+import { PlayerObject } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from './IPlayerManager.js';
 
 export class PlayerManager implements IPlayerManager {

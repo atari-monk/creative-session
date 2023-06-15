@@ -1,6 +1,6 @@
-import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
+import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from '../IPlayerManager.js';
-import { VectorData } from '../../../2-pixi-lib/dist/VectorData.js';
+import { VectorData } from 'atari-monk-pixi-lib';
 
 export class PlayerMovement extends SocketLogicUnit {
   constructor(

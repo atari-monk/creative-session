@@ -1,28 +1,32 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
-import { BallRenderer } from './../../2-pixi-lib/dist/BallRenderer.js';
-import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
-import { PlayerObject } from './../../2-pixi-lib/dist/PlayerObject.js';
-import { SocketErrorHandler } from './../../5-client/dist/SocketErrorHandler.js';
-import { BallObject } from './../../2-pixi-lib/dist/BallObject.js';
-import { AppHelperOptions } from './../../2-pixi-lib/dist/AppHelperOptions.js';
-import { EventEmitter } from 'eventemitter3';
-import { Environment } from '../../5-client/dist/Environment.js';
-import { SocketConfigurator } from '../../5-client/dist/SocketConfigurator.js';
 import { Manager, Socket } from 'socket.io-client';
-import { PlayerManager } from '../../5-client/dist/PlayerManager.js';
-import { BallManager } from '../../5-client/dist/BallManager.js';
-import { SocketLogicManager } from '../../5-client/dist/socket-logic/SocketLogicManager.js';
-import { ConnectErrorHandler } from '../../5-client/dist/client-socket-logic/ConnectErrorHandler.js';
-import { DisconnectHandler } from '../../5-client/dist/client-socket-logic/DisconnectHandler.js';
-import { PlayerConnectLogic } from '../../5-client/dist/player-socket-logic/PlayerConnectLogic.js';
-import { PlayerMovement } from '../../5-client/dist/player-socket-logic/PlayerMovement.js';
-import { PlayerList } from '../../5-client/dist/player-socket-logic/PlayerList.js';
-import { BallMovement } from '../../5-client/dist/ball-socket-logic/BallMovement.js';
-import { BallVelocity } from '../../5-client/dist/ball-socket-logic/BallVelocity.js';
-import { PlayerEventEmitterLogicUnit } from '../../5-client/dist/player-emitter-logic/PlayerEventEmitterLogicUnit.js';
-import { BallEventEmitterLogicUnit } from '../../5-client/dist/ball-emitter-logic/BallEventEmitterLogicUnit.js';
-import { EventEmitterLogicManager } from '../../5-client/dist/emitter-logic/EventEmitterLogicManager.js';
+import { EventEmitter } from 'eventemitter3';
+import {
+  AppHelper,
+  AppHelperOptions,
+  BallObject,
+  BallRenderer,
+  EventEmitterLogicManager,
+  KeyboardInputV1,
+  PlayerObject,
+  SocketLogicManager,
+} from 'atari-monk-pixi-lib';
+import {
+  BallManager,
+  ConnectErrorHandler,
+  DisconnectHandler,
+  Environment,
+  SocketConfigurator,
+  SocketErrorHandler,
+  PlayerManager,
+  PlayerConnectLogic,
+  PlayerMovement,
+  PlayerList,
+  BallMovement,
+  BallVelocity,
+  PlayerEventEmitterLogicUnit,
+  BallEventEmitterLogicUnit,
+} from 'atari-monk-client';
 
 const urlParams = new URLSearchParams(window.location.search);
 const playerUrlParam = urlParams.get('player');

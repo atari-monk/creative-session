@@ -1,4 +1,4 @@
-import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
+import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 import { Socket } from 'socket.io-client';
 import { IPlayerManager } from '../IPlayerManager.js';
 

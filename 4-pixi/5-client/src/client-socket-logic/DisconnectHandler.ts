@@ -1,4 +1,4 @@
-import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit.js';
+import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 
 export class DisconnectHandler extends SocketLogicUnit {
   constructor(eventName: string) {

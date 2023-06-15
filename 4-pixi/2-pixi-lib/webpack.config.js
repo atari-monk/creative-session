@@ -20,7 +20,17 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'atari-monk-ball.js',
+    filename: 'atari-monk-pixi-lib.js',
+    globalObject: 'this',
+    library: {
+      name: 'atari-monk-pixi-lib',
+      type: 'umd',
+    },
+  },
+  externals: {
+    pixi: 'pixi.js',
+    socketio: 'socket.io-client',
+    eventemitter3: 'eventemitter3',
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -28,5 +38,5 @@ module.exports = {
       patterns: [{ from: './package.json', to: './' }],
     }),
   ],
-  stats: { errorDetails: false },
+  stats: { errorDetails: true },
 };

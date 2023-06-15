@@ -1,4 +1,4 @@
-import { BallObject } from '../../2-pixi-lib/dist/BallObject';
+import { BallObject } from 'atari-monk-pixi-lib';
 
 export class BallManager {
   private ballObj: BallObject;

@@ -1,4 +1,4 @@
-import { PlayerObject } from '../../2-pixi-lib/dist/PlayerObject.js';
+import { PlayerObject } from 'atari-monk-pixi-lib';
 
 export interface IPlayerManager {
   addPlayer(clientId: string, player: PlayerObject): void;

@@ -9,10 +9,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./../2-pixi-lib/dist/**/*.ts",
-    "./../5-client/**/*.ts",
-  ],
-  "exclude": ["node_modules"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

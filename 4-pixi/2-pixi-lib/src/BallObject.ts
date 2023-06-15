@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import { GameObject } from './GameObject.js';
-import { PlayerObject } from './PlayerObject.js';
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './VectorData.js';
+import { GameObject } from './GameObject';
+import { PlayerObject } from './PlayerObject';
+import { VectorData } from './VectorData';
 
 export class BallObject extends GameObject {
   private readonly id: string;

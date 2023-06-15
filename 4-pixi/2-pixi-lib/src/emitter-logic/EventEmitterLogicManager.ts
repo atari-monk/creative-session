@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
-import { LogicManagerGeneric } from '../logic/LogicManagerGeneric.js';
-import { IEventEmitterLogicUnit } from './IEventEmitterLogicUnit.js';
+import { LogicManagerGeneric } from '../logic/LogicManagerGeneric';
+import { IEventEmitterLogicUnit } from './IEventEmitterLogicUnit';
 
 export class EventEmitterLogicManager extends LogicManagerGeneric<IEventEmitterLogicUnit> {
   public initializeEmitter(emitter: EventEmitter) {

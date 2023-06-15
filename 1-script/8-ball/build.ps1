@@ -1,6 +1,6 @@
 $script = 'C:\atari-monk\Code\creative-session\1-script\8-ball'
 $pixi = 'C:\atari-monk\Code\creative-session\4-pixi'
-$lib = '\2-pixi-lib'
+# $lib = '\2-pixi-lib'
 $client = '\5-client'
 $server = '\6-server'
 $ball = '\8-ball'
@@ -32,8 +32,8 @@ function set-script-folder() {
 }
 
 try {
-  build-ts-proj $lib
-  build-ts-proj $client
+  #build-ts-proj $lib
+  #build-ts-proj $client
   build-ts-proj $server
   build-webpack-proj $ball
 }

@@ -1,8 +1,8 @@
-import { AppHelper } from './AppHelper.js';
 import * as PIXI from 'pixi.js';
-import { BallObject } from './BallObject.js';
-import { PlayerObject } from './PlayerObject.js';
-import { Renderer } from './Renderer.js';
+import { AppHelper } from './AppHelper';
+import { BallObject } from './BallObject';
+import { PlayerObject } from './PlayerObject';
+import { Renderer } from './Renderer';
 
 export class BallRenderer extends Renderer {
   private ball: BallObject;

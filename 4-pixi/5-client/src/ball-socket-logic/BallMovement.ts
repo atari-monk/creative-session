@@ -1,4 +1,4 @@
-import { SocketLogicUnit } from '../socket-logic/SocketLogicUnit';
+import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 import { BallManager } from '../BallManager';
 
 export class BallMovement extends SocketLogicUnit {

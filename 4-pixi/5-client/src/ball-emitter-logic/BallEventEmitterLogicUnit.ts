@@ -1,5 +1,6 @@
-import { EventEmitterLogicUnit } from '../emitter-logic/EventEmitterLogicUnit';
-import { VectorData } from '../../../2-pixi-lib/dist/VectorData';
+import { VectorData } from 'atari-monk-pixi-lib';
+import { EventEmitterLogicUnit } from 'atari-monk-pixi-lib';
+
 import { Socket } from 'socket.io-client';
 
 export class BallEventEmitterLogicUnit extends EventEmitterLogicUnit {
