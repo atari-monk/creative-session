@@ -1,19 +1,18 @@
-import { Server as SocketIOServer, Socket } from 'socket.io';
-import { VectorData } from './../../2-pixi-lib/dist/VectorData.js';
+import { Server, Socket } from 'socket.io';
+import { VectorData } from 'atari-monk-pixi-lib';
+import { ServerLogicUnit } from './server-logic/SocketLogicUnit';
 
-export class ClientConnectionHandler {
+export class ClientConnectionHandler extends ServerLogicUnit {
   private readonly clients: {
     [clientId: string]: { socket: Socket; state: string };
   };
 
   constructor(
-    private readonly serverSIO: SocketIOServer,
+    private readonly server: Server,
     private readonly playerLimit: Number,
     private readonly delayDisconnect: number
   ) {
-    this.serverSIO = serverSIO;
-    this.playerLimit = playerLimit;
-    this.delayDisconnect = delayDisconnect;
+    super('connection');
     this.clients = {};
   }
 
@@ -21,7 +20,7 @@ export class ClientConnectionHandler {
     return Object.keys(this.clients).length;
   }
 
-  handleClientConnection(socket: Socket) {
+  protected logicUnit(socket: Socket) {
     if (this.getClientCount() < this.playerLimit) {
       this.handleConnection(socket);
     } else {
@@ -87,6 +86,6 @@ export class ClientConnectionHandler {
   }
 
   private emitClientIdList(clientIdList: string[]) {
-    this.serverSIO.emit('clientIdList', clientIdList);
+    this.server.emit('clientIdList', clientIdList);
   }
 }

@@ -1,14 +1,15 @@
 {
-  "name": "6-server",
+  "name": "atari-monk-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Game server proto.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
+    "atari-monk-pixi-lib": "^1.0.8",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
