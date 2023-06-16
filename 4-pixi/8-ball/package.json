@@ -21,8 +21,8 @@
   "dependencies": {
     "atari-monk-client": "^1.0.3",
     "atari-monk-pixi-lib": "^1.0.8",
-    "eventemitter3": "^5.0.1",
     "pixi.js": "^7.2.4",
-    "socket.io-client": "^4.6.2"
+    "socket.io-client": "^4.6.2",
+    "eventemitter3": "^5.0.1"
   }
 }

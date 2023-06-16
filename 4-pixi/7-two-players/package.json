@@ -1,20 +1,28 @@
 {
-  "name": "7-two-players",
+  "name": "atari-monk-two-players",
   "version": "1.0.0",
-  "description": "",
+  "main": "atari-monk-two-players.js",
+  "types": "index.d.ts",
+  "description": "two players proto",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config webpack.config.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "atari-monk",
   "license": "ISC",
   "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "ts-loader": "^9.4.3",
-    "typescript": "^5.0.4",
-    "webpack": "^5.84.1",
-    "webpack-cli": "^5.1.1"
+    "typescript": "^5.1.3",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "pixi.js": "^7.2.4"
+    "atari-monk-client": "^1.0.3",
+    "atari-monk-pixi-lib": "^1.0.8",
+    "eventemitter3": "^5.0.1",
+    "pixi.js": "^7.2.4",
+    "socket.io-client": "^4.6.2"
   }
 }
