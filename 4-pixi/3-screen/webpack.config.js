@@ -1,4 +1,6 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.ts',
@@ -17,7 +19,18 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'atari-monk-screen.js',
+  },
+  output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [{ from: './package.json', to: './' }],
+    }),
+  ],
+  stats: { errorDetails: false },
 };

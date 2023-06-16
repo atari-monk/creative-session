@@ -1,8 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
-import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
-import { PixiRectangle } from './../../2-pixi-lib/dist/PixiRectangle.js';
-import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
+import {
+  AppHelper,
+  AppHelperOptions,
+  Renderer,
+  PixiRectangle,
+} from 'atari-monk-pixi-lib';
 
 const appHelperOptions: AppHelperOptions = {
   width: 800,
