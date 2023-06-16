@@ -1,3 +1,3 @@
-import { KeyboardInputV1 } from './../../2-pixi-lib/dist/KeyboardInputV1.js';
+import { KeyboardInputV1 } from 'atari-monk-pixi-lib';
 
 new KeyboardInputV1(true);
