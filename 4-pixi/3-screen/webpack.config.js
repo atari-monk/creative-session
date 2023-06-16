@@ -22,10 +22,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'atari-monk-screen.js',
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyPlugin({
