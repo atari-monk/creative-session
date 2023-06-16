@@ -1,9 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './../../2-pixi-lib/dist/AppHelper.js';
-import { Renderer } from './../../2-pixi-lib/dist/Renderer.js';
-import { Robot } from './Robot.js';
-import { RobotBody } from './RobotBody.js';
-import { AppHelperOptions } from './../../2-pixi-lib/src/AppHelperOptions.js';
+import { AppHelper, AppHelperOptions, Renderer } from 'atari-monk-pixi-lib';
+import { Robot } from './Robot';
+import { RobotBody } from './RobotBody';
 
 const appHelperOptions: AppHelperOptions = {
   width: 800,

@@ -1,4 +1,4 @@
-import { GameObject } from './../../2-pixi-lib/dist/GameObject.js';
+import { GameObject } from 'atari-monk-pixi-lib';
 
 export class Robot extends GameObject {
   #pixiApp;
@@ -6,7 +6,7 @@ export class Robot extends GameObject {
   #robotX;
   #robotDirection;
 
-  constructor(pixiApp, body) {
+  constructor(pixiApp: any, body: any) {
     super();
     this.#pixiApp = pixiApp;
     this.#body = body;
@@ -14,11 +14,11 @@ export class Robot extends GameObject {
     this.#robotDirection = 1;
   }
 
-  draw(stage) {
+  draw(stage: any) {
     this.#body.draw(stage);
   }
 
-  update(_deltaTime) {
+  update(_deltaTime: any) {
     this.#updateRobotPosition();
     this.#rotateArmsAndLegs();
     this.#checkBoundaries();

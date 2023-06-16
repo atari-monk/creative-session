@@ -2,16 +2,16 @@ import * as PIXI from 'pixi.js';
 
 export class RobotBody {
   #container;
-  #head;
-  #torso;
-  #leftArmJoint;
-  #rightArmJoint;
-  #leftLegJoint;
-  #rightLegJoint;
-  #leftArm;
-  #rightArm;
-  #leftLeg;
-  #rightLeg;
+  #head: any;
+  #torso: any;
+  #leftArmJoint: any;
+  #rightArmJoint: any;
+  #leftLegJoint: any;
+  #rightLegJoint: any;
+  #leftArm: any;
+  #rightArm: any;
+  #leftLeg: any;
+  #rightLeg: any;
 
   constructor() {
     this.#container = new PIXI.Container();
@@ -80,7 +80,7 @@ export class RobotBody {
     this.#rightLegJoint.position.set(80, 170);
   }
 
-  draw(stage) {
+  draw(stage: any) {
     stage.addChild(this.#container);
   }
 
