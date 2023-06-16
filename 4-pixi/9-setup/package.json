@@ -1,19 +1,22 @@
 {
-  "name": "9-setup",
+  "name": "atari-monk-setup",
   "version": "1.0.0",
-  "description": "To start a Pixi.js project with a bundler (Webpack) and TypeScript from scratch, you can follow these steps:",
-  "main": "index.js",
+  "main": "atari-monk-setup.js",
+  "types": "index.d.ts",
+  "description": "It was first atempt to set ts proj, with more tooling.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "atari-monk",
   "license": "ISC",
   "devDependencies": {
-    "ts-loader": "^9.4.2",
-    "typescript": "^5.0.4",
-    "webpack": "^5.83.1",
-    "webpack-cli": "^5.1.1"
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "pixi.js": "^7.2.4"

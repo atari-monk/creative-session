@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "atari-monk-ball.js",
   "types": "index.d.ts",
-  "description": "ball game proto",
+  "description": "Ball game proto.",
   "scripts": {
     "build": "npx webpack --config webpack.config.js"
   },
