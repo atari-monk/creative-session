@@ -8,6 +8,7 @@ import { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 import { BallVelocity } from './BallVelocity';
 import { PlayerMovement } from './PlayerMovement';
 import { ClientManager } from './ClientManager';
+import { DisconnectLogicUnit } from './DisconnectLogicUnit';
 
 const app = express();
 const serverHttp = http.createServer(app);
@@ -20,19 +21,21 @@ const optionsSIO = {
 };
 const server = new Server(serverHttp, optionsSIO);
 const srvSctLogicManager = new SrvSctLogicManager();
+const clientManager = new ClientManager();
+const disconnectLogic = new DisconnectLogicUnit('disconnect', clientManager);
 const playerMovement = new PlayerMovement('movement');
 const ballMovement = new BallMovement('ballMovement');
 const ballVelocity = new BallVelocity('ballVelocity');
+srvSctLogicManager.addLogic(disconnectLogic);
 srvSctLogicManager.addLogic(playerMovement);
 srvSctLogicManager.addLogic(ballMovement);
 srvSctLogicManager.addLogic(ballVelocity);
-const clientManager = new ClientManager();
 const clientConnectionHandler = new ClientConnectionHandler(
+  'connection',
   server,
   clientManager,
   srvSctLogicManager,
-  2,
-  1000
+  2
 );
 clientConnectionHandler.initializeServer(server);
 const gameServer = new GameServer(app, serverHttp);

@@ -13,29 +13,26 @@ export class ClientManager {
     return Object.keys(this.clients).length;
   }
 
+  public getClientList(): string[] {
+    return Object.keys(this.clients);
+  }
+
   public storeClient(clientId: string, socket: Socket) {
-    this.clients[clientId] = { socket, state: 'Connecting' };
+    this.clients[clientId] = { socket, state: 'Connected' };
   }
 
-  public handleClientDisconnection(clientId: string, delayDisconnect: number) {
-    this.clients[clientId].socket.on('disconnect', () => {
-      this.clients[clientId].state = 'Disconnecting';
-      setTimeout(() => {
-        delete this.clients[clientId];
-        this.logClientsArray();
-      }, delayDisconnect);
-    });
+  public handleClientDisconnection(clientId: string) {
+    const client = this.clients[clientId];
+    if (!client) return;
+    client.state = 'Disconnected';
+    delete this.clients[clientId];
   }
 
-  public logClientsArray() {
-    const clientsArray = this.getClientIdList().map((clientId) => ({
+  public logClients() {
+    const clientsArray = this.getClientList().map((clientId) => ({
       clientId,
       state: this.clients[clientId].state,
     }));
-    console.log('Clients Array:', clientsArray);
-  }
-
-  public getClientIdList(): string[] {
-    return Object.keys(this.clients);
+    console.log('Clients: ', clientsArray);
   }
 }

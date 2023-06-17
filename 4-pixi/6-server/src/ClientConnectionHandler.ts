@@ -5,19 +5,19 @@ import { ClientManager } from './ClientManager';
 
 export class ClientConnectionHandler extends ServerLogicUnit {
   constructor(
+    eventName: string,
     private readonly server: Server,
     private readonly clientManager: ClientManager,
     private readonly srcSctLogicManager: SrvSctLogicManager,
-    private readonly playerLimit: number,
-    private readonly delayDisconnect: number
+    private readonly playerLimit: number
   ) {
-    super('connection');
+    super(eventName);
   }
 
   protected logicUnit(socket: Socket) {
     if (this.clientManager.getClientCount() < this.playerLimit) {
-      this.srcSctLogicManager.initializeSocket(socket);
       this.handleConnection(socket);
+      this.srcSctLogicManager.initializeSocket(socket);
     } else {
       socket.disconnect();
       console.log('Disconnected player exceeding the limit');
@@ -27,12 +27,8 @@ export class ClientConnectionHandler extends ServerLogicUnit {
   private handleConnection(socket: Socket) {
     const clientId = socket.id;
     this.clientManager.storeClient(clientId, socket);
-    this.clientManager.handleClientDisconnection(
-      clientId,
-      this.delayDisconnect
-    );
-    this.emitClientIdList(this.clientManager.getClientIdList());
-    this.clientManager.logClientsArray();
+    this.emitClientIdList(this.clientManager.getClientList());
+    this.clientManager.logClients();
   }
 
   private emitClientIdList(clientIdList: string[]) {

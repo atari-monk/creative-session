@@ -2,10 +2,10 @@ import { Socket } from 'socket.io';
 import { ISrvSctLogicUnit } from './ISrvSctLogicUnit.js';
 
 export abstract class SrvSctLogicUnit implements ISrvSctLogicUnit {
-  constructor(private readonly _eventName: string) {}
+  constructor(private readonly eventName: string) {}
 
   public initializeSocket(socket: Socket) {
-    socket.on(this._eventName, (...args: any[]) =>
+    socket.on(this.eventName, (...args: any[]) =>
       this.logicUnit(socket, ...args)
     );
   }
