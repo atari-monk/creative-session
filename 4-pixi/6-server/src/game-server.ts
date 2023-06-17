@@ -1,10 +1,10 @@
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
+import { SrvSctLogicManager } from 'atari-monk-pixi-lib';
 import { GameServer } from './GameServer';
 import { ClientConnectionHandler } from './ClientConnectionHandler';
 import { BallMovement } from './BallMovement';
-import { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 import { BallVelocity } from './BallVelocity';
 import { PlayerMovement } from './PlayerMovement';
 import { ClientManager } from './ClientManager';

@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
+import { SrvSctLogicUnit } from 'atari-monk-pixi-lib';
 import { ClientManager } from './ClientManager';
 
 export class DisconnectLogicUnit extends SrvSctLogicUnit {

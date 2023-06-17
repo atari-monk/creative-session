@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { LogicManagerGeneric } from 'atari-monk-pixi-lib';
+import { LogicManagerGeneric } from './../logic/LogicManagerGeneric';
 import { IServerLogicUnit } from './IServerLogicUnit';
 
 export class ServerLogicManager extends LogicManagerGeneric<IServerLogicUnit> {

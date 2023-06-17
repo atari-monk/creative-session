@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { LogicManagerGeneric } from 'atari-monk-pixi-lib';
+import { LogicManagerGeneric } from './../logic/LogicManagerGeneric';
 import { ISrvSctLogicUnit } from './ISrvSctLogicUnit';
 
 export class SrvSctLogicManager extends LogicManagerGeneric<ISrvSctLogicUnit> {
