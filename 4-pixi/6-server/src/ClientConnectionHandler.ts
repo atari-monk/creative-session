@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { VectorData } from 'atari-monk-pixi-lib';
 import { ServerLogicUnit } from './server-logic/SocketLogicUnit';
+import { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 
 export class ClientConnectionHandler extends ServerLogicUnit {
   private readonly clients: {
@@ -9,6 +10,7 @@ export class ClientConnectionHandler extends ServerLogicUnit {
 
   constructor(
     private readonly server: Server,
+    private readonly srcSctLogicManager: SrvSctLogicManager,
     private readonly playerLimit: Number,
     private readonly delayDisconnect: number
   ) {
@@ -22,6 +24,7 @@ export class ClientConnectionHandler extends ServerLogicUnit {
 
   protected logicUnit(socket: Socket) {
     if (this.getClientCount() < this.playerLimit) {
+      this.srcSctLogicManager.initializeSocket(socket);
       this.handleConnection(socket);
     } else {
       socket.disconnect();
@@ -37,15 +40,15 @@ export class ClientConnectionHandler extends ServerLogicUnit {
     this.emitClientIdList(this.getClientIdList());
     this.logClientsArray();
     //todo: refactor for OCP
-    this.handleBallMovement(socket);
+    //this.handleBallMovement(socket);
     this.handleBallVelocity(socket);
   }
 
-  private handleBallMovement(socket: Socket): void {
-    socket.on('ballMovement', (newPosition: { x: number; y: number }) => {
-      socket.broadcast.emit('ballMovement', newPosition);
-    });
-  }
+  //   private handleBallMovement(socket: Socket): void {
+  //     socket.on('ballMovement', (newPosition: { x: number; y: number }) => {
+  //       socket.broadcast.emit('ballMovement', newPosition);
+  //     });
+  //   }
 
   private handleBallVelocity(socket: Socket): void {
     socket.on('ballVelocity', (newVelocity: { x: number; y: number }) => {
