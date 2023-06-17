@@ -11,5 +11,9 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "atari-monk-client": "^1.0.4",
+    "atari-monk-pixi-lib": "^1.0.10"
   }
 }
