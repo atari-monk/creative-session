@@ -7,32 +7,24 @@ import { VectorData } from './VectorData';
 import { BallObject } from './BallObject';
 
 export class PlayerObject extends GameObject {
-  private readonly _keyboard: KeyboardInputV1;
-  private readonly _id: string;
   private readonly _radius: number;
   private readonly _speed: number;
   private readonly _width: number;
   private readonly _height: number;
-  private readonly _keys: any; // Replace 'any' with the actual type of 'keys'
-  private readonly _color: any; // Replace 'any' with the actual type of 'color'
+  private readonly _keys: any;
+  private readonly _color: any;
   public readonly isPlayable: boolean;
-  private readonly _playerNr: number;
   private _direction: { x: number; y: number };
   private _position: { x: number; y: number };
-  //private _client!: any;
-  public clientId: any;
-  //todo: this will remove need for client ref soon
-  private _positionEmitter: EventEmitter | null;
+  public clientId: string | undefined;
   private readonly positionEventName: string = 'position-update';
 
   constructor(
-    keyboard: KeyboardInputV1,
-    positionEmitter: EventEmitter | null,
+    private readonly _keyboard: KeyboardInputV1,
+    private readonly _positionEmitter: EventEmitter | null,
     options: PlayerObjectOptions
   ) {
     super();
-    this._keyboard = keyboard;
-    this._id = options.id;
     this._radius = options.radius;
     this._speed = options.speed;
     this._width = options.width;
@@ -42,8 +34,6 @@ export class PlayerObject extends GameObject {
     this._keys = options.keys;
     this._color = options.color;
     this.isPlayable = options.isPlayable;
-    this._playerNr = options.playerNr;
-    this._positionEmitter = positionEmitter;
   }
 
   private emitPositionUpdate(newPosition: { x: number; y: number }) {
@@ -121,17 +111,10 @@ export class PlayerObject extends GameObject {
       y: this._position.y + this._direction.y * this._speed,
     };
     if (
-      //this.isPlayable &&
-      //this.client &&
       this.clientId &&
       (newPosition.x !== this._position.x || newPosition.y !== this._position.y)
     ) {
       this._position = newPosition;
-      //   this.client.socket!.emit('movement', {
-      //     clientId: this._clientId,
-      //     newPosition: this._position,
-      //   });
-      //console.log('emitt shoul be  happening');
       this.emitPositionUpdate(newPosition);
     }
   }
@@ -186,7 +169,6 @@ export class PlayerObject extends GameObject {
   }
 
   public kickBall(ball: BallObject) {
-    // Replace 'any' with the actual type of 'ball'
     const velocity = {
       x: this._direction.x * this._speed * 2,
       y: this._direction.y * this._speed * 2,
