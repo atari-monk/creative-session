@@ -5,6 +5,8 @@ import { GameServer } from './GameServer';
 import { ClientConnectionHandler } from './ClientConnectionHandler';
 import { BallMovement } from './BallMovement';
 import { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
+import { BallVelocity } from './BallVelocity';
+import { PlayerMovement } from './PlayerMovement';
 
 const app = express();
 const serverHttp = http.createServer(app);
@@ -17,8 +19,12 @@ const optionsSIO = {
 };
 const server = new Server(serverHttp, optionsSIO);
 const srvSctLogicManager = new SrvSctLogicManager();
+const playerMovement = new PlayerMovement('movement');
 const ballMovement = new BallMovement('ballMovement');
+const ballVelocity = new BallVelocity('ballVelocity');
+srvSctLogicManager.addLogic(playerMovement);
 srvSctLogicManager.addLogic(ballMovement);
+srvSctLogicManager.addLogic(ballVelocity);
 const clientConnectionHandler = new ClientConnectionHandler(
   server,
   srvSctLogicManager,

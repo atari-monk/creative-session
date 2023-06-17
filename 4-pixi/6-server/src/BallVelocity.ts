@@ -1,11 +1,11 @@
 import { Socket } from 'socket.io';
 import { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 
-export class BallMovement extends SrvSctLogicUnit {
+export class BallVelocity extends SrvSctLogicUnit {
   protected logicUnit(
     socket: Socket,
-    newPosition: { x: number; y: number }
+    newVelocity: { x: number; y: number }
   ): void {
-    socket.broadcast.emit('ballMovement', newPosition);
+    socket.broadcast.emit('ballVelocity', newVelocity);
   }
 }

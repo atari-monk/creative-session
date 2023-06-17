@@ -36,24 +36,9 @@ export class ClientConnectionHandler extends ServerLogicUnit {
     const clientId = socket.id;
     this.storeClient(clientId, socket);
     this.handleClientDisconnection(clientId);
-    this.handlePlayerMovement(socket);
+    //this.handlePlayerMovement(socket);
     this.emitClientIdList(this.getClientIdList());
     this.logClientsArray();
-    //todo: refactor for OCP
-    //this.handleBallMovement(socket);
-    this.handleBallVelocity(socket);
-  }
-
-  //   private handleBallMovement(socket: Socket): void {
-  //     socket.on('ballMovement', (newPosition: { x: number; y: number }) => {
-  //       socket.broadcast.emit('ballMovement', newPosition);
-  //     });
-  //   }
-
-  private handleBallVelocity(socket: Socket): void {
-    socket.on('ballVelocity', (newVelocity: { x: number; y: number }) => {
-      socket.broadcast.emit('ballVelocity', newVelocity);
-    });
   }
 
   private storeClient(clientId: string, socket: Socket) {
@@ -82,11 +67,11 @@ export class ClientConnectionHandler extends ServerLogicUnit {
     return Object.keys(this.clients);
   }
 
-  private handlePlayerMovement(socket: Socket) {
-    socket.on('movement', (data: VectorData) => {
-      socket.broadcast.emit('movement', data);
-    });
-  }
+//   private handlePlayerMovement(socket: Socket) {
+//     socket.on('movement', (data: VectorData) => {
+//       socket.broadcast.emit('movement', data);
+//     });
+//   }
 
   private emitClientIdList(clientIdList: string[]) {
     this.server.emit('clientIdList', clientIdList);
