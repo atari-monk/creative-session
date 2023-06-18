@@ -11,6 +11,7 @@ import {
   KeyboardInputHandler,
   PlayerObject,
   SocketLogicManager,
+  BasicRenderer,
 } from 'atari-monk-pixi-lib';
 import {
   BallManager,
@@ -194,9 +195,20 @@ const keys: DirectionMap = {
 const keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
-const player = new PlayerObject(keyboard, emitter, playerOptions);
+const basicRenderer = new BasicRenderer();
+const player = new PlayerObject(
+  basicRenderer,
+  keyboard,
+  emitter,
+  playerOptions
+);
 player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
-const player2 = new PlayerObject(keyboard, emitter, playerOptions2);
+const player2 = new PlayerObject(
+  basicRenderer,
+  keyboard,
+  emitter,
+  playerOptions2
+);
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
 
 appHelper.addGameObject(player);

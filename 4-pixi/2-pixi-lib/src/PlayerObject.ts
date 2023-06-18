@@ -5,6 +5,7 @@ import { PlayerObjectOptions } from './PlayerObjectOptions';
 import { VectorData } from './VectorData';
 import { BallObject } from './BallObject';
 import { KeyboardInputHandler } from './KeyboardInputHandler';
+import { BasicRenderer } from './BasicRenderer';
 
 export class PlayerObject extends GameObject {
   private readonly _radius: number;
@@ -20,6 +21,7 @@ export class PlayerObject extends GameObject {
   private readonly positionEventName: string = 'position-update';
 
   constructor(
+    private readonly renderer: BasicRenderer,
     private readonly _keyboard: KeyboardInputHandler,
     private readonly _positionEmitter: EventEmitter | null,
     options: PlayerObjectOptions
@@ -96,17 +98,14 @@ export class PlayerObject extends GameObject {
   }
 
   public draw(stage: PIXI.Container) {
-    this.drawPlayerCircle(stage);
+    this.renderer.drawPlayerCircle(
+      stage,
+      this._color.player,
+      this._position,
+      this._radius
+    );
     this.drawPositionCircle(stage);
     this.drawDirectionLine(stage);
-  }
-
-  private drawPlayerCircle(stage: PIXI.Container) {
-    const graphics = new PIXI.Graphics();
-    graphics.beginFill(this._color.player);
-    graphics.drawCircle(this._position.x, this._position.y, this._radius);
-    graphics.endFill();
-    stage.addChild(graphics);
   }
 
   private drawPositionCircle(stage: PIXI.Container) {
