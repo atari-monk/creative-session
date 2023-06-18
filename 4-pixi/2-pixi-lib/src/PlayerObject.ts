@@ -98,37 +98,21 @@ export class PlayerObject extends GameObject {
   }
 
   public draw(stage: PIXI.Container) {
-    this.renderer.drawPlayerCircle(
+    this.renderer.drawCircle(
       stage,
       this._color.player,
       this._position,
       this._radius
     );
-    this.drawPositionCircle(stage);
-    this.drawDirectionLine(stage);
-  }
-
-  private drawPositionCircle(stage: PIXI.Container) {
-    const positionGraphics = new PIXI.Graphics();
-    positionGraphics.beginFill(this._color.position);
-    positionGraphics.drawCircle(0, 0, 4);
-    positionGraphics.endFill();
-    positionGraphics.x = this._position.x;
-    positionGraphics.y = this._position.y;
-    stage.addChild(positionGraphics);
-  }
-
-  private drawDirectionLine(stage: PIXI.Container) {
-    const directionGraphics = new PIXI.Graphics();
-    directionGraphics.lineStyle(2, this._color.direction);
-    directionGraphics.moveTo(this._position.x, this._position.y);
-    const directionX = this._direction.x * (this._radius / 2);
-    const directionY = this._direction.y * (this._radius / 2);
-    directionGraphics.lineTo(
-      this._position.x + directionX,
-      this._position.y + directionY
+    this.renderer.drawCircle(stage, this._color.position, this._position, 4);
+    this.renderer.drawLine(
+      stage,
+      this._color.direction,
+      2,
+      this._position,
+      this._direction,
+      this._radius / 2
     );
-    stage.addChild(directionGraphics);
   }
 
   public kickBall(ball: BallObject) {
