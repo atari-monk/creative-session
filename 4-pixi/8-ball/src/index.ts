@@ -8,6 +8,7 @@ import {
   BallRenderer,
   EventEmitterLogicManager,
   KeyboardInputV1,
+  KeyboardInputHandler,
   PlayerObject,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
@@ -176,7 +177,21 @@ ballEmitterLogicManager.addLogic(ballMovement2);
 ballEmitterLogicManager.addLogic(ballVelocity2);
 ballEmitterLogicManager.initializeEmitter(emitter);
 
-const keyboard = new KeyboardInputV1();
+type DirectionMap = {
+  [key: string]: string;
+};
+
+const keys: DirectionMap = {
+  left: 'ArrowLeft',
+  right: 'ArrowRight',
+  up: 'ArrowUp',
+  down: 'ArrowDown',
+  a: 'a',
+  d: 'd',
+  w: 'w',
+  s: 's',
+};
+const keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
 const player = new PlayerObject(keyboard, emitter, playerOptions);

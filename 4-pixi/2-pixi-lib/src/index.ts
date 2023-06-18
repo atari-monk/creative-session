@@ -8,6 +8,7 @@ export { IEventEmitterLogicUnit } from './emitter-logic/IEventEmitterLogicUnit';
 export { GameObject } from './GameObject';
 export { GenericGameObject } from './GenericGameObject';
 export { IGameObject } from './IGameObject';
+export { KeyboardInputHandler } from './KeyboardInputHandler';
 export { KeyboardInputV1 } from './KeyboardInputV1';
 export { KeyboardInputV2 } from './KeyboardInputV2';
 export { KeyboardObserver } from './KeyboardObserver';

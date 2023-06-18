@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
 import { GameObject } from './GameObject';
-import { KeyboardInputV1 } from './KeyboardInputV1';
 import { PlayerObjectOptions } from './PlayerObjectOptions';
 import { VectorData } from './VectorData';
 import { BallObject } from './BallObject';
+import { KeyboardInputHandler } from './KeyboardInputHandler';
 
 export class PlayerObject extends GameObject {
   private readonly _radius: number;
@@ -20,7 +20,7 @@ export class PlayerObject extends GameObject {
   private readonly positionEventName: string = 'position-update';
 
   constructor(
-    private readonly _keyboard: KeyboardInputV1,
+    private readonly _keyboard: KeyboardInputHandler,
     private readonly _positionEmitter: EventEmitter | null,
     options: PlayerObjectOptions
   ) {
@@ -64,43 +64,7 @@ export class PlayerObject extends GameObject {
   private handleKeyboardInput() {
     if (!this.isPlayable) return;
 
-    const direction = { x: 0, y: 0 };
-    const { _keys } = this;
-
-    if (
-      this._keyboard.isKeyDown(_keys.left) ||
-      this._keyboard.isKeyDown(_keys.a)
-    ) {
-      direction.x -= 1;
-    }
-
-    if (
-      this._keyboard.isKeyDown(_keys.right) ||
-      this._keyboard.isKeyDown(_keys.d)
-    ) {
-      direction.x += 1;
-    }
-
-    if (
-      this._keyboard.isKeyDown(_keys.up) ||
-      this._keyboard.isKeyDown(_keys.w)
-    ) {
-      direction.y -= 1;
-    }
-
-    if (
-      this._keyboard.isKeyDown(_keys.down) ||
-      this._keyboard.isKeyDown(_keys.s)
-    ) {
-      direction.y += 1;
-    }
-
-    const length = Math.sqrt(direction.x ** 2 + direction.y ** 2);
-    if (length !== 0) {
-      direction.x /= length;
-      direction.y /= length;
-    }
-
+    const direction = this._keyboard.direction;
     this._direction = direction;
     this.emitMovementEventIfNeeded();
   }
