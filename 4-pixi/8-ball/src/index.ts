@@ -12,6 +12,7 @@ import {
   PlayerObject,
   SocketLogicManager,
   BasicRenderer,
+  PositionEmitter,
 } from 'atari-monk-pixi-lib';
 import {
   BallManager,
@@ -113,6 +114,7 @@ const ballOptions = {
 };
 
 const emitter = new EventEmitter();
+const positionEmitter = new PositionEmitter('position-update', emitter);
 const socketConfigurator = new SocketConfigurator({
   environment: Environment.Development,
 });
@@ -199,14 +201,14 @@ const basicRenderer = new BasicRenderer();
 const player = new PlayerObject(
   basicRenderer,
   keyboard,
-  emitter,
+  positionEmitter,
   playerOptions
 );
 player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
 const player2 = new PlayerObject(
   basicRenderer,
   keyboard,
-  emitter,
+  positionEmitter,
   playerOptions2
 );
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };

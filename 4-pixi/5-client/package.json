@@ -11,7 +11,7 @@
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
-    "atari-monk-pixi-lib": "^1.0.11",
+    "atari-monk-pixi-lib": "^1.0.21",
     "eventemitter3": "^5.0.1",
     "socket.io-client": "^4.6.2"
   },
