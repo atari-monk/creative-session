@@ -32,3 +32,4 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
+export { PlayerObjectComputation } from './PlayerObjectComputation';
