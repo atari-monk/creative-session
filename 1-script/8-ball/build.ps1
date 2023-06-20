@@ -1,28 +1,17 @@
 $script = 'C:\atari-monk\Code\creative-session\1-script\8-ball'
 $pixi = 'C:\atari-monk\Code\creative-session\4-pixi'
-# $lib = '\2-pixi-lib'
+$lib = '\2-pixi-lib'
 $client = '\5-client'
 $server = '\6-server'
 $ball = '\8-ball'
 
-function build-ts-proj($proj) {
+function build-proj($proj) {
   try {
     Set-Location ($pixi + $proj)
-    tsc
+    npm run build
   }
   catch {
-    Write-Host "An error occurred while building TypeScript project $proj"
-    set-script-folder
-  }
-}
-
-function build-webpack-proj($proj) {
-  try {
-    Set-Location ($pixi + $proj)
-    npx webpack --config webpack.config.js
-  }
-  catch {
-    Write-Host "An error occurred while building Webpack project $proj"
+    Write-Host "An error occurred while building project $proj"
     set-script-folder
   }
 }
@@ -32,10 +21,10 @@ function set-script-folder() {
 }
 
 try {
-  #build-ts-proj $lib
-  #build-ts-proj $client
-  build-ts-proj $server
-  build-webpack-proj $ball
+  build-proj $lib
+  build-proj $client
+  build-proj $server
+  build-proj $ball
 }
 catch {
   Write-Host "An unhandled error occurred."
