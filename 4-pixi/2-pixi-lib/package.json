@@ -1,6 +1,6 @@
 {
   "name": "atari-monk-pixi-lib",
-  "version": "1.0.22",
+  "version": "1.0.35",
   "main": "atari-monk-pixi-lib.js",
   "types": "index.d.ts",
   "description": "ts game library based on pixi, socket-io...",

@@ -1,5 +1,5 @@
-import { AppHelper } from './AppHelper.js';
 import * as PIXI from 'pixi.js';
+import { AppHelper } from './AppHelper';
 
 export class Renderer {
   protected appHelper: AppHelper;

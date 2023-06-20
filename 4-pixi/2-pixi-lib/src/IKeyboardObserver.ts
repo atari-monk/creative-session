@@ -1,4 +1,4 @@
-export interface KeyboardObserver {
+export interface IKeyboardObserver {
   onKeyPress(key: string): void;
   onKeyRelease(key: string): void;
 }

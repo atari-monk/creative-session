@@ -1,55 +1,38 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
+import {
+  PlayerObject,
+  VectorData,
+  IBallOptions,
+  IColorOptions,
+} from './index';
 import { GameObject } from './GameObject';
-import { PlayerObject } from './PlayerObject';
-import { VectorData } from './VectorData';
 
 export class BallObject extends GameObject {
-  private readonly id: string;
   private readonly radius: number;
   private readonly speed: number;
   private readonly width: number;
   private readonly height: number;
-  private readonly keyboard: any; // Replace 'any' with the actual type of 'keyboard'
-  private readonly keys: any; // Replace 'any' with the actual type of 'keys'
-  private readonly color: any; // Replace 'any' with the actual type of 'color'
+  private readonly color: IColorOptions;
   private readonly isBall: boolean;
   private readonly _velocity: { x: number; y: number };
-  private _client: any; // Replace 'any' with the actual type of 'client'
+  private _client: any;
   private _position: { x: number; y: number };
   private _direction: { x: number; y: number };
   private readonly _emitter: EventEmitter;
 
-  constructor(
-    emitter: EventEmitter,
-    options: {
-      id: string;
-      radius: number;
-      speed: number;
-      width: number;
-      height: number;
-      keyboard: any;
-      keys: any;
-      color: any;
-      isBall: boolean;
-    }
-  ) {
+  constructor(emitter: EventEmitter, options: IBallOptions) {
     super();
-    const { id, radius, speed, width, height, keyboard, keys, color, isBall } =
-      options;
-    this.id = id;
+    const { radius, speed, screenSize, color, isBall } = options;
     this.radius = radius;
     this.speed = speed;
-    this.width = width;
-    this.height = height;
-    this._position = { x: width / 2, y: height / 2 };
+    this.width = screenSize.width;
+    this.height = screenSize.height;
+    this._position = { x: this.width / 2, y: this.height / 2 };
     this._direction = { x: 0, y: 0 };
-    this.keyboard = keyboard;
-    this.keys = keys;
     this.color = color;
     this.isBall = isBall;
     this._velocity = { x: 0, y: 0 };
-    this._client = undefined;
     this._emitter = emitter;
   }
 
@@ -78,11 +61,6 @@ export class BallObject extends GameObject {
 
   private emitPosition() {
     if (this._velocity.x === 0 && this._velocity.y === 0) return;
-    //console.log('ballMovement');
-    // this._client.socket.emit('ballMovement', {
-    //   clientId: this._client.clientId,
-    //   newPosition: this._position,
-    // });
     const data: VectorData = {
       newVector: this._position,
     };
@@ -94,10 +72,6 @@ export class BallObject extends GameObject {
       newVector: this._velocity,
     };
     this._emitter.emit('ball-vel-upd', data);
-    // this._client.socket.emit('ballVelocity', {
-    //   clientId: this._client.clientId,
-    //   newVelocity: this._velocity,
-    // });
   }
 
   public update(deltaTime: number) {

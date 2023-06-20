@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { GenericGameObject } from './GenericGameObject';
+import { GenericGameObject } from './index';
 
 export class PixiRectangle extends GenericGameObject {
   private readonly pixiApp: PIXI.Application;

@@ -1,9 +1,11 @@
 import * as PIXI from 'pixi.js';
-import { PlayerObjectOptions } from './PlayerObjectOptions';
-import { BallObject } from './BallObject';
-import { BasicRenderer } from './BasicRenderer';
+import {
+  IPlayerOptions,
+  BasicRenderer,
+  PlayerComputation,
+  BallObject,
+} from './index';
 import { GameObject } from './GameObject';
-import { PlayerObjectComputation } from './PlayerObjectComputation';
 
 export class PlayerObject extends GameObject {
   private readonly _radius: number;
@@ -11,20 +13,29 @@ export class PlayerObject extends GameObject {
   private readonly _height: number;
   private readonly _color: any;
   private readonly _isPlayable: boolean;
-  private clientId: string;
+  private _clientId: string;
 
   constructor(
     private readonly renderer: BasicRenderer,
-    private readonly computation: PlayerObjectComputation,
-    options: PlayerObjectOptions
+    private readonly computation: PlayerComputation,
+    options: IPlayerOptions
   ) {
     super();
-    this._radius = options.radius;
-    this._width = options.width;
-    this._height = options.height;
-    this._color = options.color;
-    this._isPlayable = options.isPlayable;
-    this.clientId = '';
+    const { radius, screenSize, color, isPlayable } = options;
+    this._radius = radius;
+    this._width = screenSize.width;
+    this._height = screenSize.height;
+    this._color = color;
+    this._isPlayable = isPlayable;
+    this._clientId = '';
+  }
+
+  public get clientId() {
+    return this._clientId;
+  }
+
+  public set clientId(clientId: string) {
+    this._clientId = clientId;
   }
 
   public get position() {
@@ -48,7 +59,7 @@ export class PlayerObject extends GameObject {
   }
 
   public update(deltaTime: number) {
-    this.computation.update(deltaTime, this.clientId);
+    this.computation.update(deltaTime, this._clientId);
   }
 
   public draw(stage: PIXI.Container) {

@@ -1,5 +1,4 @@
 export { AppHelper } from './AppHelper';
-export { AppHelperOptions } from './AppHelperOptions';
 export { BallObject } from './BallObject';
 export { BallRenderer } from './BallRenderer';
 export { EventEmitterLogicManager } from './emitter-logic/EventEmitterLogicManager';
@@ -11,14 +10,13 @@ export { IGameObject } from './IGameObject';
 export { KeyboardInputHandler } from './KeyboardInputHandler';
 export { KeyboardInputV1 } from './KeyboardInputV1';
 export { KeyboardInputV2 } from './KeyboardInputV2';
-export { KeyboardObserver } from './KeyboardObserver';
+export { IKeyboardObserver as KeyboardObserver } from './IKeyboardObserver';
 export { ILogicUnit } from './logic/ILogicUnit';
 export { LogicManager } from './logic/LogicManager';
 export { LogicManagerGeneric } from './logic/LogicManagerGeneric';
 export { LogicUnit } from './logic/LogicUnit';
 export { PixiRectangle } from './PixiRectangle';
 export { PlayerObject } from './PlayerObject';
-export { PlayerObjectOptions } from './PlayerObjectOptions';
 export { Renderer } from './Renderer';
 export { BasicRenderer } from './BasicRenderer';
 export { ISocketLogicUnit } from './socket-logic/ISocketLogicUnit';
@@ -32,4 +30,17 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
-export { PlayerObjectComputation } from './PlayerObjectComputation';
+export { PlayerComputation } from './PlayerComputation';
+export {
+  IAppHelperOptions,
+  IPlayerOptions,
+  IBallOptions,
+  IColorOptions,
+} from './data/configTypes';
+export {
+  appHelperOptions,
+  player1Options,
+  player2Options,
+  ballOptions,
+  keys,
+} from './data/appConfig';

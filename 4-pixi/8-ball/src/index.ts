@@ -2,6 +2,13 @@ import * as PIXI from 'pixi.js';
 import { Manager, Socket } from 'socket.io-client';
 import { EventEmitter } from 'eventemitter3';
 import {
+  appHelperOptions,
+  player1Options,
+  player2Options,
+  ballOptions,
+  keys,
+} from 'atari-monk-pixi-lib';
+import {
   AppHelper,
   BallObject,
   BallRenderer,
@@ -12,6 +19,7 @@ import {
   SocketLogicManager,
   BasicRenderer,
   PositionEmitter,
+  PlayerComputation,
 } from 'atari-monk-pixi-lib';
 import {
   BallManager,
@@ -29,13 +37,6 @@ import {
   PlayerEventEmitterLogicUnit,
   BallEventEmitterLogicUnit,
 } from 'atari-monk-client';
-import {
-  appHelperOptions,
-  playerOptions,
-  playerOptions2,
-  ballOptions,
-  keys
-} from './appConfig';
 
 const emitter = new EventEmitter();
 const positionEmitter = new PositionEmitter('position-update', emitter);
@@ -69,8 +70,8 @@ playerSocketLogicManager.initializeSocket(socket);
 
 const ball = new BallObject(emitter, ballOptions);
 ball.position = {
-  x: appHelperOptions.width / 2,
-  y: appHelperOptions.height / 2,
+  x: ballOptions.screenSize.width / 2,
+  y: ballOptions.screenSize.height / 2,
 };
 const ballManager = new BallManager(ball);
 const ballSocketLogicManager = new SocketLogicManager();
@@ -107,19 +108,27 @@ ballEmitterLogicManager.initializeEmitter(emitter);
 const keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
 const appHelper = new AppHelper(appHelperOptions);
 const pixiApp = new PIXI.Application(appHelper.getPixiAppOptions());
-const basicRenderer = new BasicRenderer();
-const player = new PlayerObject(
-  basicRenderer,
+const playerRenderer = new BasicRenderer();
+const player1Computation = new PlayerComputation(
   keyboard,
   positionEmitter,
-  playerOptions
+  player1Options
+);
+const player2Computation = new PlayerComputation(
+  keyboard,
+  positionEmitter,
+  player2Options
+);
+const player = new PlayerObject(
+  playerRenderer,
+  player1Computation,
+  player1Options
 );
 player.position = { x: appHelper.width / 2 - 250, y: appHelper.height / 2 };
 const player2 = new PlayerObject(
-  basicRenderer,
-  keyboard,
-  positionEmitter,
-  playerOptions2
+  playerRenderer,
+  player2Computation,
+  player2Options
 );
 player2.position = { x: appHelper.width / 2 + 250, y: appHelper.height / 2 };
 

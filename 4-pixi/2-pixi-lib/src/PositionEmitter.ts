@@ -1,5 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './VectorData';
+import { VectorData } from './index';
 
 export class PositionEmitter {
   constructor(

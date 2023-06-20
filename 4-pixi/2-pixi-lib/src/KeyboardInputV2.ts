@@ -1,4 +1,4 @@
-import { KeyboardObserver } from './KeyboardObserver';
+import { KeyboardObserver } from './index';
 
 export class KeyboardInputV2 {
   private observers: Set<KeyboardObserver>;

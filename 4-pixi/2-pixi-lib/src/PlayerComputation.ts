@@ -1,9 +1,11 @@
-import { PlayerObjectOptions } from './PlayerObjectOptions';
-import { BallObject } from './BallObject';
-import { KeyboardInputHandler } from './KeyboardInputHandler';
-import { PositionEmitter } from './PositionEmitter';
+import {
+  BallObject,
+  KeyboardInputHandler,
+  PositionEmitter,
+  IPlayerOptions,
+} from './index';
 
-export class PlayerObjectComputation {
+export class PlayerComputation {
   private _direction: { x: number; y: number };
   private _position: { x: number; y: number };
   private readonly speed: number;
@@ -11,10 +13,13 @@ export class PlayerObjectComputation {
   constructor(
     private readonly keyboard: KeyboardInputHandler,
     private readonly positionEmitter: PositionEmitter,
-    private readonly options: PlayerObjectOptions
+    private readonly options: IPlayerOptions
   ) {
     this._direction = { x: 0, y: 0 };
-    this._position = { x: options.width / 2, y: options.height / 2 };
+    this._position = {
+      x: options.screenSize.width / 2,
+      y: options.screenSize.height / 2,
+    };
     this.speed = options.speed;
   }
 

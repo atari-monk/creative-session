@@ -1,7 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './AppHelper';
-import { BallObject } from './BallObject';
-import { PlayerObject } from './PlayerObject';
+import { AppHelper, BallObject, PlayerObject } from './index';
 import { Renderer } from './Renderer';
 
 export class BallRenderer extends Renderer {
