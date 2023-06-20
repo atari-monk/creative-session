@@ -7,6 +7,7 @@ import {
   player2Options,
   ballOptions,
   keys,
+  IPlayerOptions,
 } from 'atari-monk-pixi-lib';
 import {
   AppHelper,
@@ -39,40 +40,42 @@ import {
 } from 'atari-monk-client';
 
 export class BallGame {
-  private emitter: EventEmitter;
-  private positionEmitter: PositionEmitter;
-  private socketConfigurator: SocketConfigurator;
-  private socketManager: Manager;
-  private socket: Socket;
-  private playerManager: PlayerManager;
-  private clientSocketLogicManager: SocketLogicManager;
-  private connectErrorHandler: ConnectErrorHandler;
-  private disconnectHandler: DisconnectHandler;
-  private playerSocketLogicManager: SocketLogicManager;
-  private playerConnectLogic: PlayerConnectLogic;
-  private playerMovement: PlayerMovement;
-  private playerList: PlayerList;
-  private ball: BallObject;
-  private ballManager: BallManager;
-  private ballSocketLogicManager: SocketLogicManager;
-  private ballMovement: BallMovement;
-  private ballVelocity: BallVelocity;
-  private playerEmitterLogicManager: EventEmitterLogicManager;
-  private playerMovement2: PlayerEventEmitterLogicUnit;
-  private ballEmitterLogicManager: EventEmitterLogicManager;
-  private ballMovement2: BallEventEmitterLogicUnit;
-  private ballVelocity2: BallEventEmitterLogicUnit;
-  private keyboard: KeyboardInputHandler;
-  private appHelper: AppHelper;
-  private pixiApp: PIXI.Application;
-  private playerRenderer: BasicRenderer;
-  private player1Computation: PlayerComputation;
-  private player2Computation: PlayerComputation;
-  private player: PlayerObject;
-  private player2: PlayerObject;
-  private renderer: BallRenderer;
+  private emitter!: EventEmitter;
+  private positionEmitter!: PositionEmitter;
+  private socketConfigurator!: SocketConfigurator;
+  private socketManager!: Manager;
+  private socket!: Socket;
+  private playerManager!: PlayerManager;
+  private clientSocketLogicManager!: SocketLogicManager;
+  private connectErrorHandler!: ConnectErrorHandler;
+  private disconnectHandler!: DisconnectHandler;
+  private playerSocketLogicManager!: SocketLogicManager;
+  private playerConnectLogic!: PlayerConnectLogic;
+  private playerMovement!: PlayerMovement;
+  private playerList!: PlayerList;
+  private ball!: BallObject;
+  private ballManager!: BallManager;
+  private ballSocketLogicManager!: SocketLogicManager;
+  private ballMovement!: BallMovement;
+  private ballVelocity!: BallVelocity;
+  private playerEmitterLogicManager!: EventEmitterLogicManager;
+  private playerMovement2!: PlayerEventEmitterLogicUnit;
+  private ballEmitterLogicManager!: EventEmitterLogicManager;
+  private ballMovement2!: BallEventEmitterLogicUnit;
+  private ballVelocity2!: BallEventEmitterLogicUnit;
+  private keyboard!: KeyboardInputHandler;
+  private appHelper!: AppHelper;
+  private pixiApp!: PIXI.Application;
+  private playerRenderer!: BasicRenderer;
+  private player1!: PlayerObject;
+  private player2!: PlayerObject;
+  private renderer!: BallRenderer;
 
   constructor() {
+    this.initializeObjects();
+  }
+
+  protected initializeObjects() {
     this.emitter = new EventEmitter();
     this.positionEmitter = new PositionEmitter('position-update', this.emitter);
     this.socketConfigurator = new SocketConfigurator({
@@ -148,36 +151,11 @@ export class BallGame {
     this.appHelper = new AppHelper(appHelperOptions);
     this.pixiApp = new PIXI.Application(this.appHelper.getPixiAppOptions());
     this.playerRenderer = new BasicRenderer();
-    this.player1Computation = new PlayerComputation(
-      this.keyboard,
-      this.positionEmitter,
-      player1Options
-    );
-    this.player2Computation = new PlayerComputation(
-      this.keyboard,
-      this.positionEmitter,
-      player2Options
-    );
-    this.player = new PlayerObject(
-      this.playerRenderer,
-      this.player1Computation,
-      player1Options
-    );
-    this.player.position = {
-      x: this.appHelper.width / 2 - 250,
-      y: this.appHelper.height / 2,
-    };
-    this.player2 = new PlayerObject(
-      this.playerRenderer,
-      this.player2Computation,
-      player2Options
-    );
-    this.player2.position = {
-      x: this.appHelper.width / 2 + 250,
-      y: this.appHelper.height / 2,
-    };
 
-    this.appHelper.addGameObject(this.player);
+    this.player1 = this.createPlayer(player1Options, -250);
+    this.player2 = this.createPlayer(player2Options, 250);
+    
+    this.appHelper.addGameObject(this.player1);
     this.appHelper.addGameObject(this.player2);
     this.appHelper.addGameObject(this.ball);
 
@@ -185,8 +163,29 @@ export class BallGame {
     this.renderer = new BallRenderer(this.appHelper, this.pixiApp);
     this.appHelper.initializeApp(this.pixiApp, this.renderer);
 
-    this.playerManager.addPlayerObj(this.player);
+    this.playerManager.addPlayerObj(this.player1);
     this.playerManager.addPlayerObj(this.player2);
     this.appHelper.startAnimationLoop();
+  }
+
+  protected createPlayer(
+    playerOptions: IPlayerOptions,
+    offsetX: number
+  ): PlayerObject {
+    const playerComputation = new PlayerComputation(
+      this.keyboard,
+      this.positionEmitter,
+      playerOptions
+    );
+    const player = new PlayerObject(
+      this.playerRenderer,
+      playerComputation,
+      playerOptions
+    );
+    player.position = {
+      x: this.appHelper.width / 2 + offsetX,
+      y: this.appHelper.height / 2,
+    };
+    return player;
   }
 }
