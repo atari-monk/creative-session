@@ -1,6 +1,7 @@
+import { IPosition as IPosition } from './IPosition';
 import { Vector2d } from './Vector2d';
 
-export class StaticModel {
+export class PositionModel implements IPosition {
   protected _position: Vector2d;
 
   public get position() {

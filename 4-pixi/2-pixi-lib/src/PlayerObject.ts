@@ -5,7 +5,7 @@ import {
   PlayerComputation,
   BallObject,
 } from './index';
-import { GameObject } from './GameObject';
+import { GameObject } from './gameObject/GameObject';
 
 export class PlayerObject extends GameObject {
   private readonly _radius: number;
@@ -66,16 +66,25 @@ export class PlayerObject extends GameObject {
     this.renderer.drawCircle(
       stage,
       this._color.player,
-      this.position,
+      this.position.x,
+      this.position.y,
       this._radius
     );
-    this.renderer.drawCircle(stage, this._color.position, this.position, 4);
+    this.renderer.drawCircle(
+      stage,
+      this._color.position,
+      this.position.x,
+      this.position.y,
+      4
+    );
     this.renderer.drawLine(
       stage,
       this._color.direction,
       2,
-      this.position,
-      this.direction,
+      this.position.x,
+      this.position.y,
+      this.direction.x,
+      this.direction.y,
       this._radius / 2
     );
   }

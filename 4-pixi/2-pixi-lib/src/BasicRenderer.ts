@@ -1,15 +1,17 @@
 import * as PIXI from 'pixi.js';
+import { IBasicRenderer } from './IBasicRenderer';
 
-export class BasicRenderer {
+export class BasicRenderer implements IBasicRenderer {
   public drawCircle(
     stage: PIXI.Container,
     color: number,
-    position: { x: number; y: number },
+    x: number,
+    y: number,
     radius: number
   ) {
     const g = new PIXI.Graphics();
     g.beginFill(color);
-    g.drawCircle(position.x, position.y, radius);
+    g.drawCircle(x, y, radius);
     g.endFill();
     stage.addChild(g);
   }
@@ -18,16 +20,18 @@ export class BasicRenderer {
     stage: PIXI.Container,
     color: number,
     width: number,
-    position: { x: number; y: number },
-    direction: { x: number; y: number },
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
     length: number
   ) {
     const g = new PIXI.Graphics();
     g.lineStyle(width, color);
-    g.moveTo(position.x, position.y);
-    const directionX = direction.x * length;
-    const directionY = direction.y * length;
-    g.lineTo(position.x + directionX, position.y + directionY);
+    g.moveTo(x1, y1);
+    const sx2 = x2 * length;
+    const sy2 = y2 * length;
+    g.lineTo(x1 + sx2, y1 + sy2);
     stage.addChild(g);
   }
 }

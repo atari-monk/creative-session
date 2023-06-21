@@ -1,12 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
-import {
-  PlayerObject,
-  VectorData,
-  IBallOptions,
-  IColorOptions,
-} from './index';
-import { GameObject } from './GameObject';
+import { PlayerObject, VectorData, IBallOptions, IColorOptions } from './index';
+import { GameObject } from './gameObject/GameObject';
 
 export class BallObject extends GameObject {
   private readonly radius: number;
