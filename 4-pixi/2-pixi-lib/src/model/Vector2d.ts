@@ -1,4 +1,6 @@
-export class Vector2d {
+import { IVector2d } from './IVector2d';
+
+export class Vector2d implements IVector2d {
   private _x: number;
   private _y: number;
 

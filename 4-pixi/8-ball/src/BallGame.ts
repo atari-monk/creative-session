@@ -8,6 +8,7 @@ import {
   ballOptions,
   keys,
   IPlayerOptions,
+  IGameObject,
 } from 'atari-monk-pixi-lib';
 import {
   AppHelper,
@@ -152,9 +153,9 @@ export class BallGame {
     this.pixiApp = new PIXI.Application(this.appHelper.getPixiAppOptions());
     this.playerRenderer = new BasicRenderer();
 
-    this.player1 = this.createPlayer(player1Options, -250);
-    this.player2 = this.createPlayer(player2Options, 250);
-    
+    this.player1 = this.createPlayer1();
+    this.player2 = this.createPlayer2();
+
     this.appHelper.addGameObject(this.player1);
     this.appHelper.addGameObject(this.player2);
     this.appHelper.addGameObject(this.ball);
@@ -168,10 +169,7 @@ export class BallGame {
     this.appHelper.startAnimationLoop();
   }
 
-  protected createPlayer(
-    playerOptions: IPlayerOptions,
-    offsetX: number
-  ): PlayerObject {
+  protected createPlayer(playerOptions: IPlayerOptions, offsetX: number) {
     const playerComputation = new PlayerComputation(
       this.keyboard,
       this.positionEmitter,
@@ -187,5 +185,14 @@ export class BallGame {
       y: this.appHelper.height / 2,
     };
     return player;
+  }
+
+  // prettier-ignore
+  protected createPlayer2<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
+    return this.createPlayer(player2Options, 250) as unknown as TPlayer;
+  }
+
+  protected createPlayer1() {
+    return this.createPlayer(player1Options, -250);
   }
 }

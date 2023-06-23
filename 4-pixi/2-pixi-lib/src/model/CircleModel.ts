@@ -1,4 +1,6 @@
-export class CircleModel {
+import { ICircle } from './ICircle';
+
+export class CircleModel implements ICircle {
   protected _radius: number;
 
   public get radius() {

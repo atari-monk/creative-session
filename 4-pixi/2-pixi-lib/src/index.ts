@@ -40,7 +40,20 @@ export {
 export {
   appHelperOptions,
   player1Options,
+  player1OptionsV2,
   player2Options,
   ballOptions,
   keys,
+  rivalColors,
+  rivalPlayer,
 } from './data/appConfig';
+export { CircleModel } from './model/CircleModel';
+export { ICircle } from './model/ICircle';
+export { IPosition } from './model/IPosition';
+export { ISteerable } from './model/ISteerable';
+export { PositionModel } from './model/PositionModel';
+export { SteerableModel } from './model/SteerableModel';
+export { IVector2d } from './model/IVector2d';
+export { Vector2d } from './model/Vector2d';
+export { RivalPlayer } from './player/RivalPlayer';
+export { RivalPlayerFactory } from './player/playerFactory/RivalPlayerFactory';

@@ -1,5 +1,5 @@
-import { Vector2d } from './Vector2d';
+import { IVector2d } from './IVector2d';
 
 export interface IPosition {
-  position: Vector2d;
+  position: IVector2d;
 }

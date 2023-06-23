@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
+import { injectable, inject } from 'inversify';
 import { IBasicRenderer } from './IBasicRenderer';
 
+@injectable()
 export class BasicRenderer implements IBasicRenderer {
   public drawCircle(
     stage: PIXI.Container,
