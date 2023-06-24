@@ -1,30 +1,34 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { RivalPlayerTypes, SharedTypes } from '../data/appConfig';
+import { PlayerTypes, SharedTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IColorOptions } from '../data/configTypes';
 import { IBasicRenderer } from '../IBasicRenderer';
-import { IPosition } from '../model/IPosition';
 import { ICircle } from '../model/ICircle';
+import { ISteerable } from '../model/ISteerable';
 
 @injectable()
-export class RivalPlayer extends GameObject {
+export class Player extends GameObject {
   public get position(): IVector2d {
-    return this.origin.position;
+    return this.steer.position;
   }
 
   public set position(position: IVector2d) {
-    this.origin.position.x = position.x;
-    this.origin.position.y = position.y;
+    this.steer.position.x = position.x;
+    this.steer.position.y = position.y;
+  }
+
+  public get direction(): IVector2d {
+    return this.steer.direction;
   }
 
   constructor(
-    @inject(RivalPlayerTypes.rivalPosition) private readonly origin: IPosition,
-    @inject(RivalPlayerTypes.rivalCircle) private readonly circle: ICircle,
+    @inject(PlayerTypes.playerSteering) private readonly steer: ISteerable,
+    @inject(PlayerTypes.playerCircle) private readonly circle: ICircle,
     @inject(SharedTypes.BasicRenderer)
     private readonly renderer: IBasicRenderer,
-    @inject(RivalPlayerTypes.rivalColors) private readonly colors: IColorOptions
+    @inject(PlayerTypes.playerColors) private readonly colors: IColorOptions
   ) {
     super();
   }
@@ -43,6 +47,16 @@ export class RivalPlayer extends GameObject {
       this.position.x,
       this.position.y,
       2
+    );
+    this.renderer.drawLine(
+      stage,
+      this.colors.direction,
+      2,
+      this.position.x,
+      this.position.y,
+      this.direction.x,
+      this.direction.y,
+      this.circle.radius / 2
     );
   }
 

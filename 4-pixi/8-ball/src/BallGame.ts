@@ -188,11 +188,12 @@ export class BallGame {
   }
 
   // prettier-ignore
-  protected createPlayer2<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
-    return this.createPlayer(player2Options, 250) as unknown as TPlayer;
+  protected createPlayer1<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
+    return this.createPlayer(player1Options, -250) as unknown as TPlayer;
   }
 
-  protected createPlayer1() {
-    return this.createPlayer(player1Options, -250);
+  // prettier-ignore
+  protected createPlayer2<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
+    return this.createPlayer(player2Options, 250) as unknown as TPlayer;
   }
 }

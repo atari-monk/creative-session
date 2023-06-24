@@ -102,6 +102,17 @@ export const ballOptions: IBallOptions = {
 
 //////////////////////BallGame2
 
+export const SharedTypes = {
+  BasicRenderer: Symbol.for('BasicRenderer'),
+};
+
+export const RivalPlayerTypes = {
+  RivalPlayer: Symbol.for('RivalPlayer'),
+  rivalPosition: Symbol.for('rivalPosition'),
+  rivalCircle: Symbol.for('rivalCircle'),
+  rivalColors: Symbol.for('rivalColors'),
+};
+
 export const rivalColors: IColorOptions = {
   player: blue,
   position: red,
@@ -119,9 +130,22 @@ export const rivalPlayer = {
   rivalColors,
 };
 
+export const PlayerTypes = {
+  Player: Symbol.for('Player'),
+  playerSteering: Symbol.for('playerSteering'),
+  playerCircle: Symbol.for('playerCircle'),
+  playerColors: Symbol.for('playerColors'),
+};
+
+export const playerColors: IColorOptions = {
+  player: green,
+  position: blue,
+  direction: blue,
+};
+
 const playerOffset = playerUrlParam === '1' ? -250 : 250;
 
-export const player1OptionsV2: IPlayerOptionsV2 = {
+export const playerParams: IPlayerOptionsV2 = {
   radius: playerRadius,
   speed: playerSpeed,
   screenSize,
@@ -132,12 +156,5 @@ export const player1OptionsV2: IPlayerOptionsV2 = {
     screenSize.width / 2 + playerOffset,
     screenSize.height / 2
   ),
-};
-
-export const RivalPlayerTypes = {
-  RivalPlayer: Symbol.for('RivalPlayer'),
-  rivalPosition: Symbol.for('rivalPosition'),
-  rivalCircle: Symbol.for('rivalCircle'),
-  BasicRenderer: Symbol.for('BasicRenderer'),
-  rivalColors: Symbol.for('rivalColors'),
+  direction: new Vector2d(0, 0),
 };

@@ -29,6 +29,13 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
+    },
+    {
+      "name": "playerFactoryTest",
+      "program": "${workspaceFolder}/4-pixi/2-pixi-lib/dist/test/playerFactoryTest.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }

@@ -1,42 +1,31 @@
 import {
   IGameObject,
-  PlayerComputation,
-  PlayerObject,
   RivalPlayer,
   RivalPlayerFactory,
+  PlayerFactory,
+  SharedPlayerFactory,
 } from 'atari-monk-pixi-lib';
-import { player1OptionsV2 } from 'atari-monk-pixi-lib';
 import { BallGame } from './BallGame';
 import { Container } from 'inversify';
-import { IPlayerOptionsV2 } from 'atari-monk-pixi-lib/data/configTypes';
 
 const container = new Container();
+const sharedPlayerFactory = new SharedPlayerFactory(container);
 const rivalPlayerFactory = new RivalPlayerFactory(container);
+sharedPlayerFactory.registerDependencies();
 rivalPlayerFactory.registerDependencies();
+const playerFactory = new PlayerFactory(container);
+playerFactory.registerDependencies();
 
 export class BallGame2 extends BallGame {
   // prettier-ignore
-  protected createPlayer2<TPlayer extends IGameObject = RivalPlayer>(): TPlayer {
-    const player = rivalPlayerFactory.resolveRivalPlayer();
+  protected createPlayer1<TPlayer extends IGameObject = RivalPlayer>(): TPlayer {
+    const player = playerFactory.resolve();
     return player as unknown as TPlayer;
   }
 
-  private createPlayerV2(playerOptions: IPlayerOptionsV2) {
-    const playerComputation = new PlayerComputation(
-      this.keyboard,
-      this.positionEmitter,
-      playerOptions
-    );
-    const player = new PlayerObject(
-      this.playerRenderer,
-      playerComputation,
-      playerOptions
-    );
-    player.position = playerOptions.position;
-    return player;
-  }
-
-  protected createPlayer1() {
-    return this.createPlayerV2(player1OptionsV2);
+  // prettier-ignore
+  protected createPlayer2<TPlayer extends IGameObject = RivalPlayer>(): TPlayer {
+    const player = rivalPlayerFactory.resolve();
+    return player as unknown as TPlayer;
   }
 }

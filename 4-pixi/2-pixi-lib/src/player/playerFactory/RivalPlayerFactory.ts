@@ -1,4 +1,4 @@
-import { Container, interfaces } from 'inversify';
+import { Container } from 'inversify';
 import { PositionModel } from '../../model/PositionModel';
 import { CircleModel } from '../../model/CircleModel';
 import {
@@ -8,8 +8,6 @@ import {
 } from './../../data/appConfig';
 import { IPosition } from '../../model/IPosition';
 import { ICircle } from '../../model/ICircle';
-import { IBasicRenderer } from '../../IBasicRenderer';
-import { BasicRenderer } from '../../BasicRenderer';
 import { IColorOptions } from '../../data/configTypes';
 import { RivalPlayer } from '../RivalPlayer';
 
@@ -28,14 +26,11 @@ export class RivalPlayerFactory {
         return new CircleModel(rivalPlayer.radius);
       });
     this.container
-      .bind<IBasicRenderer>(RivalPlayerTypes.BasicRenderer)
-      .to(BasicRenderer);
-    this.container
       .bind<IColorOptions>(RivalPlayerTypes.rivalColors)
       .toConstantValue(rivalColors);
   }
 
-  public resolveRivalPlayer() {
+  public resolve() {
     return this.container.resolve<RivalPlayer>(RivalPlayer);
   }
 }

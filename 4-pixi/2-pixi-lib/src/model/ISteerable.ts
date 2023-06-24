@@ -1,7 +1,7 @@
 import { IPosition } from './IPosition';
-import { Vector2d } from './Vector2d';
+import { IVector2d } from './IVector2d';
 
 export interface ISteerable extends IPosition {
-  direction: Vector2d;
+  direction: IVector2d;
   speed: number;
 }

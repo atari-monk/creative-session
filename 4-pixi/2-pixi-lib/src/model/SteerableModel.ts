@@ -1,16 +1,16 @@
 import { PositionModel } from './PositionModel';
-import { Vector2d } from './Vector2d';
 import { ISteerable } from './ISteerable';
+import { IVector2d } from './IVector2d';
 
 export class SteerableModel extends PositionModel implements ISteerable {
-  protected _direction: Vector2d;
+  protected _direction: IVector2d;
   protected _speed: number;
 
   public get direction() {
     return this._direction;
   }
 
-  public set direction(direction: Vector2d) {
+  public set direction(direction: IVector2d) {
     this._direction.x = direction.x;
     this._direction.y = direction.y;
   }
@@ -23,7 +23,7 @@ export class SteerableModel extends PositionModel implements ISteerable {
     this._speed = speed;
   }
 
-  constructor(position: Vector2d, direction: Vector2d, speed: number) {
+  constructor(position: IVector2d, direction: IVector2d, speed: number) {
     super(position);
     this._direction = direction;
     this._speed = speed;

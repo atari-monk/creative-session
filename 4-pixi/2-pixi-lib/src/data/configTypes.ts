@@ -44,6 +44,19 @@ export interface IBallOptions {
 }
 
 //GameBall2
+export interface IRivalPlayer {
+  rivalPosition : IVector2d,
+  radius: number,
+  rivalColors: IColorOptions
+}
+
+// export interface IPlayerParams {
+//   rivalPosition: IVector2d;
+//   radius: number;
+//   rivalColors: IColorOptions;
+// }
+
 export interface IPlayerOptionsV2 extends IPlayerOptions {
   position: IVector2d;
+  direction: IVector2d;
 }
