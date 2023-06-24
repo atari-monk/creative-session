@@ -14,13 +14,13 @@ export class BallRenderer extends Renderer {
     this.player = this.findPlayerObject();
   }
 
-  private findBallObject(): BallObject {
+  private findBallObject() {
     return this.appHelper.gameObjects.find(
       (obj) => obj instanceof BallObject
     ) as BallObject;
   }
 
-  private findPlayerObject(): PlayerObject {
+  private findPlayerObject() {
     return this.appHelper.gameObjects.find(
       (obj) => obj instanceof PlayerObject && obj.isPlayable
     ) as PlayerObject;

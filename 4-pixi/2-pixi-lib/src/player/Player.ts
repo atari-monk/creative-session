@@ -23,6 +23,10 @@ export class Player extends GameObject {
     return this.steer.direction;
   }
 
+  public get radius(): number {
+    return this.circle.radius;
+  }
+
   constructor(
     @inject(PlayerTypes.playerSteering) private readonly steer: ISteerable,
     @inject(PlayerTypes.playerCircle) private readonly circle: ICircle,
