@@ -6,6 +6,7 @@ import {
   IColorOptions,
   IPlayerOptions,
   IBallOptions,
+  IPlayerOptionsV2,
 } from './configTypes';
 
 let playerUrlParam: string | null = '';
@@ -48,21 +49,6 @@ const screenSize: IScreenSize = {
   height: 600,
 };
 
-export const rivalColors: IColorOptions = {
-  player: blue,
-  position: red,
-  direction: red,
-};
-
-export const rivalPlayer = {
-  rivalPosition: new Vector2d(
-    screenSize.width / 2 + 250,
-    screenSize.height / 2
-  ),
-  radius: playerRadius,
-  rivalColors,
-};
-
 export const appHelperOptions: IAppHelperOptions = {
   screenSize,
   backgroundColor: 0x000000,
@@ -74,6 +60,12 @@ const greenObj: IColorOptions = {
   player: green,
   position: blue,
   direction: blue,
+};
+
+const blueObj: IColorOptions = {
+  player: blue,
+  position: red,
+  direction: red,
 };
 
 const redObj: IColorOptions = {
@@ -91,21 +83,12 @@ export const player1Options: IPlayerOptions = {
   isPlayable: playerUrlParam === '1',
 };
 
-export const player1OptionsV2: IPlayerOptions = {
-  radius: playerRadius,
-  speed: playerSpeed,
-  screenSize,
-  keys,
-  color: greenObj,
-  isPlayable: true,
-};
-
 export const player2Options: IPlayerOptions = {
   radius: playerRadius,
   speed: playerSpeed,
   screenSize,
   keys,
-  color: rivalColors,
+  color: blueObj,
   isPlayable: playerUrlParam === '2',
 };
 
@@ -115,6 +98,40 @@ export const ballOptions: IBallOptions = {
   screenSize,
   color: redObj,
   isBall: true,
+};
+
+//////////////////////BallGame2
+
+export const rivalColors: IColorOptions = {
+  player: blue,
+  position: red,
+  direction: red,
+};
+
+const rivalOffset = playerUrlParam === '1' ? 250 : -250;
+
+export const rivalPlayer = {
+  rivalPosition: new Vector2d(
+    screenSize.width / 2 + rivalOffset,
+    screenSize.height / 2
+  ),
+  radius: playerRadius,
+  rivalColors,
+};
+
+const playerOffset = playerUrlParam === '1' ? -250 : 250;
+
+export const player1OptionsV2: IPlayerOptionsV2 = {
+  radius: playerRadius,
+  speed: playerSpeed,
+  screenSize,
+  keys,
+  color: greenObj,
+  isPlayable: true,
+  position: new Vector2d(
+    screenSize.width / 2 + playerOffset,
+    screenSize.height / 2
+  ),
 };
 
 export const RivalPlayerTypes = {

@@ -42,7 +42,7 @@ import {
 
 export class BallGame {
   private emitter!: EventEmitter;
-  private positionEmitter!: PositionEmitter;
+  protected positionEmitter!: PositionEmitter;
   private socketConfigurator!: SocketConfigurator;
   private socketManager!: Manager;
   private socket!: Socket;
@@ -64,10 +64,10 @@ export class BallGame {
   private ballEmitterLogicManager!: EventEmitterLogicManager;
   private ballMovement2!: BallEventEmitterLogicUnit;
   private ballVelocity2!: BallEventEmitterLogicUnit;
-  private keyboard!: KeyboardInputHandler;
+  protected keyboard!: KeyboardInputHandler;
   private appHelper!: AppHelper;
   private pixiApp!: PIXI.Application;
-  private playerRenderer!: BasicRenderer;
+  protected playerRenderer!: BasicRenderer;
   private player1!: PlayerObject;
   private player2!: PlayerObject;
   private renderer!: BallRenderer;

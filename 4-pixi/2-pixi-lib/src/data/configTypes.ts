@@ -1,3 +1,5 @@
+import { IVector2d } from '../model/IVector2d';
+
 interface ISize {
   width: number;
   height: number;
@@ -39,4 +41,9 @@ export interface IBallOptions {
   screenSize: IScreenSize;
   color: IColorOptions;
   isBall: boolean;
+}
+
+//GameBall2
+export interface IPlayerOptionsV2 extends IPlayerOptions {
+  position: IVector2d;
 }
