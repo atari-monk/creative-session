@@ -8,7 +8,6 @@ import {
   ballOptions,
   keys,
   IPlayerOptions,
-  IGameObject,
 } from 'atari-monk-pixi-lib';
 import {
   AppHelper,
@@ -41,132 +40,124 @@ import {
 } from 'atari-monk-client';
 
 export class BallGame {
-  private emitter!: EventEmitter;
-  protected positionEmitter!: PositionEmitter;
-  private socketConfigurator!: SocketConfigurator;
-  private socketManager!: Manager;
-  private socket!: Socket;
-  private playerManager!: PlayerManager;
-  private clientSocketLogicManager!: SocketLogicManager;
-  private connectErrorHandler!: ConnectErrorHandler;
-  private disconnectHandler!: DisconnectHandler;
-  private playerSocketLogicManager!: SocketLogicManager;
-  private playerConnectLogic!: PlayerConnectLogic;
-  private playerMovement!: PlayerMovement;
-  private playerList!: PlayerList;
-  private ball!: BallObject;
-  private ballManager!: BallManager;
-  private ballSocketLogicManager!: SocketLogicManager;
-  private ballMovement!: BallMovement;
-  private ballVelocity!: BallVelocity;
-  private playerEmitterLogicManager!: EventEmitterLogicManager;
-  private playerMovement2!: PlayerEventEmitterLogicUnit;
-  private ballEmitterLogicManager!: EventEmitterLogicManager;
-  private ballMovement2!: BallEventEmitterLogicUnit;
-  private ballVelocity2!: BallEventEmitterLogicUnit;
-  protected keyboard!: KeyboardInputHandler;
-  private appHelper!: AppHelper;
   private pixiApp!: PIXI.Application;
-  protected playerRenderer!: BasicRenderer;
+  private appHelper!: AppHelper;
+
+  protected createApp() {
+    this.appHelper = new AppHelper(appHelperOptions);
+    this.pixiApp = new PIXI.Application(this.appHelper.getPixiAppOptions());
+  }
+
+  public start() {
+    this.appHelper.initializeApp(this.pixiApp, this.renderer);
+    this.appHelper.startAnimationLoop();
+  }
+
+  private emitter!: EventEmitter;
+  private positionEmitter!: PositionEmitter;
+  private playerRenderer!: BasicRenderer;
+  private keyboard!: KeyboardInputHandler;
   private player1!: PlayerObject;
   private player2!: PlayerObject;
+
+  protected createPlayers() {
+    this.emitter = new EventEmitter();
+    this.positionEmitter = new PositionEmitter('position-update', this.emitter);
+    this.playerRenderer = new BasicRenderer();
+    this.keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
+    this.player1 = this.createPlayer1();
+    this.player2 = this.createPlayer2();
+    this.appHelper.addGameObject(this.player1);
+    this.appHelper.addGameObject(this.player2);
+  }
+
+  private ball!: BallObject;
   private renderer!: BallRenderer;
+
+  protected createBall() {
+    this.ball = new BallObject(this.emitter, ballOptions);
+    this.ball.position = {
+      x: ballOptions.screenSize.width / 2,
+      y: ballOptions.screenSize.height / 2,
+    };
+    this.appHelper.addGameObject(this.ball);
+    this.renderer = new BallRenderer(this.appHelper, this.pixiApp);
+  }
+
+  protected createClient() {
+    const socketConfigurator = new SocketConfigurator({
+      environment: Environment.Development,
+    });
+    const socketManager = new Manager(socketConfigurator.URI);
+    const socket = new Socket(socketManager, '/');
+    new SocketErrorHandler(socket);
+    const playerManager = new PlayerManager();
+    playerManager.addPlayerObj(this.player1);
+    playerManager.addPlayerObj(this.player2);
+
+    const clientSocketLogicManager = new SocketLogicManager();
+    const connectErrorHandler = new ConnectErrorHandler('connect_error');
+    const disconnectHandler = new DisconnectHandler('disconnect');
+    clientSocketLogicManager.addLogic(connectErrorHandler);
+    clientSocketLogicManager.addLogic(disconnectHandler);
+    clientSocketLogicManager.initializeSocket(socket);
+
+    const playerSocketLogicManager = new SocketLogicManager();
+    const playerConnectLogic = new PlayerConnectLogic(
+      'connect',
+      socket,
+      playerManager
+    );
+    const playerMovement = new PlayerMovement('movement', playerManager);
+    const playerList = new PlayerList('clientIdList', socket, playerManager);
+    playerSocketLogicManager.addLogic(playerConnectLogic);
+    playerSocketLogicManager.addLogic(playerMovement);
+    playerSocketLogicManager.addLogic(playerList);
+    playerSocketLogicManager.initializeSocket(socket);
+
+    const ballManager = new BallManager(this.ball);
+    const ballSocketLogicManager = new SocketLogicManager();
+    const ballMovement = new BallMovement('ballMovement', ballManager);
+    const ballVelocity = new BallVelocity('ballVelocity', ballManager);
+    ballSocketLogicManager.addLogic(ballMovement);
+    ballSocketLogicManager.addLogic(ballVelocity);
+    ballSocketLogicManager.initializeSocket(socket);
+
+    const playerEmitterLogicManager = new EventEmitterLogicManager();
+    const playerMovement2 = new PlayerEventEmitterLogicUnit(
+      'position-update',
+      'movement',
+      socket
+    );
+    playerEmitterLogicManager.addLogic(playerMovement2);
+    playerEmitterLogicManager.initializeEmitter(this.emitter);
+
+    const ballEmitterLogicManager = new EventEmitterLogicManager();
+    const ballMovement2 = new BallEventEmitterLogicUnit(
+      'ball-pos-upd',
+      'ballMovement',
+      socket
+    );
+    const ballVelocity2 = new BallEventEmitterLogicUnit(
+      'ball-vel-upd',
+      'ballVelocity',
+      socket
+    );
+    ballEmitterLogicManager.addLogic(ballMovement2);
+    ballEmitterLogicManager.addLogic(ballVelocity2);
+    ballEmitterLogicManager.initializeEmitter(this.emitter);
+  }
 
   constructor() {
     this.initializeObjects();
   }
 
   protected initializeObjects() {
-    this.emitter = new EventEmitter();
-    this.positionEmitter = new PositionEmitter('position-update', this.emitter);
-    this.socketConfigurator = new SocketConfigurator({
-      environment: Environment.Development,
-    });
-    this.socketManager = new Manager(this.socketConfigurator.URI);
-    this.socket = new Socket(this.socketManager, '/');
-    new SocketErrorHandler(this.socket);
-    this.playerManager = new PlayerManager();
-
-    this.clientSocketLogicManager = new SocketLogicManager();
-    this.connectErrorHandler = new ConnectErrorHandler('connect_error');
-    this.disconnectHandler = new DisconnectHandler('disconnect');
-    this.clientSocketLogicManager.addLogic(this.connectErrorHandler);
-    this.clientSocketLogicManager.addLogic(this.disconnectHandler);
-    this.clientSocketLogicManager.initializeSocket(this.socket);
-
-    this.playerSocketLogicManager = new SocketLogicManager();
-    this.playerConnectLogic = new PlayerConnectLogic(
-      'connect',
-      this.socket,
-      this.playerManager
-    );
-    this.playerMovement = new PlayerMovement('movement', this.playerManager);
-    this.playerList = new PlayerList(
-      'clientIdList',
-      this.socket,
-      this.playerManager
-    );
-    this.playerSocketLogicManager.addLogic(this.playerConnectLogic);
-    this.playerSocketLogicManager.addLogic(this.playerMovement);
-    this.playerSocketLogicManager.addLogic(this.playerList);
-    this.playerSocketLogicManager.initializeSocket(this.socket);
-
-    this.ball = new BallObject(this.emitter, ballOptions);
-    this.ball.position = {
-      x: ballOptions.screenSize.width / 2,
-      y: ballOptions.screenSize.height / 2,
-    };
-    this.ballManager = new BallManager(this.ball);
-    this.ballSocketLogicManager = new SocketLogicManager();
-    this.ballMovement = new BallMovement('ballMovement', this.ballManager);
-    this.ballVelocity = new BallVelocity('ballVelocity', this.ballManager);
-    this.ballSocketLogicManager.addLogic(this.ballMovement);
-    this.ballSocketLogicManager.addLogic(this.ballVelocity);
-    this.ballSocketLogicManager.initializeSocket(this.socket);
-
-    this.playerEmitterLogicManager = new EventEmitterLogicManager();
-    this.playerMovement2 = new PlayerEventEmitterLogicUnit(
-      'position-update',
-      'movement',
-      this.socket
-    );
-    this.playerEmitterLogicManager.addLogic(this.playerMovement2);
-    this.playerEmitterLogicManager.initializeEmitter(this.emitter);
-
-    this.ballEmitterLogicManager = new EventEmitterLogicManager();
-    this.ballMovement2 = new BallEventEmitterLogicUnit(
-      'ball-pos-upd',
-      'ballMovement',
-      this.socket
-    );
-    this.ballVelocity2 = new BallEventEmitterLogicUnit(
-      'ball-vel-upd',
-      'ballVelocity',
-      this.socket
-    );
-    this.ballEmitterLogicManager.addLogic(this.ballMovement2);
-    this.ballEmitterLogicManager.addLogic(this.ballVelocity2);
-    this.ballEmitterLogicManager.initializeEmitter(this.emitter);
-
-    this.keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
-    this.appHelper = new AppHelper(appHelperOptions);
-    this.pixiApp = new PIXI.Application(this.appHelper.getPixiAppOptions());
-    this.playerRenderer = new BasicRenderer();
-
-    this.player1 = this.createPlayer1();
-    this.player2 = this.createPlayer2();
-
-    this.appHelper.addGameObject(this.player1);
-    this.appHelper.addGameObject(this.player2);
-    this.appHelper.addGameObject(this.ball);
-
-    // For Renderer to work, addGameObject must be called before its constructor
-    this.renderer = new BallRenderer(this.appHelper, this.pixiApp);
-    this.appHelper.initializeApp(this.pixiApp, this.renderer);
-
-    this.playerManager.addPlayerObj(this.player1);
-    this.playerManager.addPlayerObj(this.player2);
-    this.appHelper.startAnimationLoop();
+    this.createApp();
+    this.createPlayers();
+    this.createBall();
+    this.createClient();
+    this.start();
   }
 
   protected createPlayer(playerOptions: IPlayerOptions, offsetX: number) {
@@ -187,13 +178,11 @@ export class BallGame {
     return player;
   }
 
-  // prettier-ignore
-  protected createPlayer1<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
-    return this.createPlayer(player1Options, -250) as unknown as TPlayer;
+  protected createPlayer1() {
+    return this.createPlayer(player1Options, -250);
   }
 
-  // prettier-ignore
-  protected createPlayer2<TPlayer extends IGameObject = PlayerObject>(): TPlayer {
-    return this.createPlayer(player2Options, 250) as unknown as TPlayer;
+  protected createPlayer2() {
+    return this.createPlayer(player2Options, 250);
   }
 }
