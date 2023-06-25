@@ -3,8 +3,8 @@ import { appHelperOptions } from 'atari-monk-pixi-lib';
 import { AppHelper, BallRenderer } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
-  private _pixiApp!: PIXI.Application;
-  private _appHelper!: AppHelper;
+  private _pixiApp: PIXI.Application;
+  private _appHelper: AppHelper;
 
   public get pixiApp() {
     return this._pixiApp;
@@ -14,7 +14,7 @@ export class AppFactory {
     return this._appHelper;
   }
 
-  public createApp() {
+  constructor() {
     this._appHelper = new AppHelper(appHelperOptions);
     this._pixiApp = new PIXI.Application(this._appHelper.getPixiAppOptions());
   }

@@ -17,12 +17,12 @@ import {
 import { AppFactory } from './AppFactory';
 
 export class PlayersFactory {
-  private _emitter!: EventEmitter;
-  private _player1!: PlayerObject;
-  private _player2!: PlayerObject;
-  private positionEmitter!: PositionEmitter;
-  private playerRenderer!: BasicRenderer;
-  private keyboard!: KeyboardInputHandler;
+  private _emitter: EventEmitter;
+  private _player1: PlayerObject;
+  private _player2: PlayerObject;
+  private keyboard: KeyboardInputHandler;
+  private positionEmitter: PositionEmitter;
+  private playerRenderer: BasicRenderer;
 
   public get emitter() {
     return this._emitter;
@@ -36,7 +36,7 @@ export class PlayersFactory {
     return this._player2;
   }
 
-  public createPlayers(appFactory: AppFactory) {
+  constructor() {
     this._emitter = new EventEmitter();
     this.positionEmitter = new PositionEmitter(
       'position-update',
@@ -44,10 +44,8 @@ export class PlayersFactory {
     );
     this.playerRenderer = new BasicRenderer();
     this.keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
-    this._player1 = this.createPlayer1();
-    this._player2 = this.createPlayer2();
-    appFactory.appHelper.addGameObject(this._player1);
-    appFactory.appHelper.addGameObject(this._player2);
+    this._player1 = this.createPlayer(player1Options, -250);
+    this._player2 = this.createPlayer(player2Options, 250);
   }
 
   private createPlayer(playerOptions: IPlayerOptions, offsetX: number) {
@@ -68,11 +66,8 @@ export class PlayersFactory {
     return player;
   }
 
-  private createPlayer1() {
-    return this.createPlayer(player1Options, -250);
-  }
-
-  private createPlayer2() {
-    return this.createPlayer(player2Options, 250);
+  public addPlayers(appFactory: AppFactory) {
+    appFactory.appHelper.addGameObject(this._player1);
+    appFactory.appHelper.addGameObject(this._player2);
   }
 }
