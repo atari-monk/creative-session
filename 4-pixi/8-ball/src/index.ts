@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { BallGame } from './BallGame';
+import { BallGame } from './V1/BallGame';
 //import { BallGame2 } from './BallGame2';
 
 const game = new BallGame();
