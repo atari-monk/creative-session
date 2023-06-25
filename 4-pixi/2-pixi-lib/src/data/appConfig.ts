@@ -44,7 +44,7 @@ const ballRadius = 20;
 const ballSpeed = 4;
 const playerSpeed = 2;
 
-const screenSize: IScreenSize = {
+export const screenSize: IScreenSize = {
   width: 800,
   height: 600,
 };

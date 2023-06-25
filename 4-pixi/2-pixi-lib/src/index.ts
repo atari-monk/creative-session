@@ -38,6 +38,7 @@ export {
   IColorOptions,
 } from './data/configTypes';
 export {
+  screenSize,
   appHelperOptions,
   player1Options,
   player2Options,

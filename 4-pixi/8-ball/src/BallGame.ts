@@ -8,6 +8,7 @@ import {
   ballOptions,
   keys,
   IPlayerOptions,
+  screenSize,
 } from 'atari-monk-pixi-lib';
 import {
   AppHelper,
@@ -39,19 +40,31 @@ import {
   BallEventEmitterLogicUnit,
 } from 'atari-monk-client';
 
+export class AppFactory {
+  private _pixiApp!: PIXI.Application;
+  private _appHelper!: AppHelper;
+
+  public get pixiApp() {
+    return this._pixiApp;
+  }
+
+  public get appHelper() {
+    return this._appHelper;
+  }
+
+  public createApp() {
+    this._appHelper = new AppHelper(appHelperOptions);
+    this._pixiApp = new PIXI.Application(this._appHelper.getPixiAppOptions());
+  }
+
+  public start(ballRenderer: BallRenderer) {
+    this._appHelper.initializeApp(this._pixiApp, ballRenderer);
+    this._appHelper.startAnimationLoop();
+  }
+}
+
 export class BallGame {
-  private pixiApp!: PIXI.Application;
-  private appHelper!: AppHelper;
-
-  protected createApp() {
-    this.appHelper = new AppHelper(appHelperOptions);
-    this.pixiApp = new PIXI.Application(this.appHelper.getPixiAppOptions());
-  }
-
-  public start() {
-    this.appHelper.initializeApp(this.pixiApp, this.renderer);
-    this.appHelper.startAnimationLoop();
-  }
+  private appFactory!: AppFactory;
 
   private emitter!: EventEmitter;
   private positionEmitter!: PositionEmitter;
@@ -67,12 +80,12 @@ export class BallGame {
     this.keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
     this.player1 = this.createPlayer1();
     this.player2 = this.createPlayer2();
-    this.appHelper.addGameObject(this.player1);
-    this.appHelper.addGameObject(this.player2);
+    this.appFactory.appHelper.addGameObject(this.player1);
+    this.appFactory.appHelper.addGameObject(this.player2);
   }
 
   private ball!: BallObject;
-  private renderer!: BallRenderer;
+  private ballRenderer!: BallRenderer;
 
   protected createBall() {
     this.ball = new BallObject(this.emitter, ballOptions);
@@ -80,8 +93,11 @@ export class BallGame {
       x: ballOptions.screenSize.width / 2,
       y: ballOptions.screenSize.height / 2,
     };
-    this.appHelper.addGameObject(this.ball);
-    this.renderer = new BallRenderer(this.appHelper, this.pixiApp);
+    this.appFactory.appHelper.addGameObject(this.ball);
+    this.ballRenderer = new BallRenderer(
+      this.appFactory.appHelper,
+      this.appFactory.pixiApp
+    );
   }
 
   protected createClient() {
@@ -153,11 +169,12 @@ export class BallGame {
   }
 
   protected initializeObjects() {
-    this.createApp();
+    this.appFactory = new AppFactory();
+    this.appFactory.createApp();
     this.createPlayers();
     this.createBall();
     this.createClient();
-    this.start();
+    this.appFactory.start(this.ballRenderer);
   }
 
   protected createPlayer(playerOptions: IPlayerOptions, offsetX: number) {
@@ -172,8 +189,8 @@ export class BallGame {
       playerOptions
     );
     player.position = {
-      x: this.appHelper.width / 2 + offsetX,
-      y: this.appHelper.height / 2,
+      x: screenSize.width / 2 + offsetX,
+      y: screenSize.height / 2,
     };
     return player;
   }
