@@ -4,16 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config webpack.config.js",
+    "build-ts": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
     "@types/three": "^0.152.1",
     "three": "^0.153.0"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "ts-loader": "^9.4.3",
     "webpack": "^5.88.0",
     "webpack-cli": "^5.1.4"

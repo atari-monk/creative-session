@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config webpack.config.js",
+    "build-ts": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
     "react": "^18.2.0",
