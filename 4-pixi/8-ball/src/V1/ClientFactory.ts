@@ -80,15 +80,15 @@ export class ClientFactory {
       this.socket,
       playerManager
     );
-    const playerMovement = new PlayerMovement('movement', playerManager);
     const playerList = new PlayerList(
       'clientIdList',
       this.socket,
       playerManager
     );
+    const playerMovement = new PlayerMovement('movement', playerManager);
     playerSocketLogicManager.addLogic(playerConnectLogic);
-    playerSocketLogicManager.addLogic(playerMovement);
     playerSocketLogicManager.addLogic(playerList);
+    playerSocketLogicManager.addLogic(playerMovement);
     return playerSocketLogicManager;
   }
 

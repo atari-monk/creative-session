@@ -1,4 +1,4 @@
-import { ballOptions } from 'atari-monk-pixi-lib';
+import { Vector2d, ballOptions } from 'atari-monk-pixi-lib';
 import { BallObject, BallRenderer } from 'atari-monk-pixi-lib';
 import { AppFactory } from './AppFactory';
 import { PlayersFactory } from './PlayersFactory';
@@ -18,10 +18,10 @@ export class BallFactory {
   constructor(appFactory: AppFactory, playersFactory: PlayersFactory) {
     try {
       this._ball = new BallObject(playersFactory.emitter, ballOptions);
-      this._ball.position = {
-        x: ballOptions.screenSize.width / 2,
-        y: ballOptions.screenSize.height / 2,
-      };
+      this._ball.position = new Vector2d(
+        ballOptions.screenSize.width / 2,
+        ballOptions.screenSize.height / 2
+      );
       appFactory.appHelper.addGameObject(this._ball);
       this._ballRenderer = new BallRenderer(
         appFactory.appHelper,

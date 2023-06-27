@@ -5,6 +5,7 @@ import {
   keys,
   IPlayerOptions,
   screenSize,
+  Vector2d,
 } from 'atari-monk-pixi-lib';
 import {
   KeyboardInputV1,
@@ -59,10 +60,10 @@ export class PlayersFactory {
       playerComputation,
       playerOptions
     );
-    player.position = {
-      x: screenSize.width / 2 + offsetX,
-      y: screenSize.height / 2,
-    };
+    player.position = new Vector2d(
+      screenSize.width / 2 + offsetX,
+      screenSize.height / 2
+    );
     return player;
   }
 
