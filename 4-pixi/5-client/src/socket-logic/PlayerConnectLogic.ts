@@ -21,7 +21,7 @@ export class PlayerConnectLogic extends SocketLogicUnit {
         return;
       }
 
-      playablePlayer.clientId = clientId;
+      playablePlayer.id = clientId;
       this.playerManager.addPlayer(clientId, playablePlayer);
 
       console.log(`Connected to server, id: ${clientId}`);

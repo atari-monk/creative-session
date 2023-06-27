@@ -1,12 +1,12 @@
-import { PlayerObject } from 'atari-monk-pixi-lib';
+import { IPlayer, IVector2d } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from './IPlayerManager.js';
 
 export class PlayerManager implements IPlayerManager {
-  private _playerObjs: PlayerObject[] = [];
-  private _players: { [key: string]: PlayerObject } = {};
+  private _playerObjs: IPlayer[] = [];
+  private _players: { [key: string]: IPlayer } = {};
   private clientId?: string;
 
-  public addPlayer(clientId: string, player: PlayerObject) {
+  public addPlayer(clientId: string, player: IPlayer) {
     this._players[clientId] = player;
   }
 
@@ -18,10 +18,7 @@ export class PlayerManager implements IPlayerManager {
     delete this._players[clientId];
   }
 
-  public updatePlayerPosition(
-    clientId: string,
-    newPosition: { x: number; y: number }
-  ) {
+  public updatePlayerPosition(clientId: string, newPosition: IVector2d) {
     const player = this._players[clientId];
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
@@ -37,7 +34,7 @@ export class PlayerManager implements IPlayerManager {
     return this._playerObjs.find((player) => player.isPlayable);
   }
 
-  public addPlayerObj(player: PlayerObject) {
+  public addPlayerObj(player: IPlayer) {
     this._playerObjs.push(player);
   }
 

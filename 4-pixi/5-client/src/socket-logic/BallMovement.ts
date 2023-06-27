@@ -1,4 +1,4 @@
-import { SocketLogicUnit } from 'atari-monk-pixi-lib';
+import { IVectorData, SocketLogicUnit, Vector2d } from 'atari-monk-pixi-lib';
 import { BallManager } from '../BallManager';
 
 export class BallMovement extends SocketLogicUnit {
@@ -6,8 +6,15 @@ export class BallMovement extends SocketLogicUnit {
     super(eventName);
   }
 
-  protected logicUnit(newPosition: { x: number; y: number }) {
-    if (!newPosition) throw new Error('No position data for the ball!');
-    this.ballManager.updateBallPosition(newPosition);
+  protected logicUnit(jsObj: any) {
+    try {
+      const newData: IVectorData = {
+        clientId: jsObj.clientId,
+        newVector: new Vector2d(jsObj.newVector.x, jsObj.newVector.y),
+      };
+      this.ballManager.updateBallPosition(newData.newVector);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

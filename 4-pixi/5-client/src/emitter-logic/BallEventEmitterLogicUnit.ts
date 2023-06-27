@@ -1,4 +1,4 @@
-import { VectorData } from 'atari-monk-pixi-lib';
+import { IVectorData } from 'atari-monk-pixi-lib';
 import { EventEmitterLogicUnit } from 'atari-monk-pixi-lib';
 
 import { Socket } from 'socket.io-client';
@@ -12,7 +12,14 @@ export class BallEventEmitterLogicUnit extends EventEmitterLogicUnit {
     super(eventName);
   }
 
-  protected logicUnit(data: VectorData) {
-    this.socket.emit(this.socketEventName, data.newVector);
+  protected logicUnit(data: IVectorData) {
+    const jsObj = {
+      clientId: data.clientId,
+      newVector: {
+        x: data.newVector.x,
+        y: data.newVector.y,
+      },
+    };
+    this.socket.emit(this.socketEventName, jsObj);
   }
 }
