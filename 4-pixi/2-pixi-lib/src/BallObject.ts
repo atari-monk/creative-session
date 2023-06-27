@@ -1,7 +1,12 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
-import { PlayerObject, VectorData, IBallOptions, IColorOptions } from './index';
+import { PlayerObject } from './PlayerObject';
+import { IVectorData } from './IVectorData';
+import { IBallOptions } from './data/configTypes';
+import { IColorOptions } from './data/configTypes';
 import { GameObject } from './gameObject/GameObject';
+import { IVector2d } from './model/IVector2d';
+import { Vector2d } from './model/Vector2d';
 
 export class BallObject extends GameObject {
   private readonly radius: number;
@@ -10,10 +15,9 @@ export class BallObject extends GameObject {
   private readonly height: number;
   private readonly color: IColorOptions;
   private readonly isBall: boolean;
-  private readonly _velocity: { x: number; y: number };
-  private _client: any;
-  private _position: { x: number; y: number };
-  private _direction: { x: number; y: number };
+  private readonly _velocity: IVector2d;
+  private _position: IVector2d;
+  private _direction: IVector2d;
   private readonly _emitter: EventEmitter;
 
   constructor(emitter: EventEmitter, options: IBallOptions) {
@@ -23,24 +27,20 @@ export class BallObject extends GameObject {
     this.speed = speed;
     this.width = screenSize.width;
     this.height = screenSize.height;
-    this._position = { x: this.width / 2, y: this.height / 2 };
-    this._direction = { x: 0, y: 0 };
+    this._position = new Vector2d(this.width / 2, this.height / 2);
+    this._direction = new Vector2d(0, 0);
     this.color = color;
     this.isBall = isBall;
-    this._velocity = { x: 0, y: 0 };
+    this._velocity = new Vector2d(0, 0);
     this._emitter = emitter;
   }
 
-  public set client(client: any) {
-    this._client = client;
-  }
-
-  public set position(newPosition: { x: number; y: number }) {
+  public set position(newPosition: IVector2d) {
     this._position.x = newPosition.x;
     this._position.y = newPosition.y;
   }
 
-  public set velocity(newVelocity: { x: number; y: number }) {
+  public set velocity(newVelocity: IVector2d) {
     this._velocity.x = newVelocity.x;
     this._velocity.y = newVelocity.y;
   }
@@ -49,21 +49,23 @@ export class BallObject extends GameObject {
     return this._velocity;
   }
 
-  public set direction(newDirection: { x: number; y: number }) {
+  public set direction(newDirection: IVector2d) {
     this._direction.x = newDirection.x;
     this._direction.y = newDirection.y;
   }
 
   private emitPosition() {
     if (this._velocity.x === 0 && this._velocity.y === 0) return;
-    const data: VectorData = {
+    const data: IVectorData = {
+      clientId: '0',
       newVector: this._position,
     };
     this._emitter.emit('ball-pos-upd', data);
   }
 
   public emitVelocity() {
-    const data: VectorData = {
+    const data: IVectorData = {
+      clientId: '0',
       newVector: this._velocity,
     };
     this._emitter.emit('ball-vel-upd', data);
@@ -118,10 +120,10 @@ export class BallObject extends GameObject {
 
   private bounce() {
     const currentVelocity = this.velocity;
-    const reversedVelocity = {
-      x: -currentVelocity.x,
-      y: -currentVelocity.y,
-    };
+    const reversedVelocity = new Vector2d(
+      -currentVelocity.x,
+      -currentVelocity.y
+    );
     this.velocity = reversedVelocity;
     this.emitVelocity();
     console.log(this._velocity);

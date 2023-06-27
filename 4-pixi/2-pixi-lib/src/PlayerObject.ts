@@ -4,10 +4,12 @@ import {
   BasicRenderer,
   PlayerComputation,
   BallObject,
+  IPlayer,
+  IVector2d,
 } from './index';
 import { GameObject } from './gameObject/GameObject';
 
-export class PlayerObject extends GameObject {
+export class PlayerObject extends GameObject implements IPlayer {
   private readonly _radius: number;
   private readonly _width: number;
   private readonly _height: number;
@@ -30,11 +32,11 @@ export class PlayerObject extends GameObject {
     this._clientId = '';
   }
 
-  public get clientId() {
+  public get id() {
     return this._clientId;
   }
 
-  public set clientId(clientId: string) {
+  public set id(clientId: string) {
     this._clientId = clientId;
   }
 
@@ -54,8 +56,9 @@ export class PlayerObject extends GameObject {
     return this._isPlayable;
   }
 
-  public set position(newPosition: { x: number; y: number }) {
-    this.computation.position = newPosition;
+  public set position(newPosition: IVector2d) {
+    this.computation.position.x = newPosition.x;
+    this.computation.position.y = newPosition.y;
   }
 
   public update(deltaTime: number) {

@@ -1,7 +1,7 @@
-import { KeyboardObserver } from './index';
+import { IKeyboardObserver } from './IKeyboardObserver';
 
 export class KeyboardInputV2 {
-  private observers: Set<KeyboardObserver>;
+  private observers: Set<IKeyboardObserver>;
 
   constructor() {
     this.observers = new Set();
@@ -27,11 +27,11 @@ export class KeyboardInputV2 {
     });
   }
 
-  public addObserver(observer: KeyboardObserver): void {
+  public addObserver(observer: IKeyboardObserver): void {
     this.observers.add(observer);
   }
 
-  public removeObserver(observer: KeyboardObserver): void {
+  public removeObserver(observer: IKeyboardObserver): void {
     this.observers.delete(observer);
   }
 

@@ -1,5 +1,6 @@
 import { EventEmitter } from 'eventemitter3';
-import { VectorData } from './index';
+import { IVectorData } from './IVectorData';
+import { IVector2d } from './model/IVector2d';
 
 export class PositionEmitter {
   constructor(
@@ -7,11 +8,8 @@ export class PositionEmitter {
     private readonly emitter: EventEmitter
   ) {}
 
-  public emitPosition(
-    clientId: string,
-    newPosition: { x: number; y: number }
-  ) {
-    const data: VectorData = {
+  public emitPosition(clientId: string, newPosition: IVector2d) {
+    const data: IVectorData = {
       clientId: clientId,
       newVector: newPosition,
     };

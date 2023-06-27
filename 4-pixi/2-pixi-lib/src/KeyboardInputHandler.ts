@@ -1,13 +1,20 @@
 import { KeyboardInputV1 } from './KeyboardInputV1';
+import { IKeys } from './data/configTypes';
+import { IVector2d } from './model/IVector2d';
+import { Vector2d } from './model/Vector2d';
 
 export class KeyboardInputHandler {
+  //private _direction: IVector2d;
+
   constructor(
     private readonly _keyboard: KeyboardInputV1,
-    private readonly _keys: any
-  ) {}
+    private readonly _keys: IKeys
+  ) {
+    //this._direction = new Vector2d(0, 0);
+  }
 
   public get direction() {
-    const direction = { x: 0, y: 0 };
+    const direction = new Vector2d(0, 0);
 
     if (
       this._keyboard.isKeyDown(this._keys.left) ||
@@ -43,6 +50,6 @@ export class KeyboardInputHandler {
       direction.y /= length;
     }
 
-    return direction;
+    return direction as IVector2d;
   }
 }

@@ -3,11 +3,13 @@ import {
   KeyboardInputHandler,
   PositionEmitter,
   IPlayerOptions,
+  Vector2d,
+  IVector2d,
 } from './index';
 
 export class PlayerComputation {
-  private _direction: { x: number; y: number };
-  private _position: { x: number; y: number };
+  private _direction: IVector2d;
+  private _position: IVector2d;
   private readonly speed: number;
 
   constructor(
@@ -15,11 +17,11 @@ export class PlayerComputation {
     private readonly positionEmitter: PositionEmitter,
     private readonly options: IPlayerOptions
   ) {
-    this._direction = { x: 0, y: 0 };
-    this._position = {
-      x: options.screenSize.width / 2,
-      y: options.screenSize.height / 2,
-    };
+    this._direction = new Vector2d(0, 0);
+    this._position = new Vector2d(
+      options.screenSize.width / 2,
+      options.screenSize.height / 2
+    );
     this.speed = options.speed;
   }
 
@@ -31,9 +33,11 @@ export class PlayerComputation {
     return this._position;
   }
 
-  public set position(newPosition: { x: number; y: number }) {
+  public set position(newPosition: IVector2d) {
+    console.log('new pos', newPosition, 'pos', this._position);
     this._position.x = newPosition.x;
     this._position.y = newPosition.y;
+    console.log('new pos', newPosition, 'pos', this._position);
   }
 
   public handleKeyboardInput(isPlayable: boolean, clientId: string) {
@@ -45,10 +49,10 @@ export class PlayerComputation {
   }
 
   private emitMovementEventIfNeeded(clientId: string) {
-    const newPosition = {
-      x: this._position.x + this._direction.x * this.speed,
-      y: this._position.y + this._direction.y * this.speed,
-    };
+    const newPosition = new Vector2d(
+      this._position.x + this._direction.x * this.speed,
+      this._position.y + this._direction.y * this.speed
+    );
 
     if (
       newPosition.x !== this._position.x ||
@@ -62,20 +66,20 @@ export class PlayerComputation {
   public update(deltaTime: number, clientId: string) {
     this.handleKeyboardInput(this.options.isPlayable, clientId);
 
-    const velocity = {
-      x: this._direction.x * this.speed * deltaTime,
-      y: this._direction.y * this.speed * deltaTime,
-    };
+    const velocity = new Vector2d(
+      this._direction.x * this.speed * deltaTime,
+      this._direction.y * this.speed * deltaTime
+    );
 
     this._position.x += velocity.x;
     this._position.y += velocity.y;
   }
 
   public kickBall(ball: BallObject) {
-    const velocity = {
-      x: this._direction.x * this.speed,
-      y: this._direction.y * this.speed,
-    };
+    const velocity = new Vector2d(
+      this._direction.x * this.speed,
+      this._direction.y * this.speed
+    );
 
     ball.velocity = velocity;
     ball.emitVelocity();
