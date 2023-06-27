@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "Game server proto.",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "debug": "ndb ./dist/game-server.js"
   },
   "keywords": [],
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
-    "atari-monk-pixi-lib": "^1.0.36",
+    "atari-monk-pixi-lib": "^1.0.74",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
