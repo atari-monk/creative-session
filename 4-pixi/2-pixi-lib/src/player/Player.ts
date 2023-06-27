@@ -7,9 +7,12 @@ import { IColorOptions } from '../data/configTypes';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { ICircle } from '../model/ICircle';
 import { ISteerable } from '../model/ISteerable';
+import { IPlayer } from './IPlayer';
+import { IPlayable } from '../model/IPlayable';
+import { IIdModel } from '../model/IIdModel';
 
 @injectable()
-export class Player extends GameObject {
+export class Player extends GameObject implements IPlayer {
   public get position(): IVector2d {
     return this.steer.position;
   }
@@ -27,7 +30,25 @@ export class Player extends GameObject {
     return this.circle.radius;
   }
 
+  public get isPlayable(): boolean {
+    return this.playable.isPlayable;
+  }
+
+  public set isPlayable(isPlayable: boolean) {
+    this.playable.isPlayable = isPlayable;
+  }
+
+  public get id(): string {
+    return this.playerId.id;
+  }
+
+  public set id(clientId: string) {
+    this.playerId.id = clientId;
+  }
+
   constructor(
+    @inject(PlayerTypes.playerId) private readonly playerId: IIdModel,
+    @inject(PlayerTypes.playerPlayable) private readonly playable: IPlayable,
     @inject(PlayerTypes.playerSteering) private readonly steer: ISteerable,
     @inject(PlayerTypes.playerCircle) private readonly circle: ICircle,
     @inject(SharedTypes.BasicRenderer)

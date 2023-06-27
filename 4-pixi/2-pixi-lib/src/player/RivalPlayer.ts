@@ -7,9 +7,12 @@ import { IColorOptions } from '../data/configTypes';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { IPosition } from '../model/IPosition';
 import { ICircle } from '../model/ICircle';
+import { IPlayer } from './IPlayer';
+import { IPlayable } from '../model/IPlayable';
+import { IIdModel } from '../model/IIdModel';
 
 @injectable()
-export class RivalPlayer extends GameObject {
+export class RivalPlayer extends GameObject implements IPlayer {
   public get position(): IVector2d {
     return this.origin.position;
   }
@@ -19,7 +22,26 @@ export class RivalPlayer extends GameObject {
     this.origin.position.y = position.y;
   }
 
+  public get isPlayable(): boolean {
+    return this.playable.isPlayable;
+  }
+
+  public set isPlayable(isPlayable: boolean) {
+    this.playable.isPlayable = isPlayable;
+  }
+
+  public get id(): string {
+    return this.playerId.id;
+  }
+
+  public set id(clientId: string) {
+    this.playerId.id = clientId;
+  }
+  
   constructor(
+    @inject(RivalPlayerTypes.rivalId) private readonly playerId: IIdModel,
+    @inject(RivalPlayerTypes.rivalPlayable)
+    private readonly playable: IPlayable,
     @inject(RivalPlayerTypes.rivalPosition) private readonly origin: IPosition,
     @inject(RivalPlayerTypes.rivalCircle) private readonly circle: ICircle,
     @inject(SharedTypes.BasicRenderer)

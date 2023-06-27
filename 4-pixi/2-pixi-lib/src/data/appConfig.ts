@@ -108,6 +108,8 @@ export const SharedTypes = {
 
 export const RivalPlayerTypes = {
   RivalPlayer: Symbol.for('RivalPlayer'),
+  rivalId: Symbol.for('rivalId'),
+  rivalPlayable: Symbol.for('rivalPlayable'),
   rivalPosition: Symbol.for('rivalPosition'),
   rivalCircle: Symbol.for('rivalCircle'),
   rivalColors: Symbol.for('rivalColors'),
@@ -132,6 +134,8 @@ export const rivalPlayer = {
 
 export const PlayerTypes = {
   Player: Symbol.for('Player'),
+  playerId: Symbol.for('playerId'),
+  playerPlayable: Symbol.for('playerPlayable'),
   playerSteering: Symbol.for('playerSteering'),
   playerCircle: Symbol.for('playerCircle'),
   playerColors: Symbol.for('playerColors'),
