@@ -1,10 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { PlayablePlayerTypes, SharedTypes } from '../data/appConfig';
+import { PlayablePlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IColorOptions } from '../data/configTypes';
-import { IBasicRenderer } from '../IBasicRenderer';
 import { ICircle } from '../model/ICircle';
 import { ISteerable } from '../model/ISteerable';
 import { IPlayable } from '../model/IPlayable';
@@ -12,6 +11,7 @@ import { IIdModel } from '../model/IIdModel';
 import { IPlayablePlayer } from './IPlayablePlayer';
 import { BallObject } from '../BallObject';
 import { Vector2d } from '../model/Vector2d';
+import { IPlayableDrawer } from './IPlayableDrawer';
 
 @injectable()
 export class PlayablePlayer extends GameObject implements IPlayablePlayer {
@@ -59,39 +59,16 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
     @inject(PlayablePlayerTypes.Steering)
     private readonly steer: ISteerable,
     @inject(PlayablePlayerTypes.Circle) private readonly circle: ICircle,
-    @inject(SharedTypes.BasicRenderer)
-    private readonly renderer: IBasicRenderer,
     @inject(PlayablePlayerTypes.Colors)
-    private readonly colors: IColorOptions
+    private readonly colors: IColorOptions,
+    @inject(PlayablePlayerTypes.Drawer)
+    private readonly drawer: IPlayableDrawer
   ) {
     super();
   }
 
   public draw(stage: PIXI.Container<PIXI.DisplayObject>): void {
-    this.renderer.drawCircle(
-      stage,
-      this.colors.player,
-      this.position.x,
-      this.position.y,
-      this.circle.radius
-    );
-    this.renderer.drawCircle(
-      stage,
-      this.colors.position,
-      this.position.x,
-      this.position.y,
-      2
-    );
-    this.renderer.drawLine(
-      stage,
-      this.colors.direction,
-      2,
-      this.position.x,
-      this.position.y,
-      this.direction.x,
-      this.direction.y,
-      this.circle.radius / 2
-    );
+    this.drawer.draw(stage, this, this.colors);
   }
 
   public update(deltaTime: number): void {}

@@ -142,6 +142,7 @@ export const PlayablePlayerTypes = {
   Steering: Symbol.for(PlayablePlayerId + 'Steering'),
   Circle: Symbol.for(PlayablePlayerId + 'Circle'),
   Colors: Symbol.for(PlayablePlayerId + 'Colors'),
+  Drawer: Symbol.for(PlayablePlayerId + 'Drawer'),
 };
 
 export const playerColors: IColorOptions = {

@@ -14,6 +14,8 @@ import { IPlayable } from '../../model/IPlayable';
 import { Playable } from '../../model/Playable';
 import { IIdModel } from '../../model/IIdModel';
 import { IdModel } from '../../model/IdModel';
+import { IPlayableDrawer } from '../IPlayableDrawer';
+import { PlayablePlayerDrawer } from '../PlayablePlayerDrawer';
 
 export class PlayablePlayerFactory {
   constructor(public readonly container: Container) {}
@@ -44,6 +46,9 @@ export class PlayablePlayerFactory {
     this.container
       .bind<IColorOptions>(PlayablePlayerTypes.Colors)
       .toConstantValue(playerColors);
+    this.container
+      .bind<IPlayableDrawer>(PlayablePlayerTypes.Drawer)
+      .to(PlayablePlayerDrawer);
   }
 
   public resolve() {
