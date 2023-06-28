@@ -1,6 +1,4 @@
-import * as PIXI from 'pixi.js';
+import { IDrawable } from './IDrawable';
+import { IUpdateable } from './IUpdateable';
 
-export interface IGameObject {
-  draw(stage: PIXI.Container<PIXI.DisplayObject>): void;
-  update(deltaTime: number): void;
-}
+export interface IGameObject extends IDrawable, IUpdateable {}

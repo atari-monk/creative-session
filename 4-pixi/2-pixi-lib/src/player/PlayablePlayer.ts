@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { PlayerTypes, SharedTypes } from '../data/appConfig';
+import { PlayablePlayerTypes, SharedTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IColorOptions } from '../data/configTypes';
@@ -9,31 +9,18 @@ import { ICircle } from '../model/ICircle';
 import { ISteerable } from '../model/ISteerable';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
-import { ISteerablePlayer } from './ISteerablePlayer';
+import { IPlayablePlayer } from './IPlayablePlayer';
 import { BallObject } from '../BallObject';
 import { Vector2d } from '../model/Vector2d';
 
 @injectable()
-export class Player extends GameObject implements ISteerablePlayer {
-  public get position(): IVector2d {
-    return this.steer.position;
+export class PlayablePlayer extends GameObject implements IPlayablePlayer {
+  public get id(): string {
+    return this.playerId.id;
   }
 
-  public set position(position: IVector2d) {
-    this.steer.position.x = position.x;
-    this.steer.position.y = position.y;
-  }
-
-  public get direction(): IVector2d {
-    return this.steer.direction;
-  }
-
-  public get speed(): number {
-    return this.steer.speed;
-  }
-
-  public get radius(): number {
-    return this.circle.radius;
+  public set id(clientId: string) {
+    this.playerId.id = clientId;
   }
 
   public get isPlayable(): boolean {
@@ -44,22 +31,38 @@ export class Player extends GameObject implements ISteerablePlayer {
     this.playable.isPlayable = isPlayable;
   }
 
-  public get id(): string {
-    return this.playerId.id;
+  public get position(): IVector2d {
+    return this.steer.position;
   }
 
-  public set id(clientId: string) {
-    this.playerId.id = clientId;
+  public set position(position: IVector2d) {
+    this.steer.position.x = position.x;
+    this.steer.position.y = position.y;
+  }
+
+  public get radius(): number {
+    return this.circle.radius;
+  }
+
+  public get direction(): IVector2d {
+    return this.steer.direction;
+  }
+
+  public get speed(): number {
+    return this.steer.speed;
   }
 
   constructor(
-    @inject(PlayerTypes.playerId) private readonly playerId: IIdModel,
-    @inject(PlayerTypes.playerPlayable) private readonly playable: IPlayable,
-    @inject(PlayerTypes.playerSteering) private readonly steer: ISteerable,
-    @inject(PlayerTypes.playerCircle) private readonly circle: ICircle,
+    @inject(PlayablePlayerTypes.Id) private readonly playerId: IIdModel,
+    @inject(PlayablePlayerTypes.Playable)
+    private readonly playable: IPlayable,
+    @inject(PlayablePlayerTypes.Steering)
+    private readonly steer: ISteerable,
+    @inject(PlayablePlayerTypes.Circle) private readonly circle: ICircle,
     @inject(SharedTypes.BasicRenderer)
     private readonly renderer: IBasicRenderer,
-    @inject(PlayerTypes.playerColors) private readonly colors: IColorOptions
+    @inject(PlayablePlayerTypes.Colors)
+    private readonly colors: IColorOptions
   ) {
     super();
   }

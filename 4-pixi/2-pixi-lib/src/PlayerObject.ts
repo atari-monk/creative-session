@@ -7,9 +7,9 @@ import {
   IVector2d,
 } from './index';
 import { GameObject } from './gameObject/GameObject';
-import { ISteerablePlayer } from './player/ISteerablePlayer';
+import { IPlayablePlayer } from './player/IPlayablePlayer';
 
-export class PlayerObject extends GameObject implements ISteerablePlayer {
+export class PlayerObject extends GameObject implements IPlayablePlayer {
   private readonly _radius: number;
   private readonly _width: number;
   private readonly _height: number;

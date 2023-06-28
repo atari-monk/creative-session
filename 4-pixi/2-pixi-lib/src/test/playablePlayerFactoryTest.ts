@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { RivalPlayerFactory } from '../player/playerFactory/RivalPlayerFactory';
+import { PlayablePlayerFactory } from '../player/playerFactory/PlayablePlayerFactory';
 import { SharedPlayerFactory } from '../player/playerFactory/SharedPlayerFactory';
 
 const container = new Container();
 const sharedPlayerFactory = new SharedPlayerFactory(container);
-const rivalPlayerFactory = new RivalPlayerFactory(container);
+const playerFactory = new PlayablePlayerFactory(container);
 sharedPlayerFactory.registerDependencies();
-rivalPlayerFactory.registerDependencies();
-const player = rivalPlayerFactory.resolve();
+playerFactory.registerDependencies();
+const player = playerFactory.resolve();
 const x = player.position.x;
 const y = player.position.x;
 console.log('position', x, y);

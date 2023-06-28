@@ -106,13 +106,15 @@ export const SharedTypes = {
   BasicRenderer: Symbol.for('BasicRenderer'),
 };
 
-export const RivalPlayerTypes = {
-  RivalPlayer: Symbol.for('RivalPlayer'),
-  rivalId: Symbol.for('rivalId'),
-  rivalPlayable: Symbol.for('rivalPlayable'),
-  rivalPosition: Symbol.for('rivalPosition'),
-  rivalCircle: Symbol.for('rivalCircle'),
-  rivalColors: Symbol.for('rivalColors'),
+const NotPlayablePlayerId = 'NotPlayablePlayer';
+export const NotPlayablePlayerTypes = {
+  Player: Symbol.for(NotPlayablePlayerId),
+  Id: Symbol.for(NotPlayablePlayerId + 'Id'),
+  Playable: Symbol.for(NotPlayablePlayerId + 'Playable'),
+  Position: Symbol.for(NotPlayablePlayerId + 'Position'),
+  Circle: Symbol.for(NotPlayablePlayerId + 'Circle'),
+  Colors: Symbol.for(NotPlayablePlayerId + 'Colors'),
+  Drawer: Symbol.for(NotPlayablePlayerId + 'Drawer'),
 };
 
 export const rivalColors: IColorOptions = {
@@ -132,13 +134,14 @@ export const rivalPlayer = {
   rivalColors,
 };
 
-export const PlayerTypes = {
-  Player: Symbol.for('Player'),
-  playerId: Symbol.for('playerId'),
-  playerPlayable: Symbol.for('playerPlayable'),
-  playerSteering: Symbol.for('playerSteering'),
-  playerCircle: Symbol.for('playerCircle'),
-  playerColors: Symbol.for('playerColors'),
+const PlayablePlayerId = 'PlayablePlayer';
+export const PlayablePlayerTypes = {
+  Player: Symbol.for(PlayablePlayerId),
+  Id: Symbol.for(PlayablePlayerId + 'Id'),
+  Playable: Symbol.for(PlayablePlayerId + 'Playable'),
+  Steering: Symbol.for(PlayablePlayerId + 'Steering'),
+  Circle: Symbol.for(PlayablePlayerId + 'Circle'),
+  Colors: Symbol.for(PlayablePlayerId + 'Colors'),
 };
 
 export const playerColors: IColorOptions = {
