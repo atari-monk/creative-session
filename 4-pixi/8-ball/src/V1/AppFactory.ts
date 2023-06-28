@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { appHelperOptions } from 'atari-monk-pixi-lib';
-import { AppHelper, BallRenderer } from 'atari-monk-pixi-lib';
+import { AppHelper, BallRendererV1 } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
   private _pixiApp: PIXI.Application;
@@ -19,7 +19,7 @@ export class AppFactory {
     this._pixiApp = new PIXI.Application(this._appHelper.getPixiAppOptions());
   }
 
-  public start(ballRenderer: BallRenderer) {
+  public start(ballRenderer: BallRendererV1) {
     this._appHelper.initializeApp(this._pixiApp, ballRenderer);
     this._appHelper.startAnimationLoop();
   }

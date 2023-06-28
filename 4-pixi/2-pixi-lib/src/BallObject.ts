@@ -1,12 +1,12 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
-import { PlayerObject } from './PlayerObject';
 import { IVectorData } from './IVectorData';
 import { IBallOptions } from './data/configTypes';
 import { IColorOptions } from './data/configTypes';
 import { GameObject } from './gameObject/GameObject';
 import { IVector2d } from './model/IVector2d';
 import { Vector2d } from './model/Vector2d';
+import { ISteerablePlayer } from './player/ISteerablePlayer';
 
 export class BallObject extends GameObject {
   private readonly radius: number;
@@ -107,7 +107,7 @@ export class BallObject extends GameObject {
     stage.addChild(directionGraphics);
   }
 
-  private checkCircularCollision(player: PlayerObject) {
+  private checkCircularCollision(player: ISteerablePlayer) {
     const distanceX = player.position.x - this._position.x;
     const distanceY = player.position.y - this._position.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
@@ -129,7 +129,7 @@ export class BallObject extends GameObject {
     console.log(this._velocity);
   }
 
-  public handleCollisions(player: PlayerObject) {
+  public handleCollisions(player: ISteerablePlayer) {
     if (!this.checkCircularCollision(player)) return;
     if (player.direction.x !== 0 || player.direction.y !== 0) {
       player.kickBall(this);

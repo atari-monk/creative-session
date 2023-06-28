@@ -1,12 +1,14 @@
 import { IGameObject } from '../gameObject/IGameObject';
-import { IPosition } from '../model/IPosition';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
+import { ISteerable } from '../model/ISteerable';
 import { ICircle } from '../model/ICircle';
+import { IKickBall } from './IKickBall';
 
-export interface IPlayer
+export interface ISteerablePlayer
   extends IGameObject,
-    IPosition,
+    ISteerable,
     IPlayable,
     IIdModel,
-    ICircle {}
+    ICircle,
+    IKickBall {}

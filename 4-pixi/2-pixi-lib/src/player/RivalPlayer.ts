@@ -22,6 +22,10 @@ export class RivalPlayer extends GameObject implements IPlayer {
     this.origin.position.y = position.y;
   }
 
+  public get radius(): number {
+    return this.circle.radius;
+  }
+
   public get isPlayable(): boolean {
     return this.playable.isPlayable;
   }
@@ -37,7 +41,7 @@ export class RivalPlayer extends GameObject implements IPlayer {
   public set id(clientId: string) {
     this.playerId.id = clientId;
   }
-  
+
   constructor(
     @inject(RivalPlayerTypes.rivalId) private readonly playerId: IIdModel,
     @inject(RivalPlayerTypes.rivalPlayable)

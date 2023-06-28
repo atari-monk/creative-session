@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { AppHelper, BallObject, PlayerObject } from './index';
 import { Renderer } from './Renderer';
 
-export class BallRenderer extends Renderer {
+export class BallRendererV1 extends Renderer {
   private ball: BallObject;
   private player: PlayerObject;
 

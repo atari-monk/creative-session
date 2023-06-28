@@ -4,18 +4,22 @@ import {
   BasicRenderer,
   PlayerComputation,
   BallObject,
-  IPlayer,
   IVector2d,
 } from './index';
 import { GameObject } from './gameObject/GameObject';
+import { ISteerablePlayer } from './player/ISteerablePlayer';
 
-export class PlayerObject extends GameObject implements IPlayer {
+export class PlayerObject extends GameObject implements ISteerablePlayer {
   private readonly _radius: number;
   private readonly _width: number;
   private readonly _height: number;
   private readonly _color: any;
   private readonly _isPlayable: boolean;
   private _clientId: string;
+
+  public get speed() {
+    return this.computation.speed;
+  }
 
   constructor(
     private readonly renderer: BasicRenderer,

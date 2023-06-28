@@ -1,6 +1,7 @@
 export { AppHelper } from './AppHelper';
 export { BallObject } from './BallObject';
-export { BallRenderer } from './BallRenderer';
+export { BallRendererV1 } from './BallRendererV1';
+export { BallRendererV2 } from './BallRendererV2';
 export { EventEmitterLogicManager } from './emitter-logic/EventEmitterLogicManager';
 export { EventEmitterLogicUnit } from './emitter-logic/EventEmitterLogicUnit';
 export { IEventEmitterLogicUnit } from './emitter-logic/IEventEmitterLogicUnit';

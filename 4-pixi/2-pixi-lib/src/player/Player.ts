@@ -7,12 +7,14 @@ import { IColorOptions } from '../data/configTypes';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { ICircle } from '../model/ICircle';
 import { ISteerable } from '../model/ISteerable';
-import { IPlayer } from './IPlayer';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
+import { ISteerablePlayer } from './ISteerablePlayer';
+import { BallObject } from '../BallObject';
+import { Vector2d } from '../model/Vector2d';
 
 @injectable()
-export class Player extends GameObject implements IPlayer {
+export class Player extends GameObject implements ISteerablePlayer {
   public get position(): IVector2d {
     return this.steer.position;
   }
@@ -24,6 +26,10 @@ export class Player extends GameObject implements IPlayer {
 
   public get direction(): IVector2d {
     return this.steer.direction;
+  }
+
+  public get speed(): number {
+    return this.steer.speed;
   }
 
   public get radius(): number {
@@ -86,4 +92,14 @@ export class Player extends GameObject implements IPlayer {
   }
 
   public update(deltaTime: number): void {}
+
+  public kickBall(ball: BallObject) {
+    const velocity = new Vector2d(
+      this.direction.x * this.speed,
+      this.direction.y * this.speed
+    );
+
+    ball.velocity = velocity;
+    ball.emitVelocity();
+  }
 }

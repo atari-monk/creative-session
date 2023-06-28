@@ -10,7 +10,7 @@ import {
 export class PlayerComputation {
   private _direction: IVector2d;
   private _position: IVector2d;
-  private readonly speed: number;
+  private readonly _speed: number;
 
   constructor(
     private readonly keyboard: KeyboardInputHandler,
@@ -22,7 +22,11 @@ export class PlayerComputation {
       options.screenSize.width / 2,
       options.screenSize.height / 2
     );
-    this.speed = options.speed;
+    this._speed = options.speed;
+  }
+
+  public get speed() {
+    return this._speed;
   }
 
   public get direction() {
@@ -50,8 +54,8 @@ export class PlayerComputation {
 
   private emitMovementEventIfNeeded(clientId: string) {
     const newPosition = new Vector2d(
-      this._position.x + this._direction.x * this.speed,
-      this._position.y + this._direction.y * this.speed
+      this._position.x + this._direction.x * this._speed,
+      this._position.y + this._direction.y * this._speed
     );
 
     if (
@@ -67,8 +71,8 @@ export class PlayerComputation {
     this.handleKeyboardInput(this.options.isPlayable, clientId);
 
     const velocity = new Vector2d(
-      this._direction.x * this.speed * deltaTime,
-      this._direction.y * this.speed * deltaTime
+      this._direction.x * this._speed * deltaTime,
+      this._direction.y * this._speed * deltaTime
     );
 
     this._position.x += velocity.x;
@@ -77,8 +81,8 @@ export class PlayerComputation {
 
   public kickBall(ball: BallObject) {
     const velocity = new Vector2d(
-      this._direction.x * this.speed,
-      this._direction.y * this.speed
+      this._direction.x * this._speed,
+      this._direction.y * this._speed
     );
 
     ball.velocity = velocity;
