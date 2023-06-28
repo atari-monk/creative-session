@@ -1,14 +1,14 @@
 {
   "name": "atari-monk-pixi-lib",
-  "version": "1.0.79",
+  "version": "1.0.81",
   "main": "atari-monk-pixi-lib.js",
   "types": "index.d.ts",
   "description": "ts game library based on pixi, socket-io...",
   "scripts": {
     "build-ts": "tsc",
     "build": "npx webpack --config webpack.config.js",
-    "debug-t1": "ndb ./dist/test/playablePlayerFactoryTest.js",
-    "debug-t2": "ndb ./dist/test/notPlayablePlayerFactoryTest.js"
+    "debug-t1": "ndb ./dist/test/notPlayablePlayerFactoryTest.js",
+    "debug-t2": "ndb ./dist/test/playablePlayerFactoryTest.js"
   },
   "keywords": [],
   "author": "atari-monk",

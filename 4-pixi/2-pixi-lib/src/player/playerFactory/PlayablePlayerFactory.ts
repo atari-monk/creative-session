@@ -2,11 +2,12 @@ import { Container } from 'inversify';
 import { CircleModel } from '../../model/CircleModel';
 import {
   PlayablePlayerTypes,
+  keys,
   playerColors,
   playerParams,
 } from '../../data/appConfig';
 import { ICircle } from '../../model/ICircle';
-import { IColorOptions } from '../../data/configTypes';
+import { IColorOptions, IKeys } from '../../data/configTypes';
 import { ISteerable } from '../../model/ISteerable';
 import { SteerableModel } from '../../model/SteerableModel';
 import { PlayablePlayer } from '../PlayablePlayer';
@@ -16,6 +17,12 @@ import { IIdModel } from '../../model/IIdModel';
 import { IdModel } from '../../model/IdModel';
 import { IPlayableDrawer } from '../IPlayableDrawer';
 import { PlayablePlayerDrawer } from '../PlayablePlayerDrawer';
+import { IDirectionFromKeyboard } from '../../IDirectionFromKeyboard';
+import { DirectionFromKeyboard } from '../../DirectionFromKeyboard';
+import { IUpdateablePlayer } from '../IUpdateablePlayer';
+import { PlayerKeyboardMovement } from '../PlayerKeyboardMovement';
+import { IKeyboardInput } from '../../IKeyboardInput';
+import { KeyboardInputV1 } from '../../KeyboardInputV1';
 
 export class PlayablePlayerFactory {
   constructor(public readonly container: Container) {}
@@ -49,6 +56,16 @@ export class PlayablePlayerFactory {
     this.container
       .bind<IPlayableDrawer>(PlayablePlayerTypes.Drawer)
       .to(PlayablePlayerDrawer);
+    this.container
+      .bind<IKeyboardInput>(PlayablePlayerTypes.KeyboardInput)
+      .to(KeyboardInputV1);
+    this.container.bind<IKeys>(PlayablePlayerTypes.Keys).toConstantValue(keys);
+    this.container
+      .bind<IDirectionFromKeyboard>(PlayablePlayerTypes.DirectionFromKeyboard)
+      .to(DirectionFromKeyboard);
+    this.container
+      .bind<IUpdateablePlayer>(PlayablePlayerTypes.KeyboardMovement)
+      .to(PlayerKeyboardMovement);
   }
 
   public resolve() {

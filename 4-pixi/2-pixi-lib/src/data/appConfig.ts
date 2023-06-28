@@ -143,6 +143,10 @@ export const PlayablePlayerTypes = {
   Circle: Symbol.for(PlayablePlayerId + 'Circle'),
   Colors: Symbol.for(PlayablePlayerId + 'Colors'),
   Drawer: Symbol.for(PlayablePlayerId + 'Drawer'),
+  KeyboardInput: Symbol.for(PlayablePlayerId + 'KeyboardInput'),
+  Keys: Symbol.for(PlayablePlayerId + 'Keys'),
+  DirectionFromKeyboard: Symbol.for(PlayablePlayerId + 'DirectionFromKeyboard'),
+  KeyboardMovement: Symbol.for(PlayablePlayerId + 'KeyboardMovement'),
 };
 
 export const playerColors: IColorOptions = {

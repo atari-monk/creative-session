@@ -12,6 +12,7 @@ import { IPlayablePlayer } from './IPlayablePlayer';
 import { BallObject } from '../BallObject';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayableDrawer } from './IPlayableDrawer';
+import { IUpdateablePlayer } from './IUpdateablePlayer';
 
 @injectable()
 export class PlayablePlayer extends GameObject implements IPlayablePlayer {
@@ -48,6 +49,11 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
     return this.steer.direction;
   }
 
+  public set direction(direction: IVector2d) {
+    this.steer.direction.x = direction.x;
+    this.steer.direction.y = direction.y;
+  }
+
   public get speed(): number {
     return this.steer.speed;
   }
@@ -62,7 +68,9 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
     @inject(PlayablePlayerTypes.Colors)
     private readonly colors: IColorOptions,
     @inject(PlayablePlayerTypes.Drawer)
-    private readonly drawer: IPlayableDrawer
+    private readonly drawer: IPlayableDrawer,
+    @inject(PlayablePlayerTypes.KeyboardMovement)
+    private readonly updateble: IUpdateablePlayer
   ) {
     super();
   }
@@ -71,7 +79,9 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
     this.drawer.draw(stage, this, this.colors);
   }
 
-  public update(deltaTime: number): void {}
+  public update(deltaTime: number): void {
+    this.updateble.update(deltaTime, this);
+  }
 
   public kickBall(ball: BallObject) {
     const velocity = new Vector2d(
