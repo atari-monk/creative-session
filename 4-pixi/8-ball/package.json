@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "atari-monk-client": "^1.0.27",
-    "atari-monk-pixi-lib": "^1.0.85",
+    "atari-monk-pixi-lib": "^1.0.88",
     "eventemitter3": "^5.0.1",
     "inversify": "^6.0.1",
     "pixi.js": "^7.2.4",

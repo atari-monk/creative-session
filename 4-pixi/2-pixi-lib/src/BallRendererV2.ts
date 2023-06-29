@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
 import { AppHelper, BallObject } from './index';
 import { Renderer } from './Renderer';
-import { PlayablePlayer } from './player/PlayablePlayer';
-import { IPlayablePlayer } from './player/IPlayablePlayer';
+import { PlayablePlayer } from './player-playable/PlayablePlayer';
+import { IPlayablePlayer } from './player-playable/IPlayablePlayer';
 
 export class BallRendererV2 extends Renderer {
   private ball: BallObject;

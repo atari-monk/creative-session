@@ -3,4 +3,5 @@ export interface IVector2d {
   y: number;
   getMagnitude(): number;
   normalize(): void;
+  isEqual(b: IVector2d): boolean;
 }

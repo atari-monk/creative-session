@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
-import { SharedTypes } from '../../data/appConfig';
-import { IBasicRenderer } from '../../IBasicRenderer';
-import { BasicRenderer } from '../../BasicRenderer';
+import { SharedTypes } from '../data/appConfig';
+import { IBasicRenderer } from '../IBasicRenderer';
+import { BasicRenderer } from '../BasicRenderer';
 
 export class SharedPlayerFactory {
   constructor(public readonly container: Container) {}

@@ -6,7 +6,7 @@ import { IColorOptions } from './data/configTypes';
 import { GameObject } from './gameObject/GameObject';
 import { IVector2d } from './model/IVector2d';
 import { Vector2d } from './model/Vector2d';
-import { IPlayablePlayer } from './player/IPlayablePlayer';
+import { IPlayablePlayer } from './player-playable/IPlayablePlayer';
 
 export class BallObject extends GameObject {
   private readonly radius: number;

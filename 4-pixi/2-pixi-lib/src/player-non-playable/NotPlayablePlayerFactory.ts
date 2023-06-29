@@ -1,21 +1,21 @@
 import { Container } from 'inversify';
-import { PositionModel } from '../../model/PositionModel';
-import { CircleModel } from '../../model/CircleModel';
+import { PositionModel } from '../model/PositionModel';
+import { CircleModel } from '../model/CircleModel';
 import {
   NotPlayablePlayerTypes,
   rivalColors,
   rivalPlayer,
-} from '../../data/appConfig';
-import { IPosition } from '../../model/IPosition';
-import { ICircle } from '../../model/ICircle';
-import { IColorOptions } from '../../data/configTypes';
-import { NotPlayablePlayer } from '../NotPlayablePlayer';
-import { IPlayable } from '../../model/IPlayable';
-import { Playable } from '../../model/Playable';
-import { IIdModel } from '../../model/IIdModel';
-import { IdModel } from '../../model/IdModel';
-import { INotPlayableDrawer } from './../INotPlayableDrawer';
-import { NotPlayableDrawer } from './../NotPlayablePlayerDrawer';
+} from '../data/appConfig';
+import { IPosition } from '../model/IPosition';
+import { ICircle } from '../model/ICircle';
+import { IColorOptions } from '../data/configTypes';
+import { NotPlayablePlayer } from './NotPlayablePlayer';
+import { IPlayable } from '../model/IPlayable';
+import { Playable } from '../model/Playable';
+import { IIdModel } from '../model/IIdModel';
+import { IdModel } from '../model/IdModel';
+import { INotPlayableDrawer } from './INotPlayableDrawer';
+import { NotPlayableDrawer } from './NotPlayablePlayerDrawer';
 
 export class NotPlayablePlayerFactory {
   constructor(public readonly container: Container) {}

@@ -1,30 +1,30 @@
 import { Container } from 'inversify';
-import { CircleModel } from '../../model/CircleModel';
+import { CircleModel } from '../model/CircleModel';
 import {
   PlayablePlayerTypes,
   keys,
   playerColors,
   playerParams,
-} from '../../data/appConfig';
-import { ICircle } from '../../model/ICircle';
-import { IColorOptions, IKeys } from '../../data/configTypes';
-import { ISteerable } from '../../model/ISteerable';
-import { SteerableModel } from '../../model/SteerableModel';
-import { PlayablePlayer } from '../PlayablePlayer';
-import { IPlayable } from '../../model/IPlayable';
-import { Playable } from '../../model/Playable';
-import { IIdModel } from '../../model/IIdModel';
-import { IdModel } from '../../model/IdModel';
-import { IPlayableDrawer } from '../IPlayableDrawer';
-import { PlayablePlayerDrawer } from '../PlayablePlayerDrawer';
-import { IDirectionFromKeyboard } from '../../IDirectionFromKeyboard';
-import { DirectionFromKeyboard } from '../../DirectionFromKeyboard';
-import { IUpdateablePlayer } from '../IUpdateablePlayer';
-import { PlayerKeyboardMovement } from '../PlayerKeyboardMovement';
-import { IKeyboardInput } from '../../IKeyboardInput';
-import { KeyboardInputV1 } from '../../KeyboardInputV1';
-import { PlayerMoveEmitter } from '../PlayerMoveEmitter';
-import { PositionEmitter } from '../../PositionEmitter';
+} from '../data/appConfig';
+import { ICircle } from '../model/ICircle';
+import { IColorOptions, IKeys } from '../data/configTypes';
+import { ISteerable } from '../model/ISteerable';
+import { SteerableModel } from '../model/SteerableModel';
+import { PlayablePlayer } from './PlayablePlayer';
+import { IPlayable } from '../model/IPlayable';
+import { Playable } from '../model/Playable';
+import { IIdModel } from '../model/IIdModel';
+import { IdModel } from '../model/IdModel';
+import { IPlayableDrawer } from './IPlayableDrawer';
+import { PlayablePlayerDrawer } from './PlayablePlayerDrawer';
+import { IDirectionFromKeyboard } from '../IDirectionFromKeyboard';
+import { DirectionFromKeyboard } from '../DirectionFromKeyboard';
+import { IUpdateablePlayer } from './IUpdateablePlayer';
+import { PlayerKeyboardMovement } from './PlayerKeyboardMovement';
+import { IKeyboardInput } from '../IKeyboardInput';
+import { KeyboardInputV1 } from '../KeyboardInputV1';
+import { PlayerMoveEmitter } from './PlayerMoveEmitter';
+import { PositionEmitter } from '../PositionEmitter';
 import EventEmitter from 'eventemitter3';
 
 export class PlayablePlayerFactory {

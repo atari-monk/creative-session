@@ -18,11 +18,9 @@ export class PlayerMoveEmitter implements IUpdateablePlayer {
   }
 
   public update(deltaTime: number, player: IPlayablePlayer) {
-    if (
-      player.position.x !== this.previousPosition.x ||
-      player.position.y !== this.previousPosition.y
-    )
-      this.positionEmitter.emitPosition(player.id, player.position);
-    this.previousPosition = player.position;
+    if (player.position.isEqual(this.previousPosition)) return;
+    this.positionEmitter.emitPosition(player.id, player.position);
+    this.previousPosition = new Vector2d(player.position.x, player.position.y);
+    console.log('emitt possition');
   }
 }

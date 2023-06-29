@@ -31,10 +31,13 @@ export class Vector2d implements IVector2d {
 
   normalize(): void {
     const magnitude = this.getMagnitude();
-    if (magnitude !== 0) {
-      this._x /= magnitude;
-      this._y /= magnitude;
-    }
+    if (magnitude === 0) return;
+    this._x /= magnitude;
+    this._y /= magnitude;
+  }
+
+  isEqual(b: IVector2d): boolean {
+    return this.x === b.x && this.y === b.y;
   }
 
   static add(a: Vector2d, b: Vector2d): Vector2d {
