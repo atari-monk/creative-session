@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-ts": "tsc",
+    "pixi-lib-inc-ver": "node ./dist/increment-version.js pixi-lib",
+    "debug-pixi-lib-inc-ver": "ndb ./dist/increment-version.js pixi-lib"
   },
   "keywords": [],
   "author": "",
