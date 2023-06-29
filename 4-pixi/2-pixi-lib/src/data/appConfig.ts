@@ -171,3 +171,10 @@ export const playerParams: IPlayerOptionsV2 = {
   ),
   direction: new Vector2d(0, 0),
 };
+
+const BallId = 'Ball';
+export const BallTypes = {
+  Ball: Symbol.for(BallId),
+  Position: Symbol.for(BallId + 'Position'),
+  Circle: Symbol.for(BallId + 'Circle'),
+};
