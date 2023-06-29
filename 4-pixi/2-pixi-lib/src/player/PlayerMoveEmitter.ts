@@ -7,7 +7,7 @@ import { IVector2d } from '../model/IVector2d';
 import { Vector2d } from '../model/Vector2d';
 
 @injectable()
-export class PlayerEmitMovement implements IUpdateablePlayer {
+export class PlayerMoveEmitter implements IUpdateablePlayer {
   private previousPosition: IVector2d;
 
   constructor(

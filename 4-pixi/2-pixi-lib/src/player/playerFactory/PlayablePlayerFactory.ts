@@ -23,7 +23,7 @@ import { IUpdateablePlayer } from '../IUpdateablePlayer';
 import { PlayerKeyboardMovement } from '../PlayerKeyboardMovement';
 import { IKeyboardInput } from '../../IKeyboardInput';
 import { KeyboardInputV1 } from '../../KeyboardInputV1';
-import { PlayerEmitMovement } from '../PlayerEmitMovement';
+import { PlayerMoveEmitter } from '../PlayerMoveEmitter';
 import { PositionEmitter } from '../../PositionEmitter';
 import EventEmitter from 'eventemitter3';
 
@@ -90,6 +90,10 @@ export class PlayablePlayerFactory {
       .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
       .to(PlayerKeyboardMovement)
       .inSingletonScope();
+    this.RegisterPlayerMoveEmitter();
+  }
+
+  private RegisterPlayerMoveEmitter() {
     this.container
       .bind<EventEmitter>(EventEmitter)
       .toConstantValue(new EventEmitter());
@@ -103,7 +107,7 @@ export class PlayablePlayerFactory {
       });
     this.container
       .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
-      .to(PlayerEmitMovement)
+      .to(PlayerMoveEmitter)
       .inSingletonScope();
   }
 
