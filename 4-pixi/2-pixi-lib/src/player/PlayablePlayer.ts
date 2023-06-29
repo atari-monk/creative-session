@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { injectable, inject } from 'inversify';
+import { injectable, inject, multiInject } from 'inversify';
 import { PlayablePlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
@@ -69,8 +69,8 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
     private readonly colors: IColorOptions,
     @inject(PlayablePlayerTypes.Drawer)
     private readonly drawer: IPlayableDrawer,
-    @inject(PlayablePlayerTypes.KeyboardMovement)
-    private readonly updateble: IUpdateablePlayer
+    @multiInject(PlayablePlayerTypes.IUpdateablePlayer)
+    private readonly updatebles: IUpdateablePlayer[]
   ) {
     super();
   }
@@ -80,7 +80,15 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
   }
 
   public update(deltaTime: number): void {
-    this.updateble.update(deltaTime, this);
+    this.updatebles.forEach((updateble) => {
+      updateble.update(deltaTime, this);
+    });
+  }
+
+  public diagnoze() {
+    this.updatebles.forEach((updateble) => {
+      console.log(updateble);
+    });
   }
 
   public kickBall(ball: BallObject) {

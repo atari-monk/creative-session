@@ -146,7 +146,8 @@ export const PlayablePlayerTypes = {
   KeyboardInput: Symbol.for(PlayablePlayerId + 'KeyboardInput'),
   Keys: Symbol.for(PlayablePlayerId + 'Keys'),
   DirectionFromKeyboard: Symbol.for(PlayablePlayerId + 'DirectionFromKeyboard'),
-  KeyboardMovement: Symbol.for(PlayablePlayerId + 'KeyboardMovement'),
+  PositionEmitter: Symbol.for(PlayablePlayerId + 'PositionEmitter'),
+  IUpdateablePlayer: Symbol.for(PlayablePlayerId + 'IUpdateablePlayer'),
 };
 
 export const playerColors: IColorOptions = {

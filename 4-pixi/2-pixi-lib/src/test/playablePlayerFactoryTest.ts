@@ -12,3 +12,4 @@ const player = playerFactory.resolve();
 const x = player.position.x;
 const y = player.position.x;
 console.log('position', x, y);
+player.diagnoze();

@@ -23,11 +23,22 @@ import { IUpdateablePlayer } from '../IUpdateablePlayer';
 import { PlayerKeyboardMovement } from '../PlayerKeyboardMovement';
 import { IKeyboardInput } from '../../IKeyboardInput';
 import { KeyboardInputV1 } from '../../KeyboardInputV1';
+import { PlayerEmitMovement } from '../PlayerEmitMovement';
+import { PositionEmitter } from '../../PositionEmitter';
+import EventEmitter from 'eventemitter3';
 
 export class PlayablePlayerFactory {
   constructor(public readonly container: Container) {}
 
   public registerDependencies() {
+    this.RegisterModels();
+    this.RegisterData();
+    this.RegisterDrawer();
+    this.RegisterKeyboard();
+    this.RegisterUpdateables();
+  }
+
+  private RegisterModels() {
     this.container.bind<IIdModel>(PlayablePlayerTypes.Id).toDynamicValue(() => {
       return new IdModel('');
     });
@@ -50,12 +61,21 @@ export class PlayablePlayerFactory {
       .toDynamicValue(() => {
         return new CircleModel(playerParams.radius);
       });
+  }
+
+  private RegisterData() {
     this.container
       .bind<IColorOptions>(PlayablePlayerTypes.Colors)
       .toConstantValue(playerColors);
+  }
+
+  private RegisterDrawer() {
     this.container
       .bind<IPlayableDrawer>(PlayablePlayerTypes.Drawer)
       .to(PlayablePlayerDrawer);
+  }
+
+  private RegisterKeyboard() {
     this.container
       .bind<IKeyboardInput>(PlayablePlayerTypes.KeyboardInput)
       .to(KeyboardInputV1);
@@ -63,9 +83,28 @@ export class PlayablePlayerFactory {
     this.container
       .bind<IDirectionFromKeyboard>(PlayablePlayerTypes.DirectionFromKeyboard)
       .to(DirectionFromKeyboard);
+  }
+
+  private RegisterUpdateables() {
     this.container
-      .bind<IUpdateablePlayer>(PlayablePlayerTypes.KeyboardMovement)
-      .to(PlayerKeyboardMovement);
+      .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
+      .to(PlayerKeyboardMovement)
+      .inSingletonScope();
+    this.container
+      .bind<EventEmitter>(EventEmitter)
+      .toConstantValue(new EventEmitter());
+    this.container
+      .bind<PositionEmitter>(PlayablePlayerTypes.PositionEmitter)
+      .toDynamicValue(() => {
+        return new PositionEmitter(
+          'position-update',
+          this.container.resolve<EventEmitter>(EventEmitter)
+        );
+      });
+    this.container
+      .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
+      .to(PlayerEmitMovement)
+      .inSingletonScope();
   }
 
   public resolve() {
