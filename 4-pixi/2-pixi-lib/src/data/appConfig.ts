@@ -1,4 +1,5 @@
 import { Vector2d } from '../model/Vector2d';
+import { IBallParams } from './IBallParams';
 import {
   IScreenSize,
   IAppHelperOptions,
@@ -174,7 +175,13 @@ export const playerParams: IPlayerOptionsV2 = {
 
 const BallId = 'Ball';
 export const BallTypes = {
-  Ball: Symbol.for(BallId),
   Position: Symbol.for(BallId + 'Position'),
   Circle: Symbol.for(BallId + 'Circle'),
+};
+
+export const ballParams: IBallParams = {
+  position: new Vector2d(
+    screenSize.width / 2,
+    screenSize.height / 2
+  ),
 };

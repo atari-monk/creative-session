@@ -18,7 +18,7 @@ import { INotPlayableDrawer } from './INotPlayableDrawer';
 import { NotPlayableDrawer } from './NotPlayablePlayerDrawer';
 
 export class NotPlayablePlayerFactory {
-  constructor(public readonly container: Container) {}
+  constructor(private readonly container: Container) {}
 
   public registerDependencies() {
     this.container

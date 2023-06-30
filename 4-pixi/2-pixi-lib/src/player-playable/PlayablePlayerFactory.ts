@@ -28,7 +28,7 @@ import { PositionEmitter } from '../PositionEmitter';
 import EventEmitter from 'eventemitter3';
 
 export class PlayablePlayerFactory {
-  constructor(public readonly container: Container) {}
+  constructor(private readonly container: Container) {}
 
   public registerDependencies() {
     this.RegisterModels();
