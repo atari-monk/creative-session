@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { CircleModel } from '../model/CircleModel';
 import {
-  PlayablePlayerTypes,
+  PlayerTypes,
   keys,
   playerColors,
   playerParams,
@@ -10,16 +10,16 @@ import { ICircle } from '../model/ICircle';
 import { IColorOptions, IKeys } from '../data/configTypes';
 import { ISteerable } from '../model/ISteerable';
 import { SteerableModel } from '../model/SteerableModel';
-import { PlayablePlayer } from './PlayablePlayer';
+import { Player } from './Player';
 import { IPlayable } from '../model/IPlayable';
 import { Playable } from '../model/Playable';
 import { IIdModel } from '../model/IIdModel';
 import { IdModel } from '../model/IdModel';
-import { IPlayableDrawer } from './IPlayableDrawer';
-import { PlayablePlayerDrawer } from './PlayablePlayerDrawer';
+import { IPlayerRenderer } from './IPlayerRenderer';
+import { PlayablePlayerDrawer } from './PlayerDrawer';
 import { IDirectionFromKeyboard } from '../IDirectionFromKeyboard';
 import { DirectionFromKeyboard } from '../DirectionFromKeyboard';
-import { IUpdateablePlayer } from './IUpdateablePlayer';
+import { IPlayerUpdater } from './IPlayerUpdater';
 import { PlayerKeyboardMovement } from './PlayerKeyboardMovement';
 import { IKeyboardInput } from '../IKeyboardInput';
 import { KeyboardInputV1 } from '../KeyboardInputV1';
@@ -39,16 +39,14 @@ export class PlayablePlayerFactory {
   }
 
   private RegisterModels() {
-    this.container.bind<IIdModel>(PlayablePlayerTypes.Id).toDynamicValue(() => {
+    this.container.bind<IIdModel>(PlayerTypes.Id).toDynamicValue(() => {
       return new IdModel('');
     });
+    this.container.bind<IPlayable>(PlayerTypes.Playable).toDynamicValue(() => {
+      return new Playable(true);
+    });
     this.container
-      .bind<IPlayable>(PlayablePlayerTypes.Playable)
-      .toDynamicValue(() => {
-        return new Playable(true);
-      });
-    this.container
-      .bind<ISteerable>(PlayablePlayerTypes.Steering)
+      .bind<ISteerable>(PlayerTypes.Steerable)
       .toDynamicValue(() => {
         return new SteerableModel(
           playerParams.position,
@@ -56,38 +54,36 @@ export class PlayablePlayerFactory {
           playerParams.speed
         );
       });
-    this.container
-      .bind<ICircle>(PlayablePlayerTypes.Circle)
-      .toDynamicValue(() => {
-        return new CircleModel(playerParams.radius);
-      });
+    this.container.bind<ICircle>(PlayerTypes.Circle).toDynamicValue(() => {
+      return new CircleModel(playerParams.radius);
+    });
   }
 
   private RegisterData() {
     this.container
-      .bind<IColorOptions>(PlayablePlayerTypes.Colors)
+      .bind<IColorOptions>(PlayerTypes.Colors)
       .toConstantValue(playerColors);
   }
 
   private RegisterDrawer() {
     this.container
-      .bind<IPlayableDrawer>(PlayablePlayerTypes.Drawer)
+      .bind<IPlayerRenderer>(PlayerTypes.Renderer)
       .to(PlayablePlayerDrawer);
   }
 
   private RegisterKeyboard() {
     this.container
-      .bind<IKeyboardInput>(PlayablePlayerTypes.KeyboardInput)
+      .bind<IKeyboardInput>(PlayerTypes.KeyboardInput)
       .to(KeyboardInputV1);
-    this.container.bind<IKeys>(PlayablePlayerTypes.Keys).toConstantValue(keys);
+    this.container.bind<IKeys>(PlayerTypes.Keys).toConstantValue(keys);
     this.container
-      .bind<IDirectionFromKeyboard>(PlayablePlayerTypes.DirectionFromKeyboard)
+      .bind<IDirectionFromKeyboard>(PlayerTypes.DirectionFromKeyboard)
       .to(DirectionFromKeyboard);
   }
 
   private RegisterUpdateables() {
     this.container
-      .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
+      .bind<IPlayerUpdater>(PlayerTypes.IPlayerUpdater)
       .to(PlayerKeyboardMovement)
       .inSingletonScope();
     this.RegisterPlayerMoveEmitter();
@@ -98,7 +94,7 @@ export class PlayablePlayerFactory {
       .bind<EventEmitter>(EventEmitter)
       .toConstantValue(new EventEmitter());
     this.container
-      .bind<PositionEmitter>(PlayablePlayerTypes.PositionEmitter)
+      .bind<PositionEmitter>(PlayerTypes.PositionEmitter)
       .toDynamicValue(() => {
         return new PositionEmitter(
           'position-update',
@@ -106,12 +102,12 @@ export class PlayablePlayerFactory {
         );
       });
     this.container
-      .bind<IUpdateablePlayer>(PlayablePlayerTypes.IUpdateablePlayer)
+      .bind<IPlayerUpdater>(PlayerTypes.IPlayerUpdater)
       .to(PlayerMoveEmitter)
       .inSingletonScope();
   }
 
   public resolve() {
-    return this.container.resolve<PlayablePlayer>(PlayablePlayer);
+    return this.container.resolve<Player>(Player);
   }
 }

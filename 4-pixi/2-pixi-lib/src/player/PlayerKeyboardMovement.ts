@@ -1,18 +1,18 @@
 import { inject, injectable } from 'inversify';
 import { IDirectionFromKeyboard } from '../IDirectionFromKeyboard';
 import { Vector2d } from '../model/Vector2d';
-import { IPlayablePlayer } from './IPlayablePlayer';
-import { IUpdateablePlayer } from './IUpdateablePlayer';
-import { PlayablePlayerTypes } from '../data/appConfig';
+import { IPlayer } from './IPlayer';
+import { IPlayerUpdater } from './IPlayerUpdater';
+import { PlayerTypes } from '../data/appConfig';
 
 @injectable()
-export class PlayerKeyboardMovement implements IUpdateablePlayer {
+export class PlayerKeyboardMovement implements IPlayerUpdater {
   constructor(
-    @inject(PlayablePlayerTypes.DirectionFromKeyboard)
+    @inject(PlayerTypes.DirectionFromKeyboard)
     private readonly keyboard: IDirectionFromKeyboard
   ) {}
 
-  public update(deltaTime: number, player: IPlayablePlayer) {
+  public update(deltaTime: number, player: IPlayer) {
     player.direction = this.keyboard.direction;
     player.position = new Vector2d(
       player.position.x + player.direction.x * player.speed * deltaTime,

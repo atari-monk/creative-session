@@ -4,16 +4,16 @@ import { KeyboardInputV1 } from './KeyboardInputV1';
 import { IKeys } from './data/configTypes';
 import { IVector2d } from './model/IVector2d';
 import { Vector2d } from './model/Vector2d';
-import { PlayablePlayerTypes } from './data/appConfig';
+import { PlayerTypes } from './data/appConfig';
 
 @injectable()
 export class DirectionFromKeyboard implements IDirectionFromKeyboard {
   //private _direction: IVector2d;
 
   constructor(
-    @inject(PlayablePlayerTypes.KeyboardInput)
+    @inject(PlayerTypes.KeyboardInput)
     private readonly _keyboard: KeyboardInputV1,
-    @inject(PlayablePlayerTypes.Keys)
+    @inject(PlayerTypes.Keys)
     private readonly _keys: IKeys
   ) {
     //this._direction = new Vector2d(0, 0);

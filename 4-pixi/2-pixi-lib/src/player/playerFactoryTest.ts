@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { PlayablePlayerFactory } from './PlayablePlayerFactory';
+import { PlayablePlayerFactory } from './PlayerFactory';
 import { SharedPlayerFactory } from '../player-shared/SharedPlayerFactory';
 
 const container = new Container();

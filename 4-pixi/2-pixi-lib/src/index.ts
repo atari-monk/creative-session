@@ -60,7 +60,7 @@ export { IVector2d } from './model/IVector2d';
 export { Vector2d } from './model/Vector2d';
 export { NotPlayablePlayer as RivalPlayer } from './player-non-playable/NotPlayablePlayer';
 export { NotPlayablePlayerFactory as RivalPlayerFactory } from './player-non-playable/NotPlayablePlayerFactory';
-export { PlayablePlayerFactory as PlayerFactory } from './player-playable/PlayablePlayerFactory';
+export { PlayablePlayerFactory as PlayerFactory } from './player/PlayerFactory';
 export { SharedPlayerFactory } from './player-shared/SharedPlayerFactory';
 export { IPlayable } from './model/IPlayable';
 export { Playable } from './model/Playable';

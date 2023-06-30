@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject, multiInject } from 'inversify';
-import { PlayablePlayerTypes } from '../data/appConfig';
+import { PlayerTypes as PlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IColorOptions } from '../data/configTypes';
@@ -8,14 +8,14 @@ import { ICircle } from '../model/ICircle';
 import { ISteerable } from '../model/ISteerable';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
-import { IPlayablePlayer } from './IPlayablePlayer';
+import { IPlayer } from './IPlayer';
 import { BallObject } from '../BallObject';
 import { Vector2d } from '../model/Vector2d';
-import { IPlayableDrawer } from './IPlayableDrawer';
-import { IUpdateablePlayer } from './IUpdateablePlayer';
+import { IPlayerRenderer } from './IPlayerRenderer';
+import { IPlayerUpdater } from './IPlayerUpdater';
 
 @injectable()
-export class PlayablePlayer extends GameObject implements IPlayablePlayer {
+export class Player extends GameObject implements IPlayer {
   public get id(): string {
     return this.playerId.id;
   }
@@ -59,18 +59,18 @@ export class PlayablePlayer extends GameObject implements IPlayablePlayer {
   }
 
   constructor(
-    @inject(PlayablePlayerTypes.Id) private readonly playerId: IIdModel,
-    @inject(PlayablePlayerTypes.Playable)
+    @inject(PlayerTypes.Id) private readonly playerId: IIdModel,
+    @inject(PlayerTypes.Playable)
     private readonly playable: IPlayable,
-    @inject(PlayablePlayerTypes.Steering)
+    @inject(PlayerTypes.Steerable)
     private readonly steer: ISteerable,
-    @inject(PlayablePlayerTypes.Circle) private readonly circle: ICircle,
-    @inject(PlayablePlayerTypes.Colors)
+    @inject(PlayerTypes.Circle) private readonly circle: ICircle,
+    @inject(PlayerTypes.Colors)
     private readonly colors: IColorOptions,
-    @inject(PlayablePlayerTypes.Drawer)
-    private readonly drawer: IPlayableDrawer,
-    @multiInject(PlayablePlayerTypes.IUpdateablePlayer)
-    private readonly updatebles: IUpdateablePlayer[]
+    @inject(PlayerTypes.Renderer)
+    private readonly drawer: IPlayerRenderer,
+    @multiInject(PlayerTypes.IPlayerUpdater)
+    private readonly updatebles: IPlayerUpdater[]
   ) {
     super();
   }

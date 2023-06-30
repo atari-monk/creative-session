@@ -1,5 +1,5 @@
 import { BallObject } from '../BallObject';
 
-export interface IKickBall {
+export interface IBallKicker {
   kickBall(ball: BallObject): void;
 }

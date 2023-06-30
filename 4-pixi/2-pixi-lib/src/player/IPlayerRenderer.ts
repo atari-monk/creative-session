@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 import { IColorOptions } from '../data/configTypes';
-import { IPlayablePlayer } from './IPlayablePlayer';
+import { IPlayer as IPlayer } from './IPlayer';
 
-export interface IPlayableDrawer {
+export interface IPlayerRenderer {
   draw(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: IPlayablePlayer,
+    gameObj: IPlayer,
     colors: IColorOptions
   ): void;
 }

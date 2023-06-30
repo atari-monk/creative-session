@@ -135,20 +135,20 @@ export const rivalPlayer = {
   rivalColors,
 };
 
-const PlayablePlayerId = 'PlayablePlayer';
-export const PlayablePlayerTypes = {
-  Player: Symbol.for(PlayablePlayerId),
-  Id: Symbol.for(PlayablePlayerId + 'Id'),
-  Playable: Symbol.for(PlayablePlayerId + 'Playable'),
-  Steering: Symbol.for(PlayablePlayerId + 'Steering'),
-  Circle: Symbol.for(PlayablePlayerId + 'Circle'),
-  Colors: Symbol.for(PlayablePlayerId + 'Colors'),
-  Drawer: Symbol.for(PlayablePlayerId + 'Drawer'),
-  KeyboardInput: Symbol.for(PlayablePlayerId + 'KeyboardInput'),
-  Keys: Symbol.for(PlayablePlayerId + 'Keys'),
-  DirectionFromKeyboard: Symbol.for(PlayablePlayerId + 'DirectionFromKeyboard'),
-  PositionEmitter: Symbol.for(PlayablePlayerId + 'PositionEmitter'),
-  IUpdateablePlayer: Symbol.for(PlayablePlayerId + 'IUpdateablePlayer'),
+const PlayerId = 'Player';
+export const PlayerTypes = {
+  Player: Symbol.for(PlayerId),
+  Id: Symbol.for(PlayerId + 'Id'),
+  Playable: Symbol.for(PlayerId + 'Playable'),
+  Steerable: Symbol.for(PlayerId + 'Steering'),
+  Circle: Symbol.for(PlayerId + 'Circle'),
+  Colors: Symbol.for(PlayerId + 'Colors'),
+  Renderer: Symbol.for(PlayerId + 'Drawer'),
+  KeyboardInput: Symbol.for(PlayerId + 'KeyboardInput'),
+  Keys: Symbol.for(PlayerId + 'Keys'),
+  DirectionFromKeyboard: Symbol.for(PlayerId + 'DirectionFromKeyboard'),
+  PositionEmitter: Symbol.for(PlayerId + 'PositionEmitter'),
+  IPlayerUpdater: Symbol.for(PlayerId + 'IPlayerUpdater'),
 };
 
 export const playerColors: IColorOptions = {
@@ -180,8 +180,5 @@ export const BallTypes = {
 };
 
 export const ballParams: IBallParams = {
-  position: new Vector2d(
-    screenSize.width / 2,
-    screenSize.height / 2
-  ),
+  position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
 };
