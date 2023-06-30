@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { BallTypes, ballParams } from '../data/appConfig';
+import { BallTypes, ballColors, ballParams } from '../data/appConfig';
 import { IBall } from './IBall';
 import { Ball } from './Ball';
 import { IPosition } from '../model/IPosition';
@@ -8,12 +8,17 @@ import { ICircle } from '../model/ICircle';
 import { CircleModel } from '../model/CircleModel';
 import { IVelocity } from '../model/IVelocity';
 import { Velocity } from '../model/Velocity';
+import { BallRenderer } from './BallRenderer';
+import { IBallRenderer } from './IBallRenderer';
+import { IColorOptions } from '../data/configTypes';
 
 export class BallFactory {
   constructor(private readonly container: Container) {}
 
   public registerDependencies() {
     this.RegisterModels();
+    this.RegisterData();
+    this.RegisterDrawer();
     this.container.bind<IBall>(Ball).to(Ball);
   }
 
@@ -27,6 +32,16 @@ export class BallFactory {
     this.container.bind<ICircle>(BallTypes.Circle).toDynamicValue(() => {
       return new CircleModel(ballParams.radius);
     });
+  }
+
+  private RegisterData() {
+    this.container
+      .bind<IColorOptions>(BallTypes.Colors)
+      .toConstantValue(ballColors);
+  }
+
+  private RegisterDrawer() {
+    this.container.bind<IBallRenderer>(BallTypes.Renderer).to(BallRenderer);
   }
 
   public resolve() {

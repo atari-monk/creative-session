@@ -69,3 +69,7 @@ export { IIdModel } from './model/IIdModel';
 export { IdModel } from './model/IdModel';
 export { IUpdateable } from './gameObject/IUpdateable';
 export { IDrawable } from './gameObject/IDrawable';
+export { IBall } from './ball/IBall';
+export { IBallRenderer } from './ball/IBallRenderer';
+export { BallFactory } from './ball/BallFactory';
+export { BallRenderer } from './ball/BallRenderer';

@@ -7,6 +7,8 @@ import { IPosition } from '../model/IPosition';
 import { ICircle } from '../model/ICircle';
 import { IBall } from './IBall';
 import { IVelocity } from '../model/IVelocity';
+import { IBallRenderer } from './IBallRenderer';
+import { IColorOptions } from '../data/configTypes';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
@@ -38,12 +40,18 @@ export class Ball extends GameObject implements IBall {
     @inject(BallTypes.Velocity)
     private readonly velocityModel: IVelocity,
     @inject(BallTypes.Circle)
-    private readonly circle: ICircle
+    private readonly circle: ICircle,
+    @inject(BallTypes.Colors)
+    private readonly colors: IColorOptions,
+    @inject(BallTypes.Renderer)
+    private readonly renderer: IBallRenderer
   ) {
     super();
   }
 
-  public draw(stage: PIXI.Container<PIXI.DisplayObject>): void {}
+  public draw(stage: PIXI.Container<PIXI.DisplayObject>): void {
+    this.renderer.draw(stage, this, this.colors);
+  }
 
   public update(deltaTime: number): void {}
 }

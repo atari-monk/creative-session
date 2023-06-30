@@ -1,7 +1,6 @@
 import { Manager, Socket } from 'socket.io-client';
 import {
   EventEmitterLogicManager,
-  IGameObject,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
 import {

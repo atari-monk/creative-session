@@ -9,7 +9,7 @@ const playerFactory = new PlayablePlayerFactory(container);
 sharedPlayerFactory.registerDependencies();
 playerFactory.registerDependencies();
 const player = playerFactory.resolve();
-const x = player.position.x;
-const y = player.position.x;
-console.log('position', x, y);
+console.log(
+  `position: (${player.position.x}, ${player.position.y})`
+);
 player.diagnoze();

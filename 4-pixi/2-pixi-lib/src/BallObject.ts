@@ -79,7 +79,7 @@ export class BallObject extends GameObject {
 
   public draw(stage: PIXI.Container) {
     const graphics = new PIXI.Graphics();
-    graphics.beginFill(this.color.player);
+    graphics.beginFill(this.color.body);
     graphics.drawCircle(this._position.x, this._position.y, this.radius);
     graphics.endFill();
     stage.addChild(graphics);

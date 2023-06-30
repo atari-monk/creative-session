@@ -16,7 +16,7 @@ import { Playable } from '../model/Playable';
 import { IIdModel } from '../model/IIdModel';
 import { IdModel } from '../model/IdModel';
 import { IPlayerRenderer } from './IPlayerRenderer';
-import { PlayablePlayerDrawer } from './PlayerDrawer';
+import { PlayerRenderer } from './PlayerRenderer';
 import { IDirectionFromKeyboard } from '../IDirectionFromKeyboard';
 import { DirectionFromKeyboard } from '../DirectionFromKeyboard';
 import { IPlayerUpdater } from './IPlayerUpdater';
@@ -68,7 +68,7 @@ export class PlayablePlayerFactory {
   private RegisterDrawer() {
     this.container
       .bind<IPlayerRenderer>(PlayerTypes.Renderer)
-      .to(PlayablePlayerDrawer);
+      .to(PlayerRenderer);
   }
 
   private RegisterKeyboard() {

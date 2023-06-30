@@ -58,19 +58,19 @@ export const appHelperOptions: IAppHelperOptions = {
 };
 
 const greenObj: IColorOptions = {
-  player: green,
+  body: green,
   position: blue,
   direction: blue,
 };
 
 const blueObj: IColorOptions = {
-  player: blue,
+  body: blue,
   position: red,
   direction: red,
 };
 
 const redObj: IColorOptions = {
-  player: green,
+  body: green,
   position: blue,
   direction: blue,
 };
@@ -119,7 +119,7 @@ export const NotPlayablePlayerTypes = {
 };
 
 export const rivalColors: IColorOptions = {
-  player: blue,
+  body: blue,
   position: red,
   direction: red,
 };
@@ -152,7 +152,7 @@ export const PlayerTypes = {
 };
 
 export const playerColors: IColorOptions = {
-  player: green,
+  body: green,
   position: blue,
   direction: blue,
 };
@@ -178,10 +178,18 @@ export const BallTypes = {
   Position: Symbol.for(BallId + 'Position'),
   Velocity: Symbol.for(BallId + 'Velocity'),
   Circle: Symbol.for(BallId + 'Circle'),
+  Colors: Symbol.for(BallId + 'Colors'),
+  Renderer: Symbol.for(BallId + 'Renderer'),
 };
 
 export const ballParams: IBallParams = {
   position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
   velocity: new Vector2d(0, 0),
   radius: ballRadius,
+};
+
+export const ballColors: IColorOptions = {
+  body: red,
+  position: blue,
+  direction: blue,
 };

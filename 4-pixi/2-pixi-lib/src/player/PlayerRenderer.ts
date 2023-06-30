@@ -3,11 +3,11 @@ import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
 import { SharedTypes } from '../data/appConfig';
 import { IColorOptions } from '../data/configTypes';
-import { INotPlayableGameObject } from './INotPlayableGameObject';
-import { INotPlayableDrawer } from './INotPlayableDrawer';
+import { IPlayerRenderer } from './IPlayerRenderer';
+import { IPlayer } from './IPlayer';
 
 @injectable()
-export class NotPlayableDrawer implements INotPlayableDrawer {
+export class PlayerRenderer implements IPlayerRenderer {
   constructor(
     @inject(SharedTypes.BasicRenderer)
     private readonly renderer: IBasicRenderer
@@ -15,7 +15,7 @@ export class NotPlayableDrawer implements INotPlayableDrawer {
 
   draw(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: INotPlayableGameObject,
+    gameObj: IPlayer,
     colors: IColorOptions
   ): void {
     this.renderer.drawCircle(
@@ -31,6 +31,16 @@ export class NotPlayableDrawer implements INotPlayableDrawer {
       gameObj.position.x,
       gameObj.position.y,
       2
+    );
+    this.renderer.drawLine(
+      stage,
+      colors.direction,
+      2,
+      gameObj.position.x,
+      gameObj.position.y,
+      gameObj.direction.x,
+      gameObj.direction.y,
+      gameObj.radius / 2
     );
   }
 }

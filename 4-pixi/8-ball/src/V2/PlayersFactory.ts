@@ -25,8 +25,7 @@ export class PlayersFactory {
     return this._player2;
   }
 
-  constructor() {
-    const container = new Container();
+  constructor(private readonly container: Container) {
     const sharedPlayerFactory = new SharedPlayerFactory(container);
     const rivalPlayerFactory = new RivalPlayerFactory(container);
     const playerFactory = new PlayerFactory(container);

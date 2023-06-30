@@ -21,7 +21,7 @@ export type DirectionMap = {
 export interface IKeys extends DirectionMap {}
 
 export interface IColorOptions {
-  player: number;
+  body: number;
   position: number;
   direction: number;
 }
@@ -45,9 +45,9 @@ export interface IBallOptions {
 
 //GameBall2
 export interface IRivalPlayer {
-  rivalPosition : IVector2d,
-  radius: number,
-  rivalColors: IColorOptions
+  rivalPosition: IVector2d;
+  radius: number;
+  rivalColors: IColorOptions;
 }
 
 // export interface IPlayerParams {
