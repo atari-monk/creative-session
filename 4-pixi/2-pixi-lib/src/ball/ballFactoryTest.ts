@@ -6,4 +6,6 @@ const container = new Container();
 const ballFactory = new BallFactory(container);
 ballFactory.registerDependencies();
 const ball = ballFactory.resolve();
-console.log(`position: (${ball.position.x}, ${ball.position.y})`);
+console.log(
+  `position: (${ball.position.x}, ${ball.position.y}), radius: ${ball.radius}`
+);

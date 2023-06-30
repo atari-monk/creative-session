@@ -181,4 +181,5 @@ export const BallTypes = {
 
 export const ballParams: IBallParams = {
   position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
+  radius: ballRadius,
 };
