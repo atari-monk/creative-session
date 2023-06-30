@@ -18,15 +18,15 @@ export class Ball extends GameObject implements IBall {
     this.origin.position.y = position.y;
   }
 
-  public get radius(): number {
-    return this.circle.radius;
-  }
+//   public get radius(): number {
+//     return this.circle.radius;
+//   }
 
   constructor(
     @inject(BallTypes.Position)
     private readonly origin: IPosition,
-    @inject(BallTypes.Circle)
-    private readonly circle: ICircle
+    // @inject(BallTypes.Circle)
+    // private readonly circle: ICircle
   ) {
     super();
   }

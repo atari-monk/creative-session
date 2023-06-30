@@ -7,8 +7,9 @@
   "scripts": {
     "build-ts": "tsc",
     "build": "npx webpack --config webpack.config.js",
-    "debug-t1": "ndb ./dist/test/notPlayablePlayerFactoryTest.js",
-    "debug-t2": "ndb ./dist/test/playablePlayerFactoryTest.js"
+    "debug-rival": "ndb ./dist/test/notPlayablePlayerFactoryTest.js",
+    "debug-hero": "ndb ./dist/test/playablePlayerFactoryTest.js",
+    "debug-ball": "ndb ./dist/ball/ballFactoryTest.js"
   },
   "keywords": [],
   "author": "atari-monk",
