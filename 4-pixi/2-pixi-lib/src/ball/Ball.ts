@@ -6,6 +6,7 @@ import { IVector2d } from '../model/IVector2d';
 import { IPosition } from '../model/IPosition';
 import { ICircle } from '../model/ICircle';
 import { IBall } from './IBall';
+import { IVelocity } from '../model/IVelocity';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
@@ -18,6 +19,15 @@ export class Ball extends GameObject implements IBall {
     this.origin.position.y = position.y;
   }
 
+  public set velocity(velocity: IVector2d) {
+    this.velocityModel.velocity.x = velocity.x;
+    this.velocityModel.velocity.y = velocity.y;
+  }
+
+  public get velocity() {
+    return this.velocityModel.velocity;
+  }
+
   public get radius(): number {
     return this.circle.radius;
   }
@@ -25,6 +35,8 @@ export class Ball extends GameObject implements IBall {
   constructor(
     @inject(BallTypes.Position)
     private readonly origin: IPosition,
+    @inject(BallTypes.Velocity)
+    private readonly velocityModel: IVelocity,
     @inject(BallTypes.Circle)
     private readonly circle: ICircle
   ) {

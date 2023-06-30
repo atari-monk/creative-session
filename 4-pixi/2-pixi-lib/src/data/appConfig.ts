@@ -176,10 +176,12 @@ export const playerParams: IPlayerOptionsV2 = {
 const BallId = 'Ball';
 export const BallTypes = {
   Position: Symbol.for(BallId + 'Position'),
+  Velocity: Symbol.for(BallId + 'Velocity'),
   Circle: Symbol.for(BallId + 'Circle'),
 };
 
 export const ballParams: IBallParams = {
   position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
+  velocity: new Vector2d(0, 0),
   radius: ballRadius,
 };

@@ -7,5 +7,5 @@ const ballFactory = new BallFactory(container);
 ballFactory.registerDependencies();
 const ball = ballFactory.resolve();
 console.log(
-  `position: (${ball.position.x}, ${ball.position.y}), radius: ${ball.radius}`
+  `position: (${ball.position.x}, ${ball.position.y}), velocity: (${ball.velocity.x}, ${ball.velocity.y}), radius: ${ball.radius}`
 );
