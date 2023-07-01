@@ -71,7 +71,7 @@ export class BallObject extends GameObject implements IBall {
     this._emitter.emit('ball-pos-upd', data);
   }
 
-  public emitVelocity() {
+  public emittVelocity() {
     const data: IVectorData = {
       clientId: '0',
       newVector: this._velocity,
@@ -133,7 +133,7 @@ export class BallObject extends GameObject implements IBall {
       -currentVelocity.y
     );
     this.velocity = reversedVelocity;
-    this.emitVelocity();
+    this.emittVelocity();
     console.log(this._velocity);
   }
 

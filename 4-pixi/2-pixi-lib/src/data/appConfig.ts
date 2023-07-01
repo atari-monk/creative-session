@@ -105,6 +105,7 @@ export const ballOptions: IBallOptions = {
 
 export const SharedTypes = {
   BasicRenderer: Symbol.for('BasicRenderer'),
+  EventEmitter: Symbol.for('EventEmitter'),
 };
 
 const NotPlayablePlayerId = 'NotPlayablePlayer';
@@ -175,6 +176,7 @@ export const playerParams: IPlayerOptionsV2 = {
 
 const BallId = 'Ball';
 export const BallTypes = {
+  Ball: Symbol.for(BallId),
   Position: Symbol.for(BallId + 'Position'),
   Velocity: Symbol.for(BallId + 'Velocity'),
   Circle: Symbol.for(BallId + 'Circle'),

@@ -10,8 +10,8 @@ export class BallGame {
     const appFactory = new AppFactory();
     const playersFactory = new PlayersFactory(container);
     playersFactory.addPlayers(appFactory);
-    const ballFactory = new BallFactory(appFactory, playersFactory);
-    new ClientFactory(playersFactory, ballFactory);
+    const ballFactory = new BallFactory(container, appFactory);
+    new ClientFactory(playersFactory, ballFactory.ball);
     appFactory.start();
   }
 }

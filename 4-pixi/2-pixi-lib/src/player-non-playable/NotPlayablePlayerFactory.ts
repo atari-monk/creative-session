@@ -16,11 +16,13 @@ import { IIdModel } from '../model/IIdModel';
 import { IdModel } from '../model/IdModel';
 import { INotPlayableDrawer } from './INotPlayableDrawer';
 import { NotPlayableDrawer } from './NotPlayablePlayerDrawer';
+import { IFactory } from './IFactory';
+import { INotPlayablePlayer } from './INotPlayablePlayer';
 
-export class NotPlayablePlayerFactory {
+export class NotPlayablePlayerFactory implements IFactory {
   constructor(private readonly container: Container) {}
 
-  public registerDependencies() {
+  public register() {
     this.container
       .bind<IIdModel>(NotPlayablePlayerTypes.Id)
       .toDynamicValue(() => {
@@ -47,9 +49,14 @@ export class NotPlayablePlayerFactory {
     this.container
       .bind<INotPlayableDrawer>(NotPlayablePlayerTypes.Drawer)
       .to(NotPlayableDrawer);
+    this.container
+      .bind<INotPlayablePlayer>(NotPlayablePlayerTypes.Player)
+      .to(NotPlayablePlayer);
   }
 
-  public resolve() {
-    return this.container.resolve<NotPlayablePlayer>(NotPlayablePlayer);
+  public create() {
+    return this.container.get<INotPlayablePlayer>(
+      NotPlayablePlayerTypes.Player
+    );
   }
 }

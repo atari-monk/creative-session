@@ -11,15 +11,16 @@ import { Velocity } from '../model/Velocity';
 import { BallRenderer } from './BallRenderer';
 import { IBallRenderer } from './IBallRenderer';
 import { IColorOptions } from '../data/configTypes';
+import { IFactory } from '../player-non-playable/IFactory';
 
-export class BallFactory {
+export class BallFactory implements IFactory{
   constructor(private readonly container: Container) {}
 
-  public registerDependencies() {
+  public register() {
     this.RegisterModels();
     this.RegisterData();
     this.RegisterDrawer();
-    this.container.bind<IBall>(Ball).to(Ball);
+    this.container.bind<IBall>(BallTypes.Ball).to(Ball);
   }
 
   private RegisterModels() {
@@ -44,7 +45,7 @@ export class BallFactory {
     this.container.bind<IBallRenderer>(BallTypes.Renderer).to(BallRenderer);
   }
 
-  public resolve() {
-    return this.container.resolve<IBall>(Ball);
+  public create() {
+    return this.container.get<IBall>(BallTypes.Ball);
   }
 }

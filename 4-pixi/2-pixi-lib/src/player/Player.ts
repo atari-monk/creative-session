@@ -98,6 +98,6 @@ export class Player extends GameObject implements IPlayer {
     );
 
     ball.velocity = velocity;
-    //ball.emitVelocity();
+    ball.emittVelocity();
   }
 }

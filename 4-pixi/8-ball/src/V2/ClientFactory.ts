@@ -1,6 +1,7 @@
 import { Manager, Socket } from 'socket.io-client';
 import {
   EventEmitterLogicManager,
+  IBall,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
 import {
@@ -20,15 +21,14 @@ import {
   BallEventEmitterLogicUnit,
 } from 'atari-monk-client';
 import { PlayersFactory } from './PlayersFactory';
-import { BallFactory } from './BallFactory';
 
 export class ClientFactory {
   private socket: Socket;
 
-  constructor(playersFactory: PlayersFactory, ballFactory: BallFactory) {
+  constructor(playersFactory: PlayersFactory, ball: IBall) {
     this.socket = this.produceSocketLogic();
     this.producePlayerSocketLogic(playersFactory);
-    this.produceBallSocketLogic(ballFactory, playersFactory);
+    this.produceBallSocketLogic(ball, playersFactory);
   }
 
   private produceSocketLogic() {
@@ -103,11 +103,8 @@ export class ClientFactory {
     return playerEmitterLogicManager;
   }
 
-  private produceBallSocketLogic(
-    ballFactory: BallFactory,
-    playersFactory: PlayersFactory
-  ) {
-    const ballManager = new BallManager(ballFactory.ball);
+  private produceBallSocketLogic(ball: IBall, playersFactory: PlayersFactory) {
+    const ballManager = new BallManager(ball);
     const ballSocketLogicManager = this.createBallSocketLogic(ballManager);
     const ballEmitterLogicManager = this.createBallEmitterLogic();
     ballSocketLogicManager.initializeSocket(this.socket);

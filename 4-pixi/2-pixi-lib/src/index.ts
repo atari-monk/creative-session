@@ -47,6 +47,7 @@ export {
   rivalPlayer,
   playerColors,
   playerParams,
+  SharedTypes,
 } from './data/appConfig';
 export { CircleModel } from './model/CircleModel';
 export { ICircle } from './model/ICircle';
@@ -59,7 +60,7 @@ export { Vector2d } from './model/Vector2d';
 export { NotPlayablePlayer as RivalPlayer } from './player-non-playable/NotPlayablePlayer';
 export { NotPlayablePlayerFactory as RivalPlayerFactory } from './player-non-playable/NotPlayablePlayerFactory';
 export { PlayerFactory } from './player/PlayerFactory';
-export { SharedPlayerFactory } from './player-shared/SharedPlayerFactory';
+export { ServiceFactory } from './service/ServiceFactory';
 export { IPlayable } from './model/IPlayable';
 export { Playable } from './model/Playable';
 export { INotPlayablePlayer as IPlayer } from './player-non-playable/INotPlayablePlayer';

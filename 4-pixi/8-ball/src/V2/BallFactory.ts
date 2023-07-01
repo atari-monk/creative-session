@@ -1,22 +1,20 @@
-import { Vector2d, ballOptions } from 'atari-monk-pixi-lib';
-import { BallObject } from 'atari-monk-pixi-lib';
 import { AppFactory } from './AppFactory';
-import { PlayersFactory } from './PlayersFactory';
+import { IBallFactory } from './IBallFactory';
+import { IBall, BallFactory as DIBallFactory } from 'atari-monk-pixi-lib';
+import { Container } from 'inversify';
 
-export class BallFactory {
-  private _ball: BallObject;
+export class BallFactory implements IBallFactory {
+  private _ball: IBall;
 
   public get ball() {
     return this._ball;
   }
 
-  constructor(appFactory: AppFactory, playersFactory: PlayersFactory) {
+  constructor(container: Container, appFactory: AppFactory) {
     try {
-      this._ball = new BallObject(playersFactory.emitter, ballOptions);
-      this._ball.position = new Vector2d(
-        ballOptions.screenSize.width / 2,
-        ballOptions.screenSize.height / 2
-      );
+      const ballFactory = new DIBallFactory(container);
+      ballFactory.register();
+      this._ball = ballFactory.create();
       appFactory.appHelper.addGameObject(this._ball);
     } catch (error) {
       console.error('Error creating ball:', error);

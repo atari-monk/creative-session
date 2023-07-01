@@ -1,17 +1,17 @@
-import { BallObject, IVector2d } from 'atari-monk-pixi-lib';
+import { IBall, IVector2d } from 'atari-monk-pixi-lib';
 
 export class BallManager {
-  private ballObj: BallObject;
+  private ball: IBall;
 
-  constructor(ballObj: BallObject) {
-    this.ballObj = ballObj;
+  constructor(ball: IBall) {
+    this.ball = ball;
   }
 
   public updateBallPosition(newPosition: IVector2d) {
-    this.ballObj.position = newPosition;
+    this.ball.position = newPosition;
   }
 
   public updateBallVelocity(newVelocity: IVector2d) {
-    this.ballObj.velocity = newVelocity;
+    this.ball.velocity = newVelocity;
   }
 }

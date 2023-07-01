@@ -24,7 +24,7 @@ export class AppFactory {
     const game = new Game(this._appHelper, this._pixiApp, new Collider());
     if (!this.appHelper.gameObjects || this.appHelper.gameObjects.length === 0)
       throw new Error('Array must be populated at this point!');
-    game.ball = this.appHelper.findBallObject();
+    game.ball = this.appHelper.findBall();
     game.player = this.appHelper.findPlayer();
     this._appHelper.startAnimationLoop(game);
   }

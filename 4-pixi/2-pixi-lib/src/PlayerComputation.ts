@@ -86,6 +86,6 @@ export class PlayerComputation {
     );
 
     ball.velocity = velocity;
-    ball.emitVelocity();
+    ball.emittVelocity();
   }
 }

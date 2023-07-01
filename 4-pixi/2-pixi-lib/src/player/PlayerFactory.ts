@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import { CircleModel } from '../model/CircleModel';
 import {
   PlayerTypes,
+  SharedTypes,
   keys,
   playerColors,
   playerParams,
@@ -26,16 +27,19 @@ import { KeyboardInputV1 } from '../KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import EventEmitter from 'eventemitter3';
+import { IPlayer } from '..';
+import { IFactory } from '../player-non-playable/IFactory';
 
-export class PlayerFactory {
+export class PlayerFactory implements IFactory {
   constructor(private readonly container: Container) {}
 
-  public registerDependencies() {
+  public register() {
     this.RegisterModels();
     this.RegisterData();
     this.RegisterDrawer();
     this.RegisterKeyboard();
     this.RegisterUpdateables();
+    this.container.bind<IPlayer>(PlayerTypes.Player).to(Player);
   }
 
   private RegisterModels() {
@@ -91,14 +95,11 @@ export class PlayerFactory {
 
   private RegisterPlayerMoveEmitter() {
     this.container
-      .bind<EventEmitter>(EventEmitter)
-      .toConstantValue(new EventEmitter());
-    this.container
       .bind<PositionEmitter>(PlayerTypes.PositionEmitter)
       .toDynamicValue(() => {
         return new PositionEmitter(
           'position-update',
-          this.container.resolve<EventEmitter>(EventEmitter)
+          this.container.get<EventEmitter>(SharedTypes.EventEmitter)
         );
       });
     this.container
@@ -107,7 +108,7 @@ export class PlayerFactory {
       .inSingletonScope();
   }
 
-  public resolve() {
-    return this.container.resolve<Player>(Player);
+  public create() {
+    return this.container.get<Player>(PlayerTypes.Player);
   }
 }
