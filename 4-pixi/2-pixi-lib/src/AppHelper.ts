@@ -1,10 +1,16 @@
 import * as PIXI from 'pixi.js';
-import { Renderer } from './Renderer';
-import { IAppHelperOptions, GameObject } from './index';
+import { Game } from './Game';
+import {
+  IAppHelperOptions,
+  GameObject,
+  BallObject,
+  PlayerObject,
+} from './index';
+import { Ball } from './ball/Ball';
+import { Player } from './player/Player';
 
 export class AppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
-  private renderer!: Renderer;
   private _canvas!: HTMLCanvasElement;
 
   private _width: number;
@@ -24,12 +30,8 @@ export class AppHelper {
     this._canvas = document.getElementById(canvasId) as HTMLCanvasElement;
   }
 
-  public initializeApp(
-    pixiApp: PIXI.Application<PIXI.ICanvas>,
-    renderer: Renderer
-  ) {
+  public initializeApp(pixiApp: PIXI.Application<PIXI.ICanvas>) {
     this.pixiApp = pixiApp;
-    this.renderer = renderer;
     this.setCanvasStyles();
     this.pixiApp.stage.sortableChildren = true;
     this.resizeCanvas();
@@ -65,9 +67,9 @@ export class AppHelper {
     return appOptions;
   }
 
-  public startAnimationLoop() {
+  public startAnimationLoop(game: Game) {
     this.pixiApp.ticker.add((deltaTime) => {
-      this.renderer.render(deltaTime);
+      game.gameLoop(deltaTime);
     });
   }
 
@@ -130,5 +132,29 @@ export class AppHelper {
 
   get gameObjects() {
     return this._gameObjects;
+  }
+
+  private findGameObject<T>(predicate: (obj: any) => boolean): T {
+    return this.gameObjects.find(predicate) as T;
+  }
+
+  public findBall(): Ball {
+    return this.findGameObject<Ball>((obj) => obj instanceof Ball);
+  }
+
+  public findPlayer(): Player {
+    return this.findGameObject<Player>(
+      (obj) => obj instanceof Player && obj.isPlayable
+    );
+  }
+
+  public findBallObject(): BallObject {
+    return this.findGameObject<BallObject>((obj) => obj instanceof BallObject);
+  }
+
+  public findPlayerObject(): PlayerObject {
+    return this.findGameObject<PlayerObject>(
+      (obj) => obj instanceof PlayerObject && obj.isPlayable
+    );
   }
 }

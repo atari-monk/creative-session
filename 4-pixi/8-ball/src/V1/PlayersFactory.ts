@@ -9,7 +9,7 @@ import {
 } from 'atari-monk-pixi-lib';
 import {
   KeyboardInputV1,
-  KeyboardInputHandler,
+  DirectionFromKeyboard,
   PlayerObject,
   BasicRenderer,
   PositionEmitter,
@@ -21,7 +21,7 @@ export class PlayersFactory {
   private _emitter: EventEmitter;
   private _player1: PlayerObject;
   private _player2: PlayerObject;
-  private keyboard: KeyboardInputHandler;
+  private keyboard: DirectionFromKeyboard;
   private positionEmitter: PositionEmitter;
   private playerRenderer: BasicRenderer;
 
@@ -44,7 +44,7 @@ export class PlayersFactory {
       this._emitter
     );
     this.playerRenderer = new BasicRenderer();
-    this.keyboard = new KeyboardInputHandler(new KeyboardInputV1(), keys);
+    this.keyboard = new DirectionFromKeyboard(new KeyboardInputV1(), keys);
     this._player1 = this.createPlayer(player1Options, -250);
     this._player2 = this.createPlayer(player2Options, 250);
   }

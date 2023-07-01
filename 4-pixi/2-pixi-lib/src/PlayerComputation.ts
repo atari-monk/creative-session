@@ -1,10 +1,10 @@
 import {
   BallObject,
-  KeyboardInputHandler,
   PositionEmitter,
   IPlayerOptions,
   Vector2d,
   IVector2d,
+  DirectionFromKeyboard,
 } from './index';
 
 export class PlayerComputation {
@@ -13,7 +13,7 @@ export class PlayerComputation {
   private readonly _speed: number;
 
   constructor(
-    private readonly keyboard: KeyboardInputHandler,
+    private readonly keyboard: DirectionFromKeyboard,
     private readonly positionEmitter: PositionEmitter,
     private readonly options: IPlayerOptions
   ) {

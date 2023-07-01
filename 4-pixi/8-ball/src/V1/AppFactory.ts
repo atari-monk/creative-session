@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { appHelperOptions } from 'atari-monk-pixi-lib';
-import { AppHelper, BallRendererV1 } from 'atari-monk-pixi-lib';
+import { Collider, Game, appHelperOptions } from 'atari-monk-pixi-lib';
+import { AppHelper } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
   private _pixiApp: PIXI.Application;
@@ -19,8 +19,13 @@ export class AppFactory {
     this._pixiApp = new PIXI.Application(this._appHelper.getPixiAppOptions());
   }
 
-  public start(ballRenderer: BallRendererV1) {
-    this._appHelper.initializeApp(this._pixiApp, ballRenderer);
-    this._appHelper.startAnimationLoop();
+  public start() {
+    this._appHelper.initializeApp(this._pixiApp);
+    const game = new Game(this._appHelper, this._pixiApp, new Collider());
+    if (!this.appHelper.gameObjects || this.appHelper.gameObjects.length === 0)
+      throw new Error('Array must be populated at this point!');
+    game.ball = this.appHelper.findBallObject();
+    game.player = this.appHelper.findPlayerObject();
+    this._appHelper.startAnimationLoop(game);
   }
 }

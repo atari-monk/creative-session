@@ -1,6 +1,5 @@
 import { AppFactory } from './AppFactory';
 import { IBallFactory } from './IBallFactory';
-import { PlayersFactory } from './PlayersFactory';
 import {
   IBall,
   IBallRenderer,
@@ -21,11 +20,7 @@ export class BallFactoryV2 implements IBallFactory {
     return this._ballRenderer;
   }
 
-  constructor(
-    private readonly container: Container,
-    appFactory: AppFactory,
-    playersFactory: PlayersFactory
-  ) {
+  constructor(private readonly container: Container, appFactory: AppFactory) {
     try {
       const ballFactory = new BallFactoryDI(container);
       ballFactory.registerDependencies();

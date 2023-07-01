@@ -12,6 +12,6 @@ export class BallGame {
     playersFactory.addPlayers(appFactory);
     const ballFactory = new BallFactory(appFactory, playersFactory);
     new ClientFactory(playersFactory, ballFactory);
-    appFactory.start(ballFactory.ballRenderer);
+    appFactory.start();
   }
 }

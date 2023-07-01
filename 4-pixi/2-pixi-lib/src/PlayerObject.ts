@@ -72,7 +72,7 @@ export class PlayerObject extends GameObject implements IPlayer {
   public draw(stage: PIXI.Container) {
     this.renderer.drawCircle(
       stage,
-      this._color.player,
+      this._color.body,
       this.position.x,
       this.position.y,
       this._radius

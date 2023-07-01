@@ -9,6 +9,7 @@ import { IBall } from './IBall';
 import { IVelocity } from '../model/IVelocity';
 import { IBallRenderer } from './IBallRenderer';
 import { IColorOptions } from '../data/configTypes';
+import { Vector2d } from '../model/Vector2d';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
@@ -54,4 +55,15 @@ export class Ball extends GameObject implements IBall {
   }
 
   public update(deltaTime: number): void {}
+
+  public bounce() {
+    const currentVelocity = this.velocity;
+    const reversedVelocity = new Vector2d(
+      -currentVelocity.x,
+      -currentVelocity.y
+    );
+    this.velocity = reversedVelocity;
+    //this.emitVelocity();
+    //console.log(this._velocity);
+  }
 }

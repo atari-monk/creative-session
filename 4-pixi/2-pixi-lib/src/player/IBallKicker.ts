@@ -1,5 +1,5 @@
-import { BallObject } from '../BallObject';
+import { IBall } from '../ball/IBall';
 
 export interface IBallKicker {
-  kickBall(ball: BallObject): void;
+  kickBall(ball: IBall): void;
 }

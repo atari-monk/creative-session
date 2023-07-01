@@ -27,7 +27,7 @@ import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import EventEmitter from 'eventemitter3';
 
-export class PlayablePlayerFactory {
+export class PlayerFactory {
   constructor(private readonly container: Container) {}
 
   public registerDependencies() {

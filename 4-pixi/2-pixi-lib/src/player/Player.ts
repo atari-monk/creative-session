@@ -9,10 +9,10 @@ import { ISteerable } from '../model/ISteerable';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
 import { IPlayer } from './IPlayer';
-import { BallObject } from '../BallObject';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { IPlayerUpdater } from './IPlayerUpdater';
+import { IBall } from '../ball/IBall';
 
 @injectable()
 export class Player extends GameObject implements IPlayer {
@@ -91,13 +91,13 @@ export class Player extends GameObject implements IPlayer {
     });
   }
 
-  public kickBall(ball: BallObject) {
+  public kickBall(ball: IBall) {
     const velocity = new Vector2d(
       this.direction.x * this.speed,
       this.direction.y * this.speed
     );
 
     ball.velocity = velocity;
-    ball.emitVelocity();
+    //ball.emitVelocity();
   }
 }

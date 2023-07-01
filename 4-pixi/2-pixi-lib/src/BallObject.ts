@@ -6,10 +6,10 @@ import { IColorOptions } from './data/configTypes';
 import { GameObject } from './gameObject/GameObject';
 import { IVector2d } from './model/IVector2d';
 import { Vector2d } from './model/Vector2d';
-import { IPlayer } from './player/IPlayer';
+import { IBall } from './ball/IBall';
 
-export class BallObject extends GameObject {
-  private readonly radius: number;
+export class BallObject extends GameObject implements IBall {
+  private _radius: number;
   private readonly speed: number;
   private readonly width: number;
   private readonly height: number;
@@ -23,7 +23,7 @@ export class BallObject extends GameObject {
   constructor(emitter: EventEmitter, options: IBallOptions) {
     super();
     const { radius, speed, screenSize, color, isBall } = options;
-    this.radius = radius;
+    this._radius = radius;
     this.speed = speed;
     this.width = screenSize.width;
     this.height = screenSize.height;
@@ -33,6 +33,10 @@ export class BallObject extends GameObject {
     this.isBall = isBall;
     this._velocity = new Vector2d(0, 0);
     this._emitter = emitter;
+  }
+
+  public get position() {
+    return this._position;
   }
 
   public set position(newPosition: IVector2d) {
@@ -47,6 +51,10 @@ export class BallObject extends GameObject {
 
   public get velocity() {
     return this._velocity;
+  }
+
+  public get radius() {
+    return this._radius;
   }
 
   public set direction(newDirection: IVector2d) {
@@ -80,7 +88,7 @@ export class BallObject extends GameObject {
   public draw(stage: PIXI.Container) {
     const graphics = new PIXI.Graphics();
     graphics.beginFill(this.color.body);
-    graphics.drawCircle(this._position.x, this._position.y, this.radius);
+    graphics.drawCircle(this._position.x, this._position.y, this._radius);
     graphics.endFill();
     stage.addChild(graphics);
     this.drawVectors(stage);
@@ -98,8 +106,8 @@ export class BallObject extends GameObject {
     const directionGraphics = new PIXI.Graphics();
     directionGraphics.lineStyle(2, this.color.direction);
     directionGraphics.moveTo(this._position.x, this._position.y);
-    const directionX = this._direction.x * (this.radius / 2);
-    const directionY = this._direction.y * (this.radius / 2);
+    const directionX = this._direction.x * (this._radius / 2);
+    const directionY = this._direction.y * (this._radius / 2);
     directionGraphics.lineTo(
       this._position.x + directionX,
       this._position.y + directionY
@@ -107,18 +115,18 @@ export class BallObject extends GameObject {
     stage.addChild(directionGraphics);
   }
 
-  private checkCircularCollision(player: IPlayer) {
-    const distanceX = player.position.x - this._position.x;
-    const distanceY = player.position.y - this._position.y;
-    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    if (distance < player.radius! + this.radius!) {
-      console.log('collision');
-      return true;
-    }
-    return false;
-  }
+  //   private checkCircularCollision(player: IPlayer) {
+  //     const distanceX = player.position.x - this._position.x;
+  //     const distanceY = player.position.y - this._position.y;
+  //     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+  //     if (distance < player.radius! + this._radius!) {
+  //       console.log('collision');
+  //       return true;
+  //     }
+  //     return false;
+  //   }
 
-  private bounce() {
+  public bounce() {
     const currentVelocity = this.velocity;
     const reversedVelocity = new Vector2d(
       -currentVelocity.x,
@@ -129,14 +137,14 @@ export class BallObject extends GameObject {
     console.log(this._velocity);
   }
 
-  public handleCollisions(player: IPlayer) {
-    if (!this.checkCircularCollision(player)) return;
-    if (player.direction.x !== 0 || player.direction.y !== 0) {
-      player.kickBall(this);
-      console.log('kick');
-    } else {
-      this.bounce();
-      console.log('bounce');
-    }
-  }
+  //   public handleCollisions(player: IPlayer) {
+  //     if (!this.checkCircularCollision(player)) return;
+  //     if (player.direction.x !== 0 || player.direction.y !== 0) {
+  //       player.kickBall(this);
+  //       console.log('kick');
+  //     } else {
+  //       this.bounce();
+  //       console.log('bounce');
+  //     }
+  //   }
 }
