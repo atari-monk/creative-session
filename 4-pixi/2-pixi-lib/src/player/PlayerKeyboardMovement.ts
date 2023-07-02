@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { IDirectionFromKeyboard } from '../IDirectionFromKeyboard';
+import { IDirectionFromKeyboard } from '../keyboard/IDirectionFromKeyboard';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayer } from './IPlayer';
 import { IPlayerUpdater } from './IPlayerUpdater';
