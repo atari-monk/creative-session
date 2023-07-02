@@ -4,7 +4,7 @@ import { BallTypes, SharedTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IPosition } from '../model/IPosition';
-import { ICircle } from '../model/ICircle';
+import { IRadius } from '../model/IRadius';
 import { IBall } from './IBall';
 import { IVelocity } from '../model/IVelocity';
 import { IBallRenderer } from './IBallRenderer';
@@ -46,7 +46,7 @@ export class Ball extends GameObject implements IBall {
     @inject(BallTypes.Velocity)
     private readonly velocityModel: IVelocity,
     @inject(BallTypes.Circle)
-    private readonly circle: ICircle,
+    private readonly circle: IRadius,
     @inject(BallTypes.Colors)
     private readonly colors: IColorOptions,
     @inject(BallTypes.Renderer)
@@ -95,6 +95,6 @@ export class Ball extends GameObject implements IBall {
   }
 
   public toString() {
-    return `position: (${this.position.x}, ${this.position.y}), velocity: (${this.velocity.x}, ${this.velocity.y}), radius: ${this.radius}`;
+    return `Ball, position: (${this.position.x}, ${this.position.y}), velocity: (${this.velocity.x}, ${this.velocity.y}), radius: ${this.radius}`;
   }
 }

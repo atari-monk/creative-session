@@ -1,3 +1,4 @@
+import { IVector2d } from '../model/IVector2d';
 import { Vector2d } from '../model/Vector2d';
 import { IBallParams } from './IBallParams';
 import {
@@ -108,32 +109,44 @@ export const SharedTypes = {
   EventEmitter: Symbol.for('EventEmitter'),
 };
 
-const NotPlayablePlayerId = 'NotPlayablePlayer';
-export const NotPlayablePlayerTypes = {
-  Player: Symbol.for(NotPlayablePlayerId),
-  Id: Symbol.for(NotPlayablePlayerId + 'Id'),
-  Playable: Symbol.for(NotPlayablePlayerId + 'Playable'),
-  Position: Symbol.for(NotPlayablePlayerId + 'Position'),
-  Circle: Symbol.for(NotPlayablePlayerId + 'Circle'),
-  Colors: Symbol.for(NotPlayablePlayerId + 'Colors'),
-  Drawer: Symbol.for(NotPlayablePlayerId + 'Drawer'),
+const PlayerNpcId = 'PlayerNpc';
+export const PlayerNpcTypes = {
+  Player: Symbol.for(PlayerNpcId),
+  Model: Symbol.for(PlayerNpcId + 'Model'),
+  Colors: Symbol.for(PlayerNpcId + 'Colors'),
+  Renderer: Symbol.for(PlayerNpcId + 'Renderer'),
 };
 
-export const rivalColors: IColorOptions = {
+export const playerNpcColors: IColorOptions = {
   body: blue,
   position: red,
   direction: red,
+  toString() {
+    return `Colors, body: ${this.body}, position: ${this.position}, direction: ${this.direction}`;
+  },
 };
 
-const rivalOffset = playerUrlParam === '1' ? 250 : -250;
+const playerNpcOffset = playerUrlParam === '1' ? 250 : -250;
 
-export const rivalPlayer = {
-  rivalPosition: new Vector2d(
-    screenSize.width / 2 + rivalOffset,
+export interface IPlayerNpcParams {
+  position: IVector2d;
+  radius: number;
+  colors: IColorOptions;
+  toString(): string;
+}
+
+export const playerNpcParams: IPlayerNpcParams = {
+  position: new Vector2d(
+    screenSize.width / 2 + playerNpcOffset,
     screenSize.height / 2
   ),
   radius: playerRadius,
-  rivalColors,
+  colors: playerNpcColors,
+  toString() {
+    return `Params: ${this.position.toString('position')}, radius: ${
+      this.radius
+    }, ${this.colors.toString()}`;
+  },
 };
 
 const PlayerId = 'Player';

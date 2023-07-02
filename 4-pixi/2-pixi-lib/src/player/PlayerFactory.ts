@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { CircleModel } from '../model/CircleModel';
+import { CircleModel } from '../model/PlayerNpcModel';
 import {
   PlayerTypes,
   SharedTypes,
@@ -7,7 +7,7 @@ import {
   playerColors,
   playerParams,
 } from '../data/appConfig';
-import { ICircle } from '../model/ICircle';
+import { IRadius } from '../model/IRadius';
 import { IColorOptions, IKeys } from '../data/configTypes';
 import { ISteerable } from '../model/ISteerable';
 import { SteerableModel } from '../model/SteerableModel';
@@ -28,9 +28,9 @@ import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import EventEmitter from 'eventemitter3';
 import { IPlayer } from '..';
-import { IFactory } from '../player-non-playable/IFactory';
+import { IDIFactory } from '../factory/IDIFactory';
 
-export class PlayerFactory implements IFactory {
+export class PlayerFactory implements IDIFactory {
   constructor(private readonly container: Container) {}
 
   public register() {
@@ -58,7 +58,7 @@ export class PlayerFactory implements IFactory {
           playerParams.speed
         );
       });
-    this.container.bind<ICircle>(PlayerTypes.Circle).toDynamicValue(() => {
+    this.container.bind<IRadius>(PlayerTypes.Circle).toDynamicValue(() => {
       return new CircleModel(playerParams.radius);
     });
   }

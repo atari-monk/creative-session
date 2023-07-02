@@ -4,16 +4,16 @@ import { IBall } from './IBall';
 import { Ball } from './Ball';
 import { IPosition } from '../model/IPosition';
 import { PositionModel } from '../model/PositionModel';
-import { ICircle } from '../model/ICircle';
-import { CircleModel } from '../model/CircleModel';
+import { IRadius } from '../model/IRadius';
+import { CircleModel } from '../model/PlayerNpcModel';
 import { IVelocity } from '../model/IVelocity';
 import { Velocity } from '../model/Velocity';
 import { BallRenderer } from './BallRenderer';
 import { IBallRenderer } from './IBallRenderer';
 import { IColorOptions } from '../data/configTypes';
-import { IFactory } from '../player-non-playable/IFactory';
+import { IDIFactory } from '../factory/IDIFactory';
 
-export class BallFactory implements IFactory{
+export class BallFactory implements IDIFactory {
   constructor(private readonly container: Container) {}
 
   public register() {
@@ -24,14 +24,11 @@ export class BallFactory implements IFactory{
   }
 
   private RegisterModels() {
-    this.container.bind<IPosition>(BallTypes.Position).toDynamicValue(() => {
-      return new PositionModel(ballParams.position);
-    });
     this.container.bind<IVelocity>(BallTypes.Velocity).toDynamicValue(() => {
       return new Velocity(ballParams.velocity);
     });
-    this.container.bind<ICircle>(BallTypes.Circle).toDynamicValue(() => {
-      return new CircleModel(ballParams.radius);
+    this.container.bind<IRadius>(BallTypes.Circle).toDynamicValue(() => {
+      return new CircleModel(ballParams.radius, ballParams.position);
     });
   }
 

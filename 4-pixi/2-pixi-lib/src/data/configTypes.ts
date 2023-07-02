@@ -24,6 +24,7 @@ export interface IColorOptions {
   body: number;
   position: number;
   direction: number;
+  toString(): string;
 }
 
 export interface IPlayerOptions {

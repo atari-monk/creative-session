@@ -43,27 +43,27 @@ export {
   player2Options,
   ballOptions,
   keys,
-  rivalColors,
-  rivalPlayer,
+  playerNpcColors as rivalColors,
+  playerNpcParams as rivalPlayer,
   playerColors,
   playerParams,
   SharedTypes,
 } from './data/appConfig';
-export { CircleModel } from './model/CircleModel';
-export { ICircle } from './model/ICircle';
+export { CircleModel } from './model/PlayerNpcModel';
+export { IRadius as ICircle } from './model/IRadius';
 export { IPosition } from './model/IPosition';
 export { ISteerable } from './model/ISteerable';
 export { PositionModel } from './model/PositionModel';
 export { SteerableModel } from './model/SteerableModel';
 export { IVector2d } from './model/IVector2d';
 export { Vector2d } from './model/Vector2d';
-export { NotPlayablePlayer as RivalPlayer } from './player-non-playable/NotPlayablePlayer';
-export { NotPlayablePlayerFactory as RivalPlayerFactory } from './player-non-playable/NotPlayablePlayerFactory';
+export { PlayerNpc as RivalPlayer } from './player-npc/PlayerNpc';
+export { PlayerNpcFactory as RivalPlayerFactory } from './player-npc/PlayerNpcFactory';
 export { PlayerFactory } from './player/PlayerFactory';
 export { ServiceFactory } from './service/ServiceFactory';
 export { IPlayable } from './model/IPlayable';
 export { Playable } from './model/Playable';
-export { INotPlayablePlayer as IPlayer } from './player-non-playable/INotPlayablePlayer';
+export { IPlayerNpc as IPlayer } from './player-npc/IPlayerNpc';
 export { IIdModel } from './model/IIdModel';
 export { IdModel } from './model/IdModel';
 export { IUpdateable } from './gameObject/IUpdateable';

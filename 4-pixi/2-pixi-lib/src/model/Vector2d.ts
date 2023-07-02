@@ -36,6 +36,10 @@ export class Vector2d implements IVector2d {
     this._y /= magnitude;
   }
 
+  toString(name: string = 'vector'): string {
+    return `${name}: x=${this._x} y=${this._y}`;
+  }
+
   isEqual(b: IVector2d): boolean {
     return this.x === b.x && this.y === b.y;
   }

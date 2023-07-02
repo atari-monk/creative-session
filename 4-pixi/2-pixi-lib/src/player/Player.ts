@@ -4,7 +4,7 @@ import { PlayerTypes as PlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IVector2d } from '../model/IVector2d';
 import { IColorOptions } from '../data/configTypes';
-import { ICircle } from '../model/ICircle';
+import { IRadius } from '../model/IRadius';
 import { ISteerable } from '../model/ISteerable';
 import { IPlayable } from '../model/IPlayable';
 import { IIdModel } from '../model/IIdModel';
@@ -64,7 +64,7 @@ export class Player extends GameObject implements IPlayer {
     private readonly playable: IPlayable,
     @inject(PlayerTypes.Steerable)
     private readonly steer: ISteerable,
-    @inject(PlayerTypes.Circle) private readonly circle: ICircle,
+    @inject(PlayerTypes.Circle) private readonly circle: IRadius,
     @inject(PlayerTypes.Colors)
     private readonly colors: IColorOptions,
     @inject(PlayerTypes.Renderer)
@@ -99,5 +99,9 @@ export class Player extends GameObject implements IPlayer {
 
     ball.velocity = velocity;
     ball.emittVelocity();
+  }
+
+  public toString() {
+    return `Player, position: (${this.position.x}, ${this.position.y}), direction: (${this.direction.x}, ${this.direction.y}), speed: ${this.speed}, radius: ${this.radius}`;
   }
 }

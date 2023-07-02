@@ -3,8 +3,9 @@ import { SharedTypes } from '../data/appConfig';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { BasicRenderer } from '../BasicRenderer';
 import EventEmitter from 'eventemitter3';
+import { IRegister } from '../factory/IRegister';
 
-export class ServiceFactory {
+export class ServiceFactory implements IRegister {
   constructor(public readonly container: Container) {}
 
   public register() {

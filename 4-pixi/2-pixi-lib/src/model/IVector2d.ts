@@ -4,4 +4,5 @@ export interface IVector2d {
   getMagnitude(): number;
   normalize(): void;
   isEqual(b: IVector2d): boolean;
+  toString(name: string): string;
 }

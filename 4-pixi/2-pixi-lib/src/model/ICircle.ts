@@ -1,3 +1,4 @@
-export interface ICircle {
-  radius: number;
-}
+import { IPosition } from './IPosition';
+import { IRadius } from './IRadius';
+
+export interface ICircle extends IPosition, IRadius {}

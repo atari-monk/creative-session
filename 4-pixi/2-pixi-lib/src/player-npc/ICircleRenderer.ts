@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 import { IColorOptions } from '../data/configTypes';
-import { INotPlayableGameObject } from './INotPlayableGameObject';
+import { ICircle } from './../model/ICircle';
 
-export interface INotPlayableDrawer {
-  draw(
+export interface ICircleRenderer {
+  render(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: INotPlayableGameObject,
+    gameObj: ICircle,
     colors: IColorOptions
   ): void;
 }
