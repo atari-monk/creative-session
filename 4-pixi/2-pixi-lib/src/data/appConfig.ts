@@ -152,12 +152,8 @@ export const playerNpcParams: IPlayerNpcParams = {
 const PlayerId = 'Player';
 export const PlayerTypes = {
   Player: Symbol.for(PlayerId),
-  Id: Symbol.for(PlayerId + 'Id'),
-  Playable: Symbol.for(PlayerId + 'Playable'),
-  Steerable: Symbol.for(PlayerId + 'Steering'),
-  Circle: Symbol.for(PlayerId + 'Circle'),
-  Colors: Symbol.for(PlayerId + 'Colors'),
-  Renderer: Symbol.for(PlayerId + 'Drawer'),
+  Model: Symbol.for(PlayerId + 'Model'),
+  Renderer: Symbol.for(PlayerId + 'Renderer'),
   KeyboardInput: Symbol.for(PlayerId + 'KeyboardInput'),
   Keys: Symbol.for(PlayerId + 'Keys'),
   DirectionFromKeyboard: Symbol.for(PlayerId + 'DirectionFromKeyboard'),
@@ -173,18 +169,27 @@ export const playerColors: IColorOptions = {
 
 const playerOffset = playerUrlParam === '1' ? -250 : 250;
 
-export const playerParams: IPlayerOptionsV2 = {
-  radius: playerRadius,
-  speed: playerSpeed,
-  screenSize,
-  keys,
-  color: greenObj,
-  isPlayable: true,
+export interface IPlayerParams {
+  position: IVector2d;
+  direction: IVector2d;
+  speed: number;
+  radius: number;
+  screenSize: IScreenSize;
+  keys: IKeys;
+  colors: IColorOptions;
+}
+
+export const playerParams: IPlayerParams = {
   position: new Vector2d(
     screenSize.width / 2 + playerOffset,
     screenSize.height / 2
   ),
   direction: new Vector2d(0, 0),
+  speed: playerSpeed,
+  radius: playerRadius,
+  screenSize,
+  keys,
+  colors: greenObj,
 };
 
 const BallId = 'Ball';

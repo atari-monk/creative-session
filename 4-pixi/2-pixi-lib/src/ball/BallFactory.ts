@@ -2,16 +2,14 @@ import { Container } from 'inversify';
 import { BallTypes, ballColors, ballParams } from '../data/appConfig';
 import { IBall } from './IBall';
 import { Ball } from './Ball';
-import { IPosition } from '../model/IPosition';
-import { PositionModel } from '../model/PositionModel';
 import { IRadius } from '../model/IRadius';
-import { CircleModel } from '../model/PlayerNpcModel';
 import { IVelocity } from '../model/IVelocity';
 import { Velocity } from '../model/Velocity';
 import { BallRenderer } from './BallRenderer';
 import { IBallRenderer } from './IBallRenderer';
 import { IColorOptions } from '../data/configTypes';
 import { IDIFactory } from '../factory/IDIFactory';
+import { CircleModel } from '..';
 
 export class BallFactory implements IDIFactory {
   constructor(private readonly container: Container) {}

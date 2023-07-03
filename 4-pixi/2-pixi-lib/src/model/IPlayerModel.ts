@@ -1,17 +1,21 @@
+import { ICircle } from '..';
 import { IToString } from '../ball/IToString';
-import { IPlayerNpcParams } from '../data/appConfig';
-import { ICircle } from './api/ICircle';
+import { IPlayerParams } from '../data/appConfig';
+import { IDirection } from './api/IDirection';
 import { IIdModel } from './api/IIdModel';
 import { IPlayable } from './api/IPlayable';
 import { IPosition } from './api/IPosition';
 import { IRadius } from './api/IRadius';
+import { ISpeed } from './api/ISpeed';
 
-export interface IPlayerNpcModel
+export interface IPlayerModel
   extends IPosition,
+    IDirection,
+    ISpeed,
     IRadius,
     ICircle,
     IPlayable,
     IIdModel,
     IToString {
-  params: IPlayerNpcParams;
+  params: IPlayerParams;
 }

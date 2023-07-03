@@ -9,7 +9,7 @@ export class Collider implements IGameUpdateable {
 
   private handleCollisions(ball: IBall, player: IPlayer) {
     if (!this.checkCircularCollision(ball, player)) return;
-    if (player.direction.x !== 0 || player.direction.y !== 0) {
+    if (player.model.direction.x !== 0 || player.model.direction.y !== 0) {
       player.kickBall(ball);
       console.log('kick');
     } else {
@@ -19,10 +19,10 @@ export class Collider implements IGameUpdateable {
   }
 
   private checkCircularCollision(ball: IBall, player: IPlayer) {
-    const distanceX = player.position.x - ball.position.x;
-    const distanceY = player.position.y - ball.position.y;
+    const distanceX = player.model.position.x - ball.model.position.x;
+    const distanceY = player.model.position.y - ball.model.position.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    if (distance < player.radius! + ball.radius!) {
+    if (distance < player.model.radius! + ball.model.radius!) {
       console.log('collision');
       return true;
     }

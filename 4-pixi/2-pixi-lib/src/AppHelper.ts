@@ -144,7 +144,7 @@ export class AppHelper {
 
   public findPlayer(): Player {
     return this.findGameObject<Player>(
-      (obj) => obj instanceof Player && obj.isPlayable
+      (obj) => obj instanceof Player && obj.model.isPlayable
     );
   }
 

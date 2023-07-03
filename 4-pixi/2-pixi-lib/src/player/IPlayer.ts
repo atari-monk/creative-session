@@ -1,6 +1,7 @@
-import { ISteerable } from '../model/ISteerable';
-import { IBallKicker } from './IBallKicker';
-import { IPlayerNpc } from '../player-npc/IPlayerNpc';
-import { IToString } from '../ball/IToString';
+import { IBall } from '../ball/IBall';
+import { IPlayerModel } from '../model/IPlayerModel';
 
-export interface IPlayer extends IPlayerNpc, ISteerable, IBallKicker, IToString {}
+export interface IPlayer {
+  model: IPlayerModel;
+  kickBall(ball: IBall): void;
+}

@@ -11,6 +11,5 @@ serviceFactory.register();
 playerFactory.register();
 
 const player = playerFactory.create();
-const x = player.position.x;
-const y = player.position.x;
-console.log('position', x, y);
+
+console.log(player);

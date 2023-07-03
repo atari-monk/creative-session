@@ -2,73 +2,24 @@ import * as PIXI from 'pixi.js';
 import { injectable, inject, multiInject } from 'inversify';
 import { PlayerTypes as PlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
-import { IVector2d } from '../model/IVector2d';
-import { IColorOptions } from '../data/configTypes';
-import { IRadius } from '../model/IRadius';
-import { ISteerable } from '../model/ISteerable';
-import { IPlayable } from '../model/IPlayable';
-import { IIdModel } from '../model/IIdModel';
 import { IPlayer } from './IPlayer';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { IPlayerUpdater } from './IPlayerUpdater';
 import { IBall } from '../ball/IBall';
+import { IPlayerModel } from '../model/IPlayerModel';
+import { StringBuilder } from '../utils/StringBuilder';
 
 @injectable()
 export class Player extends GameObject implements IPlayer {
-  public get id(): string {
-    return this.playerId.id;
-  }
-
-  public set id(clientId: string) {
-    this.playerId.id = clientId;
-  }
-
-  public get isPlayable(): boolean {
-    return this.playable.isPlayable;
-  }
-
-  public set isPlayable(isPlayable: boolean) {
-    this.playable.isPlayable = isPlayable;
-  }
-
-  public get position(): IVector2d {
-    return this.steer.position;
-  }
-
-  public set position(position: IVector2d) {
-    this.steer.position.x = position.x;
-    this.steer.position.y = position.y;
-  }
-
-  public get radius(): number {
-    return this.circle.radius;
-  }
-
-  public get direction(): IVector2d {
-    return this.steer.direction;
-  }
-
-  public set direction(direction: IVector2d) {
-    this.steer.direction.x = direction.x;
-    this.steer.direction.y = direction.y;
-  }
-
-  public get speed(): number {
-    return this.steer.speed;
+  public get model(): IPlayerModel {
+    return this._model;
   }
 
   constructor(
-    @inject(PlayerTypes.Id) private readonly playerId: IIdModel,
-    @inject(PlayerTypes.Playable)
-    private readonly playable: IPlayable,
-    @inject(PlayerTypes.Steerable)
-    private readonly steer: ISteerable,
-    @inject(PlayerTypes.Circle) private readonly circle: IRadius,
-    @inject(PlayerTypes.Colors)
-    private readonly colors: IColorOptions,
+    @inject(PlayerTypes.Model) private readonly _model: IPlayerModel,
     @inject(PlayerTypes.Renderer)
-    private readonly drawer: IPlayerRenderer,
+    private readonly renderer: IPlayerRenderer,
     @multiInject(PlayerTypes.IPlayerUpdater)
     private readonly updatebles: IPlayerUpdater[]
   ) {
@@ -76,7 +27,7 @@ export class Player extends GameObject implements IPlayer {
   }
 
   public draw(stage: PIXI.Container<PIXI.DisplayObject>): void {
-    this.drawer.draw(stage, this, this.colors);
+    this.renderer.draw(stage, this, this._model.params.colors);
   }
 
   public update(deltaTime: number): void {
@@ -85,23 +36,20 @@ export class Player extends GameObject implements IPlayer {
     });
   }
 
-  public diagnoze() {
-    this.updatebles.forEach((updateble) => {
-      console.log(updateble);
-    });
-  }
-
   public kickBall(ball: IBall) {
-    const velocity = new Vector2d(
-      this.direction.x * this.speed,
-      this.direction.y * this.speed
+    ball.velocity = new Vector2d(
+      this.model.direction.x * this.model.speed,
+      this.model.direction.y * this.model.speed
     );
-
-    ball.velocity = velocity;
     ball.emittVelocity();
   }
 
   public toString() {
-    return `Player, position: (${this.position.x}, ${this.position.y}), direction: (${this.direction.x}, ${this.direction.y}), speed: ${this.speed}, radius: ${this.radius}`;
+    const builder = new StringBuilder();
+    builder.append(this.model.toString());
+    this.updatebles.forEach((updateble) => {
+      builder.append(updateble.toString());
+    });
+    console.log(builder.toString());
   }
 }

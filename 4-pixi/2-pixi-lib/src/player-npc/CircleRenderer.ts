@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import { SharedTypes } from '../data/appConfig';
 import { IColorOptions } from '../data/configTypes';
 import { ICircleRenderer } from './ICircleRenderer';
-import { ICircle } from './../model/ICircle';
+import { ICircle } from '../model/api/ICircle';
 
 @injectable()
 export class CircleRenderer implements ICircleRenderer {
