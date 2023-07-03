@@ -3,47 +3,43 @@ import { IPlayerNpcModel } from './IPlayerNpcModel';
 import { IVector2d } from './IVector2d';
 
 export class PlayerNpcModel implements IPlayerNpcModel {
-  private _position: IVector2d;
-  private _radius: number;
   private _id: string;
   private _isPlayable: boolean;
+  private _position: IVector2d;
+  private _radius: number;
   private _params: IPlayerNpcParams;
 
-  public set position(position: IVector2d) {
-    this._position.x = position.x;
-    this._position.y = position.y;
-  }
-
-  public get position() {
-    return this._position;
-  }
-
-  public set radius(radius: number) {
-    this._radius = radius;
-  }
-
-  public get radius() {
-    return this._radius;
+  public get id() {
+    return this._id;
   }
 
   public get isPlayable() {
     return this._isPlayable;
   }
 
-  public get id() {
-    return this._id;
+  public get position() {
+    return this._position;
+  }
+
+  public get radius() {
+    return this._radius;
+  }
+
+  public get params() {
+    return this._params;
   }
 
   public set id(id: string) {
     this._id = id;
   }
 
-  public set value(isPlayable: boolean) {
-    this._isPlayable = isPlayable;
+  public set position(position: IVector2d) {
+    this._position.x = position.x;
+    this._position.y = position.y;
   }
 
-  public get params() {
-    return this._params;
+  public set radius(radius: number) {
+    this._radius = radius;
   }
 
   public set params(params: IPlayerNpcParams) {
@@ -51,10 +47,10 @@ export class PlayerNpcModel implements IPlayerNpcModel {
   }
 
   constructor(params: IPlayerNpcParams) {
+    this._id = '';
+    this._isPlayable = false;
     this._position = params.position;
     this._radius = params.radius;
-    this._isPlayable = false;
-    this._id = '';
     this._params = params;
   }
 

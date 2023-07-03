@@ -12,9 +12,12 @@ export class PlayerModel implements IPlayerModel {
   private _radius: number;
   private _params: IPlayerParams;
 
-  public set position(position: IVector2d) {
-    this._position.x = position.x;
-    this._position.y = position.y;
+  public get id() {
+    return this._id;
+  }
+
+  public get isPlayable() {
+    return this._isPlayable;
   }
 
   public get position() {
@@ -25,41 +28,42 @@ export class PlayerModel implements IPlayerModel {
     return this._direction;
   }
 
-  public set direction(direction: IVector2d) {
-    this._direction.x = direction.x;
-    this._direction.y = direction.y;
-  }
-
   public get speed(): number {
     return this._speed;
-  }
-
-  public set radius(radius: number) {
-    this._radius = radius;
   }
 
   public get radius() {
     return this._radius;
   }
 
-  public get isPlayable() {
-    return this._isPlayable;
-  }
-
-  public set isPlayable(isPlayable: boolean) {
-    this._isPlayable = isPlayable;
-  }
-
-  public get id() {
-    return this._id;
+  public get params() {
+    return this._params;
   }
 
   public set id(id: string) {
     this._id = id;
   }
 
-  public get params() {
-    return this._params;
+  public set isPlayable(isPlayable: boolean) {
+    this._isPlayable = isPlayable;
+  }
+
+  public set position(position: IVector2d) {
+    this._position.x = position.x;
+    this._position.y = position.y;
+  }
+
+  public set direction(direction: IVector2d) {
+    this._direction.x = direction.x;
+    this._direction.y = direction.y;
+  }
+
+  public set speed(speed: number) {
+    this._speed = speed;
+  }
+
+  public set radius(radius: number) {
+    this._radius = radius;
   }
 
   public set params(params: IPlayerParams) {
@@ -67,12 +71,12 @@ export class PlayerModel implements IPlayerModel {
   }
 
   constructor(params: IPlayerParams) {
+    this._id = '';
+    this._isPlayable = false;
     this._position = params.position;
     this._direction = new Vector2d(0, 0);
     this._speed = params.speed;
     this._radius = params.radius;
-    this._isPlayable = false;
-    this._id = '';
     this._params = params;
   }
 
