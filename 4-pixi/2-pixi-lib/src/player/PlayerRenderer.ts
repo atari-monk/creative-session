@@ -2,9 +2,8 @@ import * as PIXI from 'pixi.js';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
 import { SharedTypes } from '../data/appConfig';
-import { IColorOptions } from '../data/configTypes';
 import { IPlayerRenderer } from './IPlayerRenderer';
-import { IPlayer } from './IPlayer';
+import { IPlayerModel } from '../model/IPlayerModel';
 
 @injectable()
 export class PlayerRenderer implements IPlayerRenderer {
@@ -13,34 +12,51 @@ export class PlayerRenderer implements IPlayerRenderer {
     private readonly renderer: IBasicRenderer
   ) {}
 
-  draw(
+  draw(stage: PIXI.Container<PIXI.DisplayObject>, model: IPlayerModel): void {
+    this.renderCircle(stage, model);
+    this.renderPosition(stage, model);
+    this.renderDirection(stage, model);
+  }
+
+  private renderCircle(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: IPlayer,
-    colors: IColorOptions
-  ): void {
+    model: IPlayerModel
+  ) {
     this.renderer.drawCircle(
       stage,
-      colors.body,
-      gameObj.position.x,
-      gameObj.position.y,
-      gameObj.radius
+      model.params.colors.body,
+      model.position.x,
+      model.position.y,
+      model.radius
     );
+  }
+
+  private renderPosition(
+    stage: PIXI.Container<PIXI.DisplayObject>,
+    model: IPlayerModel
+  ) {
     this.renderer.drawCircle(
       stage,
-      colors.position,
-      gameObj.position.x,
-      gameObj.position.y,
+      model.params.colors.position,
+      model.position.x,
+      model.position.y,
       2
     );
+  }
+
+  private renderDirection(
+    stage: PIXI.Container<PIXI.DisplayObject>,
+    model: IPlayerModel
+  ) {
     this.renderer.drawLine(
       stage,
-      colors.direction,
+      model.params.colors.direction,
       2,
-      gameObj.position.x,
-      gameObj.position.y,
-      gameObj.direction.x,
-      gameObj.direction.y,
-      gameObj.radius / 2
+      model.position.x,
+      model.position.y,
+      model.direction.x,
+      model.direction.y,
+      model.radius / 2
     );
   }
 }

@@ -47,6 +47,7 @@ export class Player extends GameObject implements IPlayer {
   public toString() {
     const builder = new StringBuilder();
     builder.append(this.model.toString());
+    builder.append('updateables:');
     this.updatebles.forEach((updateble) => {
       builder.append(updateble.toString());
     });
