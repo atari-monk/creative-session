@@ -9,5 +9,4 @@ const playerFactory = new PlayerFactory(container);
 sharedPlayerFactory.register();
 playerFactory.register();
 const player = playerFactory.create();
-console.log(`position: (${player.position.x}, ${player.position.y})`);
-player.diagnoze();
+console.log(player.toString());

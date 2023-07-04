@@ -5,7 +5,7 @@ import {
   playerNpcParams,
 } from '../data/appConfig';
 import { PlayerNpc } from './PlayerNpc';
-import { IIdModel } from '../model/IIdModel';
+import { IIdModel } from '../model/interface/IIdModel';
 import { ICircleRenderer } from './ICircleRenderer';
 import { CircleRenderer } from './CircleRenderer';
 import { IDIFactory } from '../factory/IDIFactory';

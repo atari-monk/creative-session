@@ -13,10 +13,11 @@ export class PlayerKeyboardMovement implements IPlayerUpdater {
   ) {}
 
   public update(deltaTime: number, player: IPlayer) {
-    player.direction = this.keyboard.direction;
-    player.position = new Vector2d(
-      player.position.x + player.direction.x * player.speed * deltaTime,
-      player.position.y + player.direction.y * player.speed * deltaTime
+    const p = player.model;
+    p.direction = this.keyboard.direction;
+    p.position = new Vector2d(
+      p.position.x + p.direction.x * p.speed * deltaTime,
+      p.position.y + p.direction.y * p.speed * deltaTime
     );
   }
 }

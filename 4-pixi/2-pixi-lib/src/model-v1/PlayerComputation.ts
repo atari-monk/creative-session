@@ -5,7 +5,7 @@ import {
   Vector2d,
   IVector2d,
   DirectionFromKeyboard,
-} from './index';
+} from './../index';
 
 export class PlayerComputation {
   private _direction: IVector2d;

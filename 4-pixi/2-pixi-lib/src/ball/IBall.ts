@@ -1,15 +1,9 @@
 import { IGameObject } from '../gameObject/IGameObject';
-import { IPosition } from '../model/IPosition';
-import { IRadius } from '../model/IRadius';
-import { IVelocity } from '../model/IVelocity';
+import { IBallModel } from '../model/IBallModel';
 import { IToString } from './IToString';
 
-export interface IBall
-  extends IGameObject,
-    IPosition,
-    IVelocity,
-    IRadius,
-    IToString {
+export interface IBall extends IGameObject, IToString {
+  model: IBallModel;
   bounce(): void;
   emittVelocity(): void;
 }

@@ -5,9 +5,11 @@ import {
   PlayerComputation,
   BallObject,
   IVector2d,
-} from './index';
-import { GameObject } from './gameObject/GameObject';
-import { IPlayer } from './player/IPlayer';
+  playerParams,
+} from './../index';
+import { GameObject } from './../gameObject/GameObject';
+import { IPlayer } from './../player/IPlayer';
+import { PlayerModel } from '../model/PlayerModel';
 
 export class PlayerObject extends GameObject implements IPlayer {
   private readonly _radius: number;
@@ -16,6 +18,10 @@ export class PlayerObject extends GameObject implements IPlayer {
   private readonly _color: any;
   private readonly _isPlayable: boolean;
   private _clientId: string;
+
+  public get model() {
+    return new PlayerModel(playerParams);
+  }
 
   public get speed() {
     return this.computation.speed;

@@ -2,9 +2,8 @@ import * as PIXI from 'pixi.js';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
 import { SharedTypes } from '../data/appConfig';
-import { IColorOptions } from '../data/configTypes';
-import { IBall } from './IBall';
 import { IBallRenderer } from './IBallRenderer';
+import { IBallModel } from '../model/IBallModel';
 
 @injectable()
 export class BallRenderer implements IBallRenderer {
@@ -13,23 +12,33 @@ export class BallRenderer implements IBallRenderer {
     private readonly renderer: IBasicRenderer
   ) {}
 
-  draw(
+  draw(stage: PIXI.Container<PIXI.DisplayObject>, model: IBallModel): void {
+    this.renderCircle(stage, model);
+    this.renderPosition(stage, model);
+  }
+
+  private renderCircle(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: IBall,
-    colors: IColorOptions
-  ): void {
+    model: IBallModel
+  ) {
     this.renderer.drawCircle(
       stage,
-      colors.body,
-      gameObj.position.x,
-      gameObj.position.y,
-      gameObj.radius
+      model.params.colors.body,
+      model.position.x,
+      model.position.y,
+      model.radius
     );
+  }
+
+  private renderPosition(
+    stage: PIXI.Container<PIXI.DisplayObject>,
+    model: IBallModel
+  ) {
     this.renderer.drawCircle(
       stage,
-      colors.position,
-      gameObj.position.x,
-      gameObj.position.y,
+      model.params.colors.position,
+      model.position.x,
+      model.position.y,
       2
     );
   }

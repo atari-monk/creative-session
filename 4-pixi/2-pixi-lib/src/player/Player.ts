@@ -27,7 +27,7 @@ export class Player extends GameObject implements IPlayer {
   }
 
   public draw(stage: PIXI.Container<PIXI.DisplayObject>): void {
-    this.renderer.draw(stage, this, this._model.params.colors);
+    this.renderer.draw(stage, this._model);
   }
 
   public update(deltaTime: number): void {
@@ -37,7 +37,7 @@ export class Player extends GameObject implements IPlayer {
   }
 
   public kickBall(ball: IBall) {
-    ball.velocity = new Vector2d(
+    ball.model.velocity = new Vector2d(
       this.model.direction.x * this.model.speed,
       this.model.direction.y * this.model.speed
     );

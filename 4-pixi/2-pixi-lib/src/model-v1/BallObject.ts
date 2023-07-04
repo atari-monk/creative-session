@@ -1,12 +1,14 @@
 import * as PIXI from 'pixi.js';
 import { EventEmitter } from 'eventemitter3';
-import { IVectorData } from './IVectorData';
-import { IBallOptions } from './data/configTypes';
-import { IColorOptions } from './data/configTypes';
-import { GameObject } from './gameObject/GameObject';
-import { IVector2d } from './model/IVector2d';
-import { Vector2d } from './model/Vector2d';
-import { IBall } from './ball/IBall';
+import { IVectorData } from './../IVectorData';
+import { IBallOptions } from './../data/configTypes';
+import { IColorOptions } from './../data/configTypes';
+import { GameObject } from './../gameObject/GameObject';
+import { IVector2d } from './../model/IVector2d';
+import { Vector2d } from './../model/Vector2d';
+import { IBall } from './../ball/IBall';
+import { BallModel } from '../model/BallModel';
+import { ballParams } from '../data/appConfig';
 
 export class BallObject extends GameObject implements IBall {
   private _radius: number;
@@ -33,6 +35,10 @@ export class BallObject extends GameObject implements IBall {
     this.isBall = isBall;
     this._velocity = new Vector2d(0, 0);
     this._emitter = emitter;
+  }
+
+  public get model() {
+    return new BallModel(ballParams);
   }
 
   public get position() {
@@ -115,17 +121,6 @@ export class BallObject extends GameObject implements IBall {
     stage.addChild(directionGraphics);
   }
 
-  //   private checkCircularCollision(player: IPlayer) {
-  //     const distanceX = player.position.x - this._position.x;
-  //     const distanceY = player.position.y - this._position.y;
-  //     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-  //     if (distance < player.radius! + this._radius!) {
-  //       console.log('collision');
-  //       return true;
-  //     }
-  //     return false;
-  //   }
-
   public bounce() {
     const currentVelocity = this.velocity;
     const reversedVelocity = new Vector2d(
@@ -136,15 +131,4 @@ export class BallObject extends GameObject implements IBall {
     this.emittVelocity();
     console.log(this._velocity);
   }
-
-  //   public handleCollisions(player: IPlayer) {
-  //     if (!this.checkCircularCollision(player)) return;
-  //     if (player.direction.x !== 0 || player.direction.y !== 0) {
-  //       player.kickBall(this);
-  //       console.log('kick');
-  //     } else {
-  //       this.bounce();
-  //       console.log('bounce');
-  //     }
-  //   }
 }

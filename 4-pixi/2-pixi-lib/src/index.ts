@@ -1,5 +1,5 @@
 export { AppHelper } from './AppHelper';
-export { BallObject } from './BallObject';
+export { BallObject } from './model-v1/BallObject';
 export { EventEmitterLogicManager } from './emitter-logic/EventEmitterLogicManager';
 export { EventEmitterLogicUnit } from './emitter-logic/EventEmitterLogicUnit';
 export { IEventEmitterLogicUnit } from './emitter-logic/IEventEmitterLogicUnit';
@@ -15,7 +15,7 @@ export { LogicManager } from './logic/LogicManager';
 export { LogicManagerGeneric } from './logic/LogicManagerGeneric';
 export { LogicUnit } from './logic/LogicUnit';
 export { PixiRectangle } from './PixiRectangle';
-export { PlayerObject } from './PlayerObject';
+export { PlayerObject } from './model-v1/PlayerObject';
 export { Game } from './Game';
 export { BasicRenderer } from './BasicRenderer';
 export { ISocketLogicUnit } from './socket-logic/ISocketLogicUnit';
@@ -29,7 +29,7 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
-export { PlayerComputation } from './PlayerComputation';
+export { PlayerComputation } from './model-v1/PlayerComputation';
 export {
   IAppHelperOptions,
   IPlayerOptions,
@@ -49,23 +49,18 @@ export {
   playerParams,
   SharedTypes,
 } from './data/appConfig';
-export { CircleModel } from './model/PlayerNpcModel';
-export { IRadius as ICircle } from './model/IRadius';
-export { IPosition } from './model/IPosition';
-export { ISteerable } from './model/ISteerable';
-export { PositionModel } from './model/PositionModel';
-export { SteerableModel } from './model/SteerableModel';
+export { IRadius as ICircle } from './model/interface/IRadius';
+export { IPosition } from './model/interface/IPosition';
+export { ISteerable } from './model/interface/ISteerable';
 export { IVector2d } from './model/IVector2d';
 export { Vector2d } from './model/Vector2d';
 export { PlayerNpc as RivalPlayer } from './player-npc/PlayerNpc';
 export { PlayerNpcFactory as RivalPlayerFactory } from './player-npc/PlayerNpcFactory';
 export { PlayerFactory } from './player/PlayerFactory';
 export { ServiceFactory } from './service/ServiceFactory';
-export { IPlayable } from './model/IPlayable';
-export { Playable } from './model/Playable';
+export { IPlayable } from './model/interface/IPlayable';
 export { IPlayerNpc as IPlayer } from './player-npc/IPlayerNpc';
-export { IIdModel } from './model/IIdModel';
-export { IdModel } from './model/IdModel';
+export { IIdModel } from './model/interface/IIdModel';
 export { IUpdateable } from './gameObject/IUpdateable';
 export { IDrawable } from './gameObject/IDrawable';
 export { IBall } from './ball/IBall';

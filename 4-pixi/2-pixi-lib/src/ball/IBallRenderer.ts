@@ -1,11 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { IColorOptions } from '../data/configTypes';
-import { IBall } from './IBall';
+import { IBallModel } from '../model/IBallModel';
 
 export interface IBallRenderer {
-  draw(
-    stage: PIXI.Container<PIXI.DisplayObject>,
-    gameObj: IBall,
-    colors: IColorOptions
-  ): void;
+  draw(stage: PIXI.Container<PIXI.DisplayObject>, model: IBallModel): void;
 }
