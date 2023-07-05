@@ -11,5 +11,4 @@ serviceFactory.register();
 ballFactory.register();
 
 const ball = ballFactory.create();
-
 console.log(ball.toString());

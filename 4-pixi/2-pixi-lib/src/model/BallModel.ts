@@ -1,7 +1,7 @@
-import { Vector2d } from '..';
+import { Vector2d } from '../model/Vector2d';
 import { IBallParams } from '../data/IBallParams';
-import { IBallModel } from './IBallModel';
-import { IVector2d } from './IVector2d';
+import { IBallModel } from './../model/IBallModel';
+import { IVector2d } from './../model/IVector2d';
 
 export class BallModel implements IBallModel {
   private _id: string;
@@ -18,7 +18,7 @@ export class BallModel implements IBallModel {
     return this._position;
   }
 
-  public get velocity(): IVector2d {
+  public get velocity() {
     return this._velocity;
   }
 
@@ -61,10 +61,10 @@ export class BallModel implements IBallModel {
   }
 
   public toString(): string {
-    return `Ball, id: ${this.id}, ${this.position.toString(
+    return `Ball: id: ${this.id}, ${this.position.toString(
       'position'
     )}, ${this.velocity.toString('velocity')}, radius: ${
       this.radius
-    }, , ${this.params.toString()}`;
+    }, ${this.params.toString()}`;
   }
 }

@@ -65,4 +65,8 @@ export class Ball extends GameObject implements IBall {
     };
     this.emitter.emit(this.VelocityEvent, data);
   }
+
+  toString(): string {
+    return this.model.toString();
+  }
 }

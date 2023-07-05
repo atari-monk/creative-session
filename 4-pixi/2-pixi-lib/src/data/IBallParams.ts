@@ -6,4 +6,5 @@ export interface IBallParams {
   velocity: IVector2d;
   radius: number;
   colors: IColorOptions;
+  toString(): string;
 }

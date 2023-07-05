@@ -116,14 +116,28 @@ export const PlayerNpcTypes = {
   Renderer: Symbol.for(PlayerNpcId + 'Renderer'),
 };
 
-export const playerNpcColors: IColorOptions = {
-  body: blue,
-  position: red,
-  direction: red,
-  toString() {
-    return `Colors, body: ${this.body}, position: ${this.position}, direction: ${this.direction}`;
-  },
+const createColorOptions = (
+  bodyColor: number,
+  positionColor: number,
+  directionColor: number
+): IColorOptions => {
+  const colorOptions: IColorOptions = {
+    body: bodyColor,
+    position: positionColor,
+    direction: directionColor,
+    toString() {
+      return `Colors: ${this.body}, ${this.position}, ${this.direction}`;
+    },
+  };
+
+  return colorOptions;
 };
+
+export const playerNpcColors: IColorOptions = createColorOptions(
+  blue,
+  red,
+  red
+);
 
 const playerNpcOffset = playerUrlParam === '1' ? 250 : -250;
 
@@ -160,11 +174,11 @@ export const PlayerTypes = {
   IPlayerUpdater: Symbol.for(PlayerId + 'IPlayerUpdater'),
 };
 
-export const playerColors: IColorOptions = {
-  body: green,
-  position: blue,
-  direction: blue,
-};
+export const playerColors: IColorOptions = createColorOptions(
+  green,
+  blue,
+  blue
+);
 
 const playerOffset = playerUrlParam === '1' ? -250 : 250;
 
@@ -198,15 +212,18 @@ export const BallTypes = {
   Renderer: Symbol.for(BallId + 'Renderer'),
 };
 
-export const ballColors: IColorOptions = {
-  body: red,
-  position: blue,
-  direction: blue,
-};
+export const ballColors: IColorOptions = createColorOptions(red, blue, blue);
 
 export const ballParams: IBallParams = {
   position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
   velocity: new Vector2d(0, 0),
   radius: ballRadius,
   colors: ballColors,
+  toString() {
+    return `Params: ${this.position.toString(
+      'position'
+    )}, ${this.velocity.toString('velocity')} radius: ${
+      this.radius
+    }, ${this.colors.toString()}`;
+  },
 };
