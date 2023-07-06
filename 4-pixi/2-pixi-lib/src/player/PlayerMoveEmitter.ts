@@ -20,7 +20,7 @@ export class PlayerMoveEmitter implements IPlayerUpdater {
   public update(deltaTime: number, player: IPlayer) {
     const p = player.model;
     if (p.position.isEqual(this.previousPosition)) return;
-    this.positionEmitter.emitPosition(p.id, p.position);
+    this.positionEmitter.emitPosition(p.clientId, p.position);
     this.previousPosition = new Vector2d(p.position.x, p.position.y);
     console.log('emitt possition');
   }

@@ -8,10 +8,10 @@ export class BallManager {
   }
 
   public updateBallPosition(newPosition: IVector2d) {
-    this.ball.position = newPosition;
+    this.ball.model.position = newPosition;
   }
 
   public updateBallVelocity(newVelocity: IVector2d) {
-    this.ball.velocity = newVelocity;
+    this.ball.model.velocity = newVelocity;
   }
 }

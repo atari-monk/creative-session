@@ -4,7 +4,7 @@ import { IPlayerModel } from './IPlayerModel';
 import { IVector2d } from './IVector2d';
 
 export class PlayerModel implements IPlayerModel {
-  private _id: string;
+  private _clientId: string;
   private _isPlayable: boolean;
   private _position: IVector2d;
   private _direction: IVector2d;
@@ -12,8 +12,8 @@ export class PlayerModel implements IPlayerModel {
   private _radius: number;
   private _params: IPlayerParams;
 
-  public get id() {
-    return this._id;
+  public get clientId() {
+    return this._clientId;
   }
 
   public get isPlayable() {
@@ -40,8 +40,8 @@ export class PlayerModel implements IPlayerModel {
     return this._params;
   }
 
-  public set id(id: string) {
-    this._id = id;
+  public set clientId(clientId: string) {
+    this._clientId = clientId;
   }
 
   public set isPlayable(isPlayable: boolean) {
@@ -71,7 +71,7 @@ export class PlayerModel implements IPlayerModel {
   }
 
   constructor(params: IPlayerParams) {
-    this._id = '';
+    this._clientId = '';
     this._isPlayable = true;
     this._position = params.position;
     this._direction = new Vector2d(0, 0);
@@ -81,7 +81,7 @@ export class PlayerModel implements IPlayerModel {
   }
 
   public toString(): string {
-    return `Player, id: ${this.id}, isPlayable: ${
+    return `Player, clientId: ${this.clientId}, isPlayable: ${
       this.isPlayable
     }, ${this.position.toString('position')}, ${this.direction}, speed: ${
       this.speed

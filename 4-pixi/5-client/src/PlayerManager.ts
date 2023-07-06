@@ -23,15 +23,15 @@ export class PlayerManager implements IPlayerManager {
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
     }
-    player.position = newPosition;
+    player.model.position = newPosition;
   }
 
   public getNonPlayablePlayer() {
-    return this._playerObjs.find((player) => !player.isPlayable);
+    return this._playerObjs.find((player) => !player.model.isPlayable);
   }
 
   public getPlayablePlayer() {
-    return this._playerObjs.find((player) => player.isPlayable);
+    return this._playerObjs.find((player) => player.model.isPlayable);
   }
 
   public addPlayerObj(player: IPlayer) {

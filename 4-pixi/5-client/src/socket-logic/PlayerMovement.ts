@@ -28,6 +28,6 @@ export class PlayerMovement extends SocketLogicUnit {
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
     }
-    player.position = newPosition;
+    player.model.position = newPosition;
   }
 }

@@ -2,7 +2,7 @@ import { ICircle } from '..';
 import { IToString } from '../ball/IToString';
 import { IPlayerParams } from '../data/appConfig';
 import { IDirection } from './interface/IDirection';
-import { IIdModel } from './interface/IIdModel';
+import { IClientId } from './interface/IClientId';
 import { IPlayable } from './interface/IPlayable';
 import { IPosition } from './interface/IPosition';
 import { IRadius } from './interface/IRadius';
@@ -15,7 +15,7 @@ export interface IPlayerModel
     IRadius,
     ICircle,
     IPlayable,
-    IIdModel,
+    IClientId,
     IToString {
   params: IPlayerParams;
 }

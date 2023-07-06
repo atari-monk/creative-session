@@ -4,14 +4,14 @@ import { IBallModel } from './../model/IBallModel';
 import { IVector2d } from './../model/IVector2d';
 
 export class BallModel implements IBallModel {
-  private _id: string;
+  private _clientId: string;
   private _position: IVector2d;
   private _velocity: IVector2d;
   private _radius: number;
   private _params: IBallParams;
 
-  public get id() {
-    return this._id;
+  public get clientId() {
+    return this._clientId;
   }
 
   public get position() {
@@ -30,8 +30,8 @@ export class BallModel implements IBallModel {
     return this._params;
   }
 
-  public set id(id: string) {
-    this._id = id;
+  public set clientId(clientId: string) {
+    this._clientId = clientId;
   }
 
   public set position(position: IVector2d) {
@@ -53,7 +53,7 @@ export class BallModel implements IBallModel {
   }
 
   constructor(params: IBallParams) {
-    this._id = '';
+    this._clientId = '';
     this._position = params.position;
     this._velocity = new Vector2d(0, 0);
     this._radius = params.radius;
@@ -61,7 +61,7 @@ export class BallModel implements IBallModel {
   }
 
   public toString(): string {
-    return `Ball: id: ${this.id}, ${this.position.toString(
+    return `Ball: clientId: ${this.clientId}, ${this.position.toString(
       'position'
     )}, ${this.velocity.toString('velocity')}, radius: ${
       this.radius

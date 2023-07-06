@@ -3,14 +3,14 @@ import { IPlayerNpcModel } from './IPlayerNpcModel';
 import { IVector2d } from './IVector2d';
 
 export class PlayerNpcModel implements IPlayerNpcModel {
-  private _id: string;
+  private _clientId: string;
   private _isPlayable: boolean;
   private _position: IVector2d;
   private _radius: number;
   private _params: IPlayerNpcParams;
 
-  public get id() {
-    return this._id;
+  public get clientId() {
+    return this._clientId;
   }
 
   public get isPlayable() {
@@ -29,8 +29,8 @@ export class PlayerNpcModel implements IPlayerNpcModel {
     return this._params;
   }
 
-  public set id(id: string) {
-    this._id = id;
+  public set clientId(clientId: string) {
+    this._clientId = clientId;
   }
 
   public set position(position: IVector2d) {
@@ -47,7 +47,7 @@ export class PlayerNpcModel implements IPlayerNpcModel {
   }
 
   constructor(params: IPlayerNpcParams) {
-    this._id = '';
+    this._clientId = '';
     this._isPlayable = false;
     this._position = params.position;
     this._radius = params.radius;
@@ -55,7 +55,7 @@ export class PlayerNpcModel implements IPlayerNpcModel {
   }
 
   public toString() {
-    return `PlayerNpc, id: ${this.id}, playable: ${
+    return `PlayerNpc, clientId: ${this.clientId}, playable: ${
       this.isPlayable
     }, ${this.position.toString('position')}, radius: ${
       this.radius

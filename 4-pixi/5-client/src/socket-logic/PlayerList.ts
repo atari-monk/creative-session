@@ -16,7 +16,7 @@ export class PlayerList extends SocketLogicUnit {
     if (!newClientId) return;
     const player = this.playerManager.getNonPlayablePlayer();
     if (!player) throw new Error('No second player!');
-    player.id = newClientId;
+    player.model.clientId = newClientId;
     this.playerManager.addPlayer(newClientId, player);
     console.log(`New player connected, id: ${newClientId}'`);
   }

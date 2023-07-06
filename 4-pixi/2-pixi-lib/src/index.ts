@@ -60,7 +60,7 @@ export { PlayerFactory } from './player/PlayerFactory';
 export { ServiceFactory } from './service/ServiceFactory';
 export { IPlayable } from './model/interface/IPlayable';
 export { IPlayerNpc as IPlayer } from './player-npc/IPlayerNpc';
-export { IIdModel } from './model/interface/IIdModel';
+export { IClientId as IIdModel } from './model/interface/IClientId';
 export { IUpdateable } from './gameObject/IUpdateable';
 export { IDrawable } from './gameObject/IDrawable';
 export { IBall } from './ball/IBall';
