@@ -106,6 +106,7 @@ export const ballOptions: IBallOptions = {
 export const SharedTypes = {
   BasicRenderer: Symbol.for('BasicRenderer'),
   EventEmitter: Symbol.for('EventEmitter'),
+  GameObjsManager: Symbol.for('GameObjectManager'),
 };
 
 const PlayerNpcId = 'PlayerNpc';

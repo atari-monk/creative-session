@@ -72,7 +72,7 @@ export class PlayerModel implements IPlayerModel {
 
   constructor(params: IPlayerParams) {
     this._id = '';
-    this._isPlayable = false;
+    this._isPlayable = true;
     this._position = params.position;
     this._direction = new Vector2d(0, 0);
     this._speed = params.speed;

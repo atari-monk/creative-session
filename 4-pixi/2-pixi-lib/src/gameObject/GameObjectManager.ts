@@ -1,10 +1,12 @@
-import { IGameObjectManager } from './IGameObjectManager';
-import { Ball } from './ball/Ball';
-import { GameObject } from './gameObject/GameObject';
-import { BallObject } from './model-v1/BallObject';
-import { PlayerObject } from './model-v1/PlayerObject';
-import { Player } from './player/Player';
+import { IGameObjectManager } from '../IGameObjectManager';
+import { Ball } from '../ball/Ball';
+import { GameObject } from './GameObject';
+import { BallObject } from '../model-v1/BallObject';
+import { PlayerObject } from '../model-v1/PlayerObject';
+import { Player } from '../player/Player';
+import { injectable } from 'inversify';
 
+@injectable()
 export class GameObjectManager implements IGameObjectManager {
   private _gameObjects: GameObject[];
 

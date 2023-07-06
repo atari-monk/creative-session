@@ -9,7 +9,8 @@
     "build": "npx webpack --config webpack.config.js",
     "debug-rival": "ndb ./dist/test/notPlayablePlayerFactoryTest.js",
     "debug-hero": "ndb ./dist/test/playablePlayerFactoryTest.js",
-    "debug-ball": "ndb ./dist/ball/ballFactoryTest.js"
+    "debug-ball": "ndb ./dist/ball/ballFactoryTest.js",
+    "debug-gameObjsManager": "ndb ./dist/gameObject/gameObjectManagerTest.js"
   },
   "keywords": [],
   "author": "atari-monk",
