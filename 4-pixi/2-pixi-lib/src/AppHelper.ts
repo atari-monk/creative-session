@@ -1,13 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { Game } from './Game';
-import {
-  IAppHelperOptions,
-  GameObject,
-  BallObject,
-  PlayerObject,
-} from './index';
-import { Ball } from './ball/Ball';
-import { Player } from './player/Player';
+import { IAppHelperOptions } from './index';
 
 export class AppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
@@ -18,7 +11,41 @@ export class AppHelper {
   private _backgroundColor: number;
   private _fullScreen: boolean;
 
-  private _gameObjects: GameObject[] = [];
+  get canvas() {
+    return this._canvas;
+  }
+
+  get backgroundColor() {
+    return this._backgroundColor;
+  }
+
+  get fullScreen() {
+    return this._fullScreen;
+  }
+
+  get width() {
+    return this._width;
+  }
+
+  get height() {
+    return this._height;
+  }
+
+  set backgroundColor(value) {
+    this._backgroundColor = value;
+  }
+
+  set fullScreen(value) {
+    this._fullScreen = value;
+  }
+
+  set width(value) {
+    this._width = value;
+  }
+
+  set height(value) {
+    this._height = value;
+  }
 
   constructor(options: IAppHelperOptions) {
     const { screenSize, backgroundColor, fullScreen, canvasId } = options;
@@ -81,80 +108,5 @@ export class AppHelper {
       }
       this.pixiApp.renderer.resize(this._width, this._height);
     });
-  }
-
-  public addGameObject(gameObject: GameObject) {
-    this._gameObjects.push(gameObject);
-  }
-
-  public removeGameObject(gameObject: GameObject) {
-    const index = this._gameObjects.indexOf(gameObject);
-    if (index !== -1) {
-      this._gameObjects.splice(index, 1);
-    }
-  }
-
-  get canvas() {
-    return this._canvas;
-  }
-
-  get backgroundColor() {
-    return this._backgroundColor;
-  }
-
-  set backgroundColor(value) {
-    this._backgroundColor = value;
-  }
-
-  get fullScreen() {
-    return this._fullScreen;
-  }
-
-  set fullScreen(value) {
-    this._fullScreen = value;
-  }
-
-  get width() {
-    return this._width;
-  }
-
-  set width(value) {
-    this._width = value;
-  }
-
-  get height() {
-    return this._height;
-  }
-
-  set height(value) {
-    this._height = value;
-  }
-
-  get gameObjects() {
-    return this._gameObjects;
-  }
-
-  private findGameObject<T>(predicate: (obj: any) => boolean): T {
-    return this.gameObjects.find(predicate) as T;
-  }
-
-  public findBall(): Ball {
-    return this.findGameObject<Ball>((obj) => obj instanceof Ball);
-  }
-
-  public findPlayer(): Player {
-    return this.findGameObject<Player>(
-      (obj) => obj instanceof Player && obj.model.isPlayable
-    );
-  }
-
-  public findBallObject(): BallObject {
-    return this.findGameObject<BallObject>((obj) => obj instanceof BallObject);
-  }
-
-  public findPlayerObject(): PlayerObject {
-    return this.findGameObject<PlayerObject>(
-      (obj) => obj instanceof PlayerObject && obj.isPlayable
-    );
   }
 }

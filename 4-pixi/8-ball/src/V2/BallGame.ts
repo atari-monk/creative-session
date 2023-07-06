@@ -9,9 +9,20 @@ export class BallGame {
     const container = new Container();
     const appFactory = new AppFactory();
     const playersFactory = new PlayersFactory(container);
-    playersFactory.addPlayers(appFactory);
-    const ballFactory = new BallFactory(container, appFactory);
-    new ClientFactory(playersFactory, ballFactory.ball);
+    const emitter = playersFactory.emitter;
+    const ballFactory = new BallFactory(container);
+
+    const gameObjsManager = appFactory.gameObjsManager;
+    //gameObjsManager.addGameObject(playersFactory.player1);
+    //gameObjsManager.addGameObject(playersFactory.player2);
+    gameObjsManager.addGameObject(ballFactory.ball);
+
+    new ClientFactory(
+      emitter,
+      [playersFactory.player1, playersFactory.player2],
+      ballFactory.ball
+    );
+
     appFactory.start();
   }
 }

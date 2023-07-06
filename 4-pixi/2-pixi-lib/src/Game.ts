@@ -1,12 +1,11 @@
 import * as PIXI from 'pixi.js';
-import { AppHelper } from './AppHelper';
 import { IBall } from './ball/IBall';
 import { IPlayer } from './player/IPlayer';
 import { IGameUpdateable } from './IGameUpdateable';
+import { IGameObjectManager } from './IGameObjectManager';
 
-//rename it to game
 export class Game {
-  protected appHelper: AppHelper;
+  protected gameObjectManager: IGameObjectManager;
   private pixiApp: PIXI.Application<PIXI.ICanvas>;
   private _ball!: IBall;
   private _player!: IPlayer;
@@ -20,11 +19,11 @@ export class Game {
   }
 
   constructor(
-    appHelper: AppHelper,
     pixiApp: PIXI.Application<PIXI.ICanvas>,
+    gameObjectManager: IGameObjectManager,
     private readonly gameUpdateable: IGameUpdateable
   ) {
-    this.appHelper = appHelper;
+    this.gameObjectManager = gameObjectManager;
     this.pixiApp = pixiApp;
   }
 
@@ -34,10 +33,22 @@ export class Game {
   }
 
   private updateAndDrawGameObjects(deltaTime: number) {
-    for (const gameObject of this.appHelper.gameObjects) {
+    for (const gameObject of this.gameObjectManager.gameObjects) {
       gameObject.update(deltaTime);
       gameObject.draw(this.pixiApp.stage);
     }
     this.gameUpdateable.Update(deltaTime, this._ball, this._player);
+  }
+
+  public setBallGameObjectsForVer1() {
+    this.gameObjectManager.assertGameObjects();
+    this.ball = this.gameObjectManager.findBallObject();
+    this.player = this.gameObjectManager.findPlayerObject();
+  }
+
+  public setBallGameObjectsForVer2() {
+    this.gameObjectManager.assertGameObjects();
+    this.ball = this.gameObjectManager.findBall();
+    this.player = this.gameObjectManager.findPlayer();
   }
 }

@@ -15,7 +15,6 @@ import {
   PositionEmitter,
   PlayerComputation,
 } from 'atari-monk-pixi-lib';
-import { AppFactory } from './AppFactory';
 
 export class PlayersFactory {
   private _emitter: EventEmitter;
@@ -65,10 +64,5 @@ export class PlayersFactory {
       screenSize.height / 2
     );
     return player;
-  }
-
-  public addPlayers(appFactory: AppFactory) {
-    appFactory.appHelper.addGameObject(this._player1);
-    appFactory.appHelper.addGameObject(this._player2);
   }
 }

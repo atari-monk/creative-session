@@ -6,7 +6,6 @@ import {
   IPlayer,
   SharedTypes,
 } from 'atari-monk-pixi-lib';
-import { AppFactory } from './AppFactory';
 import { Container } from 'inversify';
 
 export class PlayersFactory {
@@ -26,7 +25,7 @@ export class PlayersFactory {
     return this._player2;
   }
 
-  constructor(private readonly container: Container) {
+  constructor(container: Container) {
     const serviceFactory = new ServiceFactory(container);
     const rivalPlayerFactory = new RivalPlayerFactory(container);
     const playerFactory = new PlayerFactory(container);
@@ -36,10 +35,5 @@ export class PlayersFactory {
     this._emitter = container.get<EventEmitter>(SharedTypes.EventEmitter);
     this._player1 = playerFactory.create();
     this._player2 = rivalPlayerFactory.create();
-  }
-
-  public addPlayers(appFactory: AppFactory) {
-    appFactory.appHelper.addGameObject(this._player1);
-    appFactory.appHelper.addGameObject(this._player2);
   }
 }

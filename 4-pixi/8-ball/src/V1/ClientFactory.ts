@@ -1,6 +1,8 @@
 import { Manager, Socket } from 'socket.io-client';
 import {
   EventEmitterLogicManager,
+  IBall,
+  PlayerObject,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
 import {
@@ -19,16 +21,19 @@ import {
   PlayerEventEmitterLogicUnit,
   BallEventEmitterLogicUnit,
 } from 'atari-monk-client';
-import { PlayersFactory } from './PlayersFactory';
-import { BallFactory } from './BallFactory';
+import EventEmitter from 'eventemitter3';
 
 export class ClientFactory {
   private socket: Socket;
 
-  constructor(playersFactory: PlayersFactory, ballFactory: BallFactory) {
+  constructor(
+    private readonly eventEmitter: EventEmitter,
+    players: PlayerObject[],
+    ball: IBall
+  ) {
     this.socket = this.produceSocketLogic();
-    this.producePlayerSocketLogic(playersFactory);
-    this.produceBallSocketLogic(ballFactory, playersFactory);
+    this.producePlayerSocketLogic(players);
+    this.produceBallSocketLogic(ball);
   }
 
   private produceSocketLogic() {
@@ -57,19 +62,20 @@ export class ClientFactory {
     return clientSocketLogicManager;
   }
 
-  private producePlayerSocketLogic(playersFactory: PlayersFactory) {
-    const playerManager = this.createPlayerManager(playersFactory);
+  private producePlayerSocketLogic(players: PlayerObject[]) {
+    const playerManager = this.createPlayerManager(players);
     const playerSocketLogicManager =
       this.createPlayerSocketLogic(playerManager);
     const playerEmitterLogicManager = this.createPlayerEmitterLogic();
     playerSocketLogicManager.initializeSocket(this.socket);
-    playerEmitterLogicManager.initializeEmitter(playersFactory.emitter);
+    playerEmitterLogicManager.initializeEmitter(this.eventEmitter);
   }
 
-  private createPlayerManager(playersFactory: PlayersFactory) {
+  private createPlayerManager(players: PlayerObject[]) {
     const playerManager = new PlayerManager();
-    playerManager.addPlayerObj(playersFactory.player1);
-    playerManager.addPlayerObj(playersFactory.player2);
+    players.forEach((player) => {
+      playerManager.addPlayerObj(player);
+    });
     return playerManager;
   }
 
@@ -103,15 +109,12 @@ export class ClientFactory {
     return playerEmitterLogicManager;
   }
 
-  private produceBallSocketLogic(
-    ballFactory: BallFactory,
-    playersFactory: PlayersFactory
-  ) {
-    const ballManager = new BallManager(ballFactory.ball);
+  private produceBallSocketLogic(ball: IBall) {
+    const ballManager = new BallManager(ball);
     const ballSocketLogicManager = this.createBallSocketLogic(ballManager);
     const ballEmitterLogicManager = this.createBallEmitterLogic();
     ballSocketLogicManager.initializeSocket(this.socket);
-    ballEmitterLogicManager.initializeEmitter(playersFactory.emitter);
+    ballEmitterLogicManager.initializeEmitter(this.eventEmitter);
   }
 
   private createBallSocketLogic(ballManager: BallManager) {

@@ -69,3 +69,5 @@ export { BallFactory } from './ball/BallFactory';
 export { BallRenderer } from './ball/BallRenderer';
 export { IGameUpdateable } from './IGameUpdateable';
 export { Collider } from './Collider';
+export { IGameObjectManager } from './IGameObjectManager';
+export { GameObjectManager } from './GameObjectManager';
