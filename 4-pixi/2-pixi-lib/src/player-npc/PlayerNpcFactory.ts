@@ -1,9 +1,6 @@
 import { Container } from 'inversify';
 import { PlayerNpcModel } from '../model/PlayerNpcModel';
-import {
-  PlayerNpcTypes,
-  playerNpcParams,
-} from '../data/appConfig';
+import { PlayerNpcTypes, playerNpcParams } from '../data/appConfig';
 import { PlayerNpc } from './PlayerNpc';
 import { IIdModel } from '../model/interface/IIdModel';
 import { ICircleRenderer } from './ICircleRenderer';
@@ -18,14 +15,15 @@ export class PlayerNpcFactory implements IDIFactory {
     this.container.bind<IIdModel>(PlayerNpcTypes.Model).toDynamicValue(() => {
       return new PlayerNpcModel(playerNpcParams);
     });
-    
+
     this.container
       .bind<ICircleRenderer>(PlayerNpcTypes.Renderer)
       .to(CircleRenderer);
-    //this.container.bind<IPlayerNpc>(PlayerNpcTypes.Player).to(PlayerNpc);
+
+    this.container.bind<IPlayerNpc>(PlayerNpcTypes.Player).to(PlayerNpc);
   }
 
   public create() {
-    return this.container.get<IPlayerNpc>(PlayerNpc);
+    return this.container.get<IPlayerNpc>(PlayerNpcTypes.Player);
   }
 }

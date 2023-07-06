@@ -12,4 +12,4 @@ playerFactory.register();
 
 const player = playerFactory.create();
 
-console.log(player);
+console.log(player.toString());

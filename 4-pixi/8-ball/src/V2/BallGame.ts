@@ -13,8 +13,8 @@ export class BallGame {
     const ballFactory = new BallFactory(container);
 
     const gameObjsManager = appFactory.gameObjsManager;
-    //gameObjsManager.addGameObject(playersFactory.player1);
-    //gameObjsManager.addGameObject(playersFactory.player2);
+    gameObjsManager.addGameObject(playersFactory.player1);
+    gameObjsManager.addGameObject(playersFactory.player2);
     gameObjsManager.addGameObject(ballFactory.ball);
 
     new ClientFactory(

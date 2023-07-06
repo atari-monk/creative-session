@@ -7,11 +7,12 @@ import {
   SharedTypes,
 } from 'atari-monk-pixi-lib';
 import { Container } from 'inversify';
+import { IPlayerNpc } from 'atari-monk-pixi-lib/player-npc/IPlayerNpc';
 
 export class PlayersFactory {
   private _emitter: EventEmitter;
   private _player1: IPlayer;
-  private _player2: IPlayer;
+  private _player2: IPlayerNpc;
 
   public get emitter() {
     return this._emitter;

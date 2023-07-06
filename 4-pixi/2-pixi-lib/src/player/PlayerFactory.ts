@@ -21,6 +21,7 @@ import EventEmitter from 'eventemitter3';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { PlayerModel } from '../model/PlayerModel';
+import { IPlayer } from './IPlayer';
 
 export class PlayerFactory implements IDIFactory {
   constructor(private readonly container: Container) {}
@@ -30,7 +31,7 @@ export class PlayerFactory implements IDIFactory {
     this.RegisterRenderer();
     this.RegisterKeyboard();
     this.RegisterUpdateables();
-    //this.container.bind<IPlayer>(PlayerTypes.Player).to(Player);
+    this.container.bind<IPlayer>(PlayerTypes.Player).to(Player);
   }
 
   private RegisterModel() {
@@ -79,6 +80,6 @@ export class PlayerFactory implements IDIFactory {
   }
 
   public create() {
-    return this.container.get<Player>(Player);
+    return this.container.get<IPlayer>(PlayerTypes.Player);
   }
 }
