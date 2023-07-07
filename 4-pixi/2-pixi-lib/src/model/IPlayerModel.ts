@@ -1,17 +1,21 @@
-import { ICircle } from '..';
 import { IToString } from '../ball/IToString';
 import { IPlayerParams } from '../data/appConfig';
+import { ICircle } from './interface/ICircle';
+import { IClientId } from './interface/IClientId';
 import { IDirection } from './interface/IDirection';
+import { IPlayable } from './interface/IPlayable';
+import { IPosition } from './interface/IPosition';
 import { IRadius } from './interface/IRadius';
 import { ISpeed } from './interface/ISpeed';
-import { IPlayerAsClient } from './IPlayerAsClient';
 
 export interface IPlayerModel
-  extends IDirection,
+  extends IPosition,
+    IDirection,
     ISpeed,
     IRadius,
     ICircle,
-    IPlayerAsClient,
+    IPlayable,
+    IClientId,
     IToString {
   params: IPlayerParams;
 }

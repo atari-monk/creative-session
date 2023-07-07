@@ -40,24 +40,25 @@ export {
   player2Options,
   ballOptions,
   keys,
-  playerNpcColors as rivalColors,
-  playerNpcParams as rivalPlayer,
+  playerNpcColors,
+  playerNpcParams,
   playerColors,
   playerParams,
   SharedTypes,
 } from './data/appConfig';
-export { IRadius as ICircle } from './model/interface/IRadius';
+export { IRadius } from './model/interface/IRadius';
 export { IPosition } from './model/interface/IPosition';
 export { ISteerable } from './model/interface/ISteerable';
 export { IVector2d } from './model/IVector2d';
 export { Vector2d } from './model/Vector2d';
-export { PlayerNpc as RivalPlayer } from './player-npc/PlayerNpc';
-export { PlayerNpcFactory as RivalPlayerFactory } from './player-npc/PlayerNpcFactory';
+export { PlayerNpc } from './player-npc/PlayerNpc';
+export { PlayerNpcFactory } from './player-npc/PlayerNpcFactory';
 export { PlayerFactory } from './player/PlayerFactory';
 export { ServiceFactory } from './service/ServiceFactory';
 export { IPlayable } from './model/interface/IPlayable';
-export { IPlayerNpc as IPlayer } from './player-npc/IPlayerNpc';
-export { IClientId as IIdModel } from './model/interface/IClientId';
+export { IPlayer } from './player/IPlayer';
+export { IPlayerNpc } from './player-npc/IPlayerNpc';
+export { IClientId } from './model/interface/IClientId';
 export { IUpdateable } from './gameObject/IUpdateable';
 export { IDrawable } from './gameObject/IDrawable';
 export { IBall } from './ball/IBall';
@@ -68,4 +69,3 @@ export { IGameUpdateable } from './IGameUpdateable';
 export { Collider } from './Collider';
 export { IGameObjectManager } from './IGameObjectManager';
 export { GameObjectManager } from './gameObject/GameObjectManager';
-export { IPlayerAsClient } from './model/IPlayerAsClient';

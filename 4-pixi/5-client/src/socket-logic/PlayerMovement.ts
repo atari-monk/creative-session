@@ -24,7 +24,7 @@ export class PlayerMovement extends SocketLogicUnit {
   }
 
   private updatePlayerPosition(clientId: string, newPosition: IVector2d): void {
-    const player = this.playerManager.getPlayer(clientId);
+    const player = this.playerManager.getPlayerNpc(clientId);
     if (!player) {
       throw new Error(`No player with id: ${clientId}`);
     }

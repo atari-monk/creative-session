@@ -17,7 +17,7 @@ export class PlayerList extends SocketLogicUnit {
     const player = this.playerManager.getPlayerNpc('0');
     if (!player) throw new Error('No second player!');
     player.model.clientId = newClientId;
-    this.playerManager.addPlayer(newClientId, player);
+    this.playerManager.addPlayerNpc(newClientId, player);
     console.log(`Rival Player connected to server, id: ${newClientId}'`);
   }
 }
