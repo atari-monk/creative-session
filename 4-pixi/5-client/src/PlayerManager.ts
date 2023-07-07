@@ -4,7 +4,6 @@ import { IPlayerManager } from './IPlayerManager.js';
 export class PlayerManager implements IPlayerManager {
   private _playerObjs: IPlayer[] = [];
   private _players: { [key: string]: IPlayer } = {};
-  private clientId?: string;
 
   public addPlayer(clientId: string, player: IPlayer) {
     this._players[clientId] = player;
@@ -36,9 +35,5 @@ export class PlayerManager implements IPlayerManager {
 
   public addPlayerObj(player: IPlayer) {
     this._playerObjs.push(player);
-  }
-
-  public getClientId() {
-    return this.clientId;
   }
 }
