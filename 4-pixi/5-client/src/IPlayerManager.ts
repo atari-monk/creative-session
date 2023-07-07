@@ -8,5 +8,4 @@ export interface IPlayerManager {
   getNonPlayablePlayer(): IPlayer | undefined;
   getPlayablePlayer(): IPlayer | undefined;
   addPlayerObj(player: IPlayer): void;
-  //getClientId(): string | undefined;
 }

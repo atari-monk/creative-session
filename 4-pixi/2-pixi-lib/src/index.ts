@@ -71,3 +71,4 @@ export { IGameUpdateable } from './IGameUpdateable';
 export { Collider } from './Collider';
 export { IGameObjectManager } from './IGameObjectManager';
 export { GameObjectManager } from './gameObject/GameObjectManager';
+export { IPlayerAsClient } from './model/IPlayerAsClient';
