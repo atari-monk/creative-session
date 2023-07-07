@@ -1,8 +1,6 @@
 import { IGameObjectManager } from '../IGameObjectManager';
 import { Ball } from '../ball/Ball';
 import { GameObject } from './GameObject';
-import { BallObject } from '../model-v1/BallObject';
-import { PlayerObject } from '../model-v1/PlayerObject';
 import { Player } from '../player/Player';
 import { injectable } from 'inversify';
 
@@ -40,16 +38,6 @@ export class GameObjectManager implements IGameObjectManager {
   public findPlayer(): Player {
     return this.findGameObject<Player>(
       (obj) => obj instanceof Player && obj.model.isPlayable
-    );
-  }
-
-  public findBallObject(): BallObject {
-    return this.findGameObject<BallObject>((obj) => obj instanceof BallObject);
-  }
-
-  public findPlayerObject(): PlayerObject {
-    return this.findGameObject<PlayerObject>(
-      (obj) => obj instanceof PlayerObject && obj.isPlayable
     );
   }
 

@@ -42,8 +42,8 @@ export class Game {
 
   public setBallGameObjectsForVer1() {
     this.gameObjectManager.assertGameObjects();
-    this.ball = this.gameObjectManager.findBallObject();
-    this.player = this.gameObjectManager.findPlayerObject();
+    this.ball = this.gameObjectManager.findBall();
+    this.player = this.gameObjectManager.findPlayer();
   }
 
   public setBallGameObjectsForVer2() {

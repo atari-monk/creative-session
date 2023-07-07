@@ -1,5 +1,4 @@
 export { AppHelper } from './AppHelper';
-export { BallObject } from './model-v1/BallObject';
 export { EventEmitterLogicManager } from './emitter-logic/EventEmitterLogicManager';
 export { EventEmitterLogicUnit } from './emitter-logic/EventEmitterLogicUnit';
 export { IEventEmitterLogicUnit } from './emitter-logic/IEventEmitterLogicUnit';
@@ -15,7 +14,6 @@ export { LogicManager } from './logic/LogicManager';
 export { LogicManagerGeneric } from './logic/LogicManagerGeneric';
 export { LogicUnit } from './logic/LogicUnit';
 export { PixiRectangle } from './PixiRectangle';
-export { PlayerObject } from './model-v1/PlayerObject';
 export { Game } from './Game';
 export { BasicRenderer } from './BasicRenderer';
 export { ISocketLogicUnit } from './socket-logic/ISocketLogicUnit';
@@ -29,7 +27,6 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
-export { PlayerComputation } from './model-v1/PlayerComputation';
 export {
   IAppHelperOptions,
   IPlayerOptions,
