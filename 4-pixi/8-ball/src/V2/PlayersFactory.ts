@@ -18,11 +18,11 @@ export class PlayersFactory {
     return this._emitter;
   }
 
-  public get player1() {
+  public get player1(): IPlayer {
     return this._player1;
   }
 
-  public get player2() {
+  public get player2(): IPlayerNpc  {
     return this._player2;
   }
 

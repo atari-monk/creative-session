@@ -79,7 +79,7 @@ export class PlayerFactory implements IDIFactory {
       .inSingletonScope();
   }
 
-  public create() {
+  public create(): IPlayer {
     return this.container.get<IPlayer>(PlayerTypes.Player);
   }
 }

@@ -14,23 +14,24 @@ export class PlayerConnectLogic extends SocketLogicUnit {
   protected logicUnit() {
     try {
       const clientId = this.socket.id;
-      const playablePlayer = this.playerManager.getPlayablePlayer();
+      const player = this.playerManager.getPlayer('0');
 
-      if (!playablePlayer) {
-        this.noPlayablePlayerError();
+      if (!player) {
+        this.noPlayerError();
         return;
       }
 
-      playablePlayer.model.clientId = clientId;
-      this.playerManager.addPlayer(clientId, playablePlayer);
+      player.model.clientId = clientId;
+      this.playerManager.removePlayer('0');
+      this.playerManager.addPlayer(clientId, player);
 
-      console.log(`Connected to server, id: ${clientId}`);
+      console.log(`Player connected to server, id: ${clientId}`);
     } catch (err) {
       console.error('Connection error:', (err as Error).message);
     }
   }
 
-  private noPlayablePlayerError() {
+  private noPlayerError() {
     const message =
       'Please add ?player=1 or 2 to url and refresh to select your player. Select a number other than your friend.';
     throw new Error(message);

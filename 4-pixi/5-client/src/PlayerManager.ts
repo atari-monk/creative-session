@@ -1,9 +1,11 @@
 import { IPlayer, IVector2d } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from './IPlayerManager.js';
+import { IPlayerNpc } from 'atari-monk-pixi-lib/player-npc/IPlayerNpc.js';
+import { Socket } from 'socket.io-client';
 
 export class PlayerManager implements IPlayerManager {
-  private _playerObjs: IPlayer[] = [];
-  private _players: { [key: string]: IPlayer } = {};
+  private _players: { [clientId: string]: IPlayer } = {};
+  private _playerNpcs: { [clientId: string]: IPlayerNpc } = {};
 
   public addPlayer(clientId: string, player: IPlayer) {
     this._players[clientId] = player;
@@ -25,15 +27,35 @@ export class PlayerManager implements IPlayerManager {
     player.model.position = newPosition;
   }
 
-  public getNonPlayablePlayer() {
-    return this._playerObjs.find((player) => !player.model.isPlayable);
+  public addPlayerNpc(clientId: string, playerNpc: IPlayerNpc) {
+    this._playerNpcs[clientId] = playerNpc;
   }
 
-  public getPlayablePlayer() {
-    return this._playerObjs.find((player) => player.model.isPlayable);
+  public getPlayerNpc(clientId: string) {
+    return this._playerNpcs[clientId];
   }
 
-  public addPlayerObj(player: IPlayer) {
-    this._playerObjs.push(player);
+  public removePlayerNpc(clientId: string) {
+    delete this._playerNpcs[clientId];
+  }
+
+  public getPlayerBySocket(socket: Socket) {
+    const clientId = socket.id;
+    return this._players[clientId];
+  }
+
+  public getPlayerNpcBySocket(socket: Socket) {
+    const clientId = socket.id;
+    return this._playerNpcs[clientId];
+  }
+
+  public addPlayerWithSocket(socket: Socket, player: IPlayer) {
+    const clientId = socket.id;
+    this.addPlayer(clientId, player);
+  }
+
+  public addPlayerNpcWithSocket(socket: Socket, playerNpc: IPlayerNpc) {
+    const clientId = socket.id;
+    this.addPlayerNpc(clientId, playerNpc);
   }
 }

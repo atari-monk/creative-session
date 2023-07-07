@@ -23,7 +23,7 @@ export class PlayerNpcFactory implements IDIFactory {
     this.container.bind<IPlayerNpc>(PlayerNpcTypes.Player).to(PlayerNpc);
   }
 
-  public create() {
+  public create(): IPlayerNpc {
     return this.container.get<IPlayerNpc>(PlayerNpcTypes.Player);
   }
 }
