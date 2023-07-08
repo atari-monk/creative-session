@@ -10,7 +10,6 @@ import { IBall } from '../ball/IBall';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { StringBuilder } from '../utils/StringBuilder';
 
-//test
 @injectable()
 export class Player extends GameObject implements IPlayer {
   public get model(): IPlayerModel {
