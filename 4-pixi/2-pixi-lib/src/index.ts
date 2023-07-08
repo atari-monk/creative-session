@@ -69,3 +69,4 @@ export { IGameUpdateable } from './IGameUpdateable';
 export { Collider } from './Collider';
 export { IGameObjectManager } from './gameObject/IGameObjectManager';
 export { GameObjectManager } from './gameObject/GameObjectManager';
+export { BallModel } from './model/BallModel';

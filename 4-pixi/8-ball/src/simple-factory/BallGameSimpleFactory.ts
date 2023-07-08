@@ -1,16 +1,14 @@
 import { AppFactory } from './AppFactory';
 import { PlayersFactory } from './PlayersFactory';
-import { ClientFactory } from './ClientFactory';
-import { Container } from 'inversify';
 import { BallFactory } from './BallFactory';
+import { ClientFactory } from './ClientFactory';
 
-export class BallGame {
+export class BallGameSimpleFactory {
   constructor() {
-    const container = new Container();
     const appFactory = new AppFactory();
-    const playersFactory = new PlayersFactory(container);
+    const playersFactory = new PlayersFactory();
     const emitter = playersFactory.emitter;
-    const ballFactory = new BallFactory(container);
+    const ballFactory = new BallFactory(emitter);
 
     const gameObjsManager = appFactory.gameObjsManager;
     gameObjsManager.addGameObject(playersFactory.player1);
@@ -19,8 +17,7 @@ export class BallGame {
 
     new ClientFactory(
       emitter,
-      playersFactory.player1, 
-      playersFactory.player2,
+      [playersFactory.player1, playersFactory.player2],
       ballFactory.ball
     );
 
