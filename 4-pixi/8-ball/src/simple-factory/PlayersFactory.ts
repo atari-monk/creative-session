@@ -1,5 +1,6 @@
 import {
   BasicRenderer,
+  CircleRenderer,
   DirectionFromKeyboard,
   IPlayer,
   IPlayerNpc,
@@ -13,6 +14,7 @@ import {
   PlayerRenderer,
   PositionEmitter,
   keys,
+  playerNpcParams,
   playerParams,
 } from 'atari-monk-pixi-lib';
 import EventEmitter from 'eventemitter3';
@@ -21,6 +23,7 @@ export class PlayersFactory {
   private _emitter: EventEmitter;
   private _player1: IPlayer;
   private _player2: IPlayerNpc;
+
   public get emitter() {
     return this._emitter;
   }
@@ -35,7 +38,7 @@ export class PlayersFactory {
   constructor() {
     this._emitter = new EventEmitter();
     this._player1 = this.createPlayer();
-    this._player2 = this.createPlayer();
+    this._player2 = this.createPlayerNpc();
   }
 
   private createPlayer() {
@@ -55,7 +58,7 @@ export class PlayersFactory {
 
   private createPlayerNpc() {
     return new PlayerNpc(
-      new PlayerNpcModel(playerParams),
+      new PlayerNpcModel(playerNpcParams),
       new CircleRenderer(new BasicRenderer())
     );
   }
