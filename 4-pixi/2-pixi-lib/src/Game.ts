@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { IBall } from './ball/IBall';
 import { IPlayer } from './player/IPlayer';
 import { IGameUpdateable } from './IGameUpdateable';
-import { IGameObjectManager } from './IGameObjectManager';
+import { IGameObjectManager } from './gameObject/IGameObjectManager';
 
 export class Game {
   protected gameObjectManager: IGameObjectManager;

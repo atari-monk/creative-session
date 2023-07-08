@@ -1,4 +1,4 @@
-import { IGameObjectManager } from '../IGameObjectManager';
+import { IGameObjectManager } from './IGameObjectManager';
 import { Ball } from '../ball/Ball';
 import { GameObject } from './GameObject';
 import { Player } from '../player/Player';

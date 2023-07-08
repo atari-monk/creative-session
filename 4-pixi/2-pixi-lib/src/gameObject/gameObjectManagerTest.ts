@@ -4,7 +4,7 @@ import { PlayerFactory } from './../player/PlayerFactory';
 import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { BallFactory } from '../ball/BallFactory';
-import { IGameObjectManager } from '../IGameObjectManager';
+import { IGameObjectManager } from './IGameObjectManager';
 import { SharedTypes } from '../data/appConfig';
 
 const container = new Container();

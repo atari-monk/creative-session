@@ -4,7 +4,7 @@ import { IBasicRenderer } from '../IBasicRenderer';
 import { BasicRenderer } from '../BasicRenderer';
 import EventEmitter from 'eventemitter3';
 import { IRegister } from '../factory/IRegister';
-import { IGameObjectManager } from '../IGameObjectManager';
+import { IGameObjectManager } from '../gameObject/IGameObjectManager';
 import { GameObjectManager } from '../gameObject/GameObjectManager';
 
 export class ServiceFactory implements IRegister {

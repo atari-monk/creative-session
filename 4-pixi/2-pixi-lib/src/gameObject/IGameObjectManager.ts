@@ -1,6 +1,6 @@
-import { Ball } from './ball/Ball';
-import { GameObject } from './gameObject/GameObject';
-import { Player } from './player/Player';
+import { Ball } from '../ball/Ball';
+import { GameObject } from './GameObject';
+import { Player } from '../player/Player';
 
 export interface IGameObjectManager {
   gameObjects: GameObject[];
