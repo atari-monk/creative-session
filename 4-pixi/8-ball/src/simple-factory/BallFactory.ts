@@ -1,6 +1,11 @@
-import { BallModel, BallRenderer, BasicRenderer, IBall } from 'atari-monk-pixi-lib';
-import { Ball } from 'atari-monk-pixi-lib/ball/Ball';
-import { ballParams } from 'atari-monk-pixi-lib/data/appConfig';
+import {
+  Ball,
+  BallModel,
+  BallRenderer,
+  BasicRenderer,
+  IBall,
+  ballParams,
+} from 'atari-monk-pixi-lib';
 import EventEmitter from 'eventemitter3';
 
 export class BallFactory {

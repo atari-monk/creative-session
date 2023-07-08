@@ -2,7 +2,8 @@ import { Manager, Socket } from 'socket.io-client';
 import {
   EventEmitterLogicManager,
   IBall,
-  PlayerObject,
+  IPlayer,
+  IPlayerNpc,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
 import {
@@ -28,11 +29,12 @@ export class ClientFactory {
 
   constructor(
     private readonly eventEmitter: EventEmitter,
-    players: PlayerObject[],
+    player: IPlayer,
+    playerNpc: IPlayerNpc,
     ball: IBall
   ) {
     this.socket = this.produceSocketLogic();
-    this.producePlayerSocketLogic(players);
+    this.producePlayerSocketLogic(player, playerNpc);
     this.produceBallSocketLogic(ball);
   }
 
@@ -62,8 +64,8 @@ export class ClientFactory {
     return clientSocketLogicManager;
   }
 
-  private producePlayerSocketLogic(players: PlayerObject[]) {
-    const playerManager = this.createPlayerManager(players);
+  private producePlayerSocketLogic(player: IPlayer, playerNpc: IPlayerNpc) {
+    const playerManager = this.createPlayerManager(player, playerNpc);
     const playerSocketLogicManager =
       this.createPlayerSocketLogic(playerManager);
     const playerEmitterLogicManager = this.createPlayerEmitterLogic();
@@ -71,11 +73,10 @@ export class ClientFactory {
     playerEmitterLogicManager.initializeEmitter(this.eventEmitter);
   }
 
-  private createPlayerManager(players: PlayerObject[]) {
+  private createPlayerManager(player: IPlayer, playerNpc: IPlayerNpc) {
     const playerManager = new PlayerManager();
-    players.forEach((player) => {
-      playerManager.addPlayerObj(player);
-    });
+    playerManager.addPlayer('0', player);
+    playerManager.addPlayerNpc('0', playerNpc);
     return playerManager;
   }
 

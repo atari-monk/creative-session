@@ -45,6 +45,7 @@ export {
   playerColors,
   playerParams,
   SharedTypes,
+  ballParams,
 } from './data/appConfig';
 export { IRadius } from './model/interface/IRadius';
 export { IPosition } from './model/interface/IPosition';
@@ -76,3 +77,4 @@ export { PlayerMoveEmitter } from './player/PlayerMoveEmitter';
 export { Player } from './player/Player';
 export { IPlayerUpdater } from './player/IPlayerUpdater';
 export { PlayerKeyboardMovement } from './player/PlayerKeyboardMovement';
+export { Ball } from './ball/Ball';

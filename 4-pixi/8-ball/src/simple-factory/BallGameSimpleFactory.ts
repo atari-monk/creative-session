@@ -17,7 +17,8 @@ export class BallGameSimpleFactory {
 
     new ClientFactory(
       emitter,
-      [playersFactory.player1, playersFactory.player2],
+      playersFactory.player1,
+      playersFactory.player2,
       ballFactory.ball
     );
 
