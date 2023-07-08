@@ -8,6 +8,8 @@ import {
   PlayerKeyboardMovement,
   PlayerModel,
   PlayerMoveEmitter,
+  PlayerNpc,
+  PlayerNpcModel,
   PlayerRenderer,
   PositionEmitter,
   keys,
@@ -48,6 +50,13 @@ export class PlayersFactory {
           new PositionEmitter('position-update', this._emitter)
         ),
       ]
+    );
+  }
+
+  private createPlayerNpc() {
+    return new PlayerNpc(
+      new PlayerNpcModel(playerParams),
+      new CircleRenderer(new BasicRenderer())
     );
   }
 }

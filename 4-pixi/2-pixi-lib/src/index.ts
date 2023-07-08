@@ -78,3 +78,6 @@ export { Player } from './player/Player';
 export { IPlayerUpdater } from './player/IPlayerUpdater';
 export { PlayerKeyboardMovement } from './player/PlayerKeyboardMovement';
 export { Ball } from './ball/Ball';
+export { PlayerNpcModel } from './model/PlayerNpcModel';
+export { CircleRenderer } from './player-npc/CircleRenderer';
+export { ICircleRenderer } from './player-npc/ICircleRenderer';
