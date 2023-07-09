@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
-import { Game } from './Game';
-import { IAppHelperOptions } from './index';
+import { Game } from '../Game';
+import { IAppHelperOptions } from '../index';
+import { IAppHelper } from './IAppHelper';
 
-export class AppHelper {
+export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
   private _canvas!: HTMLCanvasElement;
 
@@ -54,7 +55,11 @@ export class AppHelper {
     this._height = screenSize.height;
     this._backgroundColor = backgroundColor;
     this._fullScreen = fullScreen;
-    this._canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+    try {
+      this._canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public initializeApp(pixiApp: PIXI.Application<PIXI.ICanvas>) {

@@ -109,6 +109,10 @@ export const SharedTypes = {
   GameObjsManager: Symbol.for('GameObjectManager'),
 };
 
+export const AppTypes = {
+  AppHelper: Symbol.for('AppHelper'),
+};
+
 const PlayerNpcId = 'PlayerNpc';
 export const PlayerNpcTypes = {
   Player: Symbol.for(PlayerNpcId),

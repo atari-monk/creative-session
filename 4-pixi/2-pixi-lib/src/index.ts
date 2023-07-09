@@ -1,4 +1,4 @@
-export { AppHelper } from './AppHelper';
+export { AppHelper } from './app/AppHelper';
 export { EventEmitterLogicManager } from './emitter-logic/EventEmitterLogicManager';
 export { EventEmitterLogicUnit } from './emitter-logic/EventEmitterLogicUnit';
 export { IEventEmitterLogicUnit } from './emitter-logic/IEventEmitterLogicUnit';
