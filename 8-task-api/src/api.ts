@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose, { Schema, Document, ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import moment from 'moment-timezone';
 
 dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
@@ -9,11 +10,20 @@ dotenv.config({ path: path.resolve(__dirname, './../.env') });
 interface ITask extends Document {
   description: string;
   createdAt: Date;
+  localTimestamp: string;
 }
 
 const taskSchema = new Schema<ITask>({
   description: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  localTimestamp: {
+    type: String,
+    default: function () {
+      return moment(this.createdAt)
+        .tz('Europe/Warsaw')
+        .format('DD-MM-YYYY HH:mm');
+    },
+  },
 });
 
 const Task = mongoose.model<ITask>('Task', taskSchema);
