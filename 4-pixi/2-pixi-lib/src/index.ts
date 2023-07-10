@@ -72,4 +72,5 @@ export { PlayerNpcModel } from './model/PlayerNpcModel';
 export { CircleRenderer } from './player-npc/CircleRenderer';
 export { ICircleRenderer } from './player-npc/ICircleRenderer';
 export { getPixiAppParams } from './data/ballGameParams';
-export { SharedTypes } from './data/types';
+export { SharedTypes } from './di-container/types';
+export { getCanvas } from './utils/ui';

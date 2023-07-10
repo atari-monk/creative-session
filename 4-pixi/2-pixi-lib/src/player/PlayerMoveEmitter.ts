@@ -4,7 +4,7 @@ import { IPlayerUpdater } from './IPlayerUpdater';
 import { PositionEmitter } from '../PositionEmitter';
 import { IVector2d } from '../model/IVector2d';
 import { Vector2d } from '../model/Vector2d';
-import { PlayerTypes } from '../data/types';
+import { PlayerTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerMoveEmitter implements IPlayerUpdater {

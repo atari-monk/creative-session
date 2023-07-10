@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { BallTypes, SharedTypes } from '../data/types';
+import { BallTypes, SharedTypes } from '../di-container/types';
 import { GameObject } from '../gameObject/GameObject';
 import { IBall } from './IBall';
 import { IBallRenderer } from './IBallRenderer';

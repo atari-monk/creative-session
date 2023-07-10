@@ -3,7 +3,7 @@ import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { IPlayerModel } from '../model/IPlayerModel';
-import { SharedTypes } from '../data/types';
+import { SharedTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerRenderer implements IPlayerRenderer {

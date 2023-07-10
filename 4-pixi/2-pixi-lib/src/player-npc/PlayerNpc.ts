@@ -4,7 +4,7 @@ import { GameObject } from '../gameObject/GameObject';
 import { IPlayerNpc } from './IPlayerNpc';
 import { ICircleRenderer } from './ICircleRenderer';
 import { IPlayerNpcModel } from '../model/IPlayerNpcModel';
-import { PlayerNpcTypes } from '../data/types';
+import { PlayerNpcTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerNpc extends GameObject implements IPlayerNpc {

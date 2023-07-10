@@ -7,7 +7,7 @@ import { ICircleRenderer } from './ICircleRenderer';
 import { CircleRenderer } from './CircleRenderer';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerNpc } from './IPlayerNpc';
-import { PlayerNpcTypes } from '../data/types';
+import { PlayerNpcTypes } from '../di-container/types';
 
 export class PlayerNpcFactory implements IDIFactory {
   constructor(private readonly container: Container) {}

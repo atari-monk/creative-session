@@ -7,6 +7,7 @@ import {
   GameObjectManager,
   appHelperParams,
   getPixiAppParams,
+  getCanvas,
 } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
@@ -28,11 +29,7 @@ export class AppFactory {
 
   constructor() {
     this._appHelper = new AppHelper(appHelperParams);
-    this._pixiApp = new PIXI.Application(
-      getPixiAppParams(
-        document.getElementById(appHelperParams.canvasId) as HTMLCanvasElement
-      )
-    );
+    this._pixiApp = new PIXI.Application(getPixiAppParams(getCanvas()));
     this._gameObjectManager = new GameObjectManager();
   }
 

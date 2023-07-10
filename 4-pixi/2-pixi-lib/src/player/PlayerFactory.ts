@@ -17,7 +17,7 @@ import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { PlayerModel } from '../model/PlayerModel';
 import { IPlayer } from './IPlayer';
-import { PlayerTypes, SharedTypes } from '../data/types';
+import { PlayerTypes, SharedTypes } from '../di-container/types';
 
 export class PlayerFactory implements IDIFactory {
   constructor(private readonly container: Container) {}

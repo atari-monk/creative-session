@@ -3,7 +3,7 @@ import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
 import { IBallRenderer } from './IBallRenderer';
 import { IBallModel } from '../model/IBallModel';
-import { SharedTypes } from '../data/types';
+import { SharedTypes } from '../di-container/types';
 
 @injectable()
 export class BallRenderer implements IBallRenderer {

@@ -8,7 +8,7 @@ import { IPlayerUpdater } from './IPlayerUpdater';
 import { IBall } from '../ball/IBall';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { StringBuilder } from '../utils/StringBuilder';
-import { PlayerTypes } from '../data/types';
+import { PlayerTypes } from '../di-container/types';
 
 @injectable()
 export class Player extends GameObject implements IPlayer {

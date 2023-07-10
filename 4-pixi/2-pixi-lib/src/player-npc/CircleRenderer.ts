@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import { IColorParams } from '../data/interfaces/IColorParams';
 import { ICircleRenderer } from './ICircleRenderer';
 import { ICircle } from '../model/interface/ICircle';
-import { SharedTypes } from '../data/types';
+import { SharedTypes } from '../di-container/types';
 
 @injectable()
 export class CircleRenderer implements ICircleRenderer {

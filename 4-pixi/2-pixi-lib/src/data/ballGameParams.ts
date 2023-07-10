@@ -7,7 +7,7 @@ import { IKeys } from './interfaces/IKeys';
 import { IScreenSize } from './interfaces/IScreenSize';
 import { IAppHelperParams } from './interfaces/IAppHelperParams';
 import { createColorOptions } from './interfaces/IColorParams';
-import { playerUrlParam } from './urlParams';
+import { playerUrlParam } from '../utils/urlParams';
 
 const green = 0x00ff00;
 const blue = 0x0000ff;
@@ -40,7 +40,7 @@ export const getPixiAppParams = (
   canvas: PIXI.ICanvas
 ): Partial<PIXI.IApplicationOptions> => {
   const appOptions: Partial<PIXI.IApplicationOptions> = {
-    view: canvas as PIXI.ICanvas,
+    view: canvas,
     backgroundColor: appHelperParams.backgroundColor,
   };
   if (appHelperParams.fullScreen) {

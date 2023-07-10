@@ -7,7 +7,7 @@ import { IBallRenderer } from './IBallRenderer';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IBallModel } from '../model/IBallModel';
 import { BallModel } from '../model/BallModel';
-import { BallTypes } from '../data/types';
+import { BallTypes } from '../di-container/types';
 
 export class BallFactory implements IDIFactory {
   constructor(private readonly container: Container) {}
