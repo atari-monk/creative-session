@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
-import { SharedTypes } from '../data/appConfig';
-import { IColorOptions } from '../data/configTypes';
+import { IColorOptions } from '../data/interfaces/IColorOptions';
 import { ICircleRenderer } from './ICircleRenderer';
 import { ICircle } from '../model/interface/ICircle';
+import { SharedTypes } from '../data/types';
 
 @injectable()
 export class CircleRenderer implements ICircleRenderer {

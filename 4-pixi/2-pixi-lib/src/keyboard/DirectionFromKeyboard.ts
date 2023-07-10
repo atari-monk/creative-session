@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { IDirectionFromKeyboard as IDirectionFromKeyboard } from './IDirectionFromKeyboard';
 import { KeyboardInputV1 } from './KeyboardInputV1';
-import { IKeys } from '../data/configTypes';
+import { IKeys } from '../data/interfaces/IKeys';
 import { IVector2d } from '../model/IVector2d';
 import { Vector2d } from '../model/Vector2d';
-import { PlayerTypes } from '../data/appConfig';
+import { PlayerTypes } from '../data/types';
 
 @injectable()
 export class DirectionFromKeyboard implements IDirectionFromKeyboard {

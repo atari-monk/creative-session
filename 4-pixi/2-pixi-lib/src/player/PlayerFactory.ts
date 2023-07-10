@@ -1,11 +1,6 @@
 import { Container } from 'inversify';
-import {
-  PlayerTypes,
-  SharedTypes,
-  keys,
-  playerParams,
-} from '../data/appConfig';
-import { IKeys } from '../data/configTypes';
+import { keys, playerParams } from '../data/ballGameParams';
+import { IKeys } from '../data/interfaces/IKeys';
 import { Player } from './Player';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { PlayerRenderer } from './PlayerRenderer';
@@ -22,6 +17,7 @@ import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { PlayerModel } from '../model/PlayerModel';
 import { IPlayer } from './IPlayer';
+import { PlayerTypes, SharedTypes } from '../data/types';
 
 export class PlayerFactory implements IDIFactory {
   constructor(private readonly container: Container) {}

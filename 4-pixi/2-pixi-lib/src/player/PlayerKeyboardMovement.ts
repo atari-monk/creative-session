@@ -3,7 +3,7 @@ import { IDirectionFromKeyboard } from '../keyboard/IDirectionFromKeyboard';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayer } from './IPlayer';
 import { IPlayerUpdater } from './IPlayerUpdater';
-import { PlayerTypes } from '../data/appConfig';
+import { PlayerTypes } from '../data/types';
 
 @injectable()
 export class PlayerKeyboardMovement implements IPlayerUpdater {

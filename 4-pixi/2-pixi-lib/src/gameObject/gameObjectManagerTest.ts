@@ -5,7 +5,7 @@ import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { BallFactory } from '../ball/BallFactory';
 import { IGameObjectManager } from './IGameObjectManager';
-import { SharedTypes } from '../data/appConfig';
+import { SharedTypes } from '../data/types';
 
 const container = new Container();
 const serviceFactory = new ServiceFactory(container);

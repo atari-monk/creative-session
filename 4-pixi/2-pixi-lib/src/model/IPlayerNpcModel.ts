@@ -1,5 +1,5 @@
 import { IToString } from '../ball/IToString';
-import { IPlayerNpcParams } from '../data/appConfig';
+import { IPlayerNpcParams } from '../data/interfaces/IPlayerNpcParams';
 import { ICircle } from './interface/ICircle';
 import { IClientId } from './interface/IClientId';
 import { IPlayable } from './interface/IPlayable';

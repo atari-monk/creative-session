@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject, multiInject } from 'inversify';
-import { PlayerTypes as PlayerTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IPlayer } from './IPlayer';
 import { Vector2d } from '../model/Vector2d';
@@ -9,6 +8,7 @@ import { IPlayerUpdater } from './IPlayerUpdater';
 import { IBall } from '../ball/IBall';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { StringBuilder } from '../utils/StringBuilder';
+import { PlayerTypes } from '../data/types';
 
 @injectable()
 export class Player extends GameObject implements IPlayer {

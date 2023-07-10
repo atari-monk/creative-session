@@ -1,5 +1,5 @@
 import { Vector2d } from '..';
-import { IPlayerParams } from '../data/appConfig';
+import { IPlayerParams } from '../data/interfaces/IPlayerParams';
 import { IPlayerModel } from './IPlayerModel';
 import { IVector2d } from './IVector2d';
 

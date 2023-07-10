@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { SharedTypes } from '../data/appConfig';
+import { SharedTypes } from '../data/types';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { BasicRenderer } from '../BasicRenderer';
 import EventEmitter from 'eventemitter3';

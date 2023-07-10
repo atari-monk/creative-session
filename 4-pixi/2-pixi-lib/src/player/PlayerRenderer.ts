@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
-import { SharedTypes } from '../data/appConfig';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { IPlayerModel } from '../model/IPlayerModel';
+import { SharedTypes } from '../data/types';
 
 @injectable()
 export class PlayerRenderer implements IPlayerRenderer {

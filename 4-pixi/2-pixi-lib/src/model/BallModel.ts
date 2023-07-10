@@ -1,5 +1,5 @@
 import { Vector2d } from '../model/Vector2d';
-import { IBallParams } from '../data/IBallParams';
+import { IBallParams } from '../data/interfaces/IBallParams';
 import { IBallModel } from './../model/IBallModel';
 import { IVector2d } from './../model/IVector2d';
 

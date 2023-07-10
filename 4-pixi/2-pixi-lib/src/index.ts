@@ -27,26 +27,16 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
-export {
-  IAppHelperOptions,
-  IPlayerOptions,
-  IBallOptions,
-  IColorOptions,
-} from './data/configTypes';
+export { IAppHelperOptions } from './data/interfaces/IAppHelperOptions';
+export { IColorOptions } from './data/interfaces/IColorOptions';
 export {
   screenSize,
   appHelperOptions,
-  player1Options,
-  player2Options,
-  ballOptions,
   keys,
-  playerNpcColors,
   playerNpcParams,
-  playerColors,
   playerParams,
-  SharedTypes,
   ballParams,
-} from './data/appConfig';
+} from './data/ballGameParams';
 export { IRadius } from './model/interface/IRadius';
 export { IPosition } from './model/interface/IPosition';
 export { ISteerable } from './model/interface/ISteerable';

@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { BallTypes, ballParams } from '../data/appConfig';
+import { ballParams } from '../data/ballGameParams';
 import { IBall } from './IBall';
 import { Ball } from './Ball';
 import { BallRenderer } from './BallRenderer';
@@ -7,6 +7,7 @@ import { IBallRenderer } from './IBallRenderer';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IBallModel } from '../model/IBallModel';
 import { BallModel } from '../model/BallModel';
+import { BallTypes } from '../data/types';
 
 export class BallFactory implements IDIFactory {
   constructor(private readonly container: Container) {}

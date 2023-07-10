@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { appHelperOptions } from '../data/appConfig';
+import { appHelperOptions } from '../data/ballGameParams';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';

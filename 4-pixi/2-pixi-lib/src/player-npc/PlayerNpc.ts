@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { PlayerNpcTypes } from '../data/appConfig';
 import { GameObject } from '../gameObject/GameObject';
 import { IPlayerNpc } from './IPlayerNpc';
 import { ICircleRenderer } from './ICircleRenderer';
 import { IPlayerNpcModel } from '../model/IPlayerNpcModel';
+import { PlayerNpcTypes } from '../data/types';
 
 @injectable()
 export class PlayerNpc extends GameObject implements IPlayerNpc {

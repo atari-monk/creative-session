@@ -1,4 +1,4 @@
-import { IPlayerNpcParams } from '../data/appConfig';
+import { IPlayerNpcParams } from '../data/interfaces/IPlayerNpcParams';
 import { IPlayerNpcModel } from './IPlayerNpcModel';
 import { IVector2d } from './IVector2d';
 
