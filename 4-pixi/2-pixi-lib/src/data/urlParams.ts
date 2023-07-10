@@ -1,4 +1,4 @@
-let playerUrlParam: string | null = '';
+export let playerUrlParam: string | null = '';
 try {
   const urlParams = new URLSearchParams(window.location.search);
   playerUrlParam = urlParams.get('player');

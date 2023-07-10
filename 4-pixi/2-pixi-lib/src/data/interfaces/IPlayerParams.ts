@@ -1,5 +1,5 @@
 import { IVector2d } from '../../model/IVector2d';
-import { IColorOptions } from './IColorOptions';
+import { IColorParams } from './IColorParams';
 import { IKeys } from './IKeys';
 import { IScreenSize } from './IScreenSize';
 
@@ -10,5 +10,5 @@ export interface IPlayerParams {
   radius: number;
   screenSize: IScreenSize;
   keys: IKeys;
-  colors: IColorOptions;
+  colors: IColorParams;
 }

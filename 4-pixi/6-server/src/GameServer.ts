@@ -6,7 +6,7 @@ export class GameServer {
   private readonly PORT: string | number;
 
   constructor(private readonly app: Express, private readonly server: Server) {
-    this.PORT = process.env.PORT || 3000;
+    this.PORT = process.env.PORT || 3001;
   }
 
   public start() {

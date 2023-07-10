@@ -1,11 +1,13 @@
+import * as PIXI from 'pixi.js';
 import { Vector2d } from '../model/Vector2d';
 import { IBallParams } from './interfaces/IBallParams';
 import { IPlayerNpcParams } from './interfaces/IPlayerNpcParams';
 import { IPlayerParams } from './interfaces/IPlayerParams';
 import { IKeys } from './interfaces/IKeys';
 import { IScreenSize } from './interfaces/IScreenSize';
-import { IAppHelperOptions } from './interfaces/IAppHelperOptions';
-import { createColorOptions } from './interfaces/IColorOptions';
+import { IAppHelperParams } from './interfaces/IAppHelperParams';
+import { createColorOptions } from './interfaces/IColorParams';
+import { playerUrlParam } from './urlParams';
 
 const green = 0x00ff00;
 const blue = 0x0000ff;
@@ -27,11 +29,27 @@ export const screenSize: IScreenSize = {
   height: 600,
 };
 
-export const appHelperOptions: IAppHelperOptions = {
+export const appHelperParams: IAppHelperParams = {
   screenSize,
   backgroundColor: 0x000000,
   fullScreen: false,
   canvasId: 'canvas',
+};
+
+export const getPixiAppParams = (
+  canvas: PIXI.ICanvas
+): Partial<PIXI.IApplicationOptions> => {
+  const appOptions: Partial<PIXI.IApplicationOptions> = {
+    view: canvas as PIXI.ICanvas,
+    backgroundColor: appHelperParams.backgroundColor,
+  };
+  if (appHelperParams.fullScreen) {
+    appOptions.resizeTo = window;
+  } else {
+    appOptions.width = screenSize.width;
+    appOptions.height = screenSize.height;
+  }
+  return appOptions;
 };
 
 export const playerNpcParams: IPlayerNpcParams = {

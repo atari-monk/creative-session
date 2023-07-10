@@ -27,11 +27,11 @@ export { ISrvSctLogicUnit } from './srv-sct-logic/ISrvSctLogicUnit';
 export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
-export { IAppHelperOptions } from './data/interfaces/IAppHelperOptions';
-export { IColorOptions } from './data/interfaces/IColorOptions';
+export { IAppHelperParams } from './data/interfaces/IAppHelperParams';
+export { IColorParams } from './data/interfaces/IColorParams';
 export {
   screenSize,
-  appHelperOptions,
+  appHelperParams,
   keys,
   playerNpcParams,
   playerParams,
@@ -71,3 +71,5 @@ export { Ball } from './ball/Ball';
 export { PlayerNpcModel } from './model/PlayerNpcModel';
 export { CircleRenderer } from './player-npc/CircleRenderer';
 export { ICircleRenderer } from './player-npc/ICircleRenderer';
+export { getPixiAppParams } from './data/ballGameParams';
+export { SharedTypes } from './data/types';

@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
-import { IColorOptions } from '../data/interfaces/IColorOptions';
+import { IColorParams } from '../data/interfaces/IColorParams';
 import { ICircleRenderer } from './ICircleRenderer';
 import { ICircle } from '../model/interface/ICircle';
 import { SharedTypes } from '../data/types';
@@ -16,7 +16,7 @@ export class CircleRenderer implements ICircleRenderer {
   render(
     stage: PIXI.Container<PIXI.DisplayObject>,
     model: ICircle,
-    colors: IColorOptions
+    colors: IColorParams
   ): void {
     this.renderCircle(stage, colors, model);
     this.renderPositionPoint(stage, colors, model);
@@ -24,7 +24,7 @@ export class CircleRenderer implements ICircleRenderer {
 
   private renderCircle(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    colors: IColorOptions,
+    colors: IColorParams,
     model: ICircle
   ) {
     this.renderer.drawCircle(
@@ -38,7 +38,7 @@ export class CircleRenderer implements ICircleRenderer {
 
   private renderPositionPoint(
     stage: PIXI.Container<PIXI.DisplayObject>,
-    colors: IColorOptions,
+    colors: IColorParams,
     model: ICircle
   ) {
     this.renderer.drawCircle(

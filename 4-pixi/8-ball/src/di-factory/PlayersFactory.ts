@@ -4,9 +4,9 @@ import {
   ServiceFactory,
   PlayerFactory,
   IPlayer,
-  SharedTypes,
   PlayerNpcFactory,
   IPlayerNpc,
+  SharedTypes,
 } from 'atari-monk-pixi-lib';
 
 export class PlayersFactory {

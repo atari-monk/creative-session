@@ -3,9 +3,11 @@ import {
   Collider,
   Game,
   IGameObjectManager,
-  appHelperOptions,
+  AppHelper,
+  GameObjectManager,
+  appHelperParams,
+  getPixiAppParams,
 } from 'atari-monk-pixi-lib';
-import { AppHelper, GameObjectManager } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
   private _pixiApp: PIXI.Application;
@@ -25,8 +27,12 @@ export class AppFactory {
   }
 
   constructor() {
-    this._appHelper = new AppHelper(appHelperOptions);
-    this._pixiApp = new PIXI.Application(this._appHelper.getPixiAppOptions());
+    this._appHelper = new AppHelper(appHelperParams);
+    this._pixiApp = new PIXI.Application(
+      getPixiAppParams(
+        document.getElementById(appHelperParams.canvasId) as HTMLCanvasElement
+      )
+    );
     this._gameObjectManager = new GameObjectManager();
   }
 

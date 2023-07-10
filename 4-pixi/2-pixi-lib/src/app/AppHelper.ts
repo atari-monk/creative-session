@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Game } from '../Game';
-import { IAppHelperOptions } from '../index';
 import { IAppHelper } from './IAppHelper';
+import { IAppHelperParams } from '../data/interfaces/IAppHelperParams';
 
 export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
@@ -48,14 +48,17 @@ export class AppHelper implements IAppHelper {
     this._height = value;
   }
 
-  constructor(options: IAppHelperOptions) {
+  constructor(options: IAppHelperParams) {
     const { screenSize, backgroundColor, fullScreen, canvasId } = options;
-
     this._width = screenSize.width;
     this._height = screenSize.height;
     this._backgroundColor = backgroundColor;
     this._fullScreen = fullScreen;
     try {
+      if (this._fullScreen) {
+        this._width = window.innerWidth;
+        this._height = window.innerHeight;
+      }
       this._canvas = document.getElementById(canvasId) as HTMLCanvasElement;
     } catch (error) {
       console.log(error);
@@ -79,24 +82,6 @@ export class AppHelper implements IAppHelper {
     this._canvas.style.width = this._fullScreen ? full : `${this._width}`;
     this._canvas.style.height = this._fullScreen ? full : `${this._height}`;
     this._canvas.style.border = this._fullScreen ? 'none' : '1px solid white';
-  }
-
-  public getPixiAppOptions(): Partial<PIXI.IApplicationOptions> {
-    const appOptions: Partial<PIXI.IApplicationOptions> = {
-      view: this.canvas as PIXI.ICanvas,
-      backgroundColor: this._backgroundColor,
-    };
-
-    if (this._fullScreen) {
-      appOptions.resizeTo = window;
-      this._width = window.innerWidth;
-      this._height = window.innerHeight;
-    } else {
-      appOptions.width = this._width;
-      appOptions.height = this._height;
-    }
-
-    return appOptions;
   }
 
   public startAnimationLoop(game: Game) {

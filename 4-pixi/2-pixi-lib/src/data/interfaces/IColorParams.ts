@@ -1,4 +1,4 @@
-export interface IColorOptions {
+export interface IColorParams {
   body: number;
   position: number;
   direction: number;
@@ -9,8 +9,8 @@ export const createColorOptions = (
   bodyColor: number,
   positionColor: number,
   directionColor: number
-): IColorOptions => {
-  const colorOptions: IColorOptions = {
+): IColorParams => {
+  const colorOptions: IColorParams = {
     body: bodyColor,
     position: positionColor,
     direction: directionColor,

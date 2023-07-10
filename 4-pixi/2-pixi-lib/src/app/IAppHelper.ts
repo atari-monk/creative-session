@@ -9,6 +9,5 @@ export interface IAppHelper {
   height: number;
 
   initializeApp(pixiApp: PIXI.Application<PIXI.ICanvas>): void;
-  getPixiAppOptions(): Partial<PIXI.IApplicationOptions>;
   startAnimationLoop(game: Game): void;
 }

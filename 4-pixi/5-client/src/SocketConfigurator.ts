@@ -17,7 +17,7 @@ export class SocketConfigurator {
   private getConfig(config?: Partial<SocketConfig>) {
     return {
       environment: Environment.Development,
-      localUri: 'http://localhost:3000',
+      localUri: 'http://localhost:3001',
       prodUri: 'https://atari-monk-two-players.azurewebsites.net/',
       ...config,
     };

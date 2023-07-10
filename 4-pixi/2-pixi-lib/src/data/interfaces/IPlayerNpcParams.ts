@@ -1,9 +1,9 @@
 import { IVector2d } from '../../model/IVector2d';
-import { IColorOptions } from './IColorOptions';
+import { IColorParams } from './IColorParams';
 
 export interface IPlayerNpcParams {
   position: IVector2d;
   radius: number;
-  colors: IColorOptions;
+  colors: IColorParams;
   toString(): string;
 }
