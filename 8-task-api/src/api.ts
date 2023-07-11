@@ -84,7 +84,7 @@ app.get('/tasks', async (req: Request, res: Response) => {
 app.put('/tasks/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { finishedAt, summary } = req.body;
+    const { description, finishedAt, summary } = req.body;
 
     // Find the task by ID
     const task = await Task.findById(id);
@@ -94,6 +94,9 @@ app.put('/tasks/:id', async (req: Request, res: Response) => {
     }
 
     // Update the task fields
+    if (description) {
+      task.description = description;
+    }
     task.finishedAt = finishedAt || new Date();
     task.finishLocalTimestamp = moment(task.finishedAt)
       .tz('Europe/Warsaw')

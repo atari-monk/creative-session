@@ -30,7 +30,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"test b\"\r\n}\r\n",
+					"raw": "{\r\n  \"description\": \"test\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,6 +45,62 @@
 					"port": "3000",
 					"path": [
 						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Create app factory similar to simple one, but using di container.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks/64ac198b788a93901c053ac7",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"64ac198b788a93901c053ac7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks/64ad4a9d5e04592f97f6a339",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"64ad4a9d5e04592f97f6a339"
 					]
 				}
 			},
