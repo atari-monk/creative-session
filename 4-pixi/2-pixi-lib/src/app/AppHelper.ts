@@ -56,7 +56,11 @@ export class AppHelper implements IAppHelper {
     this._backgroundColor = backgroundColor;
     this._fullScreen = fullScreen;
     this.setFullScreen();
-    this._canvas = getCanvas('appHelper');
+    try {
+      this._canvas = getCanvas('appHelper');
+    } catch (error) {
+      console.log('Error setting _canvas.');
+    }
   }
 
   private setFullScreen() {

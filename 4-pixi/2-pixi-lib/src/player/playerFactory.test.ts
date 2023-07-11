@@ -1,19 +1,18 @@
 import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
-import {
-  configureContainerForTest,
-  container,
-} from '../di-container/inversify.config';
+import { configureContainerForTest } from '../di-container/inversify.config';
 import { IPlayer } from './IPlayer';
 import { Player } from './Player';
+import { Container } from 'inversify';
 
 describe('Player', () => {
   let player: IPlayer;
 
   before(() => {
+    const container = new Container();
     if (!container.isBound(Player)) {
-      configureContainerForTest();
+      configureContainerForTest(container);
     }
     player = container.resolve<IPlayer>(Player);
   });

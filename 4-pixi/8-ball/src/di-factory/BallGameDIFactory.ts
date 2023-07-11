@@ -7,7 +7,7 @@ import { BallFactory } from './BallFactory';
 export class BallGameDIFactory {
   constructor() {
     const container = new Container();
-    const appFactory = new AppFactory();
+    const appFactory = new AppFactory(container);
     const playersFactory = new PlayersFactory(container);
     const emitter = playersFactory.emitter;
     const ballFactory = new BallFactory(container);
@@ -24,6 +24,6 @@ export class BallGameDIFactory {
       ballFactory.ball
     );
 
-    appFactory.start();
+    appFactory.start(container);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "atari-monk-client",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "main": "atari-monk-client.js",
   "types": "index.d.ts",
   "description": "socket-io client for pixi game",
@@ -12,7 +12,7 @@
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
-    "atari-monk-pixi-lib": "^1.0.134",
+    "atari-monk-pixi-lib": "^1.0.136",
     "eventemitter3": "^5.0.1",
     "socket.io-client": "^4.6.2"
   },

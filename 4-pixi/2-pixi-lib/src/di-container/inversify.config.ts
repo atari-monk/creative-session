@@ -5,9 +5,7 @@ import { PlayerFactory } from '../player/PlayerFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { AppFactoryForTest } from '../app/AppFactoryForTest';
 
-export const container = new Container();
-
-export function configureContainer() {
+export function configureContainer(container: Container) {
   const appFactory = new AppFactory(container);
   appFactory.register();
 
@@ -21,7 +19,7 @@ export function configureContainer() {
   playerNpcFactory.register();
 }
 
-export function configureContainerForTest() {
+export function configureContainerForTest(container: Container) {
   const appFactory = new AppFactoryForTest(container);
   appFactory.register();
 

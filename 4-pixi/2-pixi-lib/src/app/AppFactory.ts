@@ -3,6 +3,7 @@ import { getPixiAppParams } from '../data/ballGameParams';
 import { Application } from 'pixi.js';
 import { getCanvasForPixi } from '../utils/ui';
 import { AppFactoryBase } from './AppFactoryBase';
+import { PixiApplicationWrapper } from './PixiApplicationWrapper';
 
 export class AppFactory extends AppFactoryBase {
   constructor(container: Container) {
@@ -14,7 +15,7 @@ export class AppFactory extends AppFactoryBase {
     this.container
       .bind<Application>(Application)
       .toDynamicValue(() => {
-        return new Application(pixiAppParams);
+        return new PixiApplicationWrapper(pixiAppParams);
       })
       .inSingletonScope();
   }

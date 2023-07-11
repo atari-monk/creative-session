@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js';
 import {
   Collider,
-  Game,
+  BallGame,
   IGameObjectManager,
   AppHelper,
   GameObjectManager,
   appHelperParams,
   getPixiAppParams,
-  getCanvas,
+  getCanvasForPixi,
 } from 'atari-monk-pixi-lib';
 
 export class AppFactory {
@@ -29,18 +29,20 @@ export class AppFactory {
 
   constructor() {
     this._appHelper = new AppHelper(appHelperParams);
-    this._pixiApp = new PIXI.Application(getPixiAppParams(getCanvas()));
+    this._pixiApp = new PIXI.Application(
+      getPixiAppParams(getCanvasForPixi('pixiApp'))
+    );
     this._gameObjectManager = new GameObjectManager();
   }
 
   public start() {
     this._appHelper.initializeApp(this._pixiApp);
-    const game = new Game(
+    const game = new BallGame(
       this._pixiApp,
       this._gameObjectManager,
       new Collider()
     );
-    game.setBallGameObjectsForVer1();
+    game.setBallGameObjects();
     this._appHelper.startAnimationLoop(game);
   }
 }
