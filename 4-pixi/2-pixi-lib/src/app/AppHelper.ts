@@ -6,7 +6,7 @@ import { getCanvas } from '../utils/ui';
 
 export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
-  private _canvas!: HTMLCanvasElement;
+  private _canvas?: HTMLCanvasElement;
 
   private _width: number;
   private _height: number;
@@ -56,7 +56,7 @@ export class AppHelper implements IAppHelper {
     this._backgroundColor = backgroundColor;
     this._fullScreen = fullScreen;
     this.setFullScreen();
-    this.setCanvas();
+    this._canvas = getCanvas('appHelper');
   }
 
   private setFullScreen() {
@@ -70,14 +70,6 @@ export class AppHelper implements IAppHelper {
     }
   }
 
-  private setCanvas() {
-    try {
-      this._canvas = getCanvas();
-    } catch (error) {
-      console.log('Error setting canvas');
-    }
-  }
-
   public initializeApp(pixiApp: PIXI.Application<PIXI.ICanvas>) {
     this.pixiApp = pixiApp;
     this.setCanvasStyles();
@@ -86,7 +78,7 @@ export class AppHelper implements IAppHelper {
   }
 
   private setCanvasStyles() {
-    if (this._canvas === null) return;
+    if (!this._canvas) return;
     this._canvas.style.position = 'absolute';
     this._canvas.style.top = '50%';
     this._canvas.style.left = '50%';

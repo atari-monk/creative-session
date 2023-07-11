@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { Game } from '../Game';
 
 export interface IAppHelper {
-  canvas: HTMLCanvasElement;
+  canvas: HTMLCanvasElement | undefined;
   backgroundColor: number;
   fullScreen: boolean;
   width: number;

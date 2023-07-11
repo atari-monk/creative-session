@@ -14,7 +14,7 @@ export class AppFactory implements IDIFactory {
       return new AppHelper(appHelperParams);
     });
     this.container.bind<Application>(Application).toDynamicValue(() => {
-      return new Application(getPixiAppParams(getCanvasForPixi()));
+      return new Application(getPixiAppParams(getCanvasForPixi('pixiApp')));
     });
   }
 
