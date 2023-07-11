@@ -1,7 +1,9 @@
 import { Container } from 'inversify';
 import { AppFactory } from '../app/AppFactory';
 
-export function configureContainer(container: Container) {
+export const container = new Container();
+
+export function configureContainer() {
   const appFactory = new AppFactory(container);
   appFactory.register();
 }
