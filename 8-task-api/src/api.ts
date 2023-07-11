@@ -11,6 +11,9 @@ interface ITask extends Document {
   description: string;
   createdAt: Date;
   localTimestamp: string;
+  finishedAt?: Date;
+  finishLocalTimestamp?: string;
+  summary?: string;
 }
 
 const taskSchema = new Schema<ITask>({
@@ -24,6 +27,9 @@ const taskSchema = new Schema<ITask>({
         .format('DD-MM-YYYY HH:mm');
     },
   },
+  finishedAt: { type: Date },
+  finishLocalTimestamp: { type: String },
+  summary: { type: String },
 });
 
 const Task = mongoose.model<ITask>('Task', taskSchema);
@@ -72,6 +78,34 @@ app.get('/tasks', async (req: Request, res: Response) => {
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+});
+
+app.put('/tasks/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { finishedAt, summary } = req.body;
+
+    // Find the task by ID
+    const task = await Task.findById(id);
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Update the task fields
+    task.finishedAt = finishedAt || new Date();
+    task.finishLocalTimestamp = moment(task.finishedAt)
+      .tz('Europe/Warsaw')
+      .format('DD-MM-YYYY HH:mm');
+    task.summary = summary;
+
+    // Save the updated task to the database
+    await task.save();
+
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update task' });
   }
 });
 

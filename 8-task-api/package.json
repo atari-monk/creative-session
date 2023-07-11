@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
-    "build-ts": "tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
