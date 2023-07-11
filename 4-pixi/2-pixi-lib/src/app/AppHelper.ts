@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { Game } from '../Game';
 import { IAppHelper } from './IAppHelper';
 import { IAppHelperParams } from '../data/interfaces/IAppHelperParams';
+import { getCanvas } from '../utils/ui';
 
 export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
@@ -49,19 +50,31 @@ export class AppHelper implements IAppHelper {
   }
 
   constructor(options: IAppHelperParams) {
-    const { screenSize, backgroundColor, fullScreen, canvasId } = options;
+    const { screenSize, backgroundColor, fullScreen } = options;
     this._width = screenSize.width;
     this._height = screenSize.height;
     this._backgroundColor = backgroundColor;
     this._fullScreen = fullScreen;
+    this.setFullScreen();
+    this.setCanvas();
+  }
+
+  private setFullScreen() {
     try {
       if (this._fullScreen) {
         this._width = window.innerWidth;
         this._height = window.innerHeight;
       }
-      this._canvas = document.getElementById(canvasId) as HTMLCanvasElement;
     } catch (error) {
-      console.log(error);
+      console.log('Error setting fullscreen.');
+    }
+  }
+
+  private setCanvas() {
+    try {
+      this._canvas = getCanvas();
+    } catch (error) {
+      console.log('Error setting canvas.');
     }
   }
 

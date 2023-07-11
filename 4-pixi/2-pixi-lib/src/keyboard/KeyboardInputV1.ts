@@ -32,7 +32,7 @@ export class KeyboardInputV1 implements IKeyboardInput {
         window.removeEventListener('keyup', keyupListener);
       });
     } catch (error) {
-      console.log(error);
+      console.log('Error on init keyboard event listeners.');
     }
   }
 

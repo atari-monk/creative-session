@@ -27,7 +27,7 @@ export class PlayerFactory implements IDIFactory {
     this.RegisterRenderer();
     this.RegisterKeyboard();
     this.RegisterUpdateables();
-    this.container.bind<IPlayer>(PlayerTypes.Player).to(Player);
+    this.container.bind<IPlayer>(Player).to(Player);
   }
 
   private RegisterModel() {

@@ -1,13 +1,17 @@
 import { ICanvas } from 'pixi.js';
 import { appHelperParams } from '../data/ballGameParams';
 
-export function getCanvas(): ICanvas {
+export function getCanvas(): HTMLCanvasElement {
   try {
     return document.getElementById(
       appHelperParams.canvasId
-    ) as HTMLCanvasElement as ICanvas;
+    ) as HTMLCanvasElement;
   } catch (error) {
-    console.log(error);
-    return new HTMLCanvasElement() as ICanvas;
+    console.log(`Error getting canvas with id: '${appHelperParams.canvasId}'`);
+    return new HTMLCanvasElement();
   }
+}
+
+export function getCanvasForPixi(): ICanvas {
+  return getCanvas() as ICanvas;
 }
