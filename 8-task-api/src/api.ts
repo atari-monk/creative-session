@@ -109,6 +109,23 @@ app.put('/tasks/:id', async (req: Request, res: Response) => {
   }
 });
 
+app.delete('/tasks/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // Find the task by ID and delete it
+    const task = await Task.findByIdAndDelete(id);
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    res.json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete task' });
+  }
+});
+
 // Start the server
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
