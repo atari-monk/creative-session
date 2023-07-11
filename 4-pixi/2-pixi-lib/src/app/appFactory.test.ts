@@ -14,6 +14,7 @@ import { Collider } from '../game-updateable/Collider';
 import { IBallGame } from '../ball-game/IBallGame';
 import { BallGame } from '../ball-game/BallGame';
 import { Container } from 'inversify';
+import { PixiApplicationWrapper } from './PixiApplicationWrapper';
 
 describe('App', () => {
   let appHelper: IAppHelper;
@@ -28,7 +29,7 @@ describe('App', () => {
       configureContainerForTest(container);
     }
     appHelper = container.resolve<IAppHelper>(AppHelper);
-    pixiApp = container.resolve<Application>(Application);
+    pixiApp = container.resolve<PixiApplicationWrapper>(PixiApplicationWrapper);
     gameObjectManager =
       container.resolve<IGameObjectManager>(GameObjectManager);
     collider = container.resolve<IGameUpdateable>(Collider);

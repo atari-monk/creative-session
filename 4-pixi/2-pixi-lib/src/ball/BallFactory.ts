@@ -15,7 +15,7 @@ export class BallFactory implements IDIFactory {
   public register() {
     this.RegisterModels();
     this.RegisterDrawer();
-    this.container.bind<IBall>(BallTypes.Ball).to(Ball);
+    this.container.bind<IBall>(Ball).to(Ball);
   }
 
   private RegisterModels() {
@@ -29,6 +29,6 @@ export class BallFactory implements IDIFactory {
   }
 
   public create() {
-    return this.container.get<IBall>(BallTypes.Ball);
+    return this.container.resolve<IBall>(Ball);
   }
 }

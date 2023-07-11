@@ -7,6 +7,7 @@ import { IBallGame } from './IBallGame';
 import { inject, injectable } from 'inversify';
 import { GameObjectManager } from '../gameObject/GameObjectManager';
 import { Collider } from '../game-updateable/Collider';
+import { PixiApplicationWrapper } from '../app/PixiApplicationWrapper';
 
 @injectable()
 export class BallGame implements IBallGame {
@@ -24,8 +25,8 @@ export class BallGame implements IBallGame {
   }
 
   constructor(
-    @inject(PIXI.Application)
-    private readonly pixiApp: PIXI.Application<PIXI.ICanvas>,
+    @inject(PixiApplicationWrapper)
+    private readonly pixiApp: PixiApplicationWrapper,
     @inject(GameObjectManager)
     private readonly gameObjectManager: IGameObjectManager,
     @inject(Collider)

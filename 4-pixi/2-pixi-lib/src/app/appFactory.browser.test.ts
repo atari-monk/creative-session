@@ -13,6 +13,7 @@ import { IBallGame } from '../ball-game/IBallGame';
 import { BallGame } from '../ball-game/BallGame';
 import { toLowerCaseAndRemoveDot } from '../utils/string';
 import { Container } from 'inversify';
+import { PixiApplicationWrapper } from './PixiApplicationWrapper';
 
 describe('App Browser', () => {
   let appHelper: IAppHelper;
@@ -28,7 +29,9 @@ describe('App Browser', () => {
     }
     appHelper = container.resolve<IAppHelper>(AppHelper);
     try {
-      pixiApp = container.resolve<Application>(Application);
+      pixiApp = container.resolve<PixiApplicationWrapper>(
+        PixiApplicationWrapper
+      );
     } catch (error) {
       console.log(
         `Error pixiApp ${toLowerCaseAndRemoveDot((error as Error).message)}`

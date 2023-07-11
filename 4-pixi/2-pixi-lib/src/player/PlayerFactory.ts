@@ -76,6 +76,6 @@ export class PlayerFactory implements IDIFactory {
   }
 
   public create(): IPlayer {
-    return this.container.get<IPlayer>(PlayerTypes.Player);
+    return this.container.resolve<IPlayer>(Player);
   }
 }

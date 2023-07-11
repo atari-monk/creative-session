@@ -6,9 +6,10 @@ import {
   GameObjectManager,
   AppFactory as DIAppFactory,
   IBallGame,
+  PixiApplicationWrapper,
+  IAppHelper,
 } from 'atari-monk-pixi-lib';
 import { Container } from 'inversify';
-import { IAppHelper } from 'atari-monk-pixi-lib/app/IAppHelper';
 
 export class AppFactory {
   private _pixiApp: PIXI.Application;
@@ -31,7 +32,9 @@ export class AppFactory {
     const appFactory = new DIAppFactory(container);
     appFactory.register();
     this._appHelper = container.resolve<IAppHelper>(AppHelper);
-    this._pixiApp = container.resolve<PIXI.Application>(PIXI.Application);
+    this._pixiApp = container.resolve<PixiApplicationWrapper>(
+      PixiApplicationWrapper
+    );
     this._gameObjectManager =
       container.resolve<IGameObjectManager>(GameObjectManager);
   }

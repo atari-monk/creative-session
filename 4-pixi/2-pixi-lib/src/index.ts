@@ -78,3 +78,4 @@ export { getCanvas } from './utils/ui';
 export { getCanvasForPixi } from './utils/ui';
 export { AppFactory } from './app/AppFactory';
 export { IAppHelper } from './app/IAppHelper';
+export { PixiApplicationWrapper } from './app/PixiApplicationWrapper';

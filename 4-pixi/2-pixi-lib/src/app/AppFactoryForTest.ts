@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
-import { Application } from 'pixi.js';
 import { instance, mock } from 'ts-mockito';
 import { AppFactoryBase } from './AppFactoryBase';
+import { PixiApplicationWrapper } from './PixiApplicationWrapper';
 
 export class AppFactoryForTest extends AppFactoryBase {
   constructor(container: Container) {
@@ -9,10 +9,12 @@ export class AppFactoryForTest extends AppFactoryBase {
   }
 
   registerPixiApp(): void {
-    const mockedApplication: Application = mock(Application);
-    const mockInstance: Application = instance(mockedApplication);
+    const mockedApplication: PixiApplicationWrapper = mock(
+      PixiApplicationWrapper
+    );
+    const mockInstance: PixiApplicationWrapper = instance(mockedApplication);
     this.container
-      .bind<Application>(Application)
+      .bind<PixiApplicationWrapper>(PixiApplicationWrapper)
       .toDynamicValue(() => {
         return mockInstance;
       })
