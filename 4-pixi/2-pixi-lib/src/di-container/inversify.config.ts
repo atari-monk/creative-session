@@ -4,6 +4,7 @@ import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerFactory } from '../player/PlayerFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { AppFactoryForTest } from '../app/AppFactoryForTest';
+import { BallFactory } from '../ball/BallFactory';
 
 export function configureContainer(container: Container) {
   const appFactory = new AppFactory(container);
@@ -17,6 +18,9 @@ export function configureContainer(container: Container) {
 
   const playerNpcFactory = new PlayerNpcFactory(container);
   playerNpcFactory.register();
+
+  const ballFactory = new BallFactory(container);
+  ballFactory.register();
 }
 
 export function configureContainerForTest(container: Container) {
@@ -31,4 +35,7 @@ export function configureContainerForTest(container: Container) {
 
   const playerNpcFactory = new PlayerNpcFactory(container);
   playerNpcFactory.register();
+
+  const ballFactory = new BallFactory(container);
+  ballFactory.register();
 }
