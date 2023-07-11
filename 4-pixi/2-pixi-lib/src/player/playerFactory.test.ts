@@ -18,7 +18,7 @@ describe('Player', () => {
     player = container.resolve<IPlayer>(Player);
   });
 
-  it('player should instance of Player', () => {
+  it('player should be instance of Player', () => {
     expect(player).to.be.instanceof(Player);
   });
 

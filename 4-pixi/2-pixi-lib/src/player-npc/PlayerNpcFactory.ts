@@ -21,10 +21,10 @@ export class PlayerNpcFactory implements IDIFactory {
       .bind<ICircleRenderer>(PlayerNpcTypes.Renderer)
       .to(CircleRenderer);
 
-    this.container.bind<IPlayerNpc>(PlayerNpcTypes.Player).to(PlayerNpc);
+    this.container.bind<IPlayerNpc>(PlayerNpc).to(PlayerNpc);
   }
 
   public create(): IPlayerNpc {
-    return this.container.get<IPlayerNpc>(PlayerNpcTypes.Player);
+    return this.container.resolve<IPlayerNpc>(PlayerNpc);
   }
 }

@@ -74,7 +74,7 @@ export class AppHelper implements IAppHelper {
     try {
       this._canvas = getCanvas();
     } catch (error) {
-      console.log('Error setting canvas.');
+      console.log('Error setting canvas');
     }
   }
 

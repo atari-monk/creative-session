@@ -18,7 +18,7 @@ describe('App', () => {
     appHelper = container.resolve<IAppHelper>(AppHelper);
   });
 
-  it('appHelper should instance of AppHelper', () => {
+  it('appHelper should be instance of AppHelper', () => {
     expect(appHelper).to.be.instanceof(AppHelper);
   });
 
