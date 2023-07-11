@@ -1,7 +1,9 @@
-import { IBall } from './ball/IBall';
-import { IPlayer } from './player/IPlayer';
+import { IBall } from '../ball/IBall';
+import { IPlayer } from '../player/IPlayer';
 import { IGameUpdateable } from './IGameUpdateable';
+import { injectable } from 'inversify';
 
+@injectable()
 export class Collider implements IGameUpdateable {
   Update(deltaTime: number, ball: IBall, player: IPlayer): void {
     this.handleCollisions(ball, player);

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
 import {
-  configureContainer,
+  configureContainerForTest,
   container,
 } from '../di-container/inversify.config';
 import { IPlayer } from './IPlayer';
@@ -13,7 +13,7 @@ describe('Player', () => {
 
   before(() => {
     if (!container.isBound(Player)) {
-      configureContainer();
+      configureContainerForTest();
     }
     player = container.resolve<IPlayer>(Player);
   });

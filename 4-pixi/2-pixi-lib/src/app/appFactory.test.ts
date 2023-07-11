@@ -2,30 +2,36 @@ import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
 import {
-  configureContainer,
+  configureContainerForTest,
   container,
 } from '../di-container/inversify.config';
 import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
 import { Application } from 'pixi.js';
-import { toLowerCaseAndRemoveDot } from '../utils/string';
+import { IGameObjectManager } from '../gameObject/IGameObjectManager';
+import { GameObjectManager } from '../gameObject/GameObjectManager';
+import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
+import { Collider } from '../game-updateable/Collider';
+import { IBallGame } from '../ball-game/IBallGame';
+import { BallGame } from '../ball-game/BallGame';
 
 describe('App', () => {
   let appHelper: IAppHelper;
   let pixiApp: Application;
+  let gameObjectManager: IGameObjectManager;
+  let collider: IGameUpdateable;
+  let ballGame: IBallGame;
 
   before(() => {
     if (!container.isBound(AppHelper)) {
-      configureContainer();
+      configureContainerForTest();
     }
     appHelper = container.resolve<IAppHelper>(AppHelper);
-    try {
-      pixiApp = container.resolve<Application>(Application);
-    } catch (error) {
-      console.log(
-        `Error pixiApp ${toLowerCaseAndRemoveDot((error as Error).message)}`
-      );
-    }
+    pixiApp = container.resolve<Application>(Application);
+    gameObjectManager =
+      container.resolve<IGameObjectManager>(GameObjectManager);
+    collider = container.resolve<IGameUpdateable>(Collider);
+    ballGame = container.resolve<IBallGame>(BallGame);
   });
 
   it('appHelper should be instance of AppHelper', () => {
@@ -37,7 +43,19 @@ describe('App', () => {
     expect(params).to.deep.equal([800, 600]);
   });
 
-  it('pixiApp should be undefined in node env', () => {
-    expect(pixiApp).to.be.undefined;
+  it('pixiApp should be mocked in node env', () => {
+    expect(pixiApp).to.be.exist;
+  });
+
+  it('gameObjectManager should be instance of GameObjectManager', () => {
+    expect(gameObjectManager).to.be.instanceof(GameObjectManager);
+  });
+
+  it('collider should be instance of collider', () => {
+    expect(collider).to.be.instanceof(Collider);
+  });
+
+  it('ballGame should be instance of BallGame', () => {
+    expect(ballGame).to.be.instanceof(BallGame);
   });
 });

@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { Game } from '../Game';
+import { IBallGame } from '../ball-game/IBallGame';
 
 export interface IAppHelper {
   canvas: HTMLCanvasElement | undefined;
@@ -9,5 +9,5 @@ export interface IAppHelper {
   height: number;
 
   initializeApp(pixiApp: PIXI.Application<PIXI.ICanvas>): void;
-  startAnimationLoop(game: Game): void;
+  startAnimationLoop(game: IBallGame): void;
 }

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
 import {
-  configureContainer,
+  configureContainerForTest,
   container,
 } from '../di-container/inversify.config';
 import { IPlayerNpc } from './IPlayerNpc';
@@ -13,7 +13,7 @@ describe('PlayerNpc', () => {
 
   before(() => {
     if (!container.isBound(PlayerNpc)) {
-      configureContainer();
+      configureContainerForTest();
     }
     player = container.resolve<IPlayerNpc>(PlayerNpc);
   });

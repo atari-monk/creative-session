@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import { Game } from '../Game';
 import { IAppHelper } from './IAppHelper';
 import { IAppHelperParams } from '../data/interfaces/IAppHelperParams';
 import { getCanvas } from '../utils/ui';
+import { IBallGame } from '../ball-game/IBallGame';
 
 export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;
@@ -89,7 +89,7 @@ export class AppHelper implements IAppHelper {
     this._canvas.style.border = this._fullScreen ? 'none' : '1px solid white';
   }
 
-  public startAnimationLoop(game: Game) {
+  public startAnimationLoop(game: IBallGame) {
     this.pixiApp.ticker.add((deltaTime) => {
       game.gameLoop(deltaTime);
     });

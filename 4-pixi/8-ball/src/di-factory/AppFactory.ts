@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import {
   Collider,
-  Game,
+  BallGame,
   IGameObjectManager,
   AppHelper,
   GameObjectManager,
@@ -35,7 +35,7 @@ export class AppFactory {
 
   public start() {
     this._appHelper.initializeApp(this._pixiApp);
-    const game = new Game(
+    const game = new BallGame(
       this._pixiApp,
       this._gameObjectManager,
       new Collider()

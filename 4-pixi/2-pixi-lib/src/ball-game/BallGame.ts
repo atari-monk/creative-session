@@ -1,12 +1,17 @@
 import * as PIXI from 'pixi.js';
-import { IBall } from './ball/IBall';
-import { IPlayer } from './player/IPlayer';
-import { IGameUpdateable } from './IGameUpdateable';
-import { IGameObjectManager } from './gameObject/IGameObjectManager';
+import { IBall } from '../ball/IBall';
+import { IPlayer } from '../player/IPlayer';
+import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
+import { IGameObjectManager } from '../gameObject/IGameObjectManager';
+import { IBallGame } from './IBallGame';
+import { inject, injectable } from 'inversify';
+import { GameObjectManager } from '../gameObject/GameObjectManager';
+import { Collider } from '../game-updateable/Collider';
 
-export class Game {
-  protected gameObjectManager: IGameObjectManager;
-  private pixiApp: PIXI.Application<PIXI.ICanvas>;
+@injectable()
+export class BallGame implements IBallGame {
+  //protected gameObjectManager: IGameObjectManager;
+  //private pixiApp: PIXI.Application<PIXI.ICanvas>;
   private _ball!: IBall;
   private _player!: IPlayer;
 
@@ -19,8 +24,11 @@ export class Game {
   }
 
   constructor(
-    pixiApp: PIXI.Application<PIXI.ICanvas>,
-    gameObjectManager: IGameObjectManager,
+    @inject(PIXI.Application)
+    private readonly pixiApp: PIXI.Application<PIXI.ICanvas>,
+    @inject(GameObjectManager)
+    private readonly gameObjectManager: IGameObjectManager,
+    @inject(Collider)
     private readonly gameUpdateable: IGameUpdateable
   ) {
     this.gameObjectManager = gameObjectManager;
@@ -40,13 +48,7 @@ export class Game {
     this.gameUpdateable.Update(deltaTime, this._ball, this._player);
   }
 
-  public setBallGameObjectsForVer1() {
-    this.gameObjectManager.assertGameObjects();
-    this.ball = this.gameObjectManager.findBall();
-    this.player = this.gameObjectManager.findPlayer();
-  }
-
-  public setBallGameObjectsForVer2() {
+  public setBallGameObjects() {
     this.gameObjectManager.assertGameObjects();
     this.ball = this.gameObjectManager.findBall();
     this.player = this.gameObjectManager.findPlayer();
