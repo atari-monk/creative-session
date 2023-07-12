@@ -1,7 +1,10 @@
 import { Environment } from './Environment';
 import { SocketConfig } from './SocketConfig';
+import { ISocketConfigurator } from './ISocketConfigurator';
+import { injectable } from 'inversify';
 
-export class SocketConfigurator {
+@injectable()
+export class SocketConfigurator implements ISocketConfigurator {
   private config: SocketConfig;
   private _uri: string;
 

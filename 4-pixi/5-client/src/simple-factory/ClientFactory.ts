@@ -6,23 +6,21 @@ import {
   IPlayerNpc,
   SocketLogicManager,
 } from 'atari-monk-pixi-lib';
-import {
-  BallManager,
-  ConnectErrorHandler,
-  DisconnectHandler,
-  Environment,
-  SocketConfigurator,
-  SocketErrorHandler,
-  PlayerManager,
-  PlayerConnectLogic,
-  PlayerMovement,
-  PlayerList,
-  BallMovement,
-  BallVelocity,
-  PlayerEventEmitterLogicUnit,
-  BallEventEmitterLogicUnit,
-} from 'atari-monk-client';
 import EventEmitter from 'eventemitter3';
+import { SocketConfigurator } from '../SocketConfigurator';
+import { Environment } from '../Environment';
+import { SocketErrorHandler } from '../SocketErrorHandler';
+import { ConnectErrorHandler } from '../socket-logic/ConnectErrorHandler';
+import { DisconnectHandler } from '../socket-logic/DisconnectHandler';
+import { PlayerManager } from '../PlayerManager';
+import { PlayerConnectLogic } from '../socket-logic/PlayerConnectLogic';
+import { PlayerList } from '../socket-logic/PlayerList';
+import { PlayerMovement } from '../socket-logic/PlayerMovement';
+import { PlayerEventEmitterLogicUnit } from '../emitter-logic/PlayerEventEmitterLogicUnit';
+import { BallManager } from '../BallManager';
+import { BallMovement } from '../socket-logic/BallMovement';
+import { BallVelocity } from '../socket-logic/BallVelocity';
+import { BallEventEmitterLogicUnit } from '../emitter-logic/BallEventEmitterLogicUnit';
 
 export class ClientFactory {
   private socket: Socket;

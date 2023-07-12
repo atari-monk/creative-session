@@ -6,7 +6,8 @@
   "description": "socket-io client for pixi game",
   "scripts": {
     "build-ts": "tsc",
-    "build": "npx webpack --config webpack.config.js"
+    "build": "npx webpack --config webpack.config.js",
+    "test": "mocha --require ts-node/register 'src/**/*.test.ts'"
   },
   "keywords": [],
   "author": "atari-monk",
@@ -14,12 +15,19 @@
   "dependencies": {
     "atari-monk-pixi-lib": "^1.0.136",
     "eventemitter3": "^5.0.1",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
     "socket.io-client": "^4.6.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
+    "mocha": "^10.2.0",
     "ts-loader": "^9.4.3",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.3",
     "webpack": "^5.87.0",
     "webpack-cli": "^5.1.4"
