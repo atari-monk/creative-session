@@ -1,9 +1,9 @@
 import { Container, inject, injectable } from 'inversify';
-import { SocketLogicFactory } from './SocketLogicFactory';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { Socket } from 'socket.io-client';
+import { SocketLogicManager } from 'atari-monk-pixi-lib';
+import { SocketLogicFactory } from './SocketLogicFactory';
 import { IDIFactory } from './IDIFactory';
-import { SocketOffFactory } from './socketFactory/SocketOffFactory';
+import { ClosedSocketFactory } from './socketFactory/ClosedSocketFactory';
 
 @injectable()
 export class ClientTestFactory implements IDIFactory<void> {
@@ -19,7 +19,8 @@ export class ClientTestFactory implements IDIFactory<void> {
   }
 
   constructor(
-    @inject(SocketOffFactory) private readonly socketFactory: SocketOffFactory,
+    @inject(ClosedSocketFactory)
+    private readonly socketFactory: ClosedSocketFactory,
     @inject(SocketLogicFactory)
     private readonly socketLogicFactory: SocketLogicFactory
   ) {}

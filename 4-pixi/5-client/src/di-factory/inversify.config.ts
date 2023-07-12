@@ -1,12 +1,15 @@
 import { Container } from 'inversify';
 import { ClientFactory } from './ClientFactory';
 import { SocketLogicFactory } from './SocketLogicFactory';
-import { SocketOffFactory } from './socketFactory/SocketOffFactory';
-import { SocketFactory } from './socketFactory/SocketFactory';
 import { ClientTestFactory } from './ClientTestFactory';
+import { ClosedSocketFactory } from './socketFactory/ClosedSocketFactory';
+import { OpenSocketFactory } from './socketFactory/OpenSocketFactory';
 
 export function configureContainer(container: Container): ClientFactory {
-  container.bind<SocketFactory>(SocketFactory).toSelf().inSingletonScope();
+  container
+    .bind<OpenSocketFactory>(OpenSocketFactory)
+    .toSelf()
+    .inSingletonScope();
   container
     .bind<SocketLogicFactory>(SocketLogicFactory)
     .toSelf()
@@ -23,7 +26,7 @@ export function configureContainerForTest(
   container: Container
 ): ClientTestFactory {
   container
-    .bind<SocketOffFactory>(SocketOffFactory)
+    .bind<ClosedSocketFactory>(ClosedSocketFactory)
     .toSelf()
     .inSingletonScope();
   container

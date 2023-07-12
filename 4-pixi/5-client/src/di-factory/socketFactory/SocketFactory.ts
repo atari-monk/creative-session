@@ -7,7 +7,7 @@ import { SocketErrorHandler } from '../../SocketErrorHandler';
 import { IDIFactory } from '../IDIFactory';
 
 @injectable()
-export class SocketFactory implements IDIFactory<Socket> {
+export abstract class SocketFactory implements IDIFactory<Socket> {
   public register(container: Container) {
     container
       .bind<ISocketConfigurator>(SocketConfigurator)
@@ -25,19 +25,15 @@ export class SocketFactory implements IDIFactory<Socket> {
       })
       .inSingletonScope();
 
-    container
-      .bind<Socket>(Socket)
-      .toDynamicValue(() => {
-        const socketManager = container.resolve<Manager>(Manager);
-        return new Socket(socketManager, '/');
-      })
-      .inSingletonScope();
+    this.createSocket(container);
 
     container
       .bind<SocketErrorHandler>(SocketErrorHandler)
       .toSelf()
       .inSingletonScope();
   }
+
+  protected abstract createSocket(container: Container): void;
 
   public create(container: Container): Socket {
     const socket = container.resolve<Socket>(Socket);
