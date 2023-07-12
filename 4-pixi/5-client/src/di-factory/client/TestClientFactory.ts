@@ -10,6 +10,7 @@ import { PlayerLogicFactory } from '../player-logic/PlayerLogicFactory';
 export class TestClientFactory implements IDIFactory<void> {
   private _socket!: Socket;
   private _socketLogicManager!: SocketLogicManager;
+  private _playerLogicManager!: SocketLogicManager;
 
   public get socket() {
     return this._socket;
@@ -17,6 +18,10 @@ export class TestClientFactory implements IDIFactory<void> {
 
   public get socketLogicManager() {
     return this._socketLogicManager;
+  }
+
+  public get playerLogicManager() {
+    return this._playerLogicManager;
   }
 
   constructor(
@@ -37,6 +42,6 @@ export class TestClientFactory implements IDIFactory<void> {
   create(container: Container) {
     this._socket = this.socketFactory.create(container);
     this._socketLogicManager = this.socketLogicFactory.create(container);
-    this.playerLogicFactory.create(container);
+    this._playerLogicManager = this.playerLogicFactory.create(container);
   }
 }

@@ -24,4 +24,8 @@ describe('Client', () => {
   it('socketLogicManager should be instance of SocketLogicManager', () => {
     expect(factory.socketLogicManager).to.be.instanceof(SocketLogicManager);
   });
+
+  it('playerLogicManager should be instance of SocketLogicManager', () => {
+    expect(factory.playerLogicManager).to.be.instanceof(SocketLogicManager);
+  });
 });

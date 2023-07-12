@@ -12,13 +12,13 @@ export class SocketLogicFactory implements IDIFactory<SocketLogicManager> {
       .bind<ConnectErrorHandler>(ConnectErrorHandler)
       .toDynamicValue(() => {
         return new ConnectErrorHandler('connect_error');
-      });
+      }).inSingletonScope();
     container.bind<DisconnectHandler>(DisconnectHandler).toDynamicValue(() => {
       return new DisconnectHandler('disconnect');
-    });
+    }).inSingletonScope();
     container
       .bind<SocketLogicManager>(SocketLogicManager)
-      .to(SocketLogicManager);
+      .to(SocketLogicManager).inRequestScope();
   }
 
   public create(container: Container): SocketLogicManager {
