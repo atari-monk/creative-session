@@ -1,45 +1,26 @@
 import { Container } from 'inversify';
-import { ClientFactory } from './ClientFactory';
-import { SocketLogicFactory } from './SocketLogicFactory';
-import { ClientTestFactory } from './ClientTestFactory';
-import { ClosedSocketFactory } from './socketFactory/ClosedSocketFactory';
-import { OpenSocketFactory } from './socketFactory/OpenSocketFactory';
+import { ClientCreator } from './client/ClientCreator';
+import { TestClientCreator } from './client/TestClientCreator';
+import { ClientFactory } from './client/ClientFactory';
+import { TestClientFactory } from './client/TestClientFactory';
 
-export function configureContainer(container: Container): ClientFactory {
-  container
-    .bind<OpenSocketFactory>(OpenSocketFactory)
-    .toSelf()
-    .inSingletonScope();
-  container
-    .bind<SocketLogicFactory>(SocketLogicFactory)
-    .toSelf()
-    .inSingletonScope();
+export function configureContainer(container: Container): ClientCreator {
   container.bind<ClientFactory>(ClientFactory).toSelf().inSingletonScope();
-
   const factory = container.resolve<ClientFactory>(ClientFactory);
+
   factory.register(container);
-  factory.create(container);
-  return factory;
+  return factory.create(container);
 }
 
 export function configureContainerForTest(
   container: Container
-): ClientTestFactory {
+): TestClientCreator {
   container
-    .bind<ClosedSocketFactory>(ClosedSocketFactory)
+    .bind<TestClientFactory>(TestClientFactory)
     .toSelf()
     .inSingletonScope();
-  container
-    .bind<SocketLogicFactory>(SocketLogicFactory)
-    .toSelf()
-    .inSingletonScope();
-  container
-    .bind<ClientTestFactory>(ClientTestFactory)
-    .toSelf()
-    .inSingletonScope();
+  const factory = container.resolve<TestClientFactory>(TestClientFactory);
 
-  const factory = container.resolve<ClientTestFactory>(ClientTestFactory);
   factory.register(container);
-  factory.create(container);
-  return factory;
+  return factory.create(container);
 }

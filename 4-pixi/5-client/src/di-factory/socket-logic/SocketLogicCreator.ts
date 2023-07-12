@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { ConnectErrorHandler } from '../socket-logic/ConnectErrorHandler';
-import { DisconnectHandler } from '../socket-logic/DisconnectHandler';
+import { ConnectErrorHandler } from '../../socket-logic/ConnectErrorHandler';
+import { DisconnectHandler } from '../../socket-logic/DisconnectHandler';
 import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { Socket } from 'socket.io-client';
 
