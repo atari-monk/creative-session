@@ -16,4 +16,4 @@ export { SocketErrorHandler } from './SocketErrorHandler';
 export { BallManager } from './BallManager';
 export { ISocketConfigurator } from './ISocketConfigurator';
 export { ClientFactory } from './simple-factory/ClientFactory';
-export { configureContainer } from './di-container/inversify.config';
+export { configureContainer } from './di-factory/inversify.config';

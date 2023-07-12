@@ -1,5 +1,7 @@
+import { injectable } from 'inversify';
 import { Socket } from 'socket.io-client';
 
+@injectable()
 export class SocketErrorHandler {
   constructor(private readonly socket: Socket) {
     this.socket = socket;

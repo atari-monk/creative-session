@@ -1,3 +1,6 @@
+import { injectable } from 'inversify';
+
+@injectable()
 export abstract class LogicManagerGeneric<T> {
   private readonly _logicUnits: T[] = [];
 

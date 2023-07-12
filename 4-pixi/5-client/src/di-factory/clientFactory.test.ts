@@ -2,21 +2,26 @@ import 'reflect-metadata';
 import 'mocha';
 import { Container } from 'inversify';
 import { expect } from 'chai';
-import { configureContainerForTest } from '../di-container/inversify.config';
 import { Socket } from 'socket.io-client';
+import { configureContainerForTest } from './inversify.config';
+import { SocketLogicManager } from 'atari-monk-pixi-lib';
+import { ClientTestFactory } from './ClientTestFactory';
 
 describe('Client', () => {
-  let socket: Socket;
+  let factory: ClientTestFactory;
 
   before(() => {
     const container = new Container();
     if (!container.isBound(Socket)) {
-      configureContainerForTest(container);
+      factory = configureContainerForTest(container);
     }
-    socket = container.resolve<Socket>(Socket);
   });
 
-  it('', () => {
-    expect(socket).to.be.instanceof(Socket);
+  it('socket should be instance of Socket', () => {
+    expect(factory.socket).to.be.instanceof(Socket);
+  });
+
+  it('socketLogicManager should be instance of SocketLogicManager', () => {
+    expect(factory.socketLogicManager).to.be.instanceof(SocketLogicManager);
   });
 });
