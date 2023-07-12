@@ -2,8 +2,12 @@ import { Container } from 'inversify';
 import { instance, mock } from 'ts-mockito';
 import { AppFactoryBase } from './AppFactoryBase';
 import { PixiApplicationWrapper } from './PixiApplicationWrapper';
+import { IDIFactoryForTest } from '../factory/IDIFactoryForTest';
 
-export class AppFactoryForTest extends AppFactoryBase {
+export class AppFactoryForTest
+  extends AppFactoryBase
+  implements IDIFactoryForTest
+{
   constructor(container: Container) {
     super(container);
   }

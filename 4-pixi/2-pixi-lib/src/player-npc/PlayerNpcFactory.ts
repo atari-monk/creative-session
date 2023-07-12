@@ -9,7 +9,7 @@ import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerNpc } from './IPlayerNpc';
 import { PlayerNpcTypes } from '../di-container/types';
 
-export class PlayerNpcFactory implements IDIFactory {
+export class PlayerNpcFactory implements IDIFactory<IPlayerNpc> {
   constructor(private readonly container: Container) {}
 
   public register() {

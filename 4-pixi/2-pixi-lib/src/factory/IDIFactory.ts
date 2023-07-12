@@ -1,5 +1,4 @@
+import { ICreate } from './ICreate';
 import { IRegister } from './IRegister';
 
-export interface IDIFactory extends IRegister {
-  create(): void;
-}
+export interface IDIFactory<T> extends IRegister, ICreate<T> {}

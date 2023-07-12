@@ -13,7 +13,7 @@
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
-    "atari-monk-pixi-lib": "^1.0.136",
+    "atari-monk-pixi-lib": "^1.0.144",
     "eventemitter3": "^5.0.1",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",

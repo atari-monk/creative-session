@@ -9,7 +9,7 @@ import { IBallModel } from '../model/IBallModel';
 import { BallModel } from '../model/BallModel';
 import { BallTypes } from '../di-container/types';
 
-export class BallFactory implements IDIFactory {
+export class BallFactory implements IDIFactory<IBall> {
   constructor(private readonly container: Container) {}
 
   public register() {

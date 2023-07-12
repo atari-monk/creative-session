@@ -1,12 +1,12 @@
 import { Container } from 'inversify';
-import { ClientFactory } from '../di-factory/ClientFactory';
+import { SocketFactory } from '../di-factory/SocketFactory';
 
 export function configureContainer(container: Container) {
-  const appFactory = new ClientFactory(container);
+  const appFactory = new SocketFactory(container);
   appFactory.register();
 }
 
 export function configureContainerForTest(container: Container) {
-  const appFactory = new ClientFactory(container);
+  const appFactory = new SocketFactory(container);
   appFactory.register();
 }

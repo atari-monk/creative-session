@@ -1,6 +1,5 @@
 import { Container } from 'inversify';
 import { appHelperParams } from '../data/ballGameParams';
-import { IDIFactory } from '../factory/IDIFactory';
 import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
 import { IGameObjectManager } from '../gameObject/IGameObjectManager';
@@ -9,8 +8,9 @@ import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
 import { Collider } from '../game-updateable/Collider';
 import { BallGame } from '../ball-game/BallGame';
 import { IBallGame } from '../ball-game/IBallGame';
+import { IRegister } from '../factory/IRegister';
 
-export abstract class AppFactoryBase implements IDIFactory {
+export abstract class AppFactoryBase implements IRegister {
   constructor(protected readonly container: Container) {}
 
   public register() {
@@ -37,8 +37,4 @@ export abstract class AppFactoryBase implements IDIFactory {
   }
 
   abstract registerPixiApp(): void;
-
-  public create(): void {
-    //const appHelper = this.container.resolve<IAppHelper>(AppHelper);
-  }
 }
