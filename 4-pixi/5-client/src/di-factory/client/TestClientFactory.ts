@@ -4,6 +4,7 @@ import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { SocketLogicFactory } from '../socket-logic/SocketLogicFactory';
 import { IDIFactory } from '../IDIFactory';
 import { ClosedSocketFactory } from '../socket/ClosedSocketFactory';
+import { PlayerLogicFactory } from '../player-logic/PlayerLogicFactory';
 
 @injectable()
 export class TestClientFactory implements IDIFactory<void> {
@@ -22,16 +23,20 @@ export class TestClientFactory implements IDIFactory<void> {
     @inject(ClosedSocketFactory)
     private readonly socketFactory: ClosedSocketFactory,
     @inject(SocketLogicFactory)
-    private readonly socketLogicFactory: SocketLogicFactory
+    private readonly socketLogicFactory: SocketLogicFactory,
+    @inject(PlayerLogicFactory)
+    private readonly playerLogicFactory: PlayerLogicFactory
   ) {}
 
   register(container: Container) {
     this.socketFactory.register(container);
     this.socketLogicFactory.register(container);
+    this.playerLogicFactory.register(container);
   }
 
   create(container: Container) {
     this._socket = this.socketFactory.create(container);
     this._socketLogicManager = this.socketLogicFactory.create(container);
+    this.playerLogicFactory.create(container);
   }
 }

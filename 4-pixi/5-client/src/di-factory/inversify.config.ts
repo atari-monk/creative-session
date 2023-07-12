@@ -3,6 +3,7 @@ import { ClientFactory } from './client/ClientFactory';
 import { TestClientFactory } from './client/TestClientFactory';
 import { ClientFactoryBuilder } from './client/ClientFactoryBuilder';
 import { TestClientFactoryBuilder } from './client/TestClientFactoryBuilder';
+import { configureContainerForTest as pixiLibConfigureContainerForTest } from 'atari-monk-pixi-lib';
 
 export function configureContainer(container: Container): ClientFactory {
   container
@@ -18,6 +19,8 @@ export function configureContainer(container: Container): ClientFactory {
 export function configureContainerForTest(
   container: Container
 ): TestClientFactory {
+  pixiLibConfigureContainerForTest(container);
+
   container
     .bind<TestClientFactoryBuilder>(TestClientFactoryBuilder)
     .toSelf()

@@ -80,4 +80,5 @@ export { AppFactory } from './app/AppFactory';
 export { IAppHelper } from './app/IAppHelper';
 export { PixiApplicationWrapper } from './app/PixiApplicationWrapper';
 export { configureContainer } from './di-container/inversify.config';
+export { configureContainerForTest } from './di-container/inversify.config';
 export { IDIFactory } from './factory/IDIFactory';

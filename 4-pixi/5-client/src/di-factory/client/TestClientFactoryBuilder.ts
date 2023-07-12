@@ -3,6 +3,7 @@ import { SocketLogicFactory } from '../socket-logic/SocketLogicFactory';
 import { IDIFactory } from '../IDIFactory';
 import { ClosedSocketFactory } from '../socket/ClosedSocketFactory';
 import { TestClientFactory } from './TestClientFactory';
+import { PlayerLogicFactory } from '../player-logic/PlayerLogicFactory';
 
 @injectable()
 export class TestClientFactoryBuilder implements IDIFactory<TestClientFactory> {
@@ -13,6 +14,10 @@ export class TestClientFactoryBuilder implements IDIFactory<TestClientFactory> {
       .inSingletonScope();
     container
       .bind<SocketLogicFactory>(SocketLogicFactory)
+      .toSelf()
+      .inSingletonScope();
+    container
+      .bind<PlayerLogicFactory>(PlayerLogicFactory)
       .toSelf()
       .inSingletonScope();
     container

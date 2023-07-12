@@ -2,7 +2,9 @@ import { IPlayer, IVector2d } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from './IPlayerManager.js';
 import { IPlayerNpc } from 'atari-monk-pixi-lib/player-npc/IPlayerNpc.js';
 import { Socket } from 'socket.io-client';
+import { injectable } from 'inversify';
 
+@injectable()
 export class PlayerManager implements IPlayerManager {
   private _players: { [clientId: string]: IPlayer } = {};
   private _playerNpcs: { [clientId: string]: IPlayerNpc } = {};
