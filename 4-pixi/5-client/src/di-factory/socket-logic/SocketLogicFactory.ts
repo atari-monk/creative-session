@@ -22,6 +22,6 @@ export class SocketLogicFactory implements IDIFactory<SocketLogicManager> {
   }
 
   public create(container: Container): SocketLogicManager {
-    return container.resolve(SocketLogicCreator).createSocketLogic();
+    return container.resolve(SocketLogicCreator).create();
   }
 }

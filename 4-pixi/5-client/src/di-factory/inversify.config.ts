@@ -1,12 +1,15 @@
 import { Container } from 'inversify';
-import { ClientCreator } from './client/ClientCreator';
-import { TestClientCreator } from './client/TestClientCreator';
 import { ClientFactory } from './client/ClientFactory';
 import { TestClientFactory } from './client/TestClientFactory';
+import { ClientFactoryBuilder } from './client/ClientFactoryBuilder';
+import { TestClientFactoryBuilder } from './client/TestClientFactoryBuilder';
 
-export function configureContainer(container: Container): ClientCreator {
-  container.bind<ClientFactory>(ClientFactory).toSelf().inSingletonScope();
-  const factory = container.resolve<ClientFactory>(ClientFactory);
+export function configureContainer(container: Container): ClientFactory {
+  container
+    .bind<ClientFactoryBuilder>(ClientFactoryBuilder)
+    .toSelf()
+    .inSingletonScope();
+  const factory = container.resolve<ClientFactoryBuilder>(ClientFactoryBuilder);
 
   factory.register(container);
   return factory.create(container);
@@ -14,12 +17,14 @@ export function configureContainer(container: Container): ClientCreator {
 
 export function configureContainerForTest(
   container: Container
-): TestClientCreator {
+): TestClientFactory {
   container
-    .bind<TestClientFactory>(TestClientFactory)
+    .bind<TestClientFactoryBuilder>(TestClientFactoryBuilder)
     .toSelf()
     .inSingletonScope();
-  const factory = container.resolve<TestClientFactory>(TestClientFactory);
+  const factory = container.resolve<TestClientFactoryBuilder>(
+    TestClientFactoryBuilder
+  );
 
   factory.register(container);
   return factory.create(container);

@@ -5,10 +5,10 @@ import { expect } from 'chai';
 import { Socket } from 'socket.io-client';
 import { configureContainerForTest } from './inversify.config';
 import { SocketLogicManager } from 'atari-monk-pixi-lib';
-import { TestClientCreator } from './client/TestClientCreator';
+import { TestClientFactory } from './client/TestClientFactory';
 
 describe('Client', () => {
-  let factory: TestClientCreator;
+  let factory: TestClientFactory;
 
   before(() => {
     const container = new Container();

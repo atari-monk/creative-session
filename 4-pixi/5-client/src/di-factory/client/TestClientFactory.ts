@@ -1,30 +1,37 @@
-import { Container, injectable } from 'inversify';
+import { Container, inject, injectable } from 'inversify';
+import { Socket } from 'socket.io-client';
+import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { SocketLogicFactory } from '../socket-logic/SocketLogicFactory';
 import { IDIFactory } from '../IDIFactory';
 import { ClosedSocketFactory } from '../socket/ClosedSocketFactory';
-import { TestClientCreator } from './TestClientCreator';
 
 @injectable()
-export class TestClientFactory implements IDIFactory<TestClientCreator> {
+export class TestClientFactory implements IDIFactory<void> {
+  private _socket!: Socket;
+  private _socketLogicManager!: SocketLogicManager;
+
+  public get socket() {
+    return this._socket;
+  }
+
+  public get socketLogicManager() {
+    return this._socketLogicManager;
+  }
+
+  constructor(
+    @inject(ClosedSocketFactory)
+    private readonly socketFactory: ClosedSocketFactory,
+    @inject(SocketLogicFactory)
+    private readonly socketLogicFactory: SocketLogicFactory
+  ) {}
+
   register(container: Container) {
-    container
-      .bind<ClosedSocketFactory>(ClosedSocketFactory)
-      .toSelf()
-      .inSingletonScope();
-    container
-      .bind<SocketLogicFactory>(SocketLogicFactory)
-      .toSelf()
-      .inSingletonScope();
-    container
-      .bind<TestClientCreator>(TestClientCreator)
-      .toSelf()
-      .inSingletonScope();
+    this.socketFactory.register(container);
+    this.socketLogicFactory.register(container);
   }
 
   create(container: Container) {
-    const creator = container.resolve<TestClientCreator>(TestClientCreator);
-    creator.register(container);
-    creator.create(container);
-    return creator;
+    this._socket = this.socketFactory.create(container);
+    this._socketLogicManager = this.socketLogicFactory.create(container);
   }
 }
