@@ -59,18 +59,18 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
 
   private registerPlayerEmitterLogic(container: Container) {
     container
-      .bind<PlayerEventEmitterLogicUnit>(PlayerEventEmitterLogicUnit)
+      .bind(PlayerEventEmitterLogicUnit)
       .toDynamicValue(() => {
         return new PlayerEventEmitterLogicUnit(
           'position-update',
           'movement',
-          container.resolve<Socket>(Socket)
+          container.resolve(Socket)
         );
       })
       .inSingletonScope();
 
     container
-      .bind<EventEmitterLogicManager>(EventEmitterLogicManager)
+      .bind(EventEmitterLogicManager)
       .toSelf()
       .inRequestScope();
   }
@@ -78,9 +78,9 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
   public create(container: Container) {
     const manager = container.resolve(PlayerManagerCreator).create();
     const logic = container.resolve(PlayerLogicCreator).create();
-    logic.initializeSocket(container.resolve<Socket>(Socket));
+    logic.initializeSocket(container.resolve(Socket));
     const emitter = container.resolve(PlayerEmitterCreator).create();
-    emitter.initializeEmitter(container.resolve<EventEmitter>(EventEmitter));
+    emitter.initializeEmitter(container.resolve(EventEmitter));
 
     const result: IPlayerLogic = {
       manager,

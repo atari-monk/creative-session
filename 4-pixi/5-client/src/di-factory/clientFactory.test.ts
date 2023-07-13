@@ -10,6 +10,7 @@ import {
 } from 'atari-monk-pixi-lib';
 import { TestClientFactory } from './client/TestClientFactory';
 import { PlayerManager } from '../PlayerManager';
+import { BallManager } from '../BallManager';
 
 describe('Client', () => {
   let factory: TestClientFactory;
@@ -39,6 +40,20 @@ describe('Client', () => {
 
   it('playerEmitterLogicManager should be instance of EventEmitterLogicManager', () => {
     expect(factory.playerLogic.emitter).to.be.instanceof(
+      EventEmitterLogicManager
+    );
+  });
+
+  it('ballManager should be instance of BallManager', () => {
+    expect(factory.ballLogic.manager).to.be.instanceof(BallManager);
+  });
+
+  it('ballSocketLogicManager should be instance of SocketLogicManager', () => {
+    expect(factory.ballLogic.logic).to.be.instanceof(SocketLogicManager);
+  });
+
+  it('ballEmitterLogicManager should be instance of EventEmitterLogicManager', () => {
+    expect(factory.ballLogic.emitter).to.be.instanceof(
       EventEmitterLogicManager
     );
   });

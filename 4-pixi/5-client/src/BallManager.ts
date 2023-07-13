@@ -1,11 +1,12 @@
-import { IBall, IVector2d } from 'atari-monk-pixi-lib';
+import { Ball, IBall, IVector2d } from 'atari-monk-pixi-lib';
+import { inject, injectable } from 'inversify';
 
+@injectable()
 export class BallManager {
-  private ball: IBall;
-
-  constructor(ball: IBall) {
-    this.ball = ball;
-  }
+  constructor(
+    @inject(Ball)
+    private readonly ball: IBall
+  ) {}
 
   public updateBallPosition(newPosition: IVector2d) {
     this.ball.model.position = newPosition;
