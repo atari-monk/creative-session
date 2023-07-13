@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { BallTypes, SharedTypes } from '../di-container/types';
+import { BallTypes } from '../di-container/types';
 import { GameObject } from '../gameObject/GameObject';
 import { IBall } from './IBall';
 import { IBallRenderer } from './IBallRenderer';
-import EventEmitter from 'eventemitter3';
 import { IVectorData } from '../IVectorData';
 import { IBallModel } from '../model/IBallModel';
 import { Vector2d } from '../model/Vector2d';
+import { EventEmitter } from '../service/EventEmitter';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
@@ -23,7 +23,7 @@ export class Ball extends GameObject implements IBall {
     private readonly _model: IBallModel,
     @inject(BallTypes.Renderer)
     private readonly renderer: IBallRenderer,
-    @inject(SharedTypes.EventEmitter)
+    @inject(EventEmitter)
     private readonly emitter: EventEmitter
   ) {
     super();

@@ -12,12 +12,12 @@ import { IKeyboardInput } from '../keyboard/IKeyboardInput';
 import { KeyboardInputV1 } from '../keyboard/KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
-import EventEmitter from 'eventemitter3';
 import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { PlayerModel } from '../model/PlayerModel';
 import { IPlayer } from './IPlayer';
 import { PlayerTypes, SharedTypes } from '../di-container/types';
+import { EventEmitter } from '../service/EventEmitter';
 
 export class PlayerFactory implements IDIFactory<IPlayer> {
   constructor(private readonly container: Container) {}
@@ -66,7 +66,7 @@ export class PlayerFactory implements IDIFactory<IPlayer> {
       .toDynamicValue(() => {
         return new PositionEmitter(
           'position-update',
-          this.container.get<EventEmitter>(SharedTypes.EventEmitter)
+          this.container.resolve<EventEmitter>(EventEmitter)
         );
       });
     this.container

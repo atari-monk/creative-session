@@ -8,12 +8,24 @@ import { PlayerConnectLogic } from '../../socket-logic/PlayerConnectLogic';
 import { Socket } from 'socket.io-client';
 import { PlayerList } from '../../socket-logic/PlayerList';
 import { PlayerMovement } from '../../socket-logic/PlayerMovement';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
+import { PlayerEmitterCreator } from './PlayerEmitterCreator';
+import { IPlayerLogic } from './IPlayerLogic';
+import { PlayerEventEmitterLogicUnit } from '../../emitter-logic/PlayerEventEmitterLogicUnit';
+import { EventEmitter, EventEmitterLogicManager } from 'atari-monk-pixi-lib';
 
 @injectable()
-export class PlayerLogicFactory implements IDIFactory<SocketLogicManager> {
+export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
   public register(container: Container) {
+    this.registerPlayerManager(container);
+    this.registerPlayerSocketLogic(container);
+    this.registerPlayerEmitterLogic(container);
+  }
+
+  private registerPlayerManager(container: Container) {
     container.bind<IPlayerManager>(PlayerManager).toSelf().inSingletonScope();
+  }
+
+  private registerPlayerSocketLogic(container: Container) {
     container
       .bind<PlayerConnectLogic>(PlayerConnectLogic)
       .toDynamicValue(() => {
@@ -45,10 +57,36 @@ export class PlayerLogicFactory implements IDIFactory<SocketLogicManager> {
       .inSingletonScope();
   }
 
+  private registerPlayerEmitterLogic(container: Container) {
+    container
+      .bind<PlayerEventEmitterLogicUnit>(PlayerEventEmitterLogicUnit)
+      .toDynamicValue(() => {
+        return new PlayerEventEmitterLogicUnit(
+          'position-update',
+          'movement',
+          container.resolve<Socket>(Socket)
+        );
+      })
+      .inSingletonScope();
+
+    container
+      .bind<EventEmitterLogicManager>(EventEmitterLogicManager)
+      .toSelf()
+      .inRequestScope();
+  }
+
   public create(container: Container) {
-    container.resolve(PlayerManagerCreator).create();
-    const playerLogic = container.resolve(PlayerLogicCreator).create();
-    playerLogic.initializeSocket(container.resolve<Socket>(Socket));
-    return playerLogic;
+    const manager = container.resolve(PlayerManagerCreator).create();
+    const logic = container.resolve(PlayerLogicCreator).create();
+    logic.initializeSocket(container.resolve<Socket>(Socket));
+    const emitter = container.resolve(PlayerEmitterCreator).create();
+    emitter.initializeEmitter(container.resolve<EventEmitter>(EventEmitter));
+
+    const result: IPlayerLogic = {
+      manager,
+      logic,
+      emitter,
+    };
+    return result;
   }
 }

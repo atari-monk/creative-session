@@ -4,8 +4,12 @@ import { Container } from 'inversify';
 import { expect } from 'chai';
 import { Socket } from 'socket.io-client';
 import { configureContainerForTest } from './inversify.config';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
+import {
+  EventEmitterLogicManager,
+  SocketLogicManager,
+} from 'atari-monk-pixi-lib';
 import { TestClientFactory } from './client/TestClientFactory';
+import { PlayerManager } from '../PlayerManager';
 
 describe('Client', () => {
   let factory: TestClientFactory;
@@ -25,7 +29,17 @@ describe('Client', () => {
     expect(factory.socketLogicManager).to.be.instanceof(SocketLogicManager);
   });
 
-  it('playerLogicManager should be instance of SocketLogicManager', () => {
-    expect(factory.playerLogicManager).to.be.instanceof(SocketLogicManager);
+  it('playerManager should be instance of PlayerManager', () => {
+    expect(factory.playerLogic.manager).to.be.instanceof(PlayerManager);
+  });
+
+  it('playerSocketLogicManager should be instance of SocketLogicManager', () => {
+    expect(factory.playerLogic.logic).to.be.instanceof(SocketLogicManager);
+  });
+
+  it('playerEmitterLogicManager should be instance of EventEmitterLogicManager', () => {
+    expect(factory.playerLogic.emitter).to.be.instanceof(
+      EventEmitterLogicManager
+    );
   });
 });

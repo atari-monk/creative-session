@@ -5,12 +5,13 @@ import { SocketLogicFactory } from '../socket-logic/SocketLogicFactory';
 import { IDIFactory } from '../IDIFactory';
 import { ClosedSocketFactory } from '../socket/ClosedSocketFactory';
 import { PlayerLogicFactory } from '../player-logic/PlayerLogicFactory';
+import { IPlayerLogic } from '../player-logic/IPlayerLogic';
 
 @injectable()
 export class TestClientFactory implements IDIFactory<void> {
   private _socket!: Socket;
   private _socketLogicManager!: SocketLogicManager;
-  private _playerLogicManager!: SocketLogicManager;
+  private _playerLogic!: IPlayerLogic;
 
   public get socket() {
     return this._socket;
@@ -20,8 +21,8 @@ export class TestClientFactory implements IDIFactory<void> {
     return this._socketLogicManager;
   }
 
-  public get playerLogicManager() {
-    return this._playerLogicManager;
+  public get playerLogic() {
+    return this._playerLogic;
   }
 
   constructor(
@@ -42,6 +43,6 @@ export class TestClientFactory implements IDIFactory<void> {
   create(container: Container) {
     this._socket = this.socketFactory.create(container);
     this._socketLogicManager = this.socketLogicFactory.create(container);
-    this._playerLogicManager = this.playerLogicFactory.create(container);
+    this._playerLogic = this.playerLogicFactory.create(container);
   }
 }
