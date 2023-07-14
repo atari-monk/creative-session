@@ -1,6 +1,6 @@
 import { AppFactory } from './AppFactory';
 import { PlayersFactory } from './PlayersFactory';
-import { ClientFactory } from './ClientFactory';
+import { ClientFactory } from 'atari-monk-client';
 import { Container } from 'inversify';
 import { BallFactory } from './BallFactory';
 

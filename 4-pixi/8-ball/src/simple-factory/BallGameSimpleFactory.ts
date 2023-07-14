@@ -1,7 +1,7 @@
 import { AppFactory } from './AppFactory';
 import { PlayersFactory } from './PlayersFactory';
 import { BallFactory } from './BallFactory';
-import { ClientFactory } from './ClientFactory';
+import { ClientFactory } from 'atari-monk-client';
 
 export class BallGameSimpleFactory {
   constructor() {
