@@ -1,29 +1,8 @@
-import { AppFactory } from './AppFactory';
-import { PlayersFactory } from './PlayersFactory';
-import { ClientFactory } from 'atari-monk-client';
 import { Container } from 'inversify';
-import { BallFactory } from './BallFactory';
+import { configureContainer } from './inversify.config';
 
 export class BallGameDIFactory {
   constructor() {
-    const container = new Container();
-    const appFactory = new AppFactory(container);
-    const playersFactory = new PlayersFactory(container);
-    const emitter = playersFactory.emitter;
-    const ballFactory = new BallFactory(container);
-
-    const gameObjsManager = appFactory.gameObjsManager;
-    gameObjsManager.addGameObject(playersFactory.player1);
-    gameObjsManager.addGameObject(playersFactory.player2);
-    gameObjsManager.addGameObject(ballFactory.ball);
-
-    new ClientFactory(
-      emitter,
-      playersFactory.player1,
-      playersFactory.player2,
-      ballFactory.ball
-    );
-
-    appFactory.start(container);
+    configureContainer(new Container());
   }
 }

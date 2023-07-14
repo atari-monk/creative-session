@@ -5,6 +5,7 @@ import { PlayerFactory } from '../player/PlayerFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { AppFactoryForTest } from '../app/AppFactoryForTest';
 import { BallFactory } from '../ball/BallFactory';
+import { ObjectManagerCreator } from '../gameObject/ObjectManagerCreator';
 
 export function configureContainer(container: Container) {
   const appFactory = new AppFactory(container);
@@ -21,6 +22,10 @@ export function configureContainer(container: Container) {
 
   const ballFactory = new BallFactory(container);
   ballFactory.register();
+
+  container.resolve(ObjectManagerCreator).create();
+
+  appFactory.create();
 }
 
 export function configureContainerForTest(container: Container) {
@@ -38,4 +43,6 @@ export function configureContainerForTest(container: Container) {
 
   const ballFactory = new BallFactory(container);
   ballFactory.register();
+
+  container.resolve(ObjectManagerCreator).create();
 }
