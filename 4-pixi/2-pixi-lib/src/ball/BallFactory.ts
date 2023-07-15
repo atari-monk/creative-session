@@ -15,7 +15,7 @@ export class BallFactory implements IDIFactory<IBall> {
   public register() {
     this.RegisterModels();
     this.RegisterDrawer();
-    this.container.bind<IBall>(Ball).to(Ball);
+    this.container.bind<IBall>(Ball).toSelf().inSingletonScope();
   }
 
   private RegisterModels() {

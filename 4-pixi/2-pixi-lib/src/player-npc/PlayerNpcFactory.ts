@@ -21,7 +21,7 @@ export class PlayerNpcFactory implements IDIFactory<IPlayerNpc> {
       .bind<ICircleRenderer>(PlayerNpcTypes.Renderer)
       .to(CircleRenderer);
 
-    this.container.bind<IPlayerNpc>(PlayerNpc).to(PlayerNpc);
+    this.container.bind<IPlayerNpc>(PlayerNpc).toSelf().inSingletonScope();
   }
 
   public create(): IPlayerNpc {
