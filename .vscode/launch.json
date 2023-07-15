@@ -36,6 +36,21 @@
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Client Tests",
+      "program": "${workspaceFolder}/4-pixi/5-client/node_modules/mocha/bin/_mocha",
+      "args": [
+        "-u",
+        "bdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/4-pixi/5-client/dist/di-factory/clientFactory.test.js"
+      ],
+      "internalConsoleOptions": "openOnSessionStart"
     }
   ]
 }

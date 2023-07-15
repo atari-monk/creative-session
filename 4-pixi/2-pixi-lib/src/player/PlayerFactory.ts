@@ -16,7 +16,7 @@ import { IDIFactory } from '../factory/IDIFactory';
 import { IPlayerModel } from '../model/IPlayerModel';
 import { PlayerModel } from '../model/PlayerModel';
 import { IPlayer } from './IPlayer';
-import { PlayerTypes, SharedTypes } from '../di-container/types';
+import { PlayerTypes } from '../di-container/types';
 import { EventEmitter } from '../service/EventEmitter';
 
 export class PlayerFactory implements IDIFactory<IPlayer> {
@@ -27,7 +27,7 @@ export class PlayerFactory implements IDIFactory<IPlayer> {
     this.RegisterRenderer();
     this.RegisterKeyboard();
     this.RegisterUpdateables();
-    this.container.bind<IPlayer>(Player).to(Player);
+    this.container.bind<IPlayer>(Player).toSelf();
   }
 
   private RegisterModel() {

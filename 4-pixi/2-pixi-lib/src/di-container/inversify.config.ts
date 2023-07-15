@@ -7,7 +7,7 @@ import { AppFactoryForTest } from '../app/AppFactoryForTest';
 import { BallFactory } from '../ball/BallFactory';
 import { ObjectManagerCreator } from '../gameObject/ObjectManagerCreator';
 
-export function configureContainer(container: Container) {
+export function configureContainer(container: Container): AppFactory {
   const appFactory = new AppFactory(container);
   appFactory.register();
 
@@ -25,7 +25,7 @@ export function configureContainer(container: Container) {
 
   container.resolve(ObjectManagerCreator).create();
 
-  appFactory.create();
+  return appFactory;
 }
 
 export function configureContainerForTest(container: Container) {
