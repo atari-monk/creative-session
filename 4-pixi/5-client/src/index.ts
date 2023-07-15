@@ -17,3 +17,4 @@ export { BallManager } from './BallManager';
 export { ISocketConfigurator } from './ISocketConfigurator';
 export { ClientFactory } from './simple-factory/ClientFactory';
 export { configureContainer } from './di-factory/inversify.config';
+export { PlayerManagerCreator } from './di-factory/player-logic/PlayerManagerCreator';

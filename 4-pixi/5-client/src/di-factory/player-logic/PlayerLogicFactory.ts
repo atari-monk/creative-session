@@ -69,10 +69,7 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
       })
       .inSingletonScope();
 
-    container
-      .bind(EventEmitterLogicManager)
-      .toSelf()
-      .inRequestScope();
+    container.bind(EventEmitterLogicManager).toSelf().inRequestScope();
   }
 
   public create(container: Container) {
