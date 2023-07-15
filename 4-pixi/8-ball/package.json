@@ -1,6 +1,6 @@
 {
   "name": "atari-monk-ball",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "atari-monk-ball.js",
   "types": "index.d.ts",
   "description": "Ball game proto.",
@@ -20,8 +20,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "atari-monk-client": "^1.0.40",
-    "atari-monk-pixi-lib": "^1.0.158",
+    "atari-monk-client": "file:atari-monk-client-0.0.1.tgz",
+    "atari-monk-pixi-lib": "file:atari-monk-pixi-lib-0.0.1.tgz",
     "eventemitter3": "^5.0.1",
     "inversify": "^6.0.1",
     "pixi.js": "^7.2.4",
