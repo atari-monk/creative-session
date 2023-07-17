@@ -1,12 +1,11 @@
-import { Ball } from '../ball/Ball';
-import { GameObject } from './GameObject';
-import { Player } from '../player/Player';
+import { IGameObject } from 'atari-monk-game-api-lib';
+import { IBall, IPlayer } from 'atari-monk-game-api-lib';
 
 export interface IGameObjectManager {
-  gameObjects: GameObject[];
-  addGameObject(gameObject: GameObject): void;
-  removeGameObject(gameObject: GameObject): void;
-  findBall(): Ball;
-  findPlayer(): Player;
+  gameObjects: IGameObject[];
+  addGameObject(gameObject: IGameObject): void;
+  removeGameObject(gameObject: IGameObject): void;
+  findBall(): IBall;
+  findPlayer(): IPlayer;
   assertGameObjects(): void;
 }

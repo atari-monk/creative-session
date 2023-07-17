@@ -1,6 +1,4 @@
-import * as PIXI from 'pixi.js';
-import { IBall } from '../ball/IBall';
-import { IPlayer } from '../player/IPlayer';
+import { IBall, IPlayer } from 'atari-monk-game-api-lib';
 import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
 import { IGameObjectManager } from '../game-obj/IGameObjectManager';
 import { IBallGame } from './IBallGame';
@@ -11,8 +9,6 @@ import { PixiApplicationWrapper } from '../app/PixiApplicationWrapper';
 
 @injectable()
 export class BallGame implements IBallGame {
-  //protected gameObjectManager: IGameObjectManager;
-  //private pixiApp: PIXI.Application<PIXI.ICanvas>;
   private _ball!: IBall;
   private _player!: IPlayer;
 

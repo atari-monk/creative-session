@@ -1,12 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject, multiInject } from 'inversify';
 import { GameObject } from '../game-obj/GameObject';
-import { IPlayer } from './IPlayer';
+import { IPlayer, IBall, IPlayerModel } from 'atari-monk-game-api-lib';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { IPlayerUpdater } from './IPlayerUpdater';
-import { IBall } from '../ball/IBall';
-import { IPlayerModel } from '../model/IPlayerModel';
 import { StringBuilder } from '../utils/StringBuilder';
 import { PlayerTypes } from '../di-container/types';
 

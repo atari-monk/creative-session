@@ -1,4 +1,4 @@
-import { IVector2d } from './model/IVector2d';
+import { IVector2d } from 'atari-monk-game-api-lib';
 
 export interface IVectorData {
   clientId?: string;

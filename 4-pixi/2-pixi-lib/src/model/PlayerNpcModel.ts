@@ -1,6 +1,6 @@
 import { IPlayerNpcParams } from '../data/interfaces/IPlayerNpcParams';
 import { IPlayerNpcModel } from './IPlayerNpcModel';
-import { IVector2d } from './IVector2d';
+import { IVector2d } from 'atari-monk-game-api-lib';
 
 export class PlayerNpcModel implements IPlayerNpcModel {
   private _clientId: string;

@@ -1,5 +1,4 @@
-import { IVector2d } from '../../model/IVector2d';
-import { IColorParams } from './IColorParams';
+import { IVector2d, IColorParams } from 'atari-monk-game-api-lib';
 
 export interface IPlayerNpcParams {
   position: IVector2d;

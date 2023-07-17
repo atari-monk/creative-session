@@ -1,5 +1,4 @@
-import { IBall } from '../ball/IBall';
-import { IPlayer } from '../player/IPlayer';
+import { IBall, IPlayer } from 'atari-monk-game-api-lib';
 import { IGameUpdateable } from './IGameUpdateable';
 import { injectable } from 'inversify';
 

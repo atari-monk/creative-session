@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
 import { configureContainerForTest } from '../di-container/inversify.config';
-import { IPlayer } from './IPlayer';
+import { IPlayer } from 'atari-monk-game-api-lib';
 import { Player } from './Player';
 import { Container } from 'inversify';
 

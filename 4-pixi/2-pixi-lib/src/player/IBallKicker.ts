@@ -1,4 +1,4 @@
-import { IBall } from '../ball/IBall';
+import { IBall } from 'atari-monk-game-api-lib';
 
 export interface IBallKicker {
   kickBall(ball: IBall): void;

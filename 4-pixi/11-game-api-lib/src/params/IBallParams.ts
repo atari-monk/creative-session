@@ -1,4 +1,4 @@
-import { IVector2d } from '../../model/IVector2d';
+import { IVector2d } from '../data-structure/IVector2d';
 import { IColorParams } from './IColorParams';
 
 export interface IBallParams {

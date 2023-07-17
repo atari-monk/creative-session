@@ -2,7 +2,7 @@ import { Container } from 'inversify';
 import { PlayerNpcModel } from '../model/PlayerNpcModel';
 import { playerNpcParams } from '../data/ballGameParams';
 import { PlayerNpc } from './PlayerNpc';
-import { IClientId } from '../model/interface/IClientId';
+import { IClientId } from 'atari-monk-game-api-lib';
 import { ICircleRenderer } from './ICircleRenderer';
 import { CircleRenderer } from './CircleRenderer';
 import { IDIFactory } from '../factory/IDIFactory';

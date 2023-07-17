@@ -28,7 +28,6 @@ export { SrvSctLogicManager } from './srv-sct-logic/SrvSctLogicManager';
 export { SrvSctLogicUnit } from './srv-sct-logic/SrvSctLogicUnit';
 export { PositionEmitter } from './PositionEmitter';
 export { IAppHelperParams } from './data/interfaces/IAppHelperParams';
-export { IColorParams } from './data/interfaces/IColorParams';
 export {
   screenSize,
   appHelperParams,
@@ -37,20 +36,12 @@ export {
   playerParams,
   ballParams,
 } from './data/ballGameParams';
-export { IRadius } from './model/interface/IRadius';
-export { IPosition } from './model/interface/IPosition';
-export { ISteerable } from './model/interface/ISteerable';
-export { IVector2d } from './model/IVector2d';
 export { Vector2d } from './model/Vector2d';
 export { PlayerNpc } from './player-npc/PlayerNpc';
 export { PlayerNpcFactory } from './player-npc/PlayerNpcFactory';
 export { PlayerFactory } from './player/PlayerFactory';
 export { ServiceFactory } from './service/ServiceFactory';
-export { IPlayable } from './model/interface/IPlayable';
-export { IPlayer } from './player/IPlayer';
 export { IPlayerNpc } from './player-npc/IPlayerNpc';
-export { IClientId } from './model/interface/IClientId';
-export { IBall } from './ball/IBall';
 export { IBallRenderer } from './ball/IBallRenderer';
 export { BallFactory } from './ball/BallFactory';
 export { BallRenderer } from './ball/BallRenderer';

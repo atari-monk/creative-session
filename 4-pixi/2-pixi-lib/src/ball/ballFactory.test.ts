@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import 'mocha';
 import { configureContainerForTest } from '../di-container/inversify.config';
 import { Container } from 'inversify';
-import { IBall } from './IBall';
+import { IBall } from 'atari-monk-game-api-lib';
 import { Ball } from './Ball';
 import { expect } from 'chai';
 

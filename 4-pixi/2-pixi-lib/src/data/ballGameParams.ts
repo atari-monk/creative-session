@@ -1,12 +1,14 @@
 import * as PIXI from 'pixi.js';
 import { Vector2d } from '../model/Vector2d';
-import { IBallParams } from './interfaces/IBallParams';
+import {
+  IBallParams,
+  IPlayerParams,
+  IKeys,
+  IScreenSize,
+  createColorOptions,
+} from 'atari-monk-game-api-lib';
 import { IPlayerNpcParams } from './interfaces/IPlayerNpcParams';
-import { IPlayerParams } from './interfaces/IPlayerParams';
-import { IKeys } from './interfaces/IKeys';
-import { IScreenSize } from './interfaces/IScreenSize';
 import { IAppHelperParams } from './interfaces/IAppHelperParams';
-import { createColorOptions } from './interfaces/IColorParams';
 import { playerUrlParam } from '../utils/urlParams';
 
 const green = 0x00ff00;

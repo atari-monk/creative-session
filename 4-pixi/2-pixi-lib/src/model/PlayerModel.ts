@@ -1,7 +1,9 @@
 import { Vector2d } from '..';
-import { IPlayerParams } from '../data/interfaces/IPlayerParams';
-import { IPlayerModel } from './IPlayerModel';
-import { IVector2d } from './IVector2d';
+import {
+  IPlayerParams,
+  IPlayerModel,
+  IVector2d,
+} from 'atari-monk-game-api-lib';
 
 export class PlayerModel implements IPlayerModel {
   private _clientId: string;

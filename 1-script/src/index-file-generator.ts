@@ -3,12 +3,14 @@ import { FilePathParser } from './FilePathParser';
 import { IndexFileGenerator } from './IndexFileGenerator';
 import { FileSaver } from './FileSaver';
 
-const src = 'C:\\atari-monk\\Code\\creative-session\\4-pixi\\2-pixi-lib\\src';
+const src =
+  'C:\\atari-monk\\Code\\creative-session\\4-pixi\\11-game-api-lib\\src';
+//const src = 'C:\\atari-monk\\Code\\creative-session\\4-pixi\\2-pixi-lib\\src';
 //const src = 'C:\\atari-monk\\Code\\creative-session\\4-pixi\\5-clinet\\src';
 const inputDirPath = process.argv[2] ?? src;
-const outputFileName = 'index.ts';
+const outputFileName = 'index-generated.ts';
 const outputFolder = inputDirPath;
-const outputFilePath = `${outputFolder}${outputFileName}`;
+const outputFilePath = `${outputFolder}\\${outputFileName}`;
 
 const fileListGenerator = new FileListGenerator();
 const parser = new FilePathParser(inputDirPath);

@@ -1,13 +1,12 @@
 import { inject, injectable } from 'inversify';
 import { Player } from '../player/Player';
 import { ICreate } from '../factory/ICreate';
-import { IPlayer } from '../player/IPlayer';
+import { IPlayer, IBall } from 'atari-monk-game-api-lib';
 import { GameObjectManager } from './GameObjectManager';
 import { IGameObjectManager } from './IGameObjectManager';
 import { PlayerNpc } from '../player-npc/PlayerNpc';
 import { IPlayerNpc } from '../player-npc/IPlayerNpc';
 import { Ball } from '../ball/Ball';
-import { IBall } from '../ball/IBall';
 
 @injectable()
 export class ObjectManagerCreator implements ICreate<void> {

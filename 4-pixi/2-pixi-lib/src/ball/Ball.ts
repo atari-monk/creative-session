@@ -1,11 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
+import { IBall, IBallModel } from 'atari-monk-game-api-lib';
 import { BallTypes } from '../di-container/types';
 import { GameObject } from '../game-obj/GameObject';
-import { IBall } from './IBall';
 import { IBallRenderer } from './IBallRenderer';
 import { IVectorData } from '../IVectorData';
-import { IBallModel } from '../model/IBallModel';
 import { Vector2d } from '../model/Vector2d';
 import { EventEmitter } from '../service/EventEmitter';
 

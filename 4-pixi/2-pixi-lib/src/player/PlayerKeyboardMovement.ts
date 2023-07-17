@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { IDirectionFromKeyboard } from '../keyboard/IDirectionFromKeyboard';
 import { Vector2d } from '../model/Vector2d';
-import { IPlayer } from './IPlayer';
+import { IPlayer } from 'atari-monk-game-api-lib';
 import { IPlayerUpdater } from './IPlayerUpdater';
 import { PlayerTypes } from '../di-container/types';
 

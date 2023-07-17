@@ -1,6 +1,5 @@
 import { Container } from 'inversify';
 import { keys, playerParams } from '../data/ballGameParams';
-import { IKeys } from '../data/interfaces/IKeys';
 import { Player } from './Player';
 import { IPlayerRenderer } from './IPlayerRenderer';
 import { PlayerRenderer } from './PlayerRenderer';
@@ -13,9 +12,8 @@ import { KeyboardInputV1 } from '../keyboard/KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import { IDIFactory } from '../factory/IDIFactory';
-import { IPlayerModel } from '../model/IPlayerModel';
+import { IPlayerModel, IPlayer, IKeys } from 'atari-monk-game-api-lib';
 import { PlayerModel } from '../model/PlayerModel';
-import { IPlayer } from './IPlayer';
 import { PlayerTypes } from '../di-container/types';
 import { EventEmitter } from '../service/EventEmitter';
 
