@@ -84,3 +84,4 @@ export { configureContainerForTest } from './di-container/inversify.config';
 export { IDIFactory } from './factory/IDIFactory';
 export { EventEmitter } from './service/EventEmitter';
 export { ICreate } from './factory/ICreate';
+export { ContainerTools } from './utils/ContainerTools';

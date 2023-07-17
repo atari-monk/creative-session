@@ -1,4 +1,3 @@
-import { EventEmitterLogicManager } from 'atari-monk-pixi-lib';
 import { Container, injectable } from 'inversify';
 import { IBallLogic } from './IBallLogic';
 import { BallManager } from '../../BallManager';

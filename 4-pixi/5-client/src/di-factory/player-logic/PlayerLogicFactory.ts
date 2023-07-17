@@ -23,6 +23,7 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
 
   private registerPlayerManager(container: Container) {
     container.bind<IPlayerManager>(PlayerManager).toSelf().inSingletonScope();
+    container.bind<PlayerManagerCreator>(PlayerManagerCreator).toSelf().inSingletonScope();
   }
 
   private registerPlayerSocketLogic(container: Container) {

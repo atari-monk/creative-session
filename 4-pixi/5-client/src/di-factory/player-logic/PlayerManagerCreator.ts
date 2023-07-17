@@ -1,8 +1,7 @@
 import { inject, injectable } from 'inversify';
-import { IPlayer, IPlayerNpc, Player, PlayerNpc } from 'atari-monk-pixi-lib';
+import { ICreate, IPlayer, IPlayerNpc, Player, PlayerNpc } from 'atari-monk-pixi-lib';
 import { IPlayerManager } from '../../IPlayerManager';
 import { PlayerManager } from '../../PlayerManager';
-import { ICreate } from 'atari-monk-pixi-lib/factory/ICreate';
 
 @injectable()
 export class PlayerManagerCreator implements ICreate<IPlayerManager> {

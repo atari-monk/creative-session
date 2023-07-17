@@ -3,11 +3,12 @@ import 'mocha';
 import { Container } from 'inversify';
 import { expect } from 'chai';
 import { Socket } from 'socket.io-client';
-import { configureContainerForTest } from './inversify.config';
 import {
   EventEmitterLogicManager,
   SocketLogicManager,
+  configureContainerForTest as pixiConfigureContainerForTest,
 } from 'atari-monk-pixi-lib';
+import { configureContainerForTest } from './inversify.config';
 import { TestClientFactory } from './client/TestClientFactory';
 import { PlayerManager } from '../PlayerManager';
 import { BallManager } from '../BallManager';
@@ -18,6 +19,7 @@ describe('Client', () => {
   before(() => {
     const container = new Container();
     if (!container.isBound(Socket)) {
+      pixiConfigureContainerForTest(container);
       factory = configureContainerForTest(container);
     }
   });

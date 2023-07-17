@@ -1,16 +1,9 @@
 import { Container } from 'inversify';
-import {
-  AppFactory,
-  configureContainer as pixiLibConfigureContainer,
-  configureContainerForTest as pixiLibConfigureContainerForTest,
-} from 'atari-monk-pixi-lib';
 import { TestClientFactory } from './client/TestClientFactory';
 import { ClientFactoryBuilder } from './client/ClientFactoryBuilder';
 import { TestClientFactoryBuilder } from './client/TestClientFactoryBuilder';
 
-export function configureContainer(container: Container): AppFactory {
-  const appFactory = pixiLibConfigureContainer(container);
-
+export function configureContainer(container: Container) {
   container
     .bind<ClientFactoryBuilder>(ClientFactoryBuilder)
     .toSelf()
@@ -19,14 +12,11 @@ export function configureContainer(container: Container): AppFactory {
 
   factory.register(container);
   factory.create(container);
-  return appFactory;
 }
 
 export function configureContainerForTest(
   container: Container
 ): TestClientFactory {
-  pixiLibConfigureContainerForTest(container);
-
   container
     .bind<TestClientFactoryBuilder>(TestClientFactoryBuilder)
     .toSelf()
