@@ -17,6 +17,7 @@
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
+    "atari-monk-game-api-lib": "file:atari-monk-game-api-lib-0.0.1.tgz",
     "eventemitter3": "^5.0.1",
     "inversify": "^6.0.1",
     "pixi.js": "^7.2.4",

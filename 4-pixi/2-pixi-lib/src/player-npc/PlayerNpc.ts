@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
-import { GameObject } from '../gameObject/GameObject';
+import { GameObject } from '../game-obj/GameObject';
 import { IPlayerNpc } from './IPlayerNpc';
 import { ICircleRenderer } from './ICircleRenderer';
 import { IPlayerNpcModel } from '../model/IPlayerNpcModel';

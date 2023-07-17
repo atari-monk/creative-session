@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject, multiInject } from 'inversify';
-import { GameObject } from '../gameObject/GameObject';
+import { GameObject } from '../game-obj/GameObject';
 import { IPlayer } from './IPlayer';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayerRenderer } from './IPlayerRenderer';

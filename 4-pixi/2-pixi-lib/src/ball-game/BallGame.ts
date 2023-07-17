@@ -2,10 +2,10 @@ import * as PIXI from 'pixi.js';
 import { IBall } from '../ball/IBall';
 import { IPlayer } from '../player/IPlayer';
 import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
-import { IGameObjectManager } from '../gameObject/IGameObjectManager';
+import { IGameObjectManager } from '../game-obj/IGameObjectManager';
 import { IBallGame } from './IBallGame';
 import { inject, injectable } from 'inversify';
-import { GameObjectManager } from '../gameObject/GameObjectManager';
+import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { Collider } from '../game-updateable/Collider';
 import { PixiApplicationWrapper } from '../app/PixiApplicationWrapper';
 

@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { GameObject } from './gameObject/GameObject';
+import { GameObject } from './game-obj/GameObject';
 
 export class GenericGameObject extends GameObject {
   draw(_stage: PIXI.Container<PIXI.DisplayObject>): void {}

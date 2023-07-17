@@ -3,8 +3,8 @@ import { SharedTypes } from '../di-container/types';
 import { IBasicRenderer } from '../IBasicRenderer';
 import { BasicRenderer } from '../BasicRenderer';
 import { IRegister } from '../factory/IRegister';
-import { IGameObjectManager } from '../gameObject/IGameObjectManager';
-import { GameObjectManager } from '../gameObject/GameObjectManager';
+import { IGameObjectManager } from '../game-obj/IGameObjectManager';
+import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { EventEmitter } from './EventEmitter';
 
 export class ServiceFactory implements IRegister {

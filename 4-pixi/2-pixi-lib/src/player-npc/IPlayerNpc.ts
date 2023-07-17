@@ -1,4 +1,4 @@
-import { IGameObject } from '../gameObject/IGameObject';
+import { IGameObject } from 'atari-monk-game-api-lib';
 import { IPlayerNpcModel } from '../model/IPlayerNpcModel';
 
 export interface IPlayerNpc extends IGameObject {

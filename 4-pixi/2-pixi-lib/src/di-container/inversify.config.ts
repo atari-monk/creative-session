@@ -5,7 +5,7 @@ import { PlayerFactory } from '../player/PlayerFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { AppFactoryForTest } from '../app/AppFactoryForTest';
 import { BallFactory } from '../ball/BallFactory';
-import { ObjectManagerCreator } from '../gameObject/ObjectManagerCreator';
+import { ObjectManagerCreator } from '../game-obj/ObjectManagerCreator';
 
 export function configureContainer(container: Container): AppFactory {
   const appFactory = new AppFactory(container);

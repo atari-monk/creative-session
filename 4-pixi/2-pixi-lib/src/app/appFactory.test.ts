@@ -1,14 +1,12 @@
 import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
-import {
-  configureContainerForTest,
-} from '../di-container/inversify.config';
+import { configureContainerForTest } from '../di-container/inversify.config';
 import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
 import { Application } from 'pixi.js';
-import { IGameObjectManager } from '../gameObject/IGameObjectManager';
-import { GameObjectManager } from '../gameObject/GameObjectManager';
+import { IGameObjectManager } from '../game-obj/IGameObjectManager';
+import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
 import { Collider } from '../game-updateable/Collider';
 import { IBallGame } from '../ball-game/IBallGame';

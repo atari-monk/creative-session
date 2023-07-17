@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import * as PIXI from 'pixi.js';
-import { IGameObject } from '../index';
+import { IGameObject } from 'atari-monk-game-api-lib';
 
 @injectable()
 export abstract class GameObject implements IGameObject {

@@ -1,4 +1,4 @@
-import { IGameObject } from '../gameObject/IGameObject';
+import { IGameObject } from 'atari-monk-game-api-lib';
 import { IBallModel } from '../model/IBallModel';
 import { IToString } from './IToString';
 

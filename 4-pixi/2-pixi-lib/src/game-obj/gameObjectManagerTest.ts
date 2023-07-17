@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { PlayerFactory } from './../player/PlayerFactory';
+import { PlayerFactory } from '../player/PlayerFactory';
 import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { BallFactory } from '../ball/BallFactory';
