@@ -1,7 +1,9 @@
 import { IBall, IPlayer } from 'atari-monk-game-api-lib';
-import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
-import { IGameObjectManager } from '../game-obj/IGameObjectManager';
-import { IBallGame } from './IBallGame';
+import {
+  IGameUpdateable,
+  IGameObjectManager,
+  IBallGame,
+} from 'atari-monk-game-api-lib';
 import { inject, injectable } from 'inversify';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { Collider } from '../game-updateable/Collider';

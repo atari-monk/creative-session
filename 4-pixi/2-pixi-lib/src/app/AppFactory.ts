@@ -1,12 +1,10 @@
 import { Container } from 'inversify';
+import { IDIFactory, IAppHelper, IBallGame } from 'atari-monk-game-api-lib';
 import { getPixiAppParams } from '../data/ballGameParams';
 import { getCanvasForPixi } from '../utils/ui';
 import { AppFactoryBase } from './AppFactoryBase';
 import { PixiApplicationWrapper } from './PixiApplicationWrapper';
-import { IDIFactory } from '../factory/IDIFactory';
-import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
-import { IBallGame } from '../ball-game/IBallGame';
 import { BallGame } from '../ball-game/BallGame';
 
 export class AppFactory extends AppFactoryBase implements IDIFactory<void> {

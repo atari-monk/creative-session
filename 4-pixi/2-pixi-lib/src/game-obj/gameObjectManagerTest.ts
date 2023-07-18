@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
+import { IGameObjectManager } from 'atari-monk-game-api-lib';
 import { PlayerFactory } from '../player/PlayerFactory';
 import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
 import { BallFactory } from '../ball/BallFactory';
-import { IGameObjectManager } from './IGameObjectManager';
 import { SharedTypes } from '../di-container/types';
 
 const container = new Container();

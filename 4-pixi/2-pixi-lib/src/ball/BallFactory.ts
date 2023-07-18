@@ -1,10 +1,13 @@
 import { Container } from 'inversify';
+import {
+  IBall,
+  IBallModel,
+  IBallRenderer,
+  IDIFactory,
+} from 'atari-monk-game-api-lib';
 import { ballParams } from '../data/ballGameParams';
-import { IBall, IBallModel } from 'atari-monk-game-api-lib';
 import { Ball } from './Ball';
 import { BallRenderer } from './BallRenderer';
-import { IBallRenderer } from './IBallRenderer';
-import { IDIFactory } from '../factory/IDIFactory';
 import { BallModel } from '../model/BallModel';
 import { BallTypes } from '../di-container/types';
 

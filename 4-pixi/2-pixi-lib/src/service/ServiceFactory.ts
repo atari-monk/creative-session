@@ -1,9 +1,11 @@
 import { Container } from 'inversify';
 import { SharedTypes } from '../di-container/types';
-import { IBasicRenderer } from '../IBasicRenderer';
+import {
+  IBasicRenderer,
+  IRegister,
+  IGameObjectManager,
+} from 'atari-monk-game-api-lib';
 import { BasicRenderer } from '../BasicRenderer';
-import { IRegister } from '../factory/IRegister';
-import { IGameObjectManager } from '../game-obj/IGameObjectManager';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { EventEmitter } from './EventEmitter';
 

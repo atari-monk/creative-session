@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io-client';
-import { ISocketLogicUnit } from './ISocketLogicUnit.js';
+import { ISocketLogicUnit } from 'atari-monk-game-api-lib';
 import { injectable } from 'inversify';
 
 @injectable()

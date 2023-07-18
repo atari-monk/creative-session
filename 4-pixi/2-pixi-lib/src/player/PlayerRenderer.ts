@@ -1,8 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { IBasicRenderer } from '../IBasicRenderer';
+import {
+  IBasicRenderer,
+  IPlayerRenderer,
+  IPlayerModel,
+} from 'atari-monk-game-api-lib';
 import { inject, injectable } from 'inversify';
-import { IPlayerRenderer } from './IPlayerRenderer';
-import { IPlayerModel } from 'atari-monk-game-api-lib';
 import { SharedTypes } from '../di-container/types';
 
 @injectable()

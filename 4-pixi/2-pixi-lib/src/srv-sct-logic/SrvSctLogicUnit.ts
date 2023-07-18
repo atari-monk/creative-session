@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { ISrvSctLogicUnit } from './ISrvSctLogicUnit.js';
+import { ISrvSctLogicUnit } from 'atari-monk-game-api-lib';
 
 export abstract class SrvSctLogicUnit implements ISrvSctLogicUnit {
   constructor(private readonly eventName: string) {}

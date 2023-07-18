@@ -6,9 +6,9 @@ import {
   IKeys,
   IScreenSize,
   createColorOptions,
+  IPlayerNpcParams,
+  IAppHelperParams,
 } from 'atari-monk-game-api-lib';
-import { IPlayerNpcParams } from './interfaces/IPlayerNpcParams';
-import { IAppHelperParams } from './interfaces/IAppHelperParams';
 import { playerUrlParam } from '../utils/urlParams';
 
 const green = 0x00ff00;

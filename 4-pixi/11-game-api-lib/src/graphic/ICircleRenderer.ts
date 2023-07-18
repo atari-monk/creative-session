@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { IColorParams, ICircle } from 'atari-monk-game-api-lib';
+import { ICircle } from '../model/ICircle';
+import { IColorParams } from '../params/IColorParams';
 
 export interface ICircleRenderer {
   render(

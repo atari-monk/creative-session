@@ -1,4 +1,4 @@
-import { IScreenSize } from 'atari-monk-game-api-lib';
+import { IScreenSize } from '../params/IScreenSize';
 
 export interface IAppHelperParams {
   screenSize: IScreenSize;

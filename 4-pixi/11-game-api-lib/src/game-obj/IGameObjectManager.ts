@@ -1,5 +1,6 @@
-import { IGameObject } from 'atari-monk-game-api-lib';
-import { IBall, IPlayer } from 'atari-monk-game-api-lib';
+import { IBall } from '../ball/IBall';
+import { IPlayer } from '../player/IPlayer';
+import { IGameObject } from './IGameObject';
 
 export interface IGameObjectManager {
   gameObjects: IGameObject[];

@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { IServerLogicUnit } from './IServerLogicUnit.js';
+import { IServerLogicUnit } from 'atari-monk-game-api-lib';
 
 export abstract class ServerLogicUnit implements IServerLogicUnit {
   constructor(private readonly eventName: string) {}

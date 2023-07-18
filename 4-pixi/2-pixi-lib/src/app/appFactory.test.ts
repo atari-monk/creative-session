@@ -1,17 +1,19 @@
+import { Container } from 'inversify';
 import 'reflect-metadata';
+import { Application } from 'pixi.js';
 import { expect } from 'chai';
 import 'mocha';
+import {
+  IAppHelper,
+  IGameObjectManager,
+  IGameUpdateable,
+  IBallGame,
+} from 'atari-monk-game-api-lib';
 import { configureContainerForTest } from '../di-container/inversify.config';
-import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
-import { Application } from 'pixi.js';
-import { IGameObjectManager } from '../game-obj/IGameObjectManager';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
-import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
 import { Collider } from '../game-updateable/Collider';
-import { IBallGame } from '../ball-game/IBallGame';
 import { BallGame } from '../ball-game/BallGame';
-import { Container } from 'inversify';
 import { PixiApplicationWrapper } from './PixiApplicationWrapper';
 
 describe('App', () => {

@@ -1,6 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { IPlayer, IVector2d } from 'atari-monk-game-api-lib';
-import { IPlayerUpdater } from './IPlayerUpdater';
+import { IPlayer, IVector2d, IPlayerUpdater } from 'atari-monk-game-api-lib';
 import { PositionEmitter } from '../PositionEmitter';
 import { Vector2d } from '../model/Vector2d';
 import { PlayerTypes } from '../di-container/types';

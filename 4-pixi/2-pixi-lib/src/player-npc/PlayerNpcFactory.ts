@@ -1,12 +1,14 @@
 import { Container } from 'inversify';
+import {
+  IClientId,
+  ICircleRenderer,
+  IDIFactory,
+  IPlayerNpc,
+} from 'atari-monk-game-api-lib';
 import { PlayerNpcModel } from '../model/PlayerNpcModel';
 import { playerNpcParams } from '../data/ballGameParams';
 import { PlayerNpc } from './PlayerNpc';
-import { IClientId } from 'atari-monk-game-api-lib';
-import { ICircleRenderer } from './ICircleRenderer';
 import { CircleRenderer } from './CircleRenderer';
-import { IDIFactory } from '../factory/IDIFactory';
-import { IPlayerNpc } from './IPlayerNpc';
 import { PlayerNpcTypes } from '../di-container/types';
 
 export class PlayerNpcFactory implements IDIFactory<IPlayerNpc> {

@@ -1,6 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
-import { IVectorData } from './IVectorData';
-import { IVector2d } from 'atari-monk-game-api-lib';
+import { IVectorData, IVector2d } from 'atari-monk-game-api-lib';
 
 export class PositionEmitter {
   constructor(

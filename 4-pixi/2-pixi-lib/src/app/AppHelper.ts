@@ -1,8 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { IAppHelper } from './IAppHelper';
-import { IAppHelperParams } from '../data/interfaces/IAppHelperParams';
+import {
+  IAppHelper,
+  IAppHelperParams,
+  IBallGame,
+} from 'atari-monk-game-api-lib';
 import { getCanvas } from '../utils/ui';
-import { IBallGame } from '../ball-game/IBallGame';
 
 export class AppHelper implements IAppHelper {
   private pixiApp!: PIXI.Application<PIXI.ICanvas>;

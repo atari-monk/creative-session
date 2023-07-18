@@ -1,10 +1,10 @@
+import { Container } from 'inversify';
 import 'reflect-metadata';
 import { expect } from 'chai';
 import 'mocha';
+import { IPlayerNpc } from 'atari-monk-game-api-lib';
 import { configureContainerForTest } from '../di-container/inversify.config';
-import { IPlayerNpc } from './IPlayerNpc';
 import { PlayerNpc } from './PlayerNpc';
-import { Container } from 'inversify';
 
 describe('PlayerNpc', () => {
   let player: IPlayerNpc;

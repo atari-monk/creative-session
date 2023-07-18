@@ -1,18 +1,22 @@
 import { Container } from 'inversify';
+import {
+  IPlayerRenderer,
+  IDirectionFromKeyboard,
+  IPlayerUpdater,
+  IKeyboardInput,
+  IDIFactory,
+  IPlayerModel,
+  IPlayer,
+  IKeys,
+} from 'atari-monk-game-api-lib';
 import { keys, playerParams } from '../data/ballGameParams';
 import { Player } from './Player';
-import { IPlayerRenderer } from './IPlayerRenderer';
 import { PlayerRenderer } from './PlayerRenderer';
-import { IDirectionFromKeyboard } from '../keyboard/IDirectionFromKeyboard';
 import { DirectionFromKeyboard } from '../keyboard/DirectionFromKeyboard';
-import { IPlayerUpdater } from './IPlayerUpdater';
 import { PlayerKeyboardMovement } from './PlayerKeyboardMovement';
-import { IKeyboardInput } from '../keyboard/IKeyboardInput';
 import { KeyboardInputV1 } from '../keyboard/KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
-import { IDIFactory } from '../factory/IDIFactory';
-import { IPlayerModel, IPlayer, IKeys } from 'atari-monk-game-api-lib';
 import { PlayerModel } from '../model/PlayerModel';
 import { PlayerTypes } from '../di-container/types';
 import { EventEmitter } from '../service/EventEmitter';

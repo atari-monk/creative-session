@@ -1,4 +1,4 @@
-import { IVector2d } from 'atari-monk-game-api-lib';
+import { IVector2d } from '../data-structure/IVector2d';
 
 export interface IDirectionFromKeyboard {
   direction: IVector2d;

@@ -1,4 +1,4 @@
-import { IPlayer } from 'atari-monk-game-api-lib';
+import { IPlayer } from "./IPlayer";
 
 export interface IPlayerUpdater {
   update(deltaTime: number, player: IPlayer): void;

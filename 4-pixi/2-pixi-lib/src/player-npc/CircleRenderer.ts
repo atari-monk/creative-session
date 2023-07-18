@@ -1,8 +1,11 @@
-import * as PIXI from 'pixi.js';
-import { IBasicRenderer } from '../IBasicRenderer';
 import { inject, injectable } from 'inversify';
-import { IColorParams, ICircle } from 'atari-monk-game-api-lib';
-import { ICircleRenderer } from './ICircleRenderer';
+import * as PIXI from 'pixi.js';
+import {
+  IBasicRenderer,
+  ICircleRenderer,
+  IColorParams,
+  ICircle,
+} from 'atari-monk-game-api-lib';
 import { SharedTypes } from '../di-container/types';
 
 @injectable()

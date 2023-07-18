@@ -1,9 +1,11 @@
 import * as PIXI from 'pixi.js';
 import { injectable, inject } from 'inversify';
+import {
+  IPlayerNpc,
+  ICircleRenderer,
+  IPlayerNpcModel,
+} from 'atari-monk-game-api-lib';
 import { GameObject } from '../game-obj/GameObject';
-import { IPlayerNpc } from './IPlayerNpc';
-import { ICircleRenderer } from './ICircleRenderer';
-import { IPlayerNpcModel } from '../model/IPlayerNpcModel';
 import { PlayerNpcTypes } from '../di-container/types';
 
 @injectable()

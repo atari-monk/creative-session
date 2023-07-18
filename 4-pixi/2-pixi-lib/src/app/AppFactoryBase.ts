@@ -1,14 +1,16 @@
 import { Container } from 'inversify';
+import {
+  IAppHelper,
+  IGameObjectManager,
+  IGameUpdateable,
+  IBallGame,
+  IRegister,
+} from 'atari-monk-game-api-lib';
 import { appHelperParams } from '../data/ballGameParams';
-import { IAppHelper } from './IAppHelper';
 import { AppHelper } from './AppHelper';
-import { IGameObjectManager } from '../game-obj/IGameObjectManager';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
-import { IGameUpdateable } from '../game-updateable/IGameUpdateable';
 import { Collider } from '../game-updateable/Collider';
 import { BallGame } from '../ball-game/BallGame';
-import { IBallGame } from '../ball-game/IBallGame';
-import { IRegister } from '../factory/IRegister';
 
 export abstract class AppFactoryBase implements IRegister {
   constructor(protected readonly container: Container) {}
