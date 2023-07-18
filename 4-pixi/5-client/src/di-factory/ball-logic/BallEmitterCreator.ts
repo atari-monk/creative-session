@@ -1,8 +1,7 @@
-import { EventEmitterLogicManager } from 'atari-monk-pixi-lib';
-import { ICreate } from 'atari-monk-pixi-lib/factory/ICreate';
 import { inject, injectable } from 'inversify';
 import { BallEventEmitterLogicUnit } from '../../emitter-logic/BallEventEmitterLogicUnit';
-import { BallTypes } from '../types';
+import { BallTypes, ICreate } from 'atari-monk-game-api-lib';
+import { EventEmitterLogicManager } from '../../lib/emitter-logic/EventEmitterLogicManager';
 
 @injectable()
 export class BallEmitterCreator implements ICreate<EventEmitterLogicManager> {

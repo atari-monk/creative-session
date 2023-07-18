@@ -6,11 +6,11 @@ import {
   IPlayerModel,
   IPlayerRenderer,
   IPlayerUpdater,
+  PlayerTypes,
 } from 'atari-monk-game-api-lib';
 import { GameObject } from '../game-obj/GameObject';
 import { Vector2d } from '../model/Vector2d';
 import { StringBuilder } from '../utils/StringBuilder';
-import { PlayerTypes } from '../di-container/types';
 
 @injectable()
 export class Player extends GameObject implements IPlayer {

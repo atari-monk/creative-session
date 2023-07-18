@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io-client';
-import { EventEmitterLogicUnit } from 'atari-monk-pixi-lib';
-import { IVectorData } from 'atari-monk-pixi-lib';
+import { EventEmitterLogicUnit } from '../lib/emitter-logic/EventEmitterLogicUnit';
+import { IVectorData } from 'atari-monk-game-api-lib';
 
 export class PlayerEventEmitterLogicUnit extends EventEmitterLogicUnit {
   constructor(

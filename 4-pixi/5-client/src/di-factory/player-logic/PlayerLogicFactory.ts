@@ -11,7 +11,8 @@ import { PlayerMovement } from '../../socket-logic/PlayerMovement';
 import { PlayerEmitterCreator } from './PlayerEmitterCreator';
 import { IPlayerLogic } from './IPlayerLogic';
 import { PlayerEventEmitterLogicUnit } from '../../emitter-logic/PlayerEventEmitterLogicUnit';
-import { EventEmitter, EventEmitterLogicManager } from 'atari-monk-pixi-lib';
+import { EventEmitterLogicManager } from '../../lib/emitter-logic/EventEmitterLogicManager';
+import { EventEmitter } from 'atari-monk-game-api-lib';
 
 @injectable()
 export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {

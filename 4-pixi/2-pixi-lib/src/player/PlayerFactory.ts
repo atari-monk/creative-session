@@ -8,9 +8,10 @@ import {
   IPlayerModel,
   IPlayer,
   IKeys,
+  PlayerTypes,
+  EventEmitter,
 } from 'atari-monk-game-api-lib';
 import { keys, playerParams } from '../data/ballGameParams';
-import { Player } from './Player';
 import { PlayerRenderer } from './PlayerRenderer';
 import { DirectionFromKeyboard } from '../keyboard/DirectionFromKeyboard';
 import { PlayerKeyboardMovement } from './PlayerKeyboardMovement';
@@ -18,8 +19,7 @@ import { KeyboardInputV1 } from '../keyboard/KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import { PlayerModel } from '../model/PlayerModel';
-import { PlayerTypes } from '../di-container/types';
-import { EventEmitter } from '../service/EventEmitter';
+import { Player } from './Player';
 
 export class PlayerFactory implements IDIFactory<IPlayer> {
   constructor(private readonly container: Container) {}
@@ -29,7 +29,10 @@ export class PlayerFactory implements IDIFactory<IPlayer> {
     this.RegisterRenderer();
     this.RegisterKeyboard();
     this.RegisterUpdateables();
-    this.container.bind<IPlayer>(Player).toSelf().inSingletonScope();
+    this.container
+      .bind<IPlayer>(PlayerTypes.Player)
+      .to(Player)
+      .inSingletonScope();
   }
 
   private RegisterModel() {
@@ -78,6 +81,6 @@ export class PlayerFactory implements IDIFactory<IPlayer> {
   }
 
   public create(): IPlayer {
-    return this.container.resolve<IPlayer>(Player);
+    return this.container.get<IPlayer>(PlayerTypes.Player);
   }
 }

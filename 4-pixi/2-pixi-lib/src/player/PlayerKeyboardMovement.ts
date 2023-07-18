@@ -2,10 +2,10 @@ import { inject, injectable } from 'inversify';
 import {
   IDirectionFromKeyboard,
   IPlayerUpdater,
+  PlayerTypes,
 } from 'atari-monk-game-api-lib';
 import { Vector2d } from '../model/Vector2d';
 import { IPlayer } from 'atari-monk-game-api-lib';
-import { PlayerTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerKeyboardMovement implements IPlayerUpdater {

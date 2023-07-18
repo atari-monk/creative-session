@@ -2,13 +2,13 @@ import * as PIXI from 'pixi.js';
 import {
   Collider,
   BallGame,
-  IGameObjectManager,
   AppHelper,
   GameObjectManager,
   appHelperParams,
   getPixiAppParams,
   getCanvasForPixi,
 } from 'atari-monk-pixi-lib';
+import { IGameObjectManager } from 'atari-monk-game-api-lib';
 
 export class AppFactory {
   private _pixiApp: PIXI.Application;

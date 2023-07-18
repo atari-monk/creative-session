@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 import { ConnectErrorHandler } from '../../socket-logic/ConnectErrorHandler';
 import { DisconnectHandler } from '../../socket-logic/DisconnectHandler';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { Socket } from 'socket.io-client';
-import { ICreate } from 'atari-monk-pixi-lib/factory/ICreate';
+import { ICreate } from 'atari-monk-game-api-lib';
+import { SocketLogicManager } from '../../lib/socket-logic/SocketLogicManager';
 
 @injectable()
 export class SocketLogicCreator implements ICreate<SocketLogicManager> {
@@ -20,7 +20,7 @@ export class SocketLogicCreator implements ICreate<SocketLogicManager> {
 
   public create(): SocketLogicManager {
     const m = this.socketLogicManager;
-    
+
     m.addLogic(this.connectErrorHandler);
     m.addLogic(this.disconnectHandler);
     m.initializeSocket(this.socket);

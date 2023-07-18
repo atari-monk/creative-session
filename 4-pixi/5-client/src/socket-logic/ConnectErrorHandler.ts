@@ -1,5 +1,5 @@
-import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 import { injectable } from 'inversify';
+import { SocketLogicUnit } from '../lib/socket-logic/SocketLogicUnit';
 
 @injectable()
 export class ConnectErrorHandler extends SocketLogicUnit {

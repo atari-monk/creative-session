@@ -33,4 +33,6 @@ export const BallTypes = {
   Ball: Symbol.for(BallId),
   Model: Symbol.for(BallId + 'Model'),
   Renderer: Symbol.for(BallId + 'Renderer'),
+  MovementEmitter: Symbol.for(BallId + 'MovementEmitter'),
+  VelocityEmitter: Symbol.for(BallId + 'VelocityEmitter'),
 };

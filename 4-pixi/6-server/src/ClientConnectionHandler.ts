@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
-import { ServerLogicUnit, SrvSctLogicManager } from 'atari-monk-pixi-lib';
 import { ClientManager } from './ClientManager';
+import { SrvSctLogicManager } from './lib/srv-sct-logic/SrvSctLogicManager';
+import { ServerLogicUnit } from './lib/server-logic/ServerLogicUnit';
 
 export class ClientConnectionHandler extends ServerLogicUnit {
   constructor(

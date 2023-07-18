@@ -1,11 +1,9 @@
 import { Manager, Socket } from 'socket.io-client';
 import {
-  EventEmitterLogicManager,
   IBall,
   IPlayer,
   IPlayerNpc,
-  SocketLogicManager,
-} from 'atari-monk-pixi-lib';
+} from 'atari-monk-game-api-lib';
 import EventEmitter from 'eventemitter3';
 import { SocketConfigurator } from '../SocketConfigurator';
 import { Environment } from '../Environment';
@@ -21,6 +19,8 @@ import { BallManager } from '../BallManager';
 import { BallMovement } from '../socket-logic/BallMovement';
 import { BallVelocity } from '../socket-logic/BallVelocity';
 import { BallEventEmitterLogicUnit } from '../emitter-logic/BallEventEmitterLogicUnit';
+import { SocketLogicManager } from '../lib/socket-logic/SocketLogicManager';
+import { EventEmitterLogicManager } from '../lib/emitter-logic/EventEmitterLogicManager';
 
 export class ClientFactory {
   private socket: Socket;

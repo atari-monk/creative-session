@@ -1,9 +1,9 @@
 import { Container, injectable } from 'inversify';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { ConnectErrorHandler } from '../../socket-logic/ConnectErrorHandler';
 import { DisconnectHandler } from '../../socket-logic/DisconnectHandler';
 import { SocketLogicCreator } from './SocketLogicCreator';
 import { IDIFactory } from '../IDIFactory';
+import { SocketLogicManager } from '../../lib/socket-logic/SocketLogicManager';
 
 @injectable()
 export class SocketLogicFactory implements IDIFactory<SocketLogicManager> {

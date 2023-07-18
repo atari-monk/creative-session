@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
-import { SrvSctLogicManager } from 'atari-monk-pixi-lib';
 import { GameServer } from './GameServer';
 import { ClientConnectionHandler } from './ClientConnectionHandler';
 import { BallMovement } from './BallMovement';
@@ -10,6 +9,7 @@ import { BallVelocity } from './BallVelocity';
 import { PlayerMovement } from './PlayerMovement';
 import { ClientManager } from './ClientManager';
 import { DisconnectLogicUnit } from './DisconnectLogicUnit';
+import { SrvSctLogicManager } from './lib/srv-sct-logic/SrvSctLogicManager';
 
 const app = express();
 const serverHttp = http.createServer(app);

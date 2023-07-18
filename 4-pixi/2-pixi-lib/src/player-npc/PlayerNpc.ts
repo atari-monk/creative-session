@@ -4,9 +4,9 @@ import {
   IPlayerNpc,
   ICircleRenderer,
   IPlayerNpcModel,
+  PlayerNpcTypes,
 } from 'atari-monk-game-api-lib';
 import { GameObject } from '../game-obj/GameObject';
-import { PlayerNpcTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerNpc extends GameObject implements IPlayerNpc {

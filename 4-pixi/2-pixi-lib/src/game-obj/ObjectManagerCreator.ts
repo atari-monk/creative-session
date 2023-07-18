@@ -5,18 +5,18 @@ import {
   IPlayerNpc,
   IPlayer,
   IBall,
+  PlayerTypes,
+  PlayerNpcTypes,
+  BallTypes,
 } from 'atari-monk-game-api-lib';
-import { Player } from '../player/Player';
 import { GameObjectManager } from './GameObjectManager';
-import { PlayerNpc } from '../player-npc/PlayerNpc';
-import { Ball } from '../ball/Ball';
 
 @injectable()
 export class ObjectManagerCreator implements ICreate<void> {
   constructor(
-    @inject(Player) private readonly player: IPlayer,
-    @inject(PlayerNpc) private readonly playerNpc: IPlayerNpc,
-    @inject(Ball) private readonly ball: IBall,
+    @inject(PlayerTypes.Player) private readonly player: IPlayer,
+    @inject(PlayerNpcTypes.Player) private readonly playerNpc: IPlayerNpc,
+    @inject(BallTypes.Ball) private readonly ball: IBall,
     @inject(GameObjectManager)
     private readonly gameObjsManager: IGameObjectManager
   ) {}

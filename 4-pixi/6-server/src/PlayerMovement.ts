@@ -1,5 +1,6 @@
 import { Socket } from 'socket.io';
-import { IVectorData, SrvSctLogicUnit } from 'atari-monk-pixi-lib';
+import { SrvSctLogicUnit } from './lib/srv-sct-logic/SrvSctLogicUnit';
+import { IVectorData } from 'atari-monk-game-api-lib';
 
 export class PlayerMovement extends SrvSctLogicUnit {
   protected logicUnit(socket: Socket, data: IVectorData): void {

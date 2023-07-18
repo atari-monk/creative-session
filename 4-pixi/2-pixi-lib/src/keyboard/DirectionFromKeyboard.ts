@@ -3,10 +3,10 @@ import {
   IDirectionFromKeyboard,
   IKeys,
   IVector2d,
+  PlayerTypes,
 } from 'atari-monk-game-api-lib';
 import { KeyboardInputV1 } from './KeyboardInputV1';
 import { Vector2d } from '../model/Vector2d';
-import { PlayerTypes } from '../di-container/types';
 
 @injectable()
 export class DirectionFromKeyboard implements IDirectionFromKeyboard {

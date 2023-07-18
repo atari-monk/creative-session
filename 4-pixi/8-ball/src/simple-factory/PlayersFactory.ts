@@ -1,9 +1,8 @@
+import { IPlayer, IPlayerNpc } from 'atari-monk-game-api-lib';
 import {
   BasicRenderer,
   CircleRenderer,
   DirectionFromKeyboard,
-  IPlayer,
-  IPlayerNpc,
   KeyboardInputV1,
   Player,
   PlayerKeyboardMovement,

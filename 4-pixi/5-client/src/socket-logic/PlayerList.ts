@@ -1,6 +1,6 @@
-import { SocketLogicUnit } from 'atari-monk-pixi-lib';
 import { Socket } from 'socket.io-client';
-import { IPlayerManager } from '../IPlayerManager.js';
+import { IPlayerManager } from '../IPlayerManager';
+import { SocketLogicUnit } from '../lib/socket-logic/SocketLogicUnit';
 
 export class PlayerList extends SocketLogicUnit {
   constructor(

@@ -4,12 +4,12 @@ import {
   ICircleRenderer,
   IDIFactory,
   IPlayerNpc,
+  PlayerNpcTypes,
 } from 'atari-monk-game-api-lib';
 import { PlayerNpcModel } from '../model/PlayerNpcModel';
 import { playerNpcParams } from '../data/ballGameParams';
-import { PlayerNpc } from './PlayerNpc';
 import { CircleRenderer } from './CircleRenderer';
-import { PlayerNpcTypes } from '../di-container/types';
+import { PlayerNpc } from './PlayerNpc';
 
 export class PlayerNpcFactory implements IDIFactory<IPlayerNpc> {
   constructor(private readonly container: Container) {}
@@ -23,10 +23,13 @@ export class PlayerNpcFactory implements IDIFactory<IPlayerNpc> {
       .bind<ICircleRenderer>(PlayerNpcTypes.Renderer)
       .to(CircleRenderer);
 
-    this.container.bind<IPlayerNpc>(PlayerNpc).toSelf().inSingletonScope();
+    this.container
+      .bind<IPlayerNpc>(PlayerNpcTypes.Player)
+      .to(PlayerNpc)
+      .inSingletonScope();
   }
 
   public create(): IPlayerNpc {
-    return this.container.resolve<IPlayerNpc>(PlayerNpc);
+    return this.container.get<IPlayerNpc>(PlayerNpcTypes.Player);
   }
 }

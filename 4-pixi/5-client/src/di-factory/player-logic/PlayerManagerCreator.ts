@@ -1,14 +1,14 @@
 import { inject, injectable } from 'inversify';
-import { ICreate, IPlayer, IPlayerNpc, Player, PlayerNpc } from 'atari-monk-pixi-lib';
+import { ICreate, IPlayer, IPlayerNpc, PlayerNpcTypes, PlayerTypes } from 'atari-monk-game-api-lib';
 import { IPlayerManager } from '../../IPlayerManager';
 import { PlayerManager } from '../../PlayerManager';
 
 @injectable()
 export class PlayerManagerCreator implements ICreate<IPlayerManager> {
   constructor(
-    @inject(Player)
+    @inject(PlayerTypes.Player)
     private readonly player: IPlayer,
-    @inject(PlayerNpc)
+    @inject(PlayerNpcTypes.Player)
     private readonly playerNpc: IPlayerNpc,
     @inject(PlayerManager)
     private readonly playerManager: IPlayerManager

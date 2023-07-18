@@ -1,6 +1,7 @@
-import { IVector2d, SocketLogicUnit, Vector2d } from 'atari-monk-pixi-lib';
-import { IPlayerManager } from '../IPlayerManager.js';
-import { IVectorData } from 'atari-monk-pixi-lib';
+import { IVector2d, IVectorData } from 'atari-monk-game-api-lib';
+import { IPlayerManager } from '../IPlayerManager';
+import { SocketLogicUnit } from '../lib/socket-logic/SocketLogicUnit';
+import { Vector2d } from '../lib/Vector2d';
 
 export class PlayerMovement extends SocketLogicUnit {
   constructor(

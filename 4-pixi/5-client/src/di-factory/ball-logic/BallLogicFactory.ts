@@ -8,7 +8,7 @@ import { Socket } from 'socket.io-client';
 import { BallLogicCreator } from './BallLogicCreator';
 import { BallEmitterCreator } from './BallEmitterCreator';
 import { IDIFactory } from '../IDIFactory';
-import { BallTypes } from '../types';
+import { BallTypes } from 'atari-monk-game-api-lib';
 
 @injectable()
 export class BallLogicFactory implements IDIFactory<IBallLogic> {

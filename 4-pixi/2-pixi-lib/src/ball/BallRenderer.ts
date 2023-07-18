@@ -4,8 +4,8 @@ import {
   IBasicRenderer,
   IBallRenderer,
   IBallModel,
+  SharedTypes,
 } from 'atari-monk-game-api-lib';
-import { SharedTypes } from '../di-container/types';
 
 @injectable()
 export class BallRenderer implements IBallRenderer {

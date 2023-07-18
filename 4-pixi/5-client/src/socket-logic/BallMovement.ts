@@ -1,5 +1,7 @@
-import { IVectorData, SocketLogicUnit, Vector2d } from 'atari-monk-pixi-lib';
+import { IVectorData } from 'atari-monk-game-api-lib';
 import { BallManager } from '../BallManager';
+import { SocketLogicUnit } from '../lib/socket-logic/SocketLogicUnit';
+import { Vector2d } from '../lib/Vector2d';
 
 export class BallMovement extends SocketLogicUnit {
   constructor(eventName: string, private readonly ballManager: BallManager) {

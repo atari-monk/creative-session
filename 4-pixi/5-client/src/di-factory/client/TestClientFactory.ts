@@ -1,6 +1,5 @@
 import { Container, inject, injectable } from 'inversify';
 import { Socket } from 'socket.io-client';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
 import { SocketLogicFactory } from '../socket-logic/SocketLogicFactory';
 import { IDIFactory } from '../IDIFactory';
 import { ClosedSocketFactory } from '../socket/ClosedSocketFactory';
@@ -8,6 +7,7 @@ import { PlayerLogicFactory } from '../player-logic/PlayerLogicFactory';
 import { IPlayerLogic } from '../player-logic/IPlayerLogic';
 import { IBallLogic } from '../ball-logic/IBallLogic';
 import { BallLogicFactory } from '../ball-logic/BallLogicFactory';
+import { SocketLogicManager } from '../../lib/socket-logic/SocketLogicManager';
 
 @injectable()
 export class TestClientFactory implements IDIFactory<void> {

@@ -1,8 +1,6 @@
 import { BallManager } from '../../BallManager';
-import {
-  EventEmitterLogicManager,
-  SocketLogicManager,
-} from 'atari-monk-pixi-lib';
+import { EventEmitterLogicManager } from '../../lib/emitter-logic/EventEmitterLogicManager';
+import { SocketLogicManager } from '../../lib/socket-logic/SocketLogicManager';
 
 export interface IBallLogic {
   manager: BallManager;

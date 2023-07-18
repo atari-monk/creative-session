@@ -3,9 +3,9 @@ import {
   IBasicRenderer,
   IPlayerRenderer,
   IPlayerModel,
+  SharedTypes,
 } from 'atari-monk-game-api-lib';
 import { inject, injectable } from 'inversify';
-import { SharedTypes } from '../di-container/types';
 
 @injectable()
 export class PlayerRenderer implements IPlayerRenderer {

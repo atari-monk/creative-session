@@ -10,10 +10,12 @@
   "author": "atari-monk",
   "license": "ISC",
   "dependencies": {
-    "atari-monk-pixi-lib": "file:atari-monk-pixi-lib-0.0.1.tgz",
+    "atari-monk-game-api-lib": "file:atari-monk-game-api-lib-0.0.1.tgz",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
     "socket.io": "^4.6.2"
   },
   "devDependencies": {

@@ -4,12 +4,12 @@ import {
   IBallModel,
   IBallRenderer,
   IDIFactory,
+  BallTypes,
 } from 'atari-monk-game-api-lib';
 import { ballParams } from '../data/ballGameParams';
-import { Ball } from './Ball';
 import { BallRenderer } from './BallRenderer';
 import { BallModel } from '../model/BallModel';
-import { BallTypes } from '../di-container/types';
+import { Ball } from './Ball';
 
 export class BallFactory implements IDIFactory<IBall> {
   constructor(private readonly container: Container) {}
@@ -17,7 +17,7 @@ export class BallFactory implements IDIFactory<IBall> {
   public register() {
     this.RegisterModels();
     this.RegisterDrawer();
-    this.container.bind<IBall>(Ball).toSelf().inSingletonScope();
+    this.container.bind<IBall>(BallTypes.Ball).to(Ball).inSingletonScope();
   }
 
   private RegisterModels() {
@@ -31,6 +31,6 @@ export class BallFactory implements IDIFactory<IBall> {
   }
 
   public create() {
-    return this.container.resolve<IBall>(Ball);
+    return this.container.get<IBall>(BallTypes.Ball);
   }
 }

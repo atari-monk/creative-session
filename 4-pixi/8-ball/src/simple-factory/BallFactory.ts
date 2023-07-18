@@ -1,9 +1,9 @@
+import { IBall } from 'atari-monk-game-api-lib';
 import {
   Ball,
   BallModel,
   BallRenderer,
   BasicRenderer,
-  IBall,
   ballParams,
 } from 'atari-monk-pixi-lib';
 import EventEmitter from 'eventemitter3';

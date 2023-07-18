@@ -1,6 +1,5 @@
-import { IPlayer, IVector2d } from 'atari-monk-pixi-lib';
-import { IPlayerNpc } from 'atari-monk-pixi-lib/player-npc/IPlayerNpc';
 import { Socket } from 'socket.io-client';
+import { IPlayer, IVector2d, IPlayerNpc } from 'atari-monk-game-api-lib';
 
 export interface IPlayerManager {
   addPlayer(clientId: string, player: IPlayer): void;

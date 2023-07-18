@@ -9,6 +9,12 @@ export { IBallRenderer } from './ball/IBallRenderer';
 export { IBallGame } from './ball-game/IBallGame';
 //data-structure
 export { IVector2d } from './data-structure/IVector2d';
+//di-container
+export { SharedTypes } from './di-container/alias';
+export { AppTypes } from './di-container/alias';
+export { PlayerNpcTypes } from './di-container/alias';
+export { PlayerTypes } from './di-container/alias';
+export { BallTypes } from './di-container/alias';
 //dto
 export { IVectorData } from './dto/IVectorData';
 //factory
@@ -67,3 +73,5 @@ export { IPlayerUpdater } from './player/IPlayerUpdater';
 export { IPlayerNpc } from './player-npc/IPlayerNpc';
 export { IPlayerNpcModel } from './player-npc/IPlayerNpcModel';
 export { IPlayerNpcParams } from './player-npc/IPlayerNpcParams';
+//service
+export { EventEmitter } from './service/EventEmitter';

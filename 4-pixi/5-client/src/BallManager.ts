@@ -1,10 +1,10 @@
-import { Ball, IBall, IVector2d } from 'atari-monk-pixi-lib';
+import { BallTypes, IBall, IVector2d } from 'atari-monk-game-api-lib';
 import { inject, injectable } from 'inversify';
 
 @injectable()
 export class BallManager {
   constructor(
-    @inject(Ball)
+    @inject(BallTypes.Ball)
     private readonly ball: IBall
   ) {}
 

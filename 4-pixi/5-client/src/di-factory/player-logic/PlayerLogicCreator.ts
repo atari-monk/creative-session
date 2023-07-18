@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { SocketLogicManager } from 'atari-monk-pixi-lib';
-import { ICreate } from 'atari-monk-pixi-lib/factory/ICreate';
+import { ICreate } from 'atari-monk-game-api-lib';
 import { PlayerConnectLogic } from '../../socket-logic/PlayerConnectLogic';
 import { PlayerList } from '../../socket-logic/PlayerList';
 import { PlayerMovement } from '../../socket-logic/PlayerMovement';
+import { SocketLogicManager } from '../../lib/socket-logic/SocketLogicManager';
 
 @injectable()
 export class PlayerLogicCreator implements ICreate<SocketLogicManager> {

@@ -5,11 +5,11 @@ import {
   IBallModel,
   IBallRenderer,
   IVectorData,
+  BallTypes,
+  EventEmitter,
 } from 'atari-monk-game-api-lib';
-import { BallTypes } from '../di-container/types';
 import { GameObject } from '../game-obj/GameObject';
 import { Vector2d } from '../model/Vector2d';
-import { EventEmitter } from '../service/EventEmitter';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
