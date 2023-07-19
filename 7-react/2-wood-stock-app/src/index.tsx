@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
 
-const App = () => {
-  const [stocks, setStocks] = useState([]);
+interface IStock {
+  _id: string;
+  width: number;
+  depth: number;
+  height: number;
+  description?: string;
+}
+
+const API_BASE_URL = 'http://localhost:3000';
+
+const App: React.FC = () => {
+  const [stocks, setStocks] = useState<IStock[]>([]);
   const [formData, setFormData] = useState({
     width: '',
     depth: '',
@@ -16,22 +27,25 @@ const App = () => {
 
   const fetchStocks = async () => {
     try {
-      const response = await axios.get('/stocks');
+      const response = await axios.get(`${API_BASE_URL}/stocks`);
       setStocks(response.data);
     } catch (error) {
       console.error('Failed to fetch stocks:', error);
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/stocks', formData);
+      const response = await axios.post<IStock>(
+        `${API_BASE_URL}/stocks`,
+        formData
+      );
       setStocks([...stocks, response.data]);
       setFormData({
         width: '',
@@ -44,9 +58,9 @@ const App = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`/stocks/${id}`);
+      await axios.delete(`${API_BASE_URL}/stocks/${id}`);
       setStocks(stocks.filter((stock) => stock._id !== id));
     } catch (error) {
       console.error('Failed to delete stock:', error);
@@ -116,4 +130,4 @@ const App = () => {
   );
 };
 
-export default App;
+ReactDOM.render(<App />, document.getElementById('root'));
