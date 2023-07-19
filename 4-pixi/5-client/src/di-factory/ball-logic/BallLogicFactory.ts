@@ -8,7 +8,8 @@ import { Socket } from 'socket.io-client';
 import { BallLogicCreator } from './BallLogicCreator';
 import { BallEmitterCreator } from './BallEmitterCreator';
 import { IDIFactory } from '../IDIFactory';
-import { BallTypes } from 'atari-monk-game-api-lib';
+import { BallTypes, SharedTypes } from 'atari-monk-game-api-lib';
+import EventEmitter from 'eventemitter3';
 
 @injectable()
 export class BallLogicFactory implements IDIFactory<IBallLogic> {
@@ -26,16 +27,18 @@ export class BallLogicFactory implements IDIFactory<IBallLogic> {
     container
       .bind(BallMovement)
       .toDynamicValue(() => {
-        return new BallMovement('ballMovement', container.resolve(BallManager));
+        return new BallMovement('ballMovement', container.get(BallManager));
       })
       .inSingletonScope();
 
     container
       .bind(BallVelocity)
       .toDynamicValue(() => {
-        return new BallVelocity('ballVelocity', container.resolve(BallManager));
+        return new BallVelocity('ballVelocity', container.get(BallManager));
       })
       .inSingletonScope();
+
+    container.bind(BallLogicCreator).toSelf().inSingletonScope();
   }
 
   private registerBallEmitterLogic(container: Container) {
@@ -45,7 +48,7 @@ export class BallLogicFactory implements IDIFactory<IBallLogic> {
         return new BallEventEmitterLogicUnit(
           'ball-pos-upd',
           'ballMovement',
-          container.resolve(Socket)
+          container.get(Socket)
         );
       })
       .inSingletonScope();
@@ -56,16 +59,24 @@ export class BallLogicFactory implements IDIFactory<IBallLogic> {
         return new BallEventEmitterLogicUnit(
           'ball-vel-upd',
           'ballVelocity',
-          container.resolve(Socket)
+          container.get(Socket)
         );
       })
       .inSingletonScope();
+
+    container.bind(BallEmitterCreator).toSelf().inSingletonScope();
   }
 
   public create(container: Container) {
-    const manager = container.resolve(BallManager);
-    const logic = container.resolve(BallLogicCreator).create();
-    const emitter = container.resolve(BallEmitterCreator).create();
+    const manager = container.get(BallManager);
+    const logicCreator = container.get(BallLogicCreator);
+    const logic = logicCreator.create();
+    const socket = container.get(Socket);
+    logic.initializeSocket(socket);
+    const emitterCreator = container.get(BallEmitterCreator);
+    const emitter = emitterCreator.create();
+    const eventEmitter = container.get<EventEmitter>(SharedTypes.EventEmitter);
+    emitter.initializeEmitter(eventEmitter);
 
     const result: IBallLogic = {
       manager,

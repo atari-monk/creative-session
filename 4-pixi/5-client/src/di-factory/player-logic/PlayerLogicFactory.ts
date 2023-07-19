@@ -13,6 +13,7 @@ import { IPlayerLogic } from './IPlayerLogic';
 import { PlayerEventEmitterLogicUnit } from '../../emitter-logic/PlayerEventEmitterLogicUnit';
 import { EventEmitterLogicManager } from '../../lib/emitter-logic/EventEmitterLogicManager';
 import { SharedTypes } from 'atari-monk-game-api-lib';
+import EventEmitter from 'eventemitter3';
 
 @injectable()
 export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
@@ -82,11 +83,16 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
   }
 
   public create(container: Container) {
-    const manager = container.get(PlayerManagerCreator).create();
-    const logic = container.get(PlayerLogicCreator).create();
-    logic.initializeSocket(container.get(Socket));
-    const emitter = container.get(PlayerEmitterCreator).create();
-    emitter.initializeEmitter(container.get(SharedTypes.EventEmitter));
+    const managerCreator = container.get(PlayerManagerCreator);
+    const manager = managerCreator.create();
+    const logicCreator = container.get(PlayerLogicCreator);
+    const logic = logicCreator.create();
+    const socket = container.get(Socket);
+    logic.initializeSocket(socket);
+    const emitterCreator = container.get(PlayerEmitterCreator);
+    const emitter = emitterCreator.create();
+    const eventEmitter = container.get<EventEmitter>(SharedTypes.EventEmitter);
+    emitter.initializeEmitter(eventEmitter);
 
     const result: IPlayerLogic = {
       manager,
