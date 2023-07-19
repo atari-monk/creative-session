@@ -73,5 +73,3 @@ export { IPlayerUpdater } from './player/IPlayerUpdater';
 export { IPlayerNpc } from './player-npc/IPlayerNpc';
 export { IPlayerNpcModel } from './player-npc/IPlayerNpcModel';
 export { IPlayerNpcParams } from './player-npc/IPlayerNpcParams';
-//service
-export { EventEmitter } from './service/EventEmitter';

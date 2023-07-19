@@ -4,10 +4,10 @@ import {
   IRegister,
   IGameObjectManager,
   SharedTypes,
-  EventEmitter,
 } from 'atari-monk-game-api-lib';
 import { BasicRenderer } from '../BasicRenderer';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
+import EventEmitter from 'eventemitter3';
 
 export class ServiceFactory implements IRegister {
   constructor(public readonly container: Container) {}
@@ -19,7 +19,7 @@ export class ServiceFactory implements IRegister {
       .inSingletonScope();
 
     this.container
-      .bind<EventEmitter>(EventEmitter)
+      .bind<EventEmitter>(SharedTypes.EventEmitter)
       .toConstantValue(new EventEmitter());
 
     this.container

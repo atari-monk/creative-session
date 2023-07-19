@@ -12,7 +12,7 @@ import { PlayerEmitterCreator } from './PlayerEmitterCreator';
 import { IPlayerLogic } from './IPlayerLogic';
 import { PlayerEventEmitterLogicUnit } from '../../emitter-logic/PlayerEventEmitterLogicUnit';
 import { EventEmitterLogicManager } from '../../lib/emitter-logic/EventEmitterLogicManager';
-import { EventEmitter } from 'atari-monk-game-api-lib';
+import { SharedTypes } from 'atari-monk-game-api-lib';
 
 @injectable()
 export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
@@ -24,7 +24,10 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
 
   private registerPlayerManager(container: Container) {
     container.bind<IPlayerManager>(PlayerManager).toSelf().inSingletonScope();
-    container.bind<PlayerManagerCreator>(PlayerManagerCreator).toSelf().inSingletonScope();
+    container
+      .bind<PlayerManagerCreator>(PlayerManagerCreator)
+      .toSelf()
+      .inSingletonScope();
   }
 
   private registerPlayerSocketLogic(container: Container) {
@@ -33,8 +36,8 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
       .toDynamicValue(() => {
         return new PlayerConnectLogic(
           'connect',
-          container.resolve<Socket>(Socket),
-          container.resolve<IPlayerManager>(PlayerManager)
+          container.get<Socket>(Socket),
+          container.get<IPlayerManager>(PlayerManager)
         );
       })
       .inSingletonScope();
@@ -43,8 +46,8 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
       .toDynamicValue(() => {
         return new PlayerList(
           'clientIdList',
-          container.resolve<Socket>(Socket),
-          container.resolve<IPlayerManager>(PlayerManager)
+          container.get<Socket>(Socket),
+          container.get<IPlayerManager>(PlayerManager)
         );
       })
       .inSingletonScope();
@@ -53,7 +56,7 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
       .toDynamicValue(() => {
         return new PlayerMovement(
           'movement',
-          container.resolve<IPlayerManager>(PlayerManager)
+          container.get<IPlayerManager>(PlayerManager)
         );
       })
       .inSingletonScope();
@@ -66,7 +69,7 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
         return new PlayerEventEmitterLogicUnit(
           'position-update',
           'movement',
-          container.resolve(Socket)
+          container.get(Socket)
         );
       })
       .inSingletonScope();
@@ -75,11 +78,11 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
   }
 
   public create(container: Container) {
-    const manager = container.resolve(PlayerManagerCreator).create();
-    const logic = container.resolve(PlayerLogicCreator).create();
-    logic.initializeSocket(container.resolve(Socket));
-    const emitter = container.resolve(PlayerEmitterCreator).create();
-    emitter.initializeEmitter(container.resolve(EventEmitter));
+    const manager = container.get(PlayerManagerCreator).create();
+    const logic = container.get(PlayerLogicCreator).create();
+    logic.initializeSocket(container.get(Socket));
+    const emitter = container.get(PlayerEmitterCreator).create();
+    emitter.initializeEmitter(container.get(SharedTypes.EventEmitter));
 
     const result: IPlayerLogic = {
       manager,

@@ -9,7 +9,7 @@ import {
   IPlayer,
   IKeys,
   PlayerTypes,
-  EventEmitter,
+  SharedTypes,
 } from 'atari-monk-game-api-lib';
 import { keys, playerParams } from '../data/ballGameParams';
 import { PlayerRenderer } from './PlayerRenderer';
@@ -20,6 +20,7 @@ import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
 import { PlayerModel } from '../model/PlayerModel';
 import { Player } from './Player';
+import EventEmitter from 'eventemitter3';
 
 export class PlayerFactory implements IDIFactory<IPlayer> {
   constructor(private readonly container: Container) {}
@@ -71,7 +72,7 @@ export class PlayerFactory implements IDIFactory<IPlayer> {
       .toDynamicValue(() => {
         return new PositionEmitter(
           'position-update',
-          this.container.resolve<EventEmitter>(EventEmitter)
+          this.container.get<EventEmitter>(SharedTypes.EventEmitter)
         );
       });
     this.container

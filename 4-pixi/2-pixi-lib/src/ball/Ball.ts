@@ -6,10 +6,11 @@ import {
   IBallRenderer,
   IVectorData,
   BallTypes,
-  EventEmitter,
+  SharedTypes,
 } from 'atari-monk-game-api-lib';
 import { GameObject } from '../game-obj/GameObject';
 import { Vector2d } from '../model/Vector2d';
+import EventEmitter from 'eventemitter3';
 
 @injectable()
 export class Ball extends GameObject implements IBall {
@@ -25,7 +26,7 @@ export class Ball extends GameObject implements IBall {
     private readonly _model: IBallModel,
     @inject(BallTypes.Renderer)
     private readonly renderer: IBallRenderer,
-    @inject(EventEmitter)
+    @inject(SharedTypes.EventEmitter)
     private readonly emitter: EventEmitter
   ) {
     super();
