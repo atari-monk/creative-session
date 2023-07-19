@@ -60,6 +60,8 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
         );
       })
       .inSingletonScope();
+
+    container.bind(PlayerLogicCreator).toSelf().inSingletonScope();
   }
 
   private registerPlayerEmitterLogic(container: Container) {
@@ -75,6 +77,8 @@ export class PlayerLogicFactory implements IDIFactory<IPlayerLogic> {
       .inSingletonScope();
 
     container.bind(EventEmitterLogicManager).toSelf().inRequestScope();
+
+    container.bind(PlayerEmitterCreator).toSelf().inSingletonScope();
   }
 
   public create(container: Container) {
