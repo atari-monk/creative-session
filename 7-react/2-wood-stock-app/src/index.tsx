@@ -81,29 +81,21 @@ const App: React.FC = () => {
       return;
     }
 
-    // Convert the width, depth, and height values to numbers before sending the data to the API
-    const formDataWithNumbers: IStock = {
-      ...formData,
-      width: formData.width !== '' ? String(parseFloat(formData.width)) : '',
-      depth: formData.depth !== '' ? String(parseFloat(formData.depth)) : '',
-      height: formData.height !== '' ? String(parseFloat(formData.height)) : '',
-    };
-
     try {
       if (formData._id) {
         await axios.put<IStock>(
           `${API_BASE_URL}/stocks/${formData._id}`,
-          formDataWithNumbers
+          formData
         );
         const updatedStocks = stocks.map((stock) =>
-          stock._id === formData._id ? formDataWithNumbers : stock
+          stock._id === formData._id ? formData : stock
         );
         setStocks(updatedStocks);
         setMessage('Stock updated successfully.');
       } else {
         const response = await axios.post<IStock>(
           `${API_BASE_URL}/stocks`,
-          formDataWithNumbers
+          formData
         );
         setStocks([...stocks, response.data]);
         setMessage('Stock created successfully.');
