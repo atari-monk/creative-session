@@ -353,6 +353,7 @@ MigrationBackup/
 dist/
 # Keep some dist/
 !7-react/2-wood-stock-app/dist/
+!4-pixi/1-robot/dist/atari-monk-robot.js
 
 .env
 
