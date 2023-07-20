@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({
+    stockId: '',
     width: '',
     depth: '',
     height: '',
@@ -67,6 +68,10 @@ const App: React.FC = () => {
 
     if (isNaN(parseFloat(formData.height))) {
       errors.height = 'Height must be a valid number.';
+    }
+
+    if (formData.stockId.trim() === '') {
+      errors.stockId = 'Stock ID is required.';
     }
 
     setValidationErrors(errors);
@@ -145,6 +150,9 @@ const App: React.FC = () => {
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.stockId && (
+          <p className="error">{validationErrors.stockId}</p>
+        )}
         <br />
         <label>
           Width:
