@@ -8,7 +8,8 @@ dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
 // Define the stock schema
 interface IStock extends Document {
-  id: string; // Add the 'id' property of type string
+  _id: string; // MongoDB-generated ID
+  stockId: string; // Other custom ID
   width: number;
   depth: number;
   height: number;
@@ -16,7 +17,7 @@ interface IStock extends Document {
 }
 
 const stockSchema = new Schema<IStock>({
-  id: { type: String, required: true }, // Define the 'id' property in the schema
+  stockId: { type: String, required: true }, // Define the 'stockId' property in the schema
   width: { type: Number, required: true },
   depth: { type: Number, required: true },
   height: { type: Number, required: true },
@@ -43,10 +44,10 @@ app.use(cors());
 // Create a new stock
 app.post('/stocks', async (req: Request, res: Response) => {
   try {
-    const { id, width, depth, height, description } = req.body; // Include the 'id' in the request body
+    const { stockId, width, depth, height, description } = req.body; // Include the 'stockId' in the request body
 
     // Create a new stock
-    const stock = new Stock({ id, width, depth, height, description });
+    const stock = new Stock({ stockId, width, depth, height, description });
 
     // Save the stock to the database
     await stock.save();
@@ -61,7 +62,7 @@ app.post('/stocks', async (req: Request, res: Response) => {
 app.get('/stocks', async (req: Request, res: Response) => {
   try {
     // Retrieve all stocks from the database
-    const stocks = await Stock.find();
+    const stocks = await Stock.find({}, '-__v'); // Exclude the '__v' field from the response
 
     res.json(stocks);
   } catch (error) {
@@ -72,7 +73,7 @@ app.get('/stocks', async (req: Request, res: Response) => {
 app.put('/stocks/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { width, depth, height, description } = req.body;
+    const { stockId, width, depth, height, description } = req.body;
 
     // Find the stock by ID
     const stock = await Stock.findById(id);
@@ -82,6 +83,9 @@ app.put('/stocks/:id', async (req: Request, res: Response) => {
     }
 
     // Update the stock fields
+    if (stockId) {
+      stock.stockId = stockId;
+    }
     if (width) {
       stock.width = width;
     }
