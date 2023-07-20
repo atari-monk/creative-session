@@ -5,9 +5,9 @@ import { createRoot } from 'react-dom/client';
 interface IStock {
   _id: string;
   stockId: string;
-  width: string; // Change the type to string
-  depth: string; // Change the type to string
-  height: string; // Change the type to string
+  width: number;
+  depth: number;
+  height: number;
   description?: string;
 }
 
@@ -18,11 +18,13 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState<IStock>({
     _id: '',
     stockId: '',
-    width: '', // Set to empty string instead of 0
-    depth: '', // Set to empty string instead of 0
-    height: '', // Set to empty string instead of 0
+    width: 0,
+    depth: 0,
+    height: 0,
     description: '',
   });
+
+  const [message, setMessage] = useState<string>(''); // State variable for displaying messages
 
   useEffect(() => {
     fetchStocks();
@@ -34,6 +36,7 @@ const App: React.FC = () => {
       setStocks(response.data);
     } catch (error) {
       console.error('Failed to fetch stocks:', error);
+      setMessage('Failed to fetch stocks. Please try again.'); // Set the error message
     }
   };
 
@@ -45,19 +48,6 @@ const App: React.FC = () => {
     e.preventDefault();
 
     try {
-      // Add validation to ensure the width, depth, and height are valid numbers
-      const { width, depth, height } = formData;
-      if (
-        !isValidNumber(width) ||
-        !isValidNumber(depth) ||
-        !isValidNumber(height)
-      ) {
-        console.error(
-          'Invalid input: Width, depth, and height must be valid numbers'
-        );
-        return;
-      }
-
       if (formData._id) {
         // If '_id' exists, it's an update/edit operation
         await axios.put<IStock>(
@@ -68,6 +58,7 @@ const App: React.FC = () => {
           stock._id === formData._id ? formData : stock
         );
         setStocks(updatedStocks);
+        setMessage('Stock updated successfully.'); // Set the success message
       } else {
         // If '_id' is empty, it's a create operation
         const response = await axios.post<IStock>(
@@ -75,44 +66,45 @@ const App: React.FC = () => {
           formData
         );
         setStocks([...stocks, response.data]);
+        setMessage('Stock created successfully.'); // Set the success message
       }
 
+      // Reset the form data after successful form submission
       setFormData({
         _id: '',
         stockId: '',
-        width: '', // Set to empty string instead of 0
-        depth: '', // Set to empty string instead of 0
-        height: '', // Set to empty string instead of 0
+        width: 0,
+        depth: 0,
+        height: 0,
         description: '',
       });
     } catch (error) {
       console.error('Failed to save stock:', error);
+      setMessage('Failed to save stock. Please try again.'); // Set the error message
     }
   };
 
   const handleEdit = (stock: IStock) => {
     // When the edit button is clicked, set the stock data to the form for editing
     setFormData({ ...stock });
+    setMessage(''); // Clear any previous messages when starting an edit
   };
 
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`${API_BASE_URL}/stocks/${id}`);
       setStocks(stocks.filter((stock) => stock._id !== id));
+      setMessage('Stock deleted successfully.'); // Set the success message
     } catch (error) {
       console.error('Failed to delete stock:', error);
+      setMessage('Failed to delete stock. Please try again.'); // Set the error message
     }
-  };
-
-  // Helper function to validate if a string is a valid number
-  const isValidNumber = (value: string) => {
-    return !isNaN(Number(value));
   };
 
   return (
     <div>
       <h1>Stocks</h1>
-
+      {message && <p>{message}</p>} {/* Display the message to the user */}
       <form onSubmit={handleSubmit}>
         <label>
           Stock ID:
@@ -166,7 +158,6 @@ const App: React.FC = () => {
         <br />
         <button type="submit">Save Stock</button>
       </form>
-
       <h2>All Stocks</h2>
       {stocks.map((stock) => (
         <div key={stock._id}>
