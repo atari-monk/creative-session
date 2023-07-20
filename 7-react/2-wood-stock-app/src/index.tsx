@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 interface IStock {
   _id: string;
@@ -10,7 +10,7 @@ interface IStock {
   description?: string;
 }
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://atari-monk-wood-stock-api.azurewebsites.net';
 
 const App: React.FC = () => {
   const [stocks, setStocks] = useState<IStock[]>([]);
@@ -130,4 +130,6 @@ const App: React.FC = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(<App />);
