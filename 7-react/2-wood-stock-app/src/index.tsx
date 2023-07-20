@@ -15,6 +15,7 @@ const API_BASE_URL = 'https://atari-monk-wood-stock-api.azurewebsites.net';
 const App: React.FC = () => {
   const [stocks, setStocks] = useState<IStock[]>([]);
   const [formData, setFormData] = useState({
+    id: '', // Add the 'id' field to the form data
     width: '',
     depth: '',
     height: '',
@@ -48,6 +49,7 @@ const App: React.FC = () => {
       );
       setStocks([...stocks, response.data]);
       setFormData({
+        id: '', // Reset the 'id' field to empty string after submission
         width: '',
         depth: '',
         height: '',
@@ -72,6 +74,16 @@ const App: React.FC = () => {
       <h1>Stocks</h1>
 
       <form onSubmit={handleSubmit}>
+        <label>
+          ID: {/* Add a field to input the 'id' */}
+          <input
+            type="text"
+            name="id"
+            value={formData.id}
+            onChange={handleInputChange}
+          />
+        </label>
+        <br />
         <label>
           Width:
           <input
@@ -118,6 +130,7 @@ const App: React.FC = () => {
       <h2>All Stocks</h2>
       {stocks.map((stock) => (
         <div key={stock._id}>
+          <p>ID: {stock._id}</p> {/* Display the 'id' property */}
           <p>Width: {stock.width}</p>
           <p>Depth: {stock.depth}</p>
           <p>Height: {stock.height}</p>
