@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 interface IStock {
   _id: string;
-  stockId: string; // Add the 'stockId' property to the IStock interface
+  stockId: string;
   width: number;
   depth: number;
   height: number;
@@ -16,8 +16,8 @@ const API_BASE_URL = 'https://atari-monk-wood-stock-api.azurewebsites.net';
 const App: React.FC = () => {
   const [stocks, setStocks] = useState<IStock[]>([]);
   const [formData, setFormData] = useState<IStock>({
-    _id: '', // Add the '_id' field to the form data
-    stockId: '', // Add the 'stockId' field to the form data
+    _id: '',
+    stockId: '',
     width: 0,
     depth: 0,
     height: 0,
@@ -45,22 +45,41 @@ const App: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post<IStock>(
-        `${API_BASE_URL}/stocks`,
-        formData
-      );
-      setStocks([...stocks, response.data]);
+      if (formData._id) {
+        // If '_id' exists, it's an update/edit operation
+        await axios.put<IStock>(
+          `${API_BASE_URL}/stocks/${formData._id}`,
+          formData
+        );
+        const updatedStocks = stocks.map((stock) =>
+          stock._id === formData._id ? formData : stock
+        );
+        setStocks(updatedStocks);
+      } else {
+        // If '_id' is empty, it's a create operation
+        const response = await axios.post<IStock>(
+          `${API_BASE_URL}/stocks`,
+          formData
+        );
+        setStocks([...stocks, response.data]);
+      }
+
       setFormData({
-        _id: '', // Reset the '_id' field to empty string after submission
-        stockId: '', // Reset the 'stockId' field to empty string after submission
+        _id: '',
+        stockId: '',
         width: 0,
         depth: 0,
         height: 0,
         description: '',
       });
     } catch (error) {
-      console.error('Failed to create stock:', error);
+      console.error('Failed to save stock:', error);
     }
+  };
+
+  const handleEdit = (stock: IStock) => {
+    // When the edit button is clicked, set the stock data to the form for editing
+    setFormData({ ...stock });
   };
 
   const handleDelete = async (id: string) => {
@@ -78,7 +97,7 @@ const App: React.FC = () => {
 
       <form onSubmit={handleSubmit}>
         <label>
-          Stock ID: {/* Add a field to input the 'stockId' */}
+          Stock ID:
           <input
             type="text"
             name="stockId"
@@ -127,19 +146,19 @@ const App: React.FC = () => {
           />
         </label>
         <br />
-        <button type="submit">Create Stock</button>
+        <button type="submit">Save Stock</button>
       </form>
 
       <h2>All Stocks</h2>
       {stocks.map((stock) => (
         <div key={stock._id}>
           <p>ID: {stock._id}</p>
-          <p>Stock ID: {stock.stockId}</p>{' '}
-          {/* Display the 'stockId' property */}
+          <p>Stock ID: {stock.stockId}</p>
           <p>Width: {stock.width}</p>
           <p>Depth: {stock.depth}</p>
           <p>Height: {stock.height}</p>
           <p>Description: {stock.description}</p>
+          <button onClick={() => handleEdit(stock)}>Edit</button>
           <button onClick={() => handleDelete(stock._id)}>Delete</button>
           <hr />
         </div>
