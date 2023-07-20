@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "bc8e6768-dc5e-4408-abec-d95274c882bd",
+		"name": "wood-stock-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Stock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"width\": \"1\",\r\n  \"depth\": \"1\",\r\n  \"height\": \"1\",\r\n  \"description\": \"1\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"summary\": \"Done, pixi wrapper, solved injectable issue. Tests, ChatGpt helped going.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks/64ac198b788a93901c053ac7",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"64ac198b788a93901c053ac7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tasks/64ad4a9d5e04592f97f6a339",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"64ad4a9d5e04592f97f6a339"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
