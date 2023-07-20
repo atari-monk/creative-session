@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 interface IStock {
   _id: string;
+  stockId: string; // Add the 'stockId' property to the IStock interface
   width: number;
   depth: number;
   height: number;
@@ -14,11 +15,12 @@ const API_BASE_URL = 'https://atari-monk-wood-stock-api.azurewebsites.net';
 
 const App: React.FC = () => {
   const [stocks, setStocks] = useState<IStock[]>([]);
-  const [formData, setFormData] = useState({
-    id: '', // Add the 'id' field to the form data
-    width: '',
-    depth: '',
-    height: '',
+  const [formData, setFormData] = useState<IStock>({
+    _id: '', // Add the '_id' field to the form data
+    stockId: '', // Add the 'stockId' field to the form data
+    width: 0,
+    depth: 0,
+    height: 0,
     description: '',
   });
 
@@ -28,7 +30,7 @@ const App: React.FC = () => {
 
   const fetchStocks = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/stocks`);
+      const response = await axios.get<IStock[]>(`${API_BASE_URL}/stocks`);
       setStocks(response.data);
     } catch (error) {
       console.error('Failed to fetch stocks:', error);
@@ -49,10 +51,11 @@ const App: React.FC = () => {
       );
       setStocks([...stocks, response.data]);
       setFormData({
-        id: '', // Reset the 'id' field to empty string after submission
-        width: '',
-        depth: '',
-        height: '',
+        _id: '', // Reset the '_id' field to empty string after submission
+        stockId: '', // Reset the 'stockId' field to empty string after submission
+        width: 0,
+        depth: 0,
+        height: 0,
         description: '',
       });
     } catch (error) {
@@ -75,11 +78,11 @@ const App: React.FC = () => {
 
       <form onSubmit={handleSubmit}>
         <label>
-          ID: {/* Add a field to input the 'id' */}
+          Stock ID: {/* Add a field to input the 'stockId' */}
           <input
             type="text"
-            name="id"
-            value={formData.id}
+            name="stockId"
+            value={formData.stockId}
             onChange={handleInputChange}
           />
         </label>
@@ -130,7 +133,9 @@ const App: React.FC = () => {
       <h2>All Stocks</h2>
       {stocks.map((stock) => (
         <div key={stock._id}>
-          <p>ID: {stock._id}</p> {/* Display the 'id' property */}
+          <p>ID: {stock._id}</p>
+          <p>Stock ID: {stock.stockId}</p>{' '}
+          {/* Display the 'stockId' property */}
           <p>Width: {stock.width}</p>
           <p>Depth: {stock.depth}</p>
           <p>Height: {stock.height}</p>
