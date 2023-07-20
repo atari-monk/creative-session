@@ -2,6 +2,8 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 
+import './styles/App.css'; // Import the CSS file for styling
+
 interface IStock {
   _id: string;
   stockId: string;
@@ -24,7 +26,7 @@ const App: React.FC = () => {
     description: '',
   });
 
-  const [message, setMessage] = useState<string>(''); // State variable for displaying messages
+  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     fetchStocks();
@@ -36,7 +38,7 @@ const App: React.FC = () => {
       setStocks(response.data);
     } catch (error) {
       console.error('Failed to fetch stocks:', error);
-      setMessage('Failed to fetch stocks. Please try again.'); // Set the error message
+      setMessage('Failed to fetch stocks. Please try again.');
     }
   };
 
@@ -49,7 +51,6 @@ const App: React.FC = () => {
 
     try {
       if (formData._id) {
-        // If '_id' exists, it's an update/edit operation
         await axios.put<IStock>(
           `${API_BASE_URL}/stocks/${formData._id}`,
           formData
@@ -58,18 +59,16 @@ const App: React.FC = () => {
           stock._id === formData._id ? formData : stock
         );
         setStocks(updatedStocks);
-        setMessage('Stock updated successfully.'); // Set the success message
+        setMessage('Stock updated successfully.');
       } else {
-        // If '_id' is empty, it's a create operation
         const response = await axios.post<IStock>(
           `${API_BASE_URL}/stocks`,
           formData
         );
         setStocks([...stocks, response.data]);
-        setMessage('Stock created successfully.'); // Set the success message
+        setMessage('Stock created successfully.');
       }
 
-      // Reset the form data after successful form submission
       setFormData({
         _id: '',
         stockId: '',
@@ -80,31 +79,32 @@ const App: React.FC = () => {
       });
     } catch (error) {
       console.error('Failed to save stock:', error);
-      setMessage('Failed to save stock. Please try again.'); // Set the error message
+      setMessage('Failed to save stock. Please try again.');
     }
   };
 
   const handleEdit = (stock: IStock) => {
-    // When the edit button is clicked, set the stock data to the form for editing
     setFormData({ ...stock });
-    setMessage(''); // Clear any previous messages when starting an edit
+    setMessage('');
   };
 
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`${API_BASE_URL}/stocks/${id}`);
       setStocks(stocks.filter((stock) => stock._id !== id));
-      setMessage('Stock deleted successfully.'); // Set the success message
+      setMessage('Stock deleted successfully.');
     } catch (error) {
       console.error('Failed to delete stock:', error);
-      setMessage('Failed to delete stock. Please try again.'); // Set the error message
+      setMessage('Failed to delete stock. Please try again.');
     }
   };
 
   return (
-    <div>
+    <div className="app-container">
+      {' '}
+      {/* Add a container class for the app */}
       <h1>Stocks</h1>
-      {message && <p>{message}</p>} {/* Display the message to the user */}
+      {message && <p className="message">{message}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Stock ID:
@@ -160,15 +160,22 @@ const App: React.FC = () => {
       </form>
       <h2>All Stocks</h2>
       {stocks.map((stock) => (
-        <div key={stock._id}>
+        <div className="stock-item" key={stock._id}>
           <p>ID: {stock._id}</p>
           <p>Stock ID: {stock.stockId}</p>
           <p>Width: {stock.width}</p>
           <p>Depth: {stock.depth}</p>
           <p>Height: {stock.height}</p>
           <p>Description: {stock.description}</p>
-          <button onClick={() => handleEdit(stock)}>Edit</button>
-          <button onClick={() => handleDelete(stock._id)}>Delete</button>
+          <button className="edit-button" onClick={() => handleEdit(stock)}>
+            Edit
+          </button>
+          <button
+            className="delete-button"
+            onClick={() => handleDelete(stock._id)}
+          >
+            Delete
+          </button>
           <hr />
         </div>
       ))}

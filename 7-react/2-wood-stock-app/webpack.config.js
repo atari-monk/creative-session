@@ -19,6 +19,10 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/, // Add a new rule to handle CSS files
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   devServer: {
