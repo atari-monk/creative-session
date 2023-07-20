@@ -7,9 +7,9 @@ import './styles/App.css'; // Import the CSS file for styling
 interface IStock {
   _id: string;
   stockId: string;
-  width: number;
-  depth: number;
-  height: number;
+  width: string;
+  depth: string;
+  height: string;
   description?: string;
 }
 
@@ -20,13 +20,20 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState<IStock>({
     _id: '',
     stockId: '',
-    width: 0,
-    depth: 0,
-    height: 0,
+    width: '',
+    depth: '',
+    height: '',
     description: '',
   });
 
   const [message, setMessage] = useState<string>('');
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({
+    width: '',
+    depth: '',
+    height: '',
+  });
 
   useEffect(() => {
     fetchStocks();
@@ -46,24 +53,57 @@ const App: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const errors: { [key: string]: string } = {};
+
+    // Validate width, depth, and height fields for numeric values
+    if (isNaN(parseFloat(formData.width))) {
+      errors.width = 'Width must be a valid number.';
+    }
+
+    if (isNaN(parseFloat(formData.depth))) {
+      errors.depth = 'Depth must be a valid number.';
+    }
+
+    if (isNaN(parseFloat(formData.height))) {
+      errors.height = 'Height must be a valid number.';
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Validate the form before submitting
+    if (!validateForm()) {
+      return;
+    }
+
+    // Convert the width, depth, and height values to numbers before sending the data to the API
+    const formDataWithNumbers: IStock = {
+      ...formData,
+      width: formData.width !== '' ? String(parseFloat(formData.width)) : '',
+      depth: formData.depth !== '' ? String(parseFloat(formData.depth)) : '',
+      height: formData.height !== '' ? String(parseFloat(formData.height)) : '',
+    };
 
     try {
       if (formData._id) {
         await axios.put<IStock>(
           `${API_BASE_URL}/stocks/${formData._id}`,
-          formData
+          formDataWithNumbers
         );
         const updatedStocks = stocks.map((stock) =>
-          stock._id === formData._id ? formData : stock
+          stock._id === formData._id ? formDataWithNumbers : stock
         );
         setStocks(updatedStocks);
         setMessage('Stock updated successfully.');
       } else {
         const response = await axios.post<IStock>(
           `${API_BASE_URL}/stocks`,
-          formData
+          formDataWithNumbers
         );
         setStocks([...stocks, response.data]);
         setMessage('Stock created successfully.');
@@ -72,9 +112,9 @@ const App: React.FC = () => {
       setFormData({
         _id: '',
         stockId: '',
-        width: 0,
-        depth: 0,
-        height: 0,
+        width: '',
+        depth: '',
+        height: '',
         description: '',
       });
     } catch (error) {
@@ -101,8 +141,6 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      {' '}
-      {/* Add a container class for the app */}
       <h1>Stocks</h1>
       {message && <p className="message">{message}</p>}
       <form onSubmit={handleSubmit}>
@@ -119,32 +157,41 @@ const App: React.FC = () => {
         <label>
           Width:
           <input
-            type="number"
+            type="text"
             name="width"
             value={formData.width}
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.width && (
+          <p className="error">{validationErrors.width}</p>
+        )}
         <br />
         <label>
           Depth:
           <input
-            type="number"
+            type="text"
             name="depth"
             value={formData.depth}
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.depth && (
+          <p className="error">{validationErrors.depth}</p>
+        )}
         <br />
         <label>
           Height:
           <input
-            type="number"
+            type="text"
             name="height"
             value={formData.height}
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.height && (
+          <p className="error">{validationErrors.height}</p>
+        )}
         <br />
         <label>
           Description:
