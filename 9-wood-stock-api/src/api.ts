@@ -8,6 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
 // Define the stock schema
 interface IStock extends Document {
+  id: string; // Add the 'id' property of type string
   width: number;
   depth: number;
   height: number;
@@ -15,6 +16,7 @@ interface IStock extends Document {
 }
 
 const stockSchema = new Schema<IStock>({
+  id: { type: String, required: true }, // Define the 'id' property in the schema
   width: { type: Number, required: true },
   depth: { type: Number, required: true },
   height: { type: Number, required: true },
@@ -41,10 +43,10 @@ app.use(cors());
 // Create a new stock
 app.post('/stocks', async (req: Request, res: Response) => {
   try {
-    const { width, depth, height, description } = req.body;
+    const { id, width, depth, height, description } = req.body; // Include the 'id' in the request body
 
     // Create a new stock
-    const stock = new Stock({ width, depth, height, description });
+    const stock = new Stock({ id, width, depth, height, description });
 
     // Save the stock to the database
     await stock.save();
@@ -121,5 +123,5 @@ const port = process.env.PORT || 3000;
 
 // Start the server
 app.listen(port, () => {
-  console.log('Server listening on port 3000');
+  console.log(`Server listening on port ${port}`);
 });
