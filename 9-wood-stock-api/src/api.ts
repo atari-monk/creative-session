@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose, { Schema, Document, ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import cors from 'cors';
 
 dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
@@ -37,7 +38,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-
+app.use(cors());
 // Define routes
 
 // Create a new stock
