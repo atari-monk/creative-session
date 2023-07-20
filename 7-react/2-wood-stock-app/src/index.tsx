@@ -5,9 +5,9 @@ import { createRoot } from 'react-dom/client';
 interface IStock {
   _id: string;
   stockId: string;
-  width: number;
-  depth: number;
-  height: number;
+  width: string; // Change the type to string
+  depth: string; // Change the type to string
+  height: string; // Change the type to string
   description?: string;
 }
 
@@ -18,9 +18,9 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState<IStock>({
     _id: '',
     stockId: '',
-    width: 0,
-    depth: 0,
-    height: 0,
+    width: '', // Set to empty string instead of 0
+    depth: '', // Set to empty string instead of 0
+    height: '', // Set to empty string instead of 0
     description: '',
   });
 
@@ -45,6 +45,19 @@ const App: React.FC = () => {
     e.preventDefault();
 
     try {
+      // Add validation to ensure the width, depth, and height are valid numbers
+      const { width, depth, height } = formData;
+      if (
+        !isValidNumber(width) ||
+        !isValidNumber(depth) ||
+        !isValidNumber(height)
+      ) {
+        console.error(
+          'Invalid input: Width, depth, and height must be valid numbers'
+        );
+        return;
+      }
+
       if (formData._id) {
         // If '_id' exists, it's an update/edit operation
         await axios.put<IStock>(
@@ -67,9 +80,9 @@ const App: React.FC = () => {
       setFormData({
         _id: '',
         stockId: '',
-        width: 0,
-        depth: 0,
-        height: 0,
+        width: '', // Set to empty string instead of 0
+        depth: '', // Set to empty string instead of 0
+        height: '', // Set to empty string instead of 0
         description: '',
       });
     } catch (error) {
@@ -89,6 +102,11 @@ const App: React.FC = () => {
     } catch (error) {
       console.error('Failed to delete stock:', error);
     }
+  };
+
+  // Helper function to validate if a string is a valid number
+  const isValidNumber = (value: string) => {
+    return !isNaN(Number(value));
   };
 
   return (
