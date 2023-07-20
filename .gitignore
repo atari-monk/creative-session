@@ -349,7 +349,11 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# Ignore all dist folders
 dist/
+# Keep some dist/
+!7-react/2-wood-stock-app/dist/
+
 .env
 
 *.tgz
