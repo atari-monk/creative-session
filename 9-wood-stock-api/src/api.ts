@@ -23,15 +23,12 @@ const stockSchema = new Schema<IStock>({
 
 const Stock = mongoose.model<IStock>('Stock', stockSchema);
 
-const password = process.env.ATARI_MONK_TASK_API_PASSWORD;
-if (!password) throw new Error('Password not set!');
+const dbConnectionString = process.env.ATARI_MONK_TASK_API_DB;
+if (!dbConnectionString) throw new Error('Database connection string not set!');
 
-mongoose.connect(
-  `mongodb+srv://atarimonk1:${password}@wood-stock-api-db.bmqhvnt.mongodb.net/?retryWrites=true&w=majority`,
-  {
-    useUnifiedTopology: true,
-  } as ConnectOptions
-);
+mongoose.connect(dbConnectionString, {
+  useUnifiedTopology: true,
+} as ConnectOptions);
 
 // Create Express server
 const app = express();
@@ -120,7 +117,9 @@ app.delete('/stocks/:id', async (req: Request, res: Response) => {
   }
 });
 
+const port = process.env.PORT || 3000;
+
 // Start the server
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Server listening on port 3000');
 });
