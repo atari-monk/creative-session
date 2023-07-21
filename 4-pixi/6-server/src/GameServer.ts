@@ -1,11 +1,17 @@
 import { Express } from 'express';
 import cors from 'cors';
 import { Server } from 'http';
+import { inject, injectable } from 'inversify';
+import { Types } from './di-factory/types';
 
+@injectable()
 export class GameServer {
   private readonly PORT: string | number;
 
-  constructor(private readonly app: Express, private readonly server: Server) {
+  constructor(
+    @inject(Types.Server) private readonly app: Express,
+    @inject(Types.ServerHttp) private readonly server: Server
+  ) {
     this.PORT = process.env.PORT || 3001;
   }
 

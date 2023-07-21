@@ -1,5 +1,7 @@
+import { injectable } from 'inversify';
 import { Socket } from 'socket.io';
 
+@injectable()
 export class ClientManager {
   private readonly clients: {
     [clientId: string]: { socket: Socket; state: string };

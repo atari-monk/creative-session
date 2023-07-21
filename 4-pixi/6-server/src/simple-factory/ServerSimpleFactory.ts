@@ -13,6 +13,12 @@ import { ClientConnectionHandler } from '../ClientConnectionHandler';
 
 export class ServerSimpleFactory implements ICreate<GameServer> {
   create(): GameServer {
+    const { server, gameServer } = this.createServers();
+    this.createLogic(server);
+    return gameServer;
+  }
+
+  createServers() {
     const app = express();
     const serverHttp = http.createServer(app);
     const optionsSIO = {
@@ -23,7 +29,11 @@ export class ServerSimpleFactory implements ICreate<GameServer> {
       },
     };
     const server = new Server(serverHttp, optionsSIO);
+    const gameServer = new GameServer(app, serverHttp);
+    return { server, gameServer };
+  }
 
+  private createLogic(server: Server) {
     const srvSctLogicManager = new SrvSctLogicManager();
     const clientManager = new ClientManager();
     const disconnectLogic = new DisconnectLogicUnit(
@@ -39,6 +49,14 @@ export class ServerSimpleFactory implements ICreate<GameServer> {
     srvSctLogicManager.addLogic(ballMovement);
     srvSctLogicManager.addLogic(ballVelocity);
 
+    this.createConnectionLogic(server, clientManager, srvSctLogicManager);
+  }
+
+  private createConnectionLogic(
+    server: Server,
+    clientManager: ClientManager,
+    srvSctLogicManager: SrvSctLogicManager
+  ) {
     const clientConnectionHandler = new ClientConnectionHandler(
       'connection',
       server,
@@ -47,9 +65,5 @@ export class ServerSimpleFactory implements ICreate<GameServer> {
       2
     );
     clientConnectionHandler.initializeServer(server);
-
-    const gameServer = new GameServer(app, serverHttp);
-
-    return gameServer;
   }
 }
