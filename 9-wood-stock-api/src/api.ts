@@ -13,7 +13,7 @@ interface IStock extends Document {
   depth: number;
   height: number;
   description?: string;
-  count?: number;
+  count: number;
 }
 
 const stockSchema = new Schema<IStock>({
@@ -96,7 +96,7 @@ app.put('/stocks/:id', async (req: Request, res: Response) => {
     if (description) {
       stock.description = description;
     }
-    if (count !== undefined) {
+    if (count) {
       stock.count = count;
     }
 
