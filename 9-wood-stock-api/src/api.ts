@@ -6,22 +6,23 @@ import cors from 'cors';
 
 dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
-// Define the stock schema
 interface IStock extends Document {
-  _id: string; // MongoDB-generated ID
-  stockId: string; // Other custom ID
+  _id: string;
+  stockId: string;
   width: number;
   depth: number;
   height: number;
   description?: string;
+  count?: number;
 }
 
 const stockSchema = new Schema<IStock>({
-  stockId: { type: String, required: true }, // Define the 'stockId' property in the schema
+  stockId: { type: String, required: true },
   width: { type: Number, required: true },
   depth: { type: Number, required: true },
   height: { type: Number, required: true },
   description: { type: String },
+  count: { type: Number, default: 1 },
 });
 
 const Stock = mongoose.model<IStock>('Stock', stockSchema);
@@ -33,23 +34,24 @@ mongoose.connect(dbConnectionString, {
   useUnifiedTopology: true,
 } as ConnectOptions);
 
-// Create Express server
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
-// Define routes
 
-// Create a new stock
 app.post('/stocks', async (req: Request, res: Response) => {
   try {
-    const { stockId, width, depth, height, description } = req.body; // Include the 'stockId' in the request body
+    const { stockId, width, depth, height, description, count } = req.body;
 
-    // Create a new stock
-    const stock = new Stock({ stockId, width, depth, height, description });
+    const stock = new Stock({
+      stockId,
+      width,
+      depth,
+      height,
+      description,
+      count,
+    });
 
-    // Save the stock to the database
     await stock.save();
 
     res.status(201).json(stock);
@@ -58,11 +60,9 @@ app.post('/stocks', async (req: Request, res: Response) => {
   }
 });
 
-// Get all stocks
 app.get('/stocks', async (req: Request, res: Response) => {
   try {
-    // Retrieve all stocks from the database
-    const stocks = await Stock.find({}, '-__v'); // Exclude the '__v' field from the response
+    const stocks = await Stock.find({}, '-__v');
 
     res.json(stocks);
   } catch (error) {
@@ -73,16 +73,14 @@ app.get('/stocks', async (req: Request, res: Response) => {
 app.put('/stocks/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { stockId, width, depth, height, description } = req.body;
+    const { stockId, width, depth, height, description, count } = req.body;
 
-    // Find the stock by ID
     const stock = await Stock.findById(id);
 
     if (!stock) {
       return res.status(404).json({ error: 'Stock not found' });
     }
 
-    // Update the stock fields
     if (stockId) {
       stock.stockId = stockId;
     }
@@ -95,9 +93,13 @@ app.put('/stocks/:id', async (req: Request, res: Response) => {
     if (height) {
       stock.height = height;
     }
-    stock.description = description;
+    if (description) {
+      stock.description = description;
+    }
+    if (count !== undefined) {
+      stock.count = count;
+    }
 
-    // Save the updated stock to the database
     await stock.save();
 
     res.json(stock);
@@ -110,7 +112,6 @@ app.delete('/stocks/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    // Find the stock by ID and delete it
     const stock = await Stock.findByIdAndDelete(id);
 
     if (!stock) {
@@ -125,7 +126,6 @@ app.delete('/stocks/:id', async (req: Request, res: Response) => {
 
 const port = process.env.PORT || 3000;
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
