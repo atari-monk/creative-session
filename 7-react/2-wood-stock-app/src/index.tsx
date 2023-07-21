@@ -218,6 +218,9 @@ const App: React.FC = () => {
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.count && (
+          <p className="error">{validationErrors.count}</p>
+        )}
         <br />
         <button type="submit">Save Stock</button>
       </form>
