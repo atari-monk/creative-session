@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 
-import './styles/App.css'; // Import the CSS file for styling
+import './styles/App.css';
 
 interface IStock {
   _id: string;
@@ -11,6 +11,7 @@ interface IStock {
   depth: string;
   height: string;
   description?: string;
+  count: string;
 }
 
 const API_BASE_URL = 'https://atari-monk-wood-stock-api.azurewebsites.net';
@@ -24,6 +25,7 @@ const App: React.FC = () => {
     depth: '',
     height: '',
     description: '',
+    count: '',
   });
 
   const [message, setMessage] = useState<string>('');
@@ -57,7 +59,6 @@ const App: React.FC = () => {
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
 
-    // Validate width, depth, and height fields for numeric values
     if (isNaN(parseFloat(formData.width))) {
       errors.width = 'Width must be a valid number.';
     }
@@ -74,6 +75,11 @@ const App: React.FC = () => {
       errors.stockId = 'Stock ID is required.';
     }
 
+    const countNumber = Number(formData.count);
+    if (!Number.isInteger(countNumber) || countNumber < 1) {
+      errors.count = 'Count must be a valid positive integer (one or greater).';
+    }
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -81,7 +87,6 @@ const App: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Validate the form before submitting
     if (!validateForm()) {
       return;
     }
@@ -113,6 +118,7 @@ const App: React.FC = () => {
         depth: '',
         height: '',
         description: '',
+        count: '',
       });
     } catch (error) {
       console.error('Failed to save stock:', error);
@@ -203,6 +209,16 @@ const App: React.FC = () => {
           />
         </label>
         <br />
+        <label>
+          Count:
+          <input
+            type="text"
+            name="count"
+            value={formData.count}
+            onChange={handleInputChange}
+          />
+        </label>
+        <br />
         <button type="submit">Save Stock</button>
       </form>
       <h2>All Stocks</h2>
@@ -214,6 +230,7 @@ const App: React.FC = () => {
           <p>Depth: {stock.depth}</p>
           <p>Height: {stock.height}</p>
           <p>Description: {stock.description}</p>
+          <p>Count: {stock.count}</p>
           <button className="edit-button" onClick={() => handleEdit(stock)}>
             Edit
           </button>
