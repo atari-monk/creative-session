@@ -25,7 +25,7 @@ const App: React.FC = () => {
     depth: '',
     height: '',
     description: '',
-    count: '',
+    count: '1',
   });
 
   const [message, setMessage] = useState<string>('');
@@ -36,6 +36,8 @@ const App: React.FC = () => {
     width: '',
     depth: '',
     height: '',
+    description: '',
+    count: '',
   });
 
   useEffect(() => {
@@ -73,6 +75,10 @@ const App: React.FC = () => {
 
     if (formData.stockId.trim() === '') {
       errors.stockId = 'Stock ID is required.';
+    }
+
+    if (formData.description && formData.description.length > 300) {
+      errors.description = 'Description must not exceed 300 characters.';
     }
 
     const countNumber = Number(formData.count);
@@ -208,6 +214,9 @@ const App: React.FC = () => {
             onChange={handleInputChange}
           />
         </label>
+        {validationErrors.description && (
+          <p className="error">{validationErrors.description}</p>
+        )}
         <br />
         <label>
           Count:
