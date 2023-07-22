@@ -1,28 +1,56 @@
-name: Node.js CI/CD to Azure App Service
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - atari-monk-task-api
 
 on:
   push:
     branches:
-      - main # Change this to the branch you want to deploy from (e.g., master, main)
+      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
 
-      - name: Build
-        run: npm run build # Replace with your build command if needed
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
-      - name: Deploy to Azure App Service
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: node-app
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: atari-monk-task-api # Replace with your Azure App Service name
-          slot-name: production # Optional: If using deployment slots, change to the desired slot name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_TASK_API }} # Add the Azure publish profile as a secret in your GitHub repository
-          package: ./8-task-api # Path to the folder containing your Node.js app (replace with your actual path)
+          app-name: 'atari-monk-task-api'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_74e8a287e3824e138069b51541afa588 }}
+          package: ./8-task-api
