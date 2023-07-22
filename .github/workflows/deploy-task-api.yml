@@ -1,0 +1,33 @@
+name: Node.js CI/CD to Azure App Service
+
+on:
+  push:
+    branches:
+      - main # Change this to the branch you want to deploy from (e.g., master, main)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18' # Change this to your preferred Node.js version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build # Replace with your build command if needed
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: atari-monk-task-api # Replace with your Azure App Service name
+          slot-name: production # Optional: If using deployment slots, change to the desired slot name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_TASK_API }} # Add the Azure publish profile as a secret in your GitHub repository
+          package: ./8-task-api # Path to the folder containing your Node.js app (replace with your actual path)

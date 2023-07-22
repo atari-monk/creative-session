@@ -3,10 +3,10 @@ import mongoose, { Schema, Document, ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import moment from 'moment-timezone';
+import cors from 'cors';
 
 dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
-// Define the task schema
 interface ITask extends Document {
   description: string;
   createdAt: Date;
@@ -34,25 +34,18 @@ const taskSchema = new Schema<ITask>({
 
 const Task = mongoose.model<ITask>('Task', taskSchema);
 
-const password = process.env.ATARI_MONK_TASK_API_PASSWORD;
-if (!password) throw new Error('Password not set!');
+const dbConnectionString = process.env.ATARI_MONK_TASK_API_DB;
+if (!dbConnectionString) throw new Error('Database connection string not set!');
 
-mongoose.connect(
-  `mongodb+srv://atart-monk:${password}@cluster0.bybecih.mongodb.net/?retryWrites=true&w=majority`,
-  {
-    useUnifiedTopology: true,
-  } as ConnectOptions
-);
+mongoose.connect(dbConnectionString, {
+  useUnifiedTopology: true,
+} as ConnectOptions);
 
-// Create Express server
 const app = express();
 
-// Middleware
 app.use(express.json());
+app.use(cors());
 
-// Define routes
-
-// Create a new task
 app.post('/tasks', async (req: Request, res: Response) => {
   try {
     const { description } = req.body;
@@ -69,10 +62,8 @@ app.post('/tasks', async (req: Request, res: Response) => {
   }
 });
 
-// Get all tasks
 app.get('/tasks', async (req: Request, res: Response) => {
   try {
-    // Retrieve all tasks from the database
     const tasks = await Task.find();
 
     res.json(tasks);
@@ -86,14 +77,12 @@ app.put('/tasks/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { description, finishedAt, summary } = req.body;
 
-    // Find the task by ID
     const task = await Task.findById(id);
 
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    // Update the task fields
     if (description) {
       task.description = description;
     }
@@ -103,7 +92,6 @@ app.put('/tasks/:id', async (req: Request, res: Response) => {
       .format('DD-MM-YYYY HH:mm');
     task.summary = summary;
 
-    // Save the updated task to the database
     await task.save();
 
     res.json(task);
@@ -116,7 +104,6 @@ app.delete('/tasks/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    // Find the task by ID and delete it
     const task = await Task.findByIdAndDelete(id);
 
     if (!task) {
@@ -129,7 +116,8 @@ app.delete('/tasks/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Start the server
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });

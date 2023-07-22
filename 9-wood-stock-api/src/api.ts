@@ -27,7 +27,7 @@ const stockSchema = new Schema<IStock>({
 
 const Stock = mongoose.model<IStock>('Stock', stockSchema);
 
-const dbConnectionString = process.env.ATARI_MONK_TASK_API_DB;
+const dbConnectionString = process.env.ATARI_MONK_WOOD_STOCK_API_DB;
 if (!dbConnectionString) throw new Error('Database connection string not set!');
 
 mongoose.connect(dbConnectionString, {
