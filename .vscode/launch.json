@@ -24,14 +24,14 @@
       "type": "node"
     },
     {
-      "name": "rivalPlayerFactoryTest",
+      "name": "rival-player-factory-test",
       "program": "${workspaceFolder}/4-pixi/2-pixi-lib/dist/test/rivalPlayerFactoryTest.js",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
     },
     {
-      "name": "playerFactoryTest",
+      "name": "player-factory-test",
       "program": "${workspaceFolder}/4-pixi/2-pixi-lib/dist/test/playerFactoryTest.js",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
@@ -40,7 +40,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Client Tests",
+      "name": "debug-client-tests",
       "program": "${workspaceFolder}/4-pixi/5-client/node_modules/mocha/bin/_mocha",
       "args": [
         "-u",
@@ -51,6 +51,13 @@
         "${workspaceFolder}/4-pixi/5-client/dist/di-factory/clientFactory.test.js"
       ],
       "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "task-api-dubug",
+      "program": "${workspaceFolder}/8-task-api/dist/api.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }
