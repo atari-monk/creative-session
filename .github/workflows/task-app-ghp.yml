@@ -20,6 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install React and React-dom
+        run: npm install react react-dom
+
+      - name: Install React-scripts
+        run: npm install react-scripts
+
       - name: Build the app
         run: npm run build
 
