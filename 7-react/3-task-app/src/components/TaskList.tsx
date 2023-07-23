@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment-timezone';
-
-const API_BASE_URL = 'https://atari-monk-task-api.azurewebsites.net';
+import { StyledTaskList } from '../styles';
 
 interface ITask {
   _id: string;
@@ -13,6 +11,8 @@ interface ITask {
   finishLocalTimestamp?: string;
   summary?: string;
 }
+
+const API_BASE_URL = 'https://atari-monk-task-api.azurewebsites.net';
 
 const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -31,7 +31,7 @@ const TaskList: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <StyledTaskList>
       {tasks.map((task) => (
         <div key={task._id}>
           <h3>{task.description}</h3>
@@ -41,7 +41,7 @@ const TaskList: React.FC = () => {
           <hr />
         </div>
       ))}
-    </div>
+    </StyledTaskList>
   );
 };
 
