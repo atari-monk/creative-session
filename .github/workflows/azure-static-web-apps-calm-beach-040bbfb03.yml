@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '7-react/3-task-app/**'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
