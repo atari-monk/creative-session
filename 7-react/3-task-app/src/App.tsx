@@ -3,15 +3,12 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
 
-//deploy
+//deploy app
 const App: React.FC = () => {
   const [darkMode, setDarkModeState] = useState<boolean>(true);
 
   useEffect(() => {
-    // Call setDarkMode on initial mount to apply the default dark mode styles
     setDarkMode(darkMode);
-
-    // Cleanup to reset styles when unmounting the component
     return () => setDarkMode(false);
   }, [darkMode]);
 

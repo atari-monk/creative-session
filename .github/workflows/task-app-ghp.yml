@@ -4,8 +4,7 @@ on:
     branches:
       - main
     paths:
-      - '7-react/3-task-app/**'
-
+      - '7-react/3-task-app/build/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,23 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install React and React-dom
-        run: npm install react react-dom
-
-      - name: Install React-scripts
-        run: npm install react-scripts
-
-      - name: Build the app
-        run: npm run build
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: ./7-react/3-task-app
+          folder: ./7-react/3-task-app/build
