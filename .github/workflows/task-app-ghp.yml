@@ -41,3 +41,4 @@ jobs:
         with:
           branch: gh-pages
           folder: ./7-react/3-task-app/build/
+          token: ${{ secrets.GH_PAGES_TOKEN }}
