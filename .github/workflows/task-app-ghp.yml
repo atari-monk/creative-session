@@ -36,9 +36,9 @@ jobs:
           ls
           pwd
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy Task App to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          branch: gh-pages
+          branch: deploy-task-app
           folder: ./7-react/3-task-app/build/
           token: ${{ secrets.GH_PAGES_TOKEN }}
