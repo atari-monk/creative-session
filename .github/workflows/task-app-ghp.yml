@@ -11,21 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout project directory
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          path: '7-react/3-task-app'
-
-      - name: Change working directory to 7-react/3-task-app
-        run: cd 7-react/3-task-app
 
       - name: Install dependencies and build the app
+        working-directory: 7-react/3-task-app # Specify the working directory
         run: |
+          cd 7-react/3-task-app
           npm install
           npm run build
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.0
-        with:
-          branch: gh-pages
-          folder: ./build/
+        working-directory: 7-react/3-task-app # Specify the working directory
+        run: |
+          cd 7-react/3-task-app
+          npx gh-pages -d build
