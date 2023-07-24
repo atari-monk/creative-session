@@ -1,0 +1,2 @@
+:root{--background-color:#f9f9f9;--text-color:#000}[data-theme=dark]{--background-color:#333;--text-color:#fff}body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-color:#f9f9f9;background-color:var(--background-color);color:#000;color:var(--text-color);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;margin:0}code{font-family:source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace}
+/*# sourceMappingURL=main.0988bb9d.css.map*/
