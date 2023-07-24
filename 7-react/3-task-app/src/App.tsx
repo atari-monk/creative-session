@@ -3,7 +3,7 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
 
-//deploy
+//deploy app
 const App: React.FC = () => {
   const [darkMode, setDarkModeState] = useState<boolean>(true);
 

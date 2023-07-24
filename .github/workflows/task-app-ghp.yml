@@ -1,4 +1,4 @@
-name: Deploy task-app to GitHub Pages
+name: Print checked-out directory contents
 on:
   push:
     branches:
@@ -7,22 +7,12 @@ on:
       - '7-react/3-task-app/**'
 
 jobs:
-  deploy:
+  print_contents:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install dependencies and build the app
-        working-directory: 7-react/3-task-app # Specify the working directory
-        run: |
-          cd 7-react/3-task-app
-          npm install
-          npm run build
-
-      - name: Deploy to GitHub Pages
-        working-directory: 7-react/3-task-app # Specify the working directory
-        run: |
-          cd 7-react/3-task-app
-          npx gh-pages -d build
+      - name: Print checked-out directory contents
+        run: ls -al 7-react/3-task-app
