@@ -4,17 +4,25 @@ on:
     branches:
       - main
     paths:
-      - '7-react/3-task-app/**'
+      - '7-react/3-task-app'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout project directory
         uses: actions/checkout@v2
+        with:
+          path: '7-react/3-task-app'
+
+      - name: Install dependencies and build the app
+        run: |
+          npm install
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: ./7-react/3-task-app/build
+          folder: ./7-react/3-task-app/build/
