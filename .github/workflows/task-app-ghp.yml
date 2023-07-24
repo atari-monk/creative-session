@@ -16,6 +16,9 @@ jobs:
         with:
           path: '7-react/3-task-app'
 
+      - name: Change working directory to 7-react/3-task-app
+        run: cd 7-react/3-task-app
+
       - name: Install dependencies and build the app
         run: |
           npm install
@@ -25,4 +28,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: ./7-react/3-task-app/build/
+          folder: ./build/
