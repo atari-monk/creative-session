@@ -14,6 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Print directory contents
+        run: |
+          ls
+          pwd
+
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
         with:
@@ -24,8 +29,15 @@ jobs:
         run: |
           npm ci
           npm run build
+          ls -al build/  # Print the contents of the build directory
 
       - name: Print directory contents
         run: |
           ls
           pwd
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: ./7-react/3-task-app/build/
