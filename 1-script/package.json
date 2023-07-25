@@ -4,14 +4,16 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "pixi-lib-inc-ver": "node ./dist/increment-version.js pixi-lib",
-    "debug-pixi-lib-inc-ver": "ndb ./dist/increment-version.js pixi-lib"
+    "validate-yml": "ts-node ./src/yaml-validator.ts",
+    "pixi-lib-inc-ver": "node ./build/increment-version.js pixi-lib",
+    "debug-pixi-lib-inc-ver": "ndb ./build/increment-version.js pixi-lib"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "yaml-lint": "^1.7.0"
   }
 }
