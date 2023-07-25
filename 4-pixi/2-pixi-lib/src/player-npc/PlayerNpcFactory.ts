@@ -6,7 +6,7 @@ import {
   IPlayerNpc,
   PlayerNpcTypes,
 } from 'atari-monk-game-api-lib';
-import { PlayerNpcModel } from '../model/PlayerNpcModel';
+import { PlayerNpcModel } from './PlayerNpcModel';
 import { playerNpcParams } from '../data/ballGameParams';
 import { CircleRenderer } from './CircleRenderer';
 import { PlayerNpc } from './PlayerNpc';

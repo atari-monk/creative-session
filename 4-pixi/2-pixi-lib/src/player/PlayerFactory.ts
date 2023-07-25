@@ -18,7 +18,7 @@ import { PlayerKeyboardMovement } from './PlayerKeyboardMovement';
 import { KeyboardInputV1 } from '../keyboard/KeyboardInputV1';
 import { PlayerMoveEmitter } from './PlayerMoveEmitter';
 import { PositionEmitter } from '../PositionEmitter';
-import { PlayerModel } from '../model/PlayerModel';
+import { PlayerModel } from './PlayerModel';
 import { Player } from './Player';
 import EventEmitter from 'eventemitter3';
 

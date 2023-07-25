@@ -8,7 +8,7 @@ import {
 } from 'atari-monk-game-api-lib';
 import { ballParams } from '../data/ballGameParams';
 import { BallRenderer } from './BallRenderer';
-import { BallModel } from '../model/BallModel';
+import { BallModel } from './BallModel';
 import { Ball } from './Ball';
 
 export class BallFactory implements IDIFactory<IBall> {
