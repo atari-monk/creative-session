@@ -4,7 +4,7 @@
   "description": "Game server proto.",
   "scripts": {
     "build": "tsc",
-    "debug": "ndb ./dist/game-server.js"
+    "debug": "ndb ./build/game-server.js"
   },
   "keywords": [],
   "author": "atari-monk",

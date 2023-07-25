@@ -1,4 +1,4 @@
 {
-  "appService.defaultWebAppToDeploy": "undefined/subscriptions/2457e426-2096-4da7-b52a-7e0563ab0db3/resourceGroups/atari-monk-two-players/providers/Microsoft.Web/sites/atari-monk-two-players",
-  "appService.deploySubpath": "."
+  //   "appService.defaultWebAppToDeploy": "undefined/subscriptions/2457e426-2096-4da7-b52a-7e0563ab0db3/resourceGroups/atari-monk-two-players/providers/Microsoft.Web/sites/atari-monk-two-players",
+  //   "appService.deploySubpath": "."
 }

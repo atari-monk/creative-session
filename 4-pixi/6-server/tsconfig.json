@@ -3,7 +3,7 @@
     "target": "es6",
     "types": ["reflect-metadata"],
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "build",
     "declaration": true,
     "strict": true,
     "allowJs": false,

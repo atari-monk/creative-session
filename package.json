@@ -16,6 +16,10 @@
   },
   "homepage": "https://github.com/atari-monk/creative-session#readme",
   "devDependencies": {
+    "@types/reflect-metadata": "^0.1.0",
     "eslint": "^8.40.0"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
   }
 }
