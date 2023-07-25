@@ -1,8 +1,5 @@
 {
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
-  },
-//   "python.formatting.provider": "none",
-//   "appService.defaultWebAppToDeploy": "/subscriptions/2457e426-2096-4da7-b52a-7e0563ab0db3/resourceGroups/wood-stock-api/providers/Microsoft.Web/sites/atari-monk-wood-stock-api",
-//   "appService.deploySubpath": "9-wood-stock-api"
+  }
 }
