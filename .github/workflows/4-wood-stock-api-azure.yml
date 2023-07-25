@@ -4,7 +4,6 @@ on:
     branches: ['main']
     paths:
       - '9-wood-stock-api/**'
-      - 'atari-monk-wood-stock-api/**'
   workflow_dispatch:
 
 env:
@@ -29,19 +28,9 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd 9-wood-stock-api
           npm install
           npm run build --if-present
           npm run test --if-present
-          cd ..
-
-      - name: npm install, build, and test
-        run: |
-          cd atari-monk-wood-stock-api
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-          cd ..
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
