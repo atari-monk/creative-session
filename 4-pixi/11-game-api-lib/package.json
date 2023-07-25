@@ -4,8 +4,9 @@
   "description": "interfaces",
   "main": "atari-monk-game-api-lib.js",
   "scripts": {
+    "build": "npx webpack --config webpack.config.js",
     "build-ts": "tsc",
-    "build": "npx webpack --config webpack.config.js"
+    "build-lib": "powershell.exe -ExecutionPolicy Bypass -File .\\..\\..\\1-script\\build-lib.ps1"
   },
   "keywords": [],
   "author": "atari-monk",
