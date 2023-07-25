@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
     "build-ts": "tsc",
-    "build-lib": "powershell.exe -ExecutionPolicy Bypass -File .\\..\\..\\1-script\\build-lib.ps1"
+    "build-lib": "powershell.exe -ExecutionPolicy Bypass -File .\\script\\build-lib.ps1"
   },
   "keywords": [],
   "author": "atari-monk",
