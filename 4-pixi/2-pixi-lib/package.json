@@ -5,8 +5,9 @@
   "types": "index.d.ts",
   "description": "ts game library based on pixi, socket-io...",
   "scripts": {
-    "build-ts": "tsc",
     "build": "npx webpack --config webpack.config.js",
+    "build-ts": "tsc",
+    "build-lib": "powershell.exe -ExecutionPolicy Bypass -File .\\script\\build-lib.ps1",
     "debug-rival": "ndb ./build/test/notPlayablePlayerFactoryTest.js",
     "debug-hero": "ndb ./build/test/playablePlayerFactoryTest.js",
     "debug-ball": "ndb ./build/ball/ballFactoryTest.js",
