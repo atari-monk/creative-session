@@ -2,6 +2,9 @@ $pixi = 'C:\atari-monk\Code\creative-session\4-pixi'
 $server = '\6-server'
 $urlPlayer1 = 'http://127.0.0.1:5500/4-pixi/8-ball/?player=1'
 $urlPlayer2 = 'http://127.0.0.1:5500/4-pixi/8-ball/?player=2'
+$build = '\build'
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+$serverBuild = $pixi + $server + $build
 
 function start-server {
   try {
@@ -27,8 +30,6 @@ function Start-URLWithChrome {
     [string]$Url
   )
 
-  $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-
   try {
     Start-Process -FilePath $chromePath -ArgumentList $Url -ErrorAction Stop
   }
@@ -40,7 +41,7 @@ function Start-URLWithChrome {
 try {
   Start-URLWithChrome -Url $urlPlayer1
   Start-URLWithChrome -Url $urlPlayer2
-  set-folder ($pixi + $server + '\dist')
+  set-folder ($serverBuild)
   start-server
 }
 catch {

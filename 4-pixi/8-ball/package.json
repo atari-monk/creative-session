@@ -20,6 +20,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "atari-monk-client": "file:atari-monk-client-0.0.1.tgz",
     "atari-monk-game-api-lib": "file:atari-monk-game-api-lib-0.0.1.tgz",
     "atari-monk-pixi-lib": "file:atari-monk-pixi-lib-0.0.1.tgz",
     "eventemitter3": "^5.0.1",

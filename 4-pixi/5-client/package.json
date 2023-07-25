@@ -5,8 +5,9 @@
   "types": "index.d.ts",
   "description": "socket-io client for pixi game",
   "scripts": {
-    "build-ts": "tsc",
     "build": "npx webpack --config webpack.config.js",
+    "build-ts": "tsc",
+    "build-lib": "powershell.exe -ExecutionPolicy Bypass -File .\\script\\build-lib.ps1",
     "test": "mocha --require ts-node/register 'src/**/*.test.ts'"
   },
   "keywords": [],
