@@ -7,10 +7,10 @@
   "scripts": {
     "build-ts": "tsc",
     "build": "npx webpack --config webpack.config.js",
-    "debug-rival": "ndb ./dist/test/notPlayablePlayerFactoryTest.js",
-    "debug-hero": "ndb ./dist/test/playablePlayerFactoryTest.js",
-    "debug-ball": "ndb ./dist/ball/ballFactoryTest.js",
-    "debug-gameObjsManager": "ndb ./dist/gameObject/gameObjectManagerTest.js",
+    "debug-rival": "ndb ./build/test/notPlayablePlayerFactoryTest.js",
+    "debug-hero": "ndb ./build/test/playablePlayerFactoryTest.js",
+    "debug-ball": "ndb ./build/ball/ballFactoryTest.js",
+    "debug-gameObjsManager": "ndb ./build/gameObject/gameObjectManagerTest.js",
     "test": "mocha --require ts-node/register 'src/**/*.test.ts'"
   },
   "keywords": [],
