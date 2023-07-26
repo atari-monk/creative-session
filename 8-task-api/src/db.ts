@@ -10,5 +10,3 @@ if (!dbConnectionString) throw new Error('Database connection string not set!');
 mongoose.connect(dbConnectionString, {
   useUnifiedTopology: true,
 } as ConnectOptions);
-
-export default mongoose.connection;
