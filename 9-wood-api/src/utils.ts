@@ -1,14 +1,14 @@
 export const utils = {
-  printMatchingEnvVariableNames(valueToMatch: string): void {
+  printMatchingEnvVariableNames(nameToMatch: string): void {
     const matchingNames: string[] = [];
 
     for (const key in process.env) {
-      if (process.env[key] === valueToMatch) {
+      if (key.includes(nameToMatch)) {
         matchingNames.push(key);
       }
     }
 
-    console.log(`Environment variables that contain ${valueToMatch}:`);
+    console.log(`Environment variables that contain ${nameToMatch}:`);
     console.log(matchingNames);
   },
 };
