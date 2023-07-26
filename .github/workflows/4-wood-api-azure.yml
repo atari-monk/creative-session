@@ -1,14 +1,14 @@
-name: Deploy wood-stock-api to Azure
+name: Deploy wood-api to Azure
 on:
   push:
     branches: ['main']
     paths:
-      - '9-wood-stock-api/**'
+      - '9-wood-api/**'
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: atari-monk-wood-stock-api # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './9-wood-stock-api' # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_NAME: atari-monk-wood-api # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './9-wood-api' # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '18.14.0' # set this to the node version to use
 
 permissions:
@@ -58,5 +58,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_WOOD_STOCK_API }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_WOOD_API }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
