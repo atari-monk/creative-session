@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "430fa51d-087f-470c-8f6b-4cdf83ea8cb7",
+		"name": "task-api-azure",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://atari-monk-task-api.azurewebsites.net/tasks",
+					"protocol": "https",
+					"host": [
+						"atari-monk-task-api",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"test\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://atari-monk-task-api.azurewebsites.net/tasks",
+					"protocol": "https",
+					"host": [
+						"atari-monk-task-api",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"summary\": \"Done but deployment fails to read connection string.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://atari-monk-task-api.azurewebsites.net/tasks/64c00a8e4275a9b223b4707b",
+					"protocol": "https",
+					"host": [
+						"atari-monk-task-api",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"tasks",
+						"64c00a8e4275a9b223b4707b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://atari-monk-task-api.azurewebsites.net/tasks/64c174bce3374bac88d08388",
+					"protocol": "https",
+					"host": [
+						"atari-monk-task-api",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"tasks",
+						"64c174bce3374bac88d08388"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

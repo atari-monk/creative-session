@@ -1,36 +1,36 @@
 {
 	"info": {
-		"_postman_id": "9e32702e-d56e-466d-b898-158e1943fc5c",
-		"name": "task-api",
+		"_postman_id": "bc8e6768-dc5e-4408-abec-d95274c882bd",
+		"name": "wood-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get All Tasks",
+			"name": "Get All Stock",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/tasks",
+					"raw": "localhost:3000/stocks",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"tasks"
+						"stocks"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Create Task",
+			"name": "Create Stock",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"test\"\r\n}\r\n",
+					"raw": "{\r\n  \"width\": \"1\",\r\n  \"depth\": \"1\",\r\n  \"height\": \"1\",\r\n  \"description\": \"1\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -38,13 +38,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tasks",
+					"raw": "localhost:3000/stocks",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"tasks"
+						"stocks"
 					]
 				}
 			},
@@ -57,7 +57,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"Create app factory similar to simple one, but using di container.\"\r\n}",
+					"raw": "{\r\n  \"summary\": \"Done, pixi wrapper, solved injectable issue. Tests, ChatGpt helped going.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

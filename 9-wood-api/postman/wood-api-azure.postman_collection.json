@@ -1,20 +1,20 @@
 {
 	"info": {
 		"_postman_id": "151dce6f-6c8e-4388-b20e-fbe4ec03d400",
-		"name": "wood-stock-api-azure",
+		"name": "wood-api-azure",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get All Stock",
+			"name": "Get All Stocks",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://atari-monk-wood-stock-api.azurewebsites.net/stocks",
+					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks",
 					"protocol": "https",
 					"host": [
-						"atari-monk-wood-stock-api",
+						"atari-monk-wood-api",
 						"azurewebsites",
 						"net"
 					],
@@ -40,10 +40,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://atari-monk-wood-stock-api.azurewebsites.net/stocks",
+					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks",
 					"protocol": "https",
 					"host": [
-						"atari-monk-wood-stock-api",
+						"atari-monk-wood-api",
 						"azurewebsites",
 						"net"
 					],
@@ -69,10 +69,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://atari-monk-wood-stock-api.azurewebsites.net/stocks/",
+					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks/",
 					"protocol": "https",
 					"host": [
-						"atari-monk-wood-stock-api",
+						"atari-monk-wood-api",
 						"azurewebsites",
 						"net"
 					],
@@ -99,10 +99,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://atari-monk-wood-stock-api.azurewebsites.net/stocks/",
+					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks/",
 					"protocol": "https",
 					"host": [
-						"atari-monk-wood-stock-api",
+						"atari-monk-wood-api",
 						"azurewebsites",
 						"net"
 					],
