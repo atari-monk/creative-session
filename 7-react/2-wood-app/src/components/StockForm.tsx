@@ -2,20 +2,11 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { IStock } from './IStock';
 import { IFormValidationErrors } from './IFormValidationErrors';
+import { IStockFormProps } from './IStockFormProps';
 
 const API_BASE_URL = 'https://atari-monk-wood-api.azurewebsites.net';
 
-const StockForm: React.FC = () => {
-  const [formData, setFormData] = useState<IStock>({
-    _id: '',
-    stockId: '',
-    width: '',
-    depth: '',
-    height: '',
-    description: '',
-    count: '1',
-  });
-
+const StockForm: React.FC<IStockFormProps> = ({ formData, setFormData }) => {
   const [message, setMessage] = useState<string>('');
   const [validationErrors, setValidationErrors] =
     useState<IFormValidationErrors>({

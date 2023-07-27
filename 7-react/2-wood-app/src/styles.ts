@@ -21,7 +21,7 @@ export const appContainer = css`
   color: var(--text-color);
 `;
 
-export const taskForm = css`
+export const stockForm = css`
   display: flex;
   align-items: center;
 
@@ -43,7 +43,7 @@ export const taskForm = css`
   }
 `;
 
-export const taskList = css`
+export const stockList = css`
   margin-top: 20px;
   border-top: 1px solid #ccc;
   padding-top: 10px;
@@ -67,12 +67,12 @@ export const StyledAppContainer = styled.div`
   ${appContainer}
 `;
 
-export const StyledTaskForm = styled.form`
-  ${taskForm}
+export const StyledStockForm = styled.form`
+  ${stockForm}
 `;
 
-export const StyledTaskList = styled.div`
-  ${taskList}
+export const StyledStockList = styled.div`
+  ${stockList}
 `;
 
 export const setDarkMode = (darkMode: boolean) => {

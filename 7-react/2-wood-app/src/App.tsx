@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import StockForm from './components/StockForm';
 import { StyledAppContainer, setDarkMode } from './styles';
+import StockManagementComponent from './components/StockManagementComponent';
 
 //deploy
 const App: React.FC = () => {
@@ -23,10 +23,9 @@ const App: React.FC = () => {
       <button onClick={toggleDarkMode}>
         {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       </button>
-      <StockForm />
+      <StockManagementComponent />
     </StyledAppContainer>
   );
 };
 
 export default App;
-//

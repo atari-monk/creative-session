@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { StyledTaskList } from '../styles';
-
-interface ITask {
-  _id: string;
-  description: string;
-  createdAt: Date;
-  localTimestamp: string;
-  finishedAt?: Date;
-  finishLocalTimestamp?: string;
-  summary?: string;
-}
+import { ITask } from './ITask';
 
 const API_BASE_URL = 'https://atari-monk-task-api.azurewebsites.net';
 
