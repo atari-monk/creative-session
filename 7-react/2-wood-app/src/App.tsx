@@ -1,27 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import StockForm from './components/StockForm';
+import { StyledAppContainer, setDarkMode } from './styles';
 
-function App() {
+//deploy
+const App: React.FC = () => {
+  const [darkMode, setDarkModeState] = useState<boolean>(true);
+
+  useEffect(() => {
+    setDarkMode(darkMode);
+    return () => setDarkMode(false);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode;
+    setDarkModeState(newDarkMode);
+    setDarkMode(newDarkMode);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledAppContainer className={`App`}>
+      <h1>Wood Stock Manager</h1>
+      <button onClick={toggleDarkMode}>
+        {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      </button>
+      <StockForm />
+    </StyledAppContainer>
   );
-}
+};
 
 export default App;
 //
