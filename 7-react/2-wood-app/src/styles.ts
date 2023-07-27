@@ -73,6 +73,8 @@ export const StyledStockForm = styled.form`
 
 export const StyledStockList = styled.div`
   ${stockList}
+  max-height: 450px; /* Adjust this value as needed to fit 2-3 elements */
+  overflow-y: auto; /* This will enable a vertical scrollbar when the content exceeds max-height */
 `;
 
 export const setDarkMode = (darkMode: boolean) => {
