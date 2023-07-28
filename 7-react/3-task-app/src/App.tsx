@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
+import Login from './components/Login';
 
 //deploy
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
 
   return (
     <StyledAppContainer className={`App`}>
+      <Login />
       <h1>Task Manager</h1>
       <button onClick={toggleDarkMode}>
         {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
