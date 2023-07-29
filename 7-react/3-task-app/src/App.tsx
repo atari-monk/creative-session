@@ -3,8 +3,8 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
 import LoginGoogle from './components/LoginGoogle';
+import appConfig from './config/appConfig';
 
-//deploy
 const App: React.FC = () => {
   const [darkMode, setDarkModeState] = useState<boolean>(true);
 
@@ -26,12 +26,11 @@ const App: React.FC = () => {
       <button onClick={toggleDarkMode}>
         {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       </button>
-      <TaskForm />
+      <TaskForm config={appConfig} />
       <h2>Tasks:</h2>
-      <TaskList />
+      <TaskList config={appConfig} />
     </StyledAppContainer>
   );
 };
 
 export default App;
-//

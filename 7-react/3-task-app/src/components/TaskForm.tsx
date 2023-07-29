@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { StyledTaskForm } from '../styles';
+import ITaskFormProps from './ITaskFormProps';
 
-const API_BASE_URL = 'https://atari-monk-task-api.azurewebsites.net';
-
-const TaskForm: React.FC = () => {
+const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
   const [description, setDescription] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE_URL}/tasks`, { description });
+      await axios.post(`${config.apiUrl}/tasks`, { description });
       setDescription('');
-      window.location.reload(); // Refresh the list after adding a new task (not recommended in production)
     } catch (error) {
       console.error('Failed to create task:', error);
     }

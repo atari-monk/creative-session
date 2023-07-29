@@ -1,4 +1,4 @@
-export interface ITask {
+export default interface ITask {
   _id: string;
   description: string;
   createdAt: Date;
