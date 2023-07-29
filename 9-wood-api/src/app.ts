@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import './db';
-import { stockController } from './controllers/stockController';
+import stockRouter from './routes/stock-router';
+import userRouter from './routes/user-router';
 
 dotenv.config({ path: path.resolve(__dirname, './../.env') });
 
@@ -12,14 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post('/stocks', stockController.createStock);
-app.get('/stocks', stockController.getStocks);
-app.put('/stocks/:id', stockController.updateStock);
-app.delete('/stocks/:id', stockController.deleteStock);
+app.use('/api/v1/tasks', stockRouter);
+app.use('/api/v1/users', userRouter);
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
-//
+export default app;
