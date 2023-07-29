@@ -10,6 +10,7 @@ utils.printMatchingEnvVariableNames([
   'CUSTOMCONNSTR_DATABASE',
   'CUSTOMCONNSTR_DATABASE_PASSWORD',
 ]);
+
 const cs = process.env.CUSTOMCONNSTR_DATABASE;
 const pw = process.env.CUSTOMCONNSTR_DATABASE_PASSWORD;
 if (!cs || !pw) throw new Error('Database connection string not set!');

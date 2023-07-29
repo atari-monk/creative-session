@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const users = await User.find();
+    const users = await User.find({}, '-__v');
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch users' });
