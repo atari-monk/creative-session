@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../firebase';
+import { AuthContext } from './AuthProvider';
 
-const Login: React.FC = () => {
+const LoginGoogle: React.FC = () => {
+  const { setIsLoggedIn } = useContext(AuthContext);
   const [message, setMessage] = useState('');
 
   const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
-      const msg = `User logged in with Google: ${userCredential.user?.email}`;
-      console.log(msg);
-      setMessage(msg);
+      setIsLoggedIn(true);
+      setMessage(`User logged in with Google: ${userCredential.user?.email}`);
     } catch (error) {
-      const errMsg = `Error logging in with Google: ${error}`;
-      console.error(errMsg);
-      setMessage(errMsg);
+      setMessage(`Error logging in with Google: ${(error as Error).message}`);
     }
   };
 
@@ -27,4 +26,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginGoogle;

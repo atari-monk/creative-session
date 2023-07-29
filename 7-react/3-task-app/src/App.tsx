@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
 import LoginGoogle from './components/LoginGoogle';
 import appConfig from './config/appConfig';
+import { AuthContext } from './components/AuthProvider';
 
 const App: React.FC = () => {
+  const { isLoggedIn } = useContext(AuthContext);
   const [darkMode, setDarkModeState] = useState<boolean>(true);
 
   useEffect(() => {
@@ -21,14 +23,19 @@ const App: React.FC = () => {
 
   return (
     <StyledAppContainer className={`App`}>
-      <LoginGoogle />
-      <h1>Task Manager</h1>
       <button onClick={toggleDarkMode}>
         {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       </button>
-      <TaskForm config={appConfig} />
-      <h2>Tasks:</h2>
-      <TaskList config={appConfig} />
+      <h1>Task Manager</h1>
+      {isLoggedIn ? (
+        <>
+          <TaskForm config={appConfig} />
+          <h2>Tasks:</h2>
+          <TaskList config={appConfig} />
+        </>
+      ) : (
+        <LoginGoogle />
+      )}
     </StyledAppContainer>
   );
 };
