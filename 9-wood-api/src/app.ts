@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/v1/tasks', stockRouter);
+app.use('/api/v1/stocks', stockRouter);
 app.use('/api/v1/users', userRouter);
 
 export default app;
