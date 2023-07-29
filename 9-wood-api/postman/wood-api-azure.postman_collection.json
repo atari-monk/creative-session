@@ -6,113 +6,248 @@
 	},
 	"item": [
 		{
-			"name": "Get All Stocks",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks",
-					"protocol": "https",
-					"host": [
-						"atari-monk-wood-api",
-						"azurewebsites",
-						"net"
-					],
-					"path": [
-						"stocks"
-					]
+			"name": "Stock",
+			"item": [
+				{
+					"name": "Get All Stocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/stocks",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Stock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stockId\": \"999\",\r\n  \"width\": \"1\",\r\n  \"depth\": \"1\",\r\n  \"height\": \"1\",\r\n  \"description\": \"1\",\r\n  \"count\": 666\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/stocks",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Stock",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"count\": 6699\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/stocks/64c544e05c8ad22762350789",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stocks",
+								"64c544e05c8ad22762350789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Stock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/stocks/64c544e05c8ad22762350789",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stocks",
+								"64c544e05c8ad22762350789"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Create Stock",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"width\": \"1\",\r\n  \"depth\": \"1\",\r\n  \"height\": \"1\",\r\n  \"description\": \"1\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"atari.monk1@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/users",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks",
-					"protocol": "https",
-					"host": [
-						"atari-monk-wood-api",
-						"azurewebsites",
-						"net"
-					],
-					"path": [
-						"stocks"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Task",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"summary\": \"Done, pixi wrapper, solved injectable issue. Tests, ChatGpt helped going.\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get All User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/users",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks/",
-					"protocol": "https",
-					"host": [
-						"atari-monk-wood-api",
-						"azurewebsites",
-						"net"
-					],
-					"path": [
-						"stocks",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Task",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"maxRecords\": 666\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/users/64c543af5c8ad2276235077f",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"64c543af5c8ad2276235077f"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://atari-monk-wood-api.azurewebsites.net/stocks/",
-					"protocol": "https",
-					"host": [
-						"atari-monk-wood-api",
-						"azurewebsites",
-						"net"
-					],
-					"path": [
-						"stocks",
-						""
-					]
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"summary\": \"Try catch handled browser errors. Test is possible in node and usefll. There was a time i thouth it's useless, but no.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://atari-monk-wood-api.azurewebsites.net/api/v1/users/64c543af5c8ad2276235077f",
+							"protocol": "https",
+							"host": [
+								"atari-monk-wood-api",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"64c543af5c8ad2276235077f"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

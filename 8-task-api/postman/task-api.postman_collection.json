@@ -11,12 +11,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/tasks",
+					"raw": "localhost:3000/api/v1/tasks",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
+						"v1",
 						"tasks"
 					]
 				}
@@ -30,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"description\": \"Create test and di factory for client.\"\r\n}\r\n",
+					"raw": "{\r\n  \"description\": \"test\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -38,12 +40,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tasks",
+					"raw": "localhost:3000/api/v1/tasks",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
+						"v1",
 						"tasks"
 					]
 				}
@@ -53,11 +57,11 @@
 		{
 			"name": "Update Task",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"summary\": \"Done, pixi wrapper, solved injectable issue. Tests, ChatGpt helped going.\"\r\n}",
+					"raw": "{\r\n  \"summary\": \"test 999\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,14 +69,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tasks/64ac198b788a93901c053ac7",
+					"raw": "localhost:3000/api/v1/tasks/64c53fc9e00124002767dba3",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
+						"v1",
 						"tasks",
-						"64ac198b788a93901c053ac7"
+						"64c53fc9e00124002767dba3"
 					]
 				}
 			},
@@ -93,14 +99,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tasks/64ad4a9d5e04592f97f6a339",
+					"raw": "localhost:3000/api/v1/tasks/64c53fc9e00124002767dba3",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
+						"v1",
 						"tasks",
-						"64ad4a9d5e04592f97f6a339"
+						"64c53fc9e00124002767dba3"
 					]
 				}
 			},
