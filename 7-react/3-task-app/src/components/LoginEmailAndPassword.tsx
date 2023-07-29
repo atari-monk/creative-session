@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { auth, signInWithEmailAndPassword } from './../firebase';
 
-const Login: React.FC = () => {
+const LoginEmailAndPassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -12,15 +13,15 @@ const Login: React.FC = () => {
         email,
         password
       );
-      console.log('User logged in:', userCredential.user?.email);
+      setMessage(`User logged in: ${userCredential.user?.email}`);
     } catch (error) {
-      console.error('Error logging in:', error);
+      setMessage(`${error}`);
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Login with Email and Password</h2>
       <input
         type="email"
         placeholder="Email"
@@ -34,8 +35,9 @@ const Login: React.FC = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
+      {message && <p>{message}</p>}
     </div>
   );
 };
 
-export default Login;
+export default LoginEmailAndPassword;
