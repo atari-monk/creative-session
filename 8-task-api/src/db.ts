@@ -3,11 +3,17 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { utils } from './utils';
 
-dotenv.config({ path: path.resolve(__dirname, './../.env') });
+const configPath = path.resolve(__dirname, './../config.env');
+dotenv.config({ path: configPath });
 
-utils.printMatchingEnvVariableNames('ATARI_MONK_TASK_API_DB');
-const dbConnectionString = process.env.CUSTOMCONNSTR_ATARI_MONK_TASK_API_DB;
-if (!dbConnectionString) throw new Error('Database connection string not set!');
+utils.printMatchingEnvVariableNames([
+  'CUSTOMCONNSTR_DATABASE',
+  'CUSTOMCONNSTR_DATABASE_PASSWORD',
+]);
+const cs = process.env.CUSTOMCONNSTR_DATABASE;
+const pw = process.env.CUSTOMCONNSTR_DATABASE_PASSWORD;
+if (!cs || !pw) throw new Error('Database connection string not set!');
+const dbConnectionString = cs.replace('<password>', pw);
 
 mongoose.connect(dbConnectionString, {
   useUnifiedTopology: true,
