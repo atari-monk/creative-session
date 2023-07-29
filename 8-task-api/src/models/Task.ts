@@ -2,6 +2,8 @@ import moment from 'moment';
 import mongoose, { Schema } from 'mongoose';
 import { ITask } from './ITask';
 
+const typeName = 'Task';
+
 const taskSchema = new Schema<ITask>({
   description: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
@@ -18,4 +20,4 @@ const taskSchema = new Schema<ITask>({
   summary: { type: String },
 });
 
-export const Task = mongoose.model<ITask>('Task', taskSchema);
+export const Task = mongoose.model<ITask>(typeName, taskSchema);
