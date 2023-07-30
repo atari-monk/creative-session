@@ -26,7 +26,14 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    const tasks = await Task.find();
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId parameter is missing' });
+    }
+
+    const tasks = await Task.find({ user: userId });
+
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch tasks' });
