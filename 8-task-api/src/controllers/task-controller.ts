@@ -1,12 +1,23 @@
 import { Request, Response } from 'express';
 import moment from 'moment-timezone';
 import { Task } from '../models/Task';
+import User from '../models/User';
 
 export const createTask = async (req: Request, res: Response) => {
   try {
-    const { description } = req.body;
-    const task = new Task({ description });
+    const { description, userId } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const task = new Task({
+      description,
+      user: userId,
+    });
     await task.save();
+
     res.status(201).json(task);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create task' });

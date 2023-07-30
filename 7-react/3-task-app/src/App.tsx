@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
-import LoginGoogle from './components/IUser';
 import appConfig from './config/appConfig';
 import { AuthContext } from './components/AuthProvider';
+import LoginGoogle from './components/LoginGoogle';
 
 const App: React.FC = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -34,7 +34,7 @@ const App: React.FC = () => {
           <TaskList config={appConfig} />
         </>
       ) : (
-        <LoginGoogle />
+        <LoginGoogle config={appConfig} />
       )}
     </StyledAppContainer>
   );

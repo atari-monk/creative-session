@@ -18,6 +18,7 @@ const taskSchema = new Schema<ITask>({
   finishedAt: { type: Date },
   finishLocalTimestamp: { type: String },
   summary: { type: String },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
 export const Task = mongoose.model<ITask>(typeName, taskSchema);

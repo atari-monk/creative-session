@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export interface ITask extends Document {
   description: string;
   createdAt: Date;
@@ -5,4 +7,5 @@ export interface ITask extends Document {
   finishedAt?: Date;
   finishLocalTimestamp?: string;
   summary?: string;
+  user: Types.ObjectId;
 }
