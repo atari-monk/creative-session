@@ -16,6 +16,21 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+export const getUserIdByEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email }, '_id');
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ userId: user._id });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch user ID by email' });
+  }
+};
+
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.find({}, '-__v');

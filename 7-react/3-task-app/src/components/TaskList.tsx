@@ -10,7 +10,7 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${config.apiUrl}/tasks`);
+        const response = await axios.get(`${config.apiUrl}/tasks/?userId=`);
         setTasks(response.data);
       } catch (error) {
         console.error('Failed to fetch tasks:', error);

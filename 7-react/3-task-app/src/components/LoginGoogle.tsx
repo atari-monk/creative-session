@@ -16,7 +16,7 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
 
       const { email, displayName } = userCredential.user;
       if (email) {
-        createUser(email, displayName || '');
+        await createUser(email, displayName || '');
         setMessage(`User logged in with Google: ${email}`);
       } else {
         setMessage(

@@ -10,4 +10,6 @@ router
   .patch(userController.updateUser)
   .delete(userController.deleteUser);
 
+router.route('/email/:email').get(userController.getUserIdByEmail);
+
 export default router;
