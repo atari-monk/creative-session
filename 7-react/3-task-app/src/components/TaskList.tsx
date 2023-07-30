@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { StyledTaskList } from '../styles';
 import ITask from './ITask';
 import ITaskListProps from './ITaskListProps';
+import { AuthContext } from './AuthProvider';
 
 const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
-
+  const { userId } = useContext(AuthContext);
+  
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${config.apiUrl}/tasks/?userId=`);
+        const response = await axios.get(
+          `${config.apiUrl}/tasks/?userId=${userId}`
+        );
         setTasks(response.data);
       } catch (error) {
         console.error('Failed to fetch tasks:', error);
@@ -18,7 +22,7 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     };
 
     fetchTasks();
-  }, [config.apiUrl]);
+  }, [config.apiUrl, userId]);
 
   return (
     <StyledTaskList>

@@ -2,21 +2,22 @@ import React, { useContext, useState } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../firebase';
 import { AuthContext } from './AuthProvider';
 import ISharedProps from './ISharedProps';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
   const [message, setMessage] = useState('');
 
   const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
-      setIsLoggedIn(true);
-
       const { email, displayName } = userCredential.user;
       if (email) {
         await createUser(email, displayName || '');
+        const userId = await getUserIdByEmail(email);
+        setUserId(userId);
+        setIsLoggedIn(true);
         setMessage(`User logged in with Google: ${email}`);
       } else {
         setMessage(
@@ -35,7 +36,18 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
         displayName: displayName,
       });
     } catch (error) {
-      console.error('Failed to create user:', error);
+      console.log('Response:', (error as AxiosError).response?.data);
+      //console.error('Failed to create user:', error);
+    }
+  };
+
+  const getUserIdByEmail = async (email: string) => {
+    try {
+      const response = await axios.get(`${config.apiUrl}/users/email/${email}`);
+      return response.data.userId;
+    } catch (error) {
+      console.error('Failed to get userId:', error);
+      return null;
     }
   };
 
