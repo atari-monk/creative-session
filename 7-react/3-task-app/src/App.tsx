@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { StyledAppContainer, setDarkMode } from './styles';
-import LoginGoogle from './components/LoginGoogle';
+import LoginGoogle from './components/IUser';
 import appConfig from './config/appConfig';
 import { AuthContext } from './components/AuthProvider';
 

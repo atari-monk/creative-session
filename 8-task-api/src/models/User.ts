@@ -13,6 +13,7 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
       message: 'Invalid email format',
     },
   },
+  displayName: { type: String, required: true },
   maxRecords: { type: Number, required: true, default: 500 },
 });
 

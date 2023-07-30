@@ -3,12 +3,12 @@ import { User } from '../models/User';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { email, maxRecords } = req.body;
+    const { email, displayName, maxRecords } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ error: 'Email already exists' });
     }
-    const user = new User({ email, maxRecords });
+    const user = new User({ email, displayName, maxRecords });
     await user.save();
     res.status(201).json(user);
   } catch (error) {
@@ -28,13 +28,16 @@ export const getUsers = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { email, maxRecords } = req.body;
+    const { email, displayName, maxRecords } = req.body;
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
     if (email) {
       user.email = email;
+    }
+    if (displayName) {
+      user.displayName = displayName;
     }
     if (maxRecords) {
       user.maxRecords = maxRecords;
