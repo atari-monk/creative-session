@@ -10,4 +10,6 @@ router
   .patch(taskController.updateTask)
   .delete(taskController.deleteTask);
 
+router.route('/all').get(taskController.getAllTasks);
+
 export default router;

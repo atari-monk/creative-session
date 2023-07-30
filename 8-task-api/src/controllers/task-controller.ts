@@ -24,6 +24,15 @@ export const createTask = async (req: Request, res: Response) => {
   }
 };
 
+export const getAllTasks = async (_req: Request, res: Response) => {
+  try {
+    const allTasks = await Task.find();
+    res.json(allTasks);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+};
+
 export const getTasks = async (req: Request, res: Response) => {
   try {
     const { userId } = req.query;
