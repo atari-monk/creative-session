@@ -4,6 +4,10 @@ import { User } from '../models/User';
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { email, maxRecords } = req.body;
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Email already exists' });
+    }
     const user = new User({ email, maxRecords });
     await user.save();
     res.status(201).json(user);
