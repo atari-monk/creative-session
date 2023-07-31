@@ -1,16 +1,18 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-// Define CSS variables for light mode
 const lightModeVariables = {
   '--background-color': '#f9f9f9',
   '--text-color': '#000',
+  '--button-background': '#333',
+  '--button-text': '#fff',
 };
 
-// Define CSS variables for dark mode
 const darkModeVariables = {
   '--background-color': '#333',
   '--text-color': '#fff',
+  '--button-background': '#f9f9f9',
+  '--button-text': '#000',
 };
 
 export const appContainer = css`
@@ -62,7 +64,6 @@ export const taskList = css`
   }
 `;
 
-// Create styled components using the css function
 export const StyledAppContainer = styled.div`
   ${appContainer}
 `;
@@ -75,6 +76,19 @@ export const StyledTaskList = styled.div`
   ${taskList}
   max-height: 450px; /* Adjust this value as needed to fit 2-3 elements */
   overflow-y: auto; /* This will enable a vertical scrollbar when the content exceeds max-height */
+`;
+
+interface IStyledDarkModeToggleProps {
+  darkMode: boolean;
+}
+
+export const StyledDarkModeToggle = styled.button<IStyledDarkModeToggleProps>`
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
 `;
 
 export const setDarkMode = (darkMode: boolean) => {
