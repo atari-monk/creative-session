@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { StyledTaskForm } from '../styles';
 import ITaskFormProps from './ISharedProps';
+import { AuthContext } from './AuthProvider';
 
 const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
   const [description, setDescription] = useState('');
+  const { userId } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${config.apiUrl}/tasks`, { description });
+      await axios.post(`${config.apiUrl}/tasks`, { description, userId });
       setDescription('');
     } catch (error) {
       console.error('Failed to create task:', error);
