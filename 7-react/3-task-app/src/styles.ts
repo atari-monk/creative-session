@@ -104,3 +104,25 @@ export const setDarkMode = (darkMode: boolean) => {
     }
   }
 };
+
+export const StyledAppMenu = styled.div`
+  display: grid;
+  grid-template-rows: auto auto 1fr; /* Three rows: app name, buttons row, and message */
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+export const AppName = styled.h1`
+  font-size: 24px;
+`;
+
+export const ButtonsRow = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const Message = styled.p`
+  margin-top: 20px;
+`;
