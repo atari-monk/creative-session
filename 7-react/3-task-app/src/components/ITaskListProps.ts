@@ -1,3 +1,5 @@
-import ISharedProps from './ISharedProps';
+import IAppConfig from '../config/IAppConfig';
 
-export default interface ITaskListProps extends ISharedProps {}
+export default interface ITaskListProps {
+  config: IAppConfig;
+}

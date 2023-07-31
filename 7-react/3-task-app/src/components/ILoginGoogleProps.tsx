@@ -1,5 +1,6 @@
-import ISharedProps from './ISharedProps';
+import IAppConfig from '../config/IAppConfig';
 
-export default interface ILoginGoogleProps extends ISharedProps {
+export default interface ILoginGoogleProps {
+  config: IAppConfig;
   setMessage: (message: string) => void;
 }

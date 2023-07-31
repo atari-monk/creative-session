@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
 import { StyledAppContainer } from './styles';
-import appConfig from './config/appConfig';
 import { AuthContext } from './components/AuthProvider';
 import AppMenu from './components/AppMenu';
+import UIToggle from './components/UIToggle';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
+import appConfig from './config/appConfig';
 
 const App: React.FC = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -14,9 +15,19 @@ const App: React.FC = () => {
       <AppMenu />
       {isLoggedIn ? (
         <>
-          <TaskForm config={appConfig} />
-          <h2>Tasks:</h2>
-          <TaskList config={appConfig} />
+          <UIToggle
+            projectUIs={
+              <>
+                <p>Project Placeholder</p>
+              </>
+            }
+            taskUIs={
+              <>
+                <TaskForm config={appConfig} />
+                <TaskList config={appConfig} />
+              </>
+            }
+          ></UIToggle>
         </>
       ) : null}
     </StyledAppContainer>

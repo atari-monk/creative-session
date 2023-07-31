@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { StyledTaskForm } from '../styles';
-import ITaskFormProps from './ISharedProps';
 import { AuthContext } from './AuthProvider';
+import ITaskFormProps from './ITaskFormProps';
 
 const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
   const [description, setDescription] = useState('');
