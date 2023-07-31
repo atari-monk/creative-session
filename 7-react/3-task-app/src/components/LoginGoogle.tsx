@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../firebase';
 import { AuthContext } from './AuthProvider';
-import ISharedProps from './ISharedProps';
 import axios, { AxiosError } from 'axios';
+import { signOut } from 'firebase/auth';
+import ILoginGoogleProps from './ILoginGoogleProps';
 
-const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
-  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
-  const [message, setMessage] = useState('');
+const LoginGoogle: React.FC<ILoginGoogleProps> = ({ config, setMessage }) => {
+  const { isLoggedIn, setIsLoggedIn, setUserId } = useContext(AuthContext);
 
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
@@ -41,6 +41,19 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setIsLoggedIn(false);
+      setUserId('');
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userId');
+      setMessage('User logged out successfully.');
+    } catch (error) {
+      setMessage(`Error logging out: ${(error as Error).message}`);
+    }
+  };
+
   const createUser = async (email: string, displayName: string) => {
     try {
       await axios.post(`${config.apiUrl}/users`, {
@@ -49,7 +62,6 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
       });
     } catch (error) {
       console.log('Response:', (error as AxiosError).response?.data);
-      //console.error('Failed to create user:', error);
     }
   };
 
@@ -65,9 +77,15 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
 
   return (
     <div>
-      <h2>Login</h2>
-      <button onClick={handleGoogleLogin}>Login with Google</button>
-      {message && <p>{message}</p>}
+      {isLoggedIn ? (
+        <>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <button onClick={handleGoogleLogin}>Login with Google</button>
+        </>
+      )}
     </div>
   );
 };
