@@ -12,4 +12,6 @@ router
 
 router.route('/all').get(taskController.getAllTasks);
 
+router.patch('/:id/finish', taskController.finishTask);
+
 export default router;

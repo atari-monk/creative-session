@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export interface ITask extends Document {
   description: string;
@@ -7,5 +7,6 @@ export interface ITask extends Document {
   finishedAt?: Date;
   finishLocalTimestamp?: string;
   summary?: string;
-  user: Types.ObjectId;
+  userId: Types.ObjectId;
+  projectId: Types.ObjectId;
 }
