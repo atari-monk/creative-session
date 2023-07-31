@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../firebase';
 import { AuthContext } from './AuthProvider';
 import ISharedProps from './ISharedProps';
@@ -7,6 +7,16 @@ import axios, { AxiosError } from 'axios';
 const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
   const { setIsLoggedIn, setUserId } = useContext(AuthContext);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const storedUserId = localStorage.getItem('userId');
+
+    if (storedIsLoggedIn && storedUserId) {
+      setIsLoggedIn(true);
+      setUserId(storedUserId);
+    }
+  }, [setIsLoggedIn, setUserId]);
 
   const handleGoogleLogin = async () => {
     try {
@@ -18,6 +28,8 @@ const LoginGoogle: React.FC<ISharedProps> = ({ config }) => {
         const userId = await getUserIdByEmail(email);
         setUserId(userId);
         setIsLoggedIn(true);
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userId', userId);
         setMessage(`User logged in with Google: ${email}`);
       } else {
         setMessage(
