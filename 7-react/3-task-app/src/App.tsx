@@ -3,8 +3,8 @@ import { StyledAppContainer } from './styles';
 import { AuthContext } from './components/AuthProvider';
 import AppMenu from './components/AppMenu';
 import UIToggle from './components/UIToggle';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
+import TaskForm from './Task/TaskForm';
+import TaskList from './Task/TaskList';
 import appConfig from './config/appConfig';
 import ProjectForm from './components/ProjectForm';
 
