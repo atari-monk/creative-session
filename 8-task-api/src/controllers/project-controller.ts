@@ -1,13 +1,20 @@
 import { Request, Response } from 'express';
 import { Project } from '../models/Project';
+import User from '../models/User';
 
 export const createProject = async (req: Request, res: Response) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, userId } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     const project = new Project({
       name,
       description,
+      userId,
     });
     await project.save();
 
@@ -23,6 +30,28 @@ export const getAllProjects = async (_req: Request, res: Response) => {
     res.json(allProjects);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch projects' });
+  }
+};
+
+export const getProjects = async (req: Request, res: Response) => {
+  try {
+    const { userId, projectId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId parameter is missing' });
+    }
+
+    let query: any = { user: userId };
+
+    if (projectId) {
+      query = { ...query, projectId };
+    }
+
+    const Projects = await Project.find(query);
+
+    res.json(Projects);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch Projects' });
   }
 };
 
