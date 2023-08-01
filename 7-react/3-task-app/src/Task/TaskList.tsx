@@ -3,7 +3,7 @@ import axios from 'axios';
 import { StyledTaskList } from '../styles';
 import ITask from './ITask';
 import ITaskListProps from './ITaskListProps';
-import { AuthContext } from '../components/AuthProvider';
+import { AuthContext } from '../Auth/AuthProvider';
 
 const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [tasks, setTasks] = useState<ITask[]>([]);

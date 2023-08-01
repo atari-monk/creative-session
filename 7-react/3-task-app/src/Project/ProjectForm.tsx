@@ -3,7 +3,7 @@ import IProjectFormProps from './IProjectFormProps';
 import axios from 'axios';
 import IProject from './IProject';
 import { StyledProjectForm } from '../styles';
-import { AuthContext } from '../components/AuthProvider';
+import { AuthContext } from '../Auth/AuthProvider';
 
 const ProjectForm: React.FC<IProjectFormProps> = ({ config }) => {
   const [name, setName] = useState('');

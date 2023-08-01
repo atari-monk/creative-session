@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { StyledAppContainer } from './styles';
-import { AuthContext } from './components/AuthProvider';
+import { AuthContext } from './Auth/AuthProvider';
 import AppMenu from './components/AppMenu';
-import UIToggle from './components/UIToggle';
+import UIToggle from './Layout/UIToggle';
 import TaskForm from './Task/TaskForm';
 import TaskList from './Task/TaskList';
 import appConfig from './config/appConfig';

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { auth, GoogleAuthProvider, signInWithPopup } from '../firebase';
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from '../Auth/AuthProvider';
 import axios, { AxiosError } from 'axios';
 import { signOut } from 'firebase/auth';
 import ILoginGoogleProps from './ILoginGoogleProps';
