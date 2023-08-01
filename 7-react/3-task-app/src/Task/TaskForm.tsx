@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { StyledTaskForm } from '../styles';
-import { AuthContext } from './../components/AuthProvider';
+import { AuthContext } from '../components/AuthProvider';
 import ITaskFormProps from './ITaskFormProps';
 
 const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {

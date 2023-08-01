@@ -6,7 +6,7 @@ import UIToggle from './components/UIToggle';
 import TaskForm from './Task/TaskForm';
 import TaskList from './Task/TaskList';
 import appConfig from './config/appConfig';
-import ProjectForm from './components/ProjectForm';
+import ProjectForm from './Project/ProjectForm';
 
 const App: React.FC = () => {
   const { isLoggedIn } = useContext(AuthContext);
