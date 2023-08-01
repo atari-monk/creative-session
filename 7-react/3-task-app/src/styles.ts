@@ -126,3 +126,13 @@ export const ButtonsRow = styled.div`
 export const Message = styled.p`
   margin-top: 20px;
 `;
+
+export const StyledProjectForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  input,
+  textarea {
+    margin-bottom: 10px;
+  }
+`;

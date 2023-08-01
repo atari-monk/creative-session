@@ -6,6 +6,7 @@ import UIToggle from './components/UIToggle';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import appConfig from './config/appConfig';
+import ProjectForm from './components/ProjectForm';
 
 const App: React.FC = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const App: React.FC = () => {
           <UIToggle
             projectUIs={
               <>
-                <p>Project Placeholder</p>
+                <ProjectForm config={appConfig} />
               </>
             }
             taskUIs={
