@@ -1,9 +1,9 @@
-import { testGet, testPost } from './../apiTester';
-import projectRouting from './../project/routes';
+import { testDelete, testGet, testPatch, testPost } from './../apiTester';
+import projectRouting from './routes';
 
 const showEl = false;
 
-export default async function projectTests() {
+export async function projectTests() {
   console.log('Project route tests:');
   await testPost(
     'createProject',
@@ -17,5 +17,16 @@ export default async function projectTests() {
   );
   await testGet('getProjects', projectRouting, showEl);
   await testGet('getProjectById', projectRouting, showEl);
+  await testPatch(
+    'updateProject',
+    projectRouting,
+    { name: 'test-name', description: 'test-description' },
+    showEl
+  );
+  await testDelete('deleteProject', projectRouting, showEl);
   await testGet('getAllProjects', projectRouting, showEl);
+}
+
+export async function workTests() {
+  console.log('Work tests:');
 }

@@ -70,3 +70,58 @@ export const testPost = async (
     console.error('Error:', axiosError.response?.data);
   }
 };
+
+export const testPatch = async (
+  key: string,
+  routing: IRouting,
+  patchData: any,
+  showData: boolean = false
+): Promise<void> => {
+  try {
+    const { nr, url } = buildTestData(key, routing);
+    console.log(`${nr}. ${key}`);
+    console.log('Endpoint:', url);
+
+    const response: AxiosResponse = await axios.patch(url, patchData);
+
+    if (response.status === 200) {
+      console.log('Response Status:', response.status);
+    } else {
+      throw new Error('Unexpected response status: ' + response.status);
+    }
+
+    if (showData) {
+      console.log('Updated:', response.data);
+    }
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('Error:', axiosError.response?.data);
+  }
+};
+
+export const testDelete = async (
+  key: string,
+  routing: IRouting,
+  showData: boolean = false
+): Promise<void> => {
+  try {
+    const { nr, url } = buildTestData(key, routing);
+    console.log(`${nr}. ${key}`);
+    console.log('Endpoint:', url);
+
+    const response: AxiosResponse = await axios.delete(url);
+
+    if (response.status === 200) {
+      console.log('Response Status:', response.status);
+    } else {
+      throw new Error('Unexpected response status: ' + response.status);
+    }
+
+    if (showData) {
+      console.log('Deleted Data:', response.data);
+    }
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('Error:', axiosError.response?.data);
+  }
+};

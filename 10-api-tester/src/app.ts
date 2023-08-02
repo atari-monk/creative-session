@@ -1,3 +1,6 @@
-import projectTests from './project/tests';
+import { workTests, projectTests } from './project/tests';
 
-projectTests();
+(async () => {
+  await projectTests();
+  await workTests();
+})();

@@ -3,8 +3,8 @@ import * as projectController from '../controllers/project-controller';
 
 const router = express.Router();
 
-router.post('/create', projectController.createProject);
 router.get('/all', projectController.getAllProjects);
+router.post('/create', projectController.createProject);
 router.get('/user', projectController.getProjects);
 router
   .route('/:id')
