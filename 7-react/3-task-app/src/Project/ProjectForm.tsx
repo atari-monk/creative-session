@@ -17,8 +17,8 @@ const ProjectForm: React.FC<IProjectFormProps> = ({ config }) => {
         name,
         description,
         createdAt: new Date(),
+        userId,
       };
-
       await axios.post(`${config.apiUrl}/projects`, newProject);
       setName('');
       setDescription('');
