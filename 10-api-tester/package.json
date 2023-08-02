@@ -1,0 +1,15 @@
+{
+  "name": "10-api-tester",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node ./build/app.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
