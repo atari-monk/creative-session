@@ -17,10 +17,15 @@ export const testGet = async (
     } else {
       throw new Error('Unexpected response status: ' + response.status);
     }
-    console.log('Elements Count:', response.data.length);
-    if (showFirst) console.log('First element:', first(response.data));
+    if (Array.isArray(response.data)) {
+      console.log('Elements Count:', response.data.length);
+      if (showFirst) console.log('First element:', first(response.data));
+    } else {
+      if (showFirst) console.log('Element:', response.data);
+    }
   } catch (error) {
-    console.error('AxiosError:', error as AxiosError);
+    const axiosError = error as AxiosError;
+    console.error('Error:', axiosError.response?.data);
   }
 };
 
@@ -61,6 +66,7 @@ export const testPost = async (
       console.log('Inserted:', response.data);
     }
   } catch (error) {
-    console.error('AxiosError:', error as AxiosError);
+    const axiosError = error as AxiosError;
+    console.error('Error:', axiosError.response?.data);
   }
 };

@@ -36,20 +36,12 @@ export const getAllProjects = async (_req: Request, res: Response) => {
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
-    const { userId, projectId } = req.query;
-
+    const userId = req.query.userId;
     if (!userId) {
       return res.status(400).json({ error: 'userId parameter is missing' });
     }
-
     let query: any = { userId };
-
-    if (projectId) {
-      query = { ...query, projectId };
-    }
-
     const projects = await Project.find(query, { __v: 0 });
-
     res.json(projects);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch Projects' });
@@ -59,7 +51,11 @@ export const getProjects = async (req: Request, res: Response) => {
 export const getProjectById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const project = await Project.findById(id);
+    const userId = req.query.userId;
+    if (!userId) {
+      return res.status(400).json({ error: 'userId parameter is missing' });
+    }
+    const project = await Project.findOne({ _id: id, userId }, { __v: 0 });
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
