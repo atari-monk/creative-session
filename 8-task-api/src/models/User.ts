@@ -17,6 +17,6 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
   maxRecords: { type: Number, required: true, default: 500 },
 });
 
-export const User: Model<IUser> = mongoose.model<IUser>(typeName, userSchema);
+const User: Model<IUser> = mongoose.model<IUser>(typeName, userSchema);
 
 export default User;

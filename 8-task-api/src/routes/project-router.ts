@@ -5,14 +5,14 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(projectController.getProjects)
-  .post(projectController.createProject);
+  .post(projectController.createProject)
+  .get(projectController.getProjects);
 
-router
-  .route('/:id')
-  .get(projectController.getProjectById)
-  .patch(projectController.updateProject)
-  .delete(projectController.deleteProject);
+// router
+//   .route('/:id')
+//   .get(projectController.getProjectById)
+//   .patch(projectController.updateProject)
+//   .delete(projectController.deleteProject);
 
 router.route('/all').get(projectController.getAllProjects);
 
