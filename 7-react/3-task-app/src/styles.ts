@@ -136,3 +136,22 @@ export const StyledProjectForm = styled.form`
     margin-bottom: 10px;
   }
 `;
+
+export const StyledProjectList = styled.div`
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+
+  div {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+`;

@@ -13,13 +13,12 @@ const ProjectForm: React.FC<IProjectFormProps> = ({ config }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const newProject: IProject = {
+      const newProject = {
         name,
         description,
-        createdAt: new Date(),
         userId,
       };
-      await axios.post(`${config.apiUrl}/projects`, newProject);
+      await axios.post(`${config.apiUrl}/projects/create`, newProject);
       setName('');
       setDescription('');
     } catch (error) {

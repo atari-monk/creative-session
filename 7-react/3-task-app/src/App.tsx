@@ -7,6 +7,7 @@ import TaskForm from './Task/TaskForm';
 import TaskList from './Task/TaskList';
 import appConfig from './config/appConfig';
 import ProjectForm from './Project/ProjectForm';
+import ProjectList from './Project/ProjectList';
 
 const App: React.FC = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -17,15 +18,16 @@ const App: React.FC = () => {
       {isLoggedIn ? (
         <>
           <UIToggle
-            projectUIs={
-              <>
-                <ProjectForm config={appConfig} />
-              </>
-            }
             taskUIs={
               <>
                 <TaskForm config={appConfig} />
                 <TaskList config={appConfig} />
+              </>
+            }
+            projectUIs={
+              <>
+                <ProjectForm config={appConfig} />
+                <ProjectList config={appConfig} />
               </>
             }
           ></UIToggle>

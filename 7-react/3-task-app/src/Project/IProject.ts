@@ -1,6 +1,6 @@
 export default interface IProject {
+  _id: string;
   name: string;
   description: string;
-  createdAt: Date;
   userId: string;
 }

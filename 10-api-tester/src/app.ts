@@ -3,7 +3,7 @@ import { projectTest } from './project/tests';
 import { userTest } from './user/tests';
 
 (async () => {
-  //await projectTest();
+  await projectTest();
   //await userTest(); 
-  await newTest();
+  //await newTest();
 })();
