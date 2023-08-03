@@ -1,32 +1,33 @@
 import { testDelete, testGet, testPatch, testPost } from './../apiTester';
-import projectRouting from './routes';
+import { getCreateRoute, getProjectRoutes } from './routes';
 
-const showEl = false;
-
-export async function projectTests() {
-  console.log('Project route tests:');
-  await testPost(
+export async function projectTest() {
+  const baseUrl = 'http://localhost:3000/api/v1';
+  const userId = '64c684138a1c3eddd046d31e';
+  const showEl = false;
+  const createRoute = getCreateRoute(baseUrl);
+  console.log('Create Project test:');
+  const projectId = await testPost(
     'createProject',
-    projectRouting,
+    createRoute,
     {
       name: 'test',
       description: 'test',
-      userId: '64c684138a1c3eddd046d31e',
+      userId,
     },
     showEl
   );
-  await testGet('getProjects', projectRouting, showEl);
-  await testGet('getProjectById', projectRouting, showEl);
+  const routes = getProjectRoutes(baseUrl, userId, projectId);
+  console.log('Project tests:');
+  await testGet('getProjects', routes, showEl);
+  await testGet('getProjectById', routes, showEl);
   await testPatch(
     'updateProject',
-    projectRouting,
+    routes,
     { name: 'test-name', description: 'test-description' },
     showEl
   );
-  await testDelete('deleteProject', projectRouting, showEl);
-  await testGet('getAllProjects', projectRouting, showEl);
-}
-
-export async function workTests() {
-  console.log('Work tests:');
+  await testGet('getAllProjects', routes, showEl);
+  await testDelete('deleteProject', routes, showEl);
+  await testGet('getAllProjects', routes, showEl);
 }

@@ -1,6 +1,7 @@
-import { workTests, projectTests } from './project/tests';
+import { newTest } from './newTest';
+import { projectTest } from './project/tests';
 
 (async () => {
-  await projectTests();
-  await workTests();
+  await projectTest();
+  await newTest();
 })();

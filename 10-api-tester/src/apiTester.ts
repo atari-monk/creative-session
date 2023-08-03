@@ -48,7 +48,7 @@ export const testPost = async (
   routing: IRouting,
   postData: any,
   showData: boolean = false
-): Promise<void> => {
+): Promise<string> => {
   try {
     const { nr, url } = buildTestData(key, routing);
     console.log(`${nr}. ${key}`);
@@ -58,16 +58,19 @@ export const testPost = async (
 
     if (response.status === 201) {
       console.log('Response Status:', response.status);
+
+      if (showData) {
+        console.log('Inserted:', response.data);
+      }
+
+      return response.data._id;
     } else {
       throw new Error('Unexpected response status: ' + response.status);
-    }
-
-    if (showData) {
-      console.log('Inserted:', response.data);
     }
   } catch (error) {
     const axiosError = error as AxiosError;
     console.error('Error:', axiosError.response?.data);
+    return '';
   }
 };
 
