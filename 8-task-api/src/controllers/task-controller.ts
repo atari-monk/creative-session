@@ -43,13 +43,14 @@ export const getAllTasks = async (_req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    const { userId, projectId } = req.query;
+    const { userId, projectId } = req.params;
+    console.log('getTasks', userId, projectId);
 
     if (!userId) {
       return res.status(400).json({ error: 'userId parameter is missing' });
     }
 
-    let query: any = { user: userId };
+    let query: any = { userId };
 
     if (projectId) {
       query = { ...query, projectId };

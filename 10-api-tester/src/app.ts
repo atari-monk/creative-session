@@ -4,6 +4,6 @@ import { userTest } from './user/tests';
 
 (async () => {
   //await projectTest();
-  await userTest(); 
-  //await newTest();
+  //await userTest(); 
+  await newTest();
 })();

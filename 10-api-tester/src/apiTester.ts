@@ -69,7 +69,7 @@ export const testPost = async (
     }
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error('Error:', axiosError.response?.data);
+    console.error('Error:', axiosError);
     return '';
   }
 };
