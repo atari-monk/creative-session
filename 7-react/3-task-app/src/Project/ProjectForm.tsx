@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import IProjectFormProps from './IProjectFormProps';
 import axios from 'axios';
-import IProject from './IProject';
 import { StyledProjectForm } from '../styles';
 import { AuthContext } from '../Auth/AuthProvider';
 
