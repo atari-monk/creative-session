@@ -5,9 +5,9 @@ export const getCreateRoute = (baseUrl: string): IRouting => {
   return {
     baseUrl: baseUrl,
     endpoints: {
-      createProject: {
+      createUser: {
         method: HttpMethod.POST,
-        endpoint: 'projects/create',
+        endpoint: 'users',
       },
     },
   };
@@ -15,31 +15,31 @@ export const getCreateRoute = (baseUrl: string): IRouting => {
 
 export const getRoutes = (
   baseUrl: string,
-  userId: string,
-  projectId: string
+  id: string,
+  email: string
 ): IRouting => {
   return {
     baseUrl: baseUrl,
     endpoints: {
-      getProjects: {
+      getUsers: {
         method: HttpMethod.GET,
-        endpoint: `projects/user?userId=${userId}`,
+        endpoint: 'users',
       },
-      getProjectById: {
-        method: HttpMethod.GET,
-        endpoint: `projects/${projectId}?userId=${userId}`,
+      createUser: {
+        method: HttpMethod.POST,
+        endpoint: 'users',
       },
-      updateProject: {
+      updateUser: {
         method: HttpMethod.PATCH,
-        endpoint: `projects/${projectId}`,
+        endpoint: `users/${id}`,
       },
-      deleteProject: {
+      deleteUser: {
         method: HttpMethod.DELETE,
-        endpoint: `projects/${projectId}`,
+        endpoint: `users/${id}`,
       },
-      getAllProjects: {
+      getUserIdByEmail: {
         method: HttpMethod.GET,
-        endpoint: 'projects/all',
+        endpoint: `users/email/${email}`,
       },
     },
   };

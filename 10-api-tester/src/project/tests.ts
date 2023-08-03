@@ -1,5 +1,5 @@
 import { testDelete, testGet, testPatch, testPost } from './../apiTester';
-import { getCreateRoute, getProjectRoutes } from './routes';
+import { getCreateRoute, getRoutes } from './routes';
 
 export async function projectTest() {
   const baseUrl = 'http://localhost:3000/api/v1';
@@ -17,7 +17,7 @@ export async function projectTest() {
     },
     showEl
   );
-  const routes = getProjectRoutes(baseUrl, userId, projectId);
+  const routes = getRoutes(baseUrl, userId, projectId);
   console.log('Project tests:');
   await testGet('getProjects', routes, showEl);
   await testGet('getProjectById', routes, showEl);
