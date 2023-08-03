@@ -13,6 +13,6 @@ router
 
 router.route('/all').get(taskController.getAllTasks);
 
-router.patch('/:id/finish', taskController.finishTask);
+router.patch('/finish/:id/', taskController.finishTask);
 
 export default router;

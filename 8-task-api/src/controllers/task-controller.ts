@@ -86,6 +86,7 @@ export const finishTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { finishedAt, summary } = req.body;
+    console.log('finishTask', id, finishedAt, summary);
     const task = await Task.findById(id);
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });

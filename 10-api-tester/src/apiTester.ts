@@ -46,7 +46,7 @@ const buildTestData = (key: string, routing: IRouting) => {
 export const testPost = async (
   key: string,
   routing: IRouting,
-  postData: any,
+  postData: object,
   showData: boolean = false
 ): Promise<string> => {
   try {
@@ -77,7 +77,7 @@ export const testPost = async (
 export const testPatch = async (
   key: string,
   routing: IRouting,
-  patchData: any,
+  patchData: object,
   showData: boolean = false
 ): Promise<void> => {
   try {
@@ -98,7 +98,7 @@ export const testPatch = async (
     }
   } catch (error) {
     const axiosError = error as AxiosError;
-    console.error('Error:', axiosError.response?.data);
+    console.error('Error:', axiosError);
   }
 };
 

@@ -17,7 +17,7 @@ export const getRoutes = (
   baseUrl: string,
   userId: string,
   taskId: string,
-  projectId: string,
+  projectId: string
 ): IRouting => {
   return {
     baseUrl: baseUrl,
@@ -29,10 +29,6 @@ export const getRoutes = (
       getTasksForUserAndProject: {
         method: HttpMethod.GET,
         endpoint: `tasks/user/${userId}/${projectId}`,
-      },
-      getTaskById: {
-        method: HttpMethod.GET,
-        endpoint: `tasks/${taskId}?userId=${userId}`,
       },
       updateTask: {
         method: HttpMethod.PATCH,
@@ -48,7 +44,7 @@ export const getRoutes = (
       },
       finishTask: {
         method: HttpMethod.PATCH,
-        endpoint: `tasks/${taskId}/finish`,
+        endpoint: `tasks/finish/${taskId}`,
       },
     },
   };

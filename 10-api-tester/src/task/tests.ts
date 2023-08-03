@@ -21,11 +21,16 @@ export async function taskTest() {
   console.log('Task tests:');
   const routes = getRoutes(baseUrl, userId, taskId, projectId);
   await testGet('getTasks', routes, showEl);
-  await testGet('getTaskById', routes, showEl);
   await testPatch(
     'updateTask',
     routes,
-    { name: 'test-name', description: 'test-description' },
+    { description: 'test-description' },
+    showEl
+  );
+  await testPatch(
+    'finishTask',
+    routes,
+    { finishedAt: '2023-08-03T17:53:09.171Z', summary: 'test-summary' },
     showEl
   );
   await testGet('getAllTasks', routes, showEl);
