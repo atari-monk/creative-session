@@ -13,7 +13,7 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get(
-          `${config.apiUrl}/tasks/?userId=${userId}`
+          `${config.apiUrl}/tasks/user/${userId}`
         );
         setTasks(response.data);
       } catch (error) {
