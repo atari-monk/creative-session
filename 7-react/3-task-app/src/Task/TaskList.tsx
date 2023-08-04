@@ -6,6 +6,7 @@ import ITaskListProps from './ITaskListProps';
 import { AuthContext } from '../Auth/AuthProvider';
 import ProjectSelection from '../Project/ProjectSelection';
 import IProject from '../Project/IProject';
+import { getCurrentDateTime } from '../utils';
 
 const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -40,6 +41,27 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     fetchTasks();
   }, [config.apiUrl, userId, selectedProjectId]);
 
+  const finishTask = async (
+    taskId: string,
+    finishedAt: string,
+    summary: string
+  ) => {
+    try {
+      console.log('finishTask');
+      const updateData = {
+        finishedAt: finishedAt,
+        summary: summary,
+      };
+      await axios.patch(`${config.apiUrl}/tasks/finish/${taskId}`, updateData);
+      //   const response = await axios.get(
+      //     `${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`
+      //   );
+      //   setTasks(response.data);
+    } catch (error) {
+      console.error('Failed to finish task:', error);
+    }
+  };
+
   return (
     <>
       <ProjectSelection
@@ -54,6 +76,17 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
             <p>Created At: {task.localTimestamp}</p>
             {task.summary && <p>Summary: {task.summary}</p>}
             {task.finishedAt && <p>Finished At: {task.finishLocalTimestamp}</p>}
+            {!task.finishedAt && (
+              <>
+                <button
+                  onClick={() =>
+                    finishTask(task._id, getCurrentDateTime(), 'Task finished.')
+                  }
+                >
+                  Finish Task
+                </button>
+              </>
+            )}
             <hr />
           </div>
         ))}
