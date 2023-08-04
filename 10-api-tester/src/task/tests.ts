@@ -12,15 +12,16 @@ export async function taskTest() {
     'createTask',
     createRoute,
     {
-      name: 'test',
       description: 'test',
       userId,
+      projectId,
     },
     showEl
   );
   console.log('Task tests:');
   const routes = getRoutes(baseUrl, userId, taskId, projectId);
-  await testGet('getTasks', routes, showEl);
+  await testGet('getTasksForUser', routes, showEl);
+  await testGet('getTasksForUserAndProject', routes, showEl);
   await testPatch(
     'updateTask',
     routes,
