@@ -5,4 +5,5 @@ export default interface IProject extends Document {
   description: string;
   createdAt: Date;
   userId: Types.ObjectId;
+  isVisible: boolean
 }

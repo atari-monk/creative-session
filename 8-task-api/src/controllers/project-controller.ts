@@ -42,7 +42,8 @@ export const getProjects = async (req: Request, res: Response) => {
     }
     let query: any = { userId };
     const projects = await Project.find(query, { __v: 0 });
-    res.json(projects);
+    const filteredProjects = projects.filter((project) => project.isVisible);
+    res.json(filteredProjects);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch Projects' });
   }
