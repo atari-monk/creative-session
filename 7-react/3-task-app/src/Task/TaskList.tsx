@@ -6,13 +6,16 @@ import ITaskListProps from './ITaskListProps';
 import { AuthContext } from '../Auth/AuthProvider';
 import ProjectSelection from '../Project/ProjectSelection';
 import IProject from '../Project/IProject';
-import { getCurrentDateTime } from '../utils';
+import TaskPopup from './TaskPopup';
+import Modal from '../components/ModalOverlay';
 
 const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const { userId } = useContext(AuthContext);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [taskId, setTaskId] = useState('');
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -41,18 +44,16 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     fetchTasks();
   }, [config.apiUrl, userId, selectedProjectId]);
 
-  const finishTask = async (
-    taskId: string,
-    finishedAt: string,
-    summary: string
-  ) => {
+  const finishTask = async (taskId: string) => {
     try {
-      console.log('finishTask');
-      const updateData = {
-        finishedAt: finishedAt,
-        summary: summary,
-      };
-      await axios.patch(`${config.apiUrl}/tasks/finish/${taskId}`, updateData);
+      setTaskId(taskId);
+      setShowPopup(true);
+      //   const updateData = {
+      //     finishedAt: finishedAt,
+      //     summary: summary,
+      //   };
+      //   await axios.patch(`${config.apiUrl}/tasks/finish/${taskId}`, updateData);
+
       //   const response = await axios.get(
       //     `${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`
       //   );
@@ -62,6 +63,10 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     }
   };
 
+  const handlePopupFinish = () => {
+    setShowPopup(false);
+  };
+
   return (
     <>
       <ProjectSelection
@@ -69,6 +74,15 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
         selectedProjectId={selectedProjectId}
         onChange={setSelectedProjectId}
       />
+      {showPopup && (
+        <Modal onClose={() => setShowPopup(false)}>
+          <TaskPopup
+            config={config}
+            taskId={taskId}
+            onFinish={handlePopupFinish}
+          />
+        </Modal>
+      )}
       <StyledTaskList>
         {tasks.map((task) => (
           <div key={task._id}>
@@ -79,8 +93,8 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
             {!task.finishedAt && (
               <>
                 <button
-                  onClick={() =>
-                    finishTask(task._id, getCurrentDateTime(), 'Task finished.')
+                  onClick={
+                    () => finishTask(task._id) //, getCurrentDateTime(), 'Task finished.')
                   }
                 >
                   Finish Task
