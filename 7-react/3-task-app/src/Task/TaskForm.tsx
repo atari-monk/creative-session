@@ -4,6 +4,7 @@ import { StyledTaskForm } from '../styles';
 import { AuthContext } from '../Auth/AuthProvider';
 import ITaskFormProps from './ITaskFormProps';
 import IProject from '../Project/IProject';
+import ProjectSelection from '../Project/ProjectSelection';
 
 const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
   const [description, setDescription] = useState('');
@@ -49,7 +50,7 @@ const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
         required
         placeholder="Enter task description"
       />
-      <select
+      {/* <select
         value={selectedProjectId}
         onChange={(e) => setSelectedProjectId(e.target.value)}
         required
@@ -60,7 +61,12 @@ const TaskForm: React.FC<ITaskFormProps> = ({ config }) => {
             {project.name}
           </option>
         ))}
-      </select>
+      </select> */}
+      <ProjectSelection
+        projects={projects}
+        selectedProjectId={selectedProjectId}
+        onChange={setSelectedProjectId}
+      />
       <button type="submit">Add Task</button>
     </StyledTaskForm>
   );
