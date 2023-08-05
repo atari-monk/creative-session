@@ -8,6 +8,7 @@ import ProjectSelection from '../Project/ProjectSelection';
 import IProject from '../Project/IProject';
 import TaskPopup from './TaskPopup';
 import Modal from '../components/ModalOverlay';
+import IAppConfig from '../config/IAppConfig';
 
 const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -17,47 +18,66 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [taskId, setTaskId] = useState('');
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get(
-          `${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`
-        );
-        setTasks(response.data);
-      } catch (error) {
-        console.error('Failed to fetch tasks:', error);
-      }
-    };
-
-    async function fetchProjects() {
-      try {
-        const response = await axios.get<IProject[]>(
-          `${config.apiUrl}/projects/user?userId=${userId}`
-        );
-        setProjects(response.data);
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
-      }
+  const fetchProjects = async (
+    userId: string,
+    config: IAppConfig,
+    setProjects: React.Dispatch<React.SetStateAction<IProject[]>>
+  ) => {
+    try {
+      console.log('Fetching projects...');
+      const response = await axios.get<IProject[]>(
+        `${config.apiUrl}/projects/user?userId=${userId}`
+      );
+      setProjects(response.data);
+    } catch (error) {
+      console.error('Failed to fetch projects:', error);
     }
+  };
 
-    fetchProjects();
-    fetchTasks();
-  }, [config.apiUrl, userId, selectedProjectId]);
+  const fetchTasks = async (
+    userId: string,
+    selectedProjectId: string,
+    config: IAppConfig,
+    setTasks: React.Dispatch<React.SetStateAction<ITask[]>>
+  ) => {
+    try {
+      console.log('Fetching tasks...');
+      console.log('Selected Project ID:', selectedProjectId);
+      const response = await axios.get<ITask[]>(
+        `${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`
+      );
+      setTasks(response.data);
+      console.log(`${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+    }
+  };
+
+  useEffect(() => {
+    const savedSelectedProjectId = localStorage.getItem('selectedProjectId');
+    if (savedSelectedProjectId) {
+      setSelectedProjectId(savedSelectedProjectId);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log('Selected Project ID:', selectedProjectId);
+    fetchProjects(userId, config, setProjects);
+  }, [config, selectedProjectId, userId]);
+
+  useEffect(() => {
+    if (selectedProjectId) {
+      console.log('Fetching tasks...');
+      console.log('Selected Project ID:', selectedProjectId);
+      fetchTasks(userId, selectedProjectId, config, setTasks);
+    }
+  }, [config, selectedProjectId, userId]);
 
   const finishTask = async (taskId: string) => {
     try {
       setTaskId(taskId);
       setShowPopup(true);
-      //   const updateData = {
-      //     finishedAt: finishedAt,
-      //     summary: summary,
-      //   };
-      //   await axios.patch(`${config.apiUrl}/tasks/finish/${taskId}`, updateData);
-
-      //   const response = await axios.get(
-      //     `${config.apiUrl}/tasks/user/${userId}/${selectedProjectId}`
-      //   );
-      //   setTasks(response.data);
     } catch (error) {
       console.error('Failed to finish task:', error);
     }
@@ -67,12 +87,17 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
     setShowPopup(false);
   };
 
+  const handleProjectChange = (projectId: string) => {
+    setSelectedProjectId(projectId);
+    localStorage.setItem('selectedProjectId', projectId);
+  };
+
   return (
     <>
       <ProjectSelection
         projects={projects}
         selectedProjectId={selectedProjectId}
-        onChange={setSelectedProjectId}
+        onChange={handleProjectChange}
       />
       {showPopup && (
         <Modal onClose={() => setShowPopup(false)}>
@@ -92,11 +117,7 @@ const TaskList: React.FC<ITaskListProps> = ({ config }) => {
             {task.finishedAt && <p>Finished At: {task.finishLocalTimestamp}</p>}
             {!task.finishedAt && (
               <>
-                <button
-                  onClick={
-                    () => finishTask(task._id) //, getCurrentDateTime(), 'Task finished.')
-                  }
-                >
+                <button onClick={() => finishTask(task._id)}>
                   Finish Task
                 </button>
               </>
