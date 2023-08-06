@@ -36,4 +36,19 @@ export class BasicRenderer implements IBasicRenderer {
     g.lineTo(x1 + sx2, y1 + sy2);
     stage.addChild(g);
   }
+
+  public drawRectangle(
+    stage: PIXI.Container,
+    color: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) {
+    const g = new PIXI.Graphics();
+    g.beginFill(color);
+    g.drawRect(x, y, width, height);
+    g.endFill();
+    stage.addChild(g);
+  }
 }

@@ -19,4 +19,13 @@ export interface IBasicRenderer {
     y2: number,
     length: number
   ): void;
+
+  drawRectangle(
+    stage: PIXI.Container,
+    color: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ): void;
 }

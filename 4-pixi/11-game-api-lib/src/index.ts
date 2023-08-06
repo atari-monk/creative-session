@@ -22,6 +22,10 @@ export { ICreate } from './factory/ICreate';
 export { IDIFactory } from './factory/IDIFactory';
 export { IDIFactoryForTest } from './factory/IDIFactoryForTest';
 export { IRegister } from './factory/IRegister';
+//field
+export { IFieldModel } from './field/IFieldModel';
+export { IFieldParams } from './field/IFieldParams';
+export { IFieldRenderer } from './field/IFieldRenderer';
 //game-obj
 export { IDrawable } from './game-obj/IDrawable';
 export { IGameObject } from './game-obj/IGameObject';
