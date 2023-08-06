@@ -13,6 +13,7 @@ import {
 import { playerUrlParam } from '../utils/urlParams';
 
 const green = 0x00ff00;
+const darkGreen = 0x004400;
 const blue = 0x0000ff;
 const red = 0xff0000;
 
@@ -99,5 +100,5 @@ export const ballParams: IBallParams = {
 export const fieldParams: IFieldParams = {
   position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
   size: new Vector2d(600, 300),
-  color: red,
+  color: darkGreen,
 };

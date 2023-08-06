@@ -1,4 +1,4 @@
-cd ..
+#important ! this script should be run from npm run, if u want to run it from script add cd ..
 npm i
 npm run build
 cd build

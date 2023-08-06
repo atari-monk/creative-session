@@ -8,6 +8,7 @@ export { PixiRectangle } from './PixiRectangle';
 export { BallGame } from './ball-game/BallGame';
 export { BasicRenderer } from './BasicRenderer';
 export { PositionEmitter } from './PositionEmitter';
+//data
 export {
   screenSize,
   appHelperParams,
@@ -15,6 +16,7 @@ export {
   playerNpcParams,
   playerParams,
   ballParams,
+  fieldParams,
 } from './data/ballGameParams';
 export { Vector2d } from './model/Vector2d';
 export { PlayerNpc } from './player-npc/PlayerNpc';
@@ -42,3 +44,8 @@ export { PixiApplicationWrapper } from './app/PixiApplicationWrapper';
 export { configureContainer } from './di-container/inversify.config';
 export { configureContainerForTest } from './di-container/inversify.test.config';
 export { ContainerTools } from './utils/ContainerTools';
+//field
+export { Field } from './field/Field';
+export { FieldFactory } from './field/FieldFactory';
+export { FieldModel } from './field/FieldModel';
+export { FieldRenderer } from './field/FieldRenderer';
