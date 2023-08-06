@@ -23,11 +23,14 @@ export class FieldRenderer implements IFieldRenderer {
     stage: PIXI.Container<PIXI.DisplayObject>,
     model: IFieldModel
   ) {
+    const centerX = model.position.x - model.size.x / 2;
+    const centerY = model.position.y - model.size.y / 2;
+
     this.renderer.drawRectangle(
       stage,
       model.color,
-      model.position.x,
-      model.position.y,
+      centerX,
+      centerY,
       model.size.x,
       model.size.y
     );
