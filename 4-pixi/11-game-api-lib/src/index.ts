@@ -15,6 +15,7 @@ export { AppTypes } from './di-container/alias';
 export { PlayerNpcTypes } from './di-container/alias';
 export { PlayerTypes } from './di-container/alias';
 export { BallTypes } from './di-container/alias';
+export { FieldTypes } from './di-container/alias';
 //dto
 export { IVectorData } from './dto/IVectorData';
 //factory
@@ -26,6 +27,7 @@ export { IRegister } from './factory/IRegister';
 export { IFieldModel } from './field/IFieldModel';
 export { IFieldParams } from './field/IFieldParams';
 export { IFieldRenderer } from './field/IFieldRenderer';
+export { IField } from './field/IField';
 //game-obj
 export { IDrawable } from './game-obj/IDrawable';
 export { IGameObject } from './game-obj/IGameObject';

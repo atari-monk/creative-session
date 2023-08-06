@@ -36,3 +36,10 @@ export const BallTypes = {
   MovementEmitter: Symbol.for(BallId + 'MovementEmitter'),
   VelocityEmitter: Symbol.for(BallId + 'VelocityEmitter'),
 };
+
+const FieldId = 'Field';
+export const FieldTypes = {
+  Field: Symbol.for(FieldId),
+  Model: Symbol.for(FieldId + 'Model'),
+  Renderer: Symbol.for(FieldId + 'Renderer'),
+};
