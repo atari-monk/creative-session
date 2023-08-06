@@ -1,3 +1,4 @@
+cd ..
 npm i
 npm run build
 cd build
