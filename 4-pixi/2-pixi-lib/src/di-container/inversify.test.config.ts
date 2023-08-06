@@ -1,14 +1,14 @@
 import { Container } from 'inversify';
-import { AppFactory } from '../app/AppFactory';
 import { ServiceFactory } from '../service/ServiceFactory';
 import { PlayerFactory } from '../player/PlayerFactory';
 import { PlayerNpcFactory } from '../player-npc/PlayerNpcFactory';
+import { AppFactoryForTest } from '../app/AppFactoryForTest';
 import { BallFactory } from '../ball/BallFactory';
 import { ObjectManagerCreator } from '../game-obj/ObjectManagerCreator';
 import { FieldFactory } from '../field/FieldFactory';
 
-export function configureContainer(container: Container): AppFactory {
-  const appFactory = new AppFactory(container);
+export function configureContainerForTest(container: Container) {
+  const appFactory = new AppFactoryForTest(container);
   appFactory.register();
 
   const serviceFactory = new ServiceFactory(container);
@@ -27,6 +27,4 @@ export function configureContainer(container: Container): AppFactory {
   fieldFactory.register();
 
   container.resolve(ObjectManagerCreator).create();
-
-  return appFactory;
 }

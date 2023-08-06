@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import 'mocha';
-import { configureContainerForTest } from '../di-container/inversify.config';
+import { configureContainerForTest } from '../di-container/inversify.test.config';
 import { Container } from 'inversify';
 import { IBall } from 'atari-monk-game-api-lib';
 import { Ball } from './Ball';

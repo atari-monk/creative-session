@@ -9,7 +9,7 @@ import {
   IGameUpdateable,
   IBallGame,
 } from 'atari-monk-game-api-lib';
-import { configureContainerForTest } from '../di-container/inversify.config';
+import { configureContainerForTest } from '../di-container/inversify.test.config';
 import { AppHelper } from './AppHelper';
 import { GameObjectManager } from '../game-obj/GameObjectManager';
 import { Collider } from '../game-updateable/Collider';

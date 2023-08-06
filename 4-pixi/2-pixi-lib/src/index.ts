@@ -40,5 +40,5 @@ export { getCanvasForPixi } from './utils/ui';
 export { AppFactory } from './app/AppFactory';
 export { PixiApplicationWrapper } from './app/PixiApplicationWrapper';
 export { configureContainer } from './di-container/inversify.config';
-export { configureContainerForTest } from './di-container/inversify.config';
+export { configureContainerForTest } from './di-container/inversify.test.config';
 export { ContainerTools } from './utils/ContainerTools';

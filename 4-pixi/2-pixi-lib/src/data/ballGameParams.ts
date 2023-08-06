@@ -8,6 +8,7 @@ import {
   createColorOptions,
   IPlayerNpcParams,
   IAppHelperParams,
+  IFieldParams,
 } from 'atari-monk-game-api-lib';
 import { playerUrlParam } from '../utils/urlParams';
 
@@ -93,4 +94,10 @@ export const ballParams: IBallParams = {
       this.radius
     }, ${this.colors.toString()}`;
   },
+};
+
+export const fieldParams: IFieldParams = {
+  position: new Vector2d(screenSize.width / 2, screenSize.height / 2),
+  size: new Vector2d(600, 300),
+  color: red,
 };
